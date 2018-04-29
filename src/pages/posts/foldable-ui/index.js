@@ -6,7 +6,7 @@ import StarryBgSrc from './yong-chuan-645079-unsplash.jpg';
 const FRONT_MATTER = {
   title: 'Foldable UI',
   publishedOn: '2018-04-29',
-  headerImage:
+  headerImage: StarryBgSrc,
 };
 
 export default () => (
