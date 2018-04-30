@@ -8,6 +8,7 @@ import { COLORS } from '../constants';
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import PostTitle from '../components/PostTitle';
+import Mountains from '../components/Mountains';
 import SelfStraighteningCurves from '../components/SelfStraighteningCurves';
 
 export default ({
@@ -30,13 +31,16 @@ export default ({
           <PublishedDate>
             {format(parse(publishedOn), 'MMMM Mo, YYYY')}
           </PublishedDate>
-          <Unemphasized>.</Unemphasized>
         </Byline>
       </MaxWidthWrapper>
 
       <CurveWrapper>
         <SelfStraighteningCurves />
       </CurveWrapper>
+
+      <MountainsWrapper>
+        <Mountains />
+      </MountainsWrapper>
     </Header>
 
     <MainContent>
@@ -53,7 +57,6 @@ const Header = styled.div`
   height: 50vh;
   margin: 0.5rem;
   background: ${props => props.background};
-  border: 1px solid rgba(0, 0, 0, 0.15);
 `;
 
 const Byline = styled.h3`
@@ -80,12 +83,22 @@ const PublishedDate = styled.span`
 
 const CurveWrapper = styled.div`
   position: absolute;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const MainContent = styled.div`
   padding-top: 5rem;
   height: 100vh; /* temp */
+`;
+
+const MountainsWrapper = styled.div`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
 `;
