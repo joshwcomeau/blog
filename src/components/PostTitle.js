@@ -1,22 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { COLORS } from '../constants';
 
-export default ({ children, type, image }) => {
-    switch (type) {
-        case 'clipped-bg': return <ClippedTitle image={image}>{children}</ClippedTitle>;
-        default: return <SimpleTitle>{children}</SimpleTitle>
-    }
-}
+export default props => {
+  if (props.gradientSteps) {
+    const gradient = props.gradientSteps.join(', ');
+    return <GradientTitle {...props} gradient={gradient} />;
+  }
+};
 
 const Title = styled.h1`
-    font-size: 72px;
-`
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: -0.25rem;
+`;
 
-const SimpleTitle = styled(Title)`
-    color: ${COLORS.gray[900]};
+const GradientTitle = styled(Title)`
+  background: -webkit-linear-gradient(${props => props.gradient});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const ClippedTitle = styled(Title)`
-    /* stuff */
+  background-image: url(${props => props.image});
+  background-size: cover;
+  background-clip: padding-box;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 `;
