@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@mdx-js/mdx": "^0.8.0",
     "date-fns": "^1.29.0",
     "gatsby": "^1.9.247",
     "gatsby-link": "^1.6.40",
@@ -20,9 +21,11 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run develop"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^0.8.0",
     "prettier": "^1.12.0"
   }
 }
