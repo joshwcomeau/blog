@@ -8,48 +8,21 @@ import { clamp, getInterpolatedValue } from '../utils';
 class SelfStraighteningCurves extends Component {
   static propTypes = {
     colors: PropTypes.arrayOf(PropTypes.string),
+    height: PropTypes.number,
     buffer: PropTypes.number,
+    percentStraightened: PropTypes.number,
   };
 
   static defaultProps = {
     buffer: 0,
   };
 
-  state = {
-    percentScrolledToMainContent: 0,
-  };
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-
-    // We can assume that the distance between the top of the document and
-    // the start of the main content is static; it doesn't update after
-    // mount, not even for resizing (well, it does a little bit, but not
-    // enough to matter).
-    this.maxDistanceToContent =
-      this.node.getBoundingClientRect().top +
-      window.scrollY -
-      this.props.buffer;
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = ev => {
-    let percentScrolled = window.scrollY / this.maxDistanceToContent * 100;
-
-    percentScrolled = clamp(percentScrolled, 0, 100);
-
-    if (this.state.percentScrolledToMainContent !== percentScrolled) {
-      this.setState({ percentScrolledToMainContent: percentScrolled });
-    }
-  };
-
   calculatePathForCurve = curveId => {
-    const { percentScrolledToMainContent } = this.state;
+    const { percentStraightened } = this.props;
 
-    const progressRatio = percentScrolledToMainContent / 100;
+    const progressRatio = percentStraightened / 100;
+
+    console.log(progressRatio);
 
     switch (curveId) {
       case 'tertiary': {
@@ -101,13 +74,19 @@ class SelfStraighteningCurves extends Component {
   };
 
   render() {
-    const { colors } = this.props;
-    const { percentScrolledToMainContent } = this.state;
-
-    const [firstColor, secondColor, thirdColor] = colors;
+    const {
+      height,
+      colors: [firstColor, secondColor, thirdColor],
+    } = this.props;
 
     return (
-      <Svg innerRef={node => (this.node = node)} viewBox="0 0 1000 60">
+      <Svg
+        width="100%"
+        height={70}
+        innerRef={node => (this.node = node)}
+        viewBox="0 0 1000 60"
+        preserveAspectRatio="none"
+      >
         <path
           d={this.calculatePathForCurve('tertiary')}
           stroke="none"

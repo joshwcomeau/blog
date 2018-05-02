@@ -1,59 +1,126 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
 import { COLORS, Z_INDICES } from '../../constants';
+import { clamp } from '../../utils';
 
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Mountains from '../Mountains';
 import SelfStraighteningCurves from '../SelfStraighteningCurves';
 
-const BaseHero = ({
-  // Post data
-  title,
-  publishedOn,
-  // Hero styles
-  height = '70vh',
-  gutter = 10,
-  background,
-  titleGradientSteps,
-  authorColor,
-  publishedOnColor,
-  curveColors,
-  // Additional stuff to include, like mountains
-  decorations,
-}) => (
-  <Wrapper>
-    <Hero height={height} gutter={gutter} background={background}>
-      <MaxWidthWrapper>
-        {/* TODO: Support other kinds of titles? */}
-        <GradientTitle gradient={titleGradientSteps.join(', ')}>
-          {title}
-        </GradientTitle>
-        <Byline>
-          <Unemphasized>Written by</Unemphasized>{' '}
-          <AuthorName color={authorColor}>Josh Comeau</AuthorName>
-          <Unemphasized> on</Unemphasized>{' '}
-          <PublishedDate color={publishedOnColor}>
-            {format(parse(publishedOn), 'MMMM Mo, YYYY')}
-          </PublishedDate>
-        </Byline>
-      </MaxWidthWrapper>
+const CURVE_HEIGHT = 70;
 
-      <MountainsWrapper>
-        <Mountains />
-      </MountainsWrapper>
-    </Hero>
+class BaseHero extends PureComponent {
+  static PropTypes = {
+    // Post data
+    title: PropTypes.string.isRequired,
+    publishedOn: PropTypes.string.isRequired,
+    // Hero styles
+    height: PropTypes.number,
+    gutter: PropTypes.number,
+    background: PropTypes.string,
+    titleGradientSteps: PropTypes.arrayOf(PropTypes.string),
+    authorColor: PropTypes.string,
+    publishedOnColor: PropTypes.string,
+    curveColors: PropTypes.arrayOf(PropTypes.string),
+    // Additional stuff to include, like mountains
+    decorations: PropTypes.node,
+  };
 
-    <HeroSpacer height={height} />
+  static defaultProps = {
+    height: '70vh',
+    gutter: 10,
+  };
 
-    <CurveWrapper gutter={gutter}>
-      <SelfStraighteningCurves colors={curveColors} buffer={gutter * 1.5} />
-    </CurveWrapper>
-  </Wrapper>
-);
+  state = {
+    heroScrollPercentage: 0,
+  };
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+
+    // I know that the hero height will never change.
+    // Rather than compute the node's height on every scroll, I'm caching it
+    // on the instance.
+    this.height =
+      this.node.getBoundingClientRect().height -
+      CURVE_HEIGHT -
+      this.props.gutter;
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = ev => {
+    let percentScrolled = window.scrollY / this.height * 100;
+
+    percentScrolled = clamp(percentScrolled, 0, 100);
+
+    if (this.state.heroScrollPercentage !== percentScrolled) {
+      this.setState({ heroScrollPercentage: percentScrolled });
+    }
+  };
+
+  render() {
+    const {
+      title,
+      publishedOn,
+      height,
+      gutter,
+      background,
+      titleGradientSteps,
+      authorColor,
+      publishedOnColor,
+      curveColors,
+      decorations,
+    } = this.props;
+    const { heroScrollPercentage } = this.state;
+
+    return (
+      <Wrapper>
+        <Hero
+          innerRef={node => (this.node = node)}
+          height={height}
+          gutter={gutter}
+          background={background}
+        >
+          <MaxWidthWrapper>
+            {/* TODO: Support other kinds of titles? */}
+            <GradientTitle gradient={titleGradientSteps.join(', ')}>
+              {title}
+            </GradientTitle>
+            <Byline>
+              <Unemphasized>Written by</Unemphasized>{' '}
+              <AuthorName color={authorColor}>Josh Comeau</AuthorName>
+              <Unemphasized> on</Unemphasized>{' '}
+              <PublishedDate color={publishedOnColor}>
+                {format(parse(publishedOn), 'MMMM Mo, YYYY')}
+              </PublishedDate>
+            </Byline>
+          </MaxWidthWrapper>
+
+          {decorations}
+        </Hero>
+
+        <HeroSpacer height={height} />
+
+        <CurveWrapper gutter={gutter}>
+          <SelfStraighteningCurves
+            percentStraightened={heroScrollPercentage}
+            colors={curveColors}
+            buffer={gutter * 1.5}
+          />
+        </CurveWrapper>
+
+        <CurveBlocker gutter={gutter} />
+      </Wrapper>
+    );
+  }
+}
 
 const Wrapper = styled.div`
   position: relative;
@@ -112,23 +179,25 @@ const PublishedDate = styled.span`
 const CurveWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  left: ${props => props.gutter}px;
+  width: calc(100% - ${props => props.gutter * 2}px);
+  min-width: 900px;
   right: ${props => props.gutter}px;
   bottom: 0;
+`;
+
+const CurveBlocker = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: ${props => props.gutter}px;
+  background: ${COLORS.white};
 `;
 
 const MainContent = styled.div`
   padding-top: 5rem;
   height: 100vh; /* temp */
-`;
-
-const MountainsWrapper = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 40%;
 `;
 
 export default BaseHero;

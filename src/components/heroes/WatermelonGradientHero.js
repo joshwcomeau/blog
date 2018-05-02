@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { COLORS } from '../../constants';
 import Mountains from '../Mountains';
@@ -14,8 +15,21 @@ const WatermelonGradientHero = ({ title, publishedOn }) => (
     authorColor={COLORS.pink[500]}
     publishedOnColor={COLORS.purple[500]}
     curveColors={[COLORS.white, COLORS.green[700], COLORS.green[500]]}
-    mountains={<Mountains />}
+    decorations={
+      <MountainsWrapper>
+        <Mountains />
+      </MountainsWrapper>
+    }
   />
 );
+
+const MountainsWrapper = styled.div`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+`;
 
 export default WatermelonGradientHero;
