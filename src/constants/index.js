@@ -79,6 +79,6 @@ const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
 export const IS_MOBILE_USER_AGENT = mobileRegex.test(navigator.userAgent);
 
 export const Z_INDICES = {
-  header: 1,
+  hero: 1,
   mainContent: 2,
 };

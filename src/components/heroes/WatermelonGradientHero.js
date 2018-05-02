@@ -3,10 +3,10 @@ import React from 'react';
 import { COLORS } from '../../constants';
 import Mountains from '../Mountains';
 
-import BaseHeader from './BaseHeader';
+import BaseHero from './BaseHero';
 
-const WatermelonGradientHeader = ({ title, publishedOn }) => (
-  <BaseHeader
+const WatermelonGradientHero = ({ title, publishedOn }) => (
+  <BaseHero
     title={title}
     publishedOn={publishedOn}
     background="linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)"
@@ -18,4 +18,4 @@ const WatermelonGradientHeader = ({ title, publishedOn }) => (
   />
 );
 
-export default WatermelonGradientHeader;
+export default WatermelonGradientHero;

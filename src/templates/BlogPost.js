@@ -7,22 +7,22 @@ import { COLORS, Z_INDICES } from '../constants';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
-import WatermelonGradientHeader from '../components/headers/WatermelonGradientHeader';
+import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 
-const getHeader = headerStyle => {
-  switch (headerStyle) {
+const getHero = heroStyle => {
+  switch (heroStyle) {
     case 'watermelon-gradient':
     default:
-      return WatermelonGradientHeader;
+      return WatermelonGradientHero;
   }
 };
 
-export default ({ title, publishedOn, headerStyle, headerImage, children }) => {
-  const Header = getHeader(headerStyle);
+export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
+  const Hero = getHero(heroStyle);
 
   return (
     <FullWidth>
-      <Header title={title} publishedOn={publishedOn} image={headerImage} />
+      <Hero title={title} publishedOn={publishedOn} image={heroImage} />
 
       <MainContent>
         <MaxWidthWrapper>{children}</MaxWidthWrapper>
@@ -31,7 +31,7 @@ export default ({ title, publishedOn, headerStyle, headerImage, children }) => {
   );
 };
 
-const Header = styled.div`
+const Hero = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

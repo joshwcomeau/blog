@@ -10,11 +10,11 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Mountains from '../Mountains';
 import SelfStraighteningCurves from '../SelfStraighteningCurves';
 
-const PostHeader = ({
+const BaseHero = ({
   // Post data
   title,
   publishedOn,
-  // Header styles
+  // Hero styles
   height = '70vh',
   gutter = 10,
   background,
@@ -26,7 +26,7 @@ const PostHeader = ({
   decorations,
 }) => (
   <Wrapper>
-    <Header height={height} gutter={gutter} background={background}>
+    <Hero height={height} gutter={gutter} background={background}>
       <MaxWidthWrapper>
         {/* TODO: Support other kinds of titles? */}
         <GradientTitle gradient={titleGradientSteps.join(', ')}>
@@ -45,9 +45,9 @@ const PostHeader = ({
       <MountainsWrapper>
         <Mountains />
       </MountainsWrapper>
-    </Header>
+    </Hero>
 
-    <HeaderSpacer height={height} />
+    <HeroSpacer height={height} />
 
     <CurveWrapper gutter={gutter}>
       <SelfStraighteningCurves colors={curveColors} buffer={gutter * 1.5} />
@@ -57,10 +57,10 @@ const PostHeader = ({
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: ${Z_INDICES.header};
+  z-index: ${Z_INDICES.hero};
 `;
 
-const Header = styled.header`
+const Hero = styled.section`
   position: fixed;
   top: ${props => props.gutter}px;
   left: ${props => props.gutter}px;
@@ -73,7 +73,7 @@ const Header = styled.header`
   background: ${props => props.background};
 `;
 
-const HeaderSpacer = styled.div`
+const HeroSpacer = styled.div`
   position: relative;
   z-index: 1;
   height: ${props => props.height};
@@ -131,4 +131,4 @@ const MountainsWrapper = styled.div`
   width: 40%;
 `;
 
-export default PostHeader;
+export default BaseHero;

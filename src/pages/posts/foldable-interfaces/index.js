@@ -10,10 +10,10 @@ import StarryBgSrc from './yong-chuan-645079-unsplash.jpg';
 export const FRONT_MATTER = {
   title: 'Foldable Interfaces',
   publishedOn: '2018-04-29',
-  headerStyle: 'watermelon-gradient',
-  headerImage: StarryBgSrc,
-  headerBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
-  headerTitleGradientSteps: ['80deg', COLORS.pink[500], COLORS.purple[700]],
+  heroStyle: 'watermelon-gradient',
+  heroImage: StarryBgSrc,
+  heroBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
+  heroTitleGradientSteps: ['80deg', COLORS.pink[500], COLORS.purple[700]],
 };
 
 export default () => (
