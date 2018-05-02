@@ -22,8 +22,6 @@ class SelfStraighteningCurves extends Component {
 
     const progressRatio = percentStraightened / 100;
 
-    console.log(progressRatio);
-
     switch (curveId) {
       case 'tertiary': {
         const originPoint = getInterpolatedValue(60, 0, progressRatio);

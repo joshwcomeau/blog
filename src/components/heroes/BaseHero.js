@@ -153,6 +153,13 @@ const GradientTitle = styled.h1`
   background: -webkit-linear-gradient(${props => props.gradient});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[800]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const Byline = styled.h3`
@@ -160,20 +167,48 @@ const Byline = styled.h3`
   font-weight: 300;
   color: ${COLORS.gray[600]};
   margin: 0.5rem 0 0 0.25rem;
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[800]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const Unemphasized = styled.span`
   opacity: 0.85;
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[800]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const AuthorName = styled.span`
   font-weight: bold;
   color: ${props => props.color};
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[800]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const PublishedDate = styled.span`
   font-weight: bold;
   color: ${props => props.color};
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[800]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const CurveWrapper = styled.div`

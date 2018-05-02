@@ -1,10 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled, { injectGlobal } from 'styled-components';
 import Helmet from 'react-helmet';
+
+import { COLORS } from '../constants';
+import MaxWidthWrapper from '../components/MaxWidthWrapper';
 
 import './reset.css';
 import './fonts.css';
-import MaxWidthWrapper from '../components/MaxWidthWrapper';
+
+injectGlobal`
+  body {
+    line-height: 1.4;
+  }
+
+  ::selection {
+    background-color: ${COLORS.lime[500]};
+  }
+`;
 
 const Layout = ({ children, data }) => (
   <div>
