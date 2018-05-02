@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'gatsby-link';
 
+import posts from './posts/all-posts';
+
 const IndexPage = () => (
   <div>
     <h1>Hi people</h1>

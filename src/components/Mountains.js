@@ -54,9 +54,9 @@ class Mountains extends Component {
   };
 
   static defaultProps = {
-    peakColor: '#FFF',
+    peakColor: COLORS.white,
     peakOpacity: 0.5,
-    baseColor: '#FFF',
+    baseColor: COLORS.white,
     baseOpacity: 0,
   };
 

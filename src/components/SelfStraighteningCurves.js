@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { COLORS } from '../constants';
 import { clamp, getInterpolatedValue } from '../utils';
 
 class SelfStraighteningCurves extends Component {
+  static propTypes = {
+    colors: PropTypes.arrayOf(PropTypes.string),
+    buffer: PropTypes.number,
+  };
+
+  static defaultProps = {
+    buffer: 0,
+  };
+
   state = {
     percentScrolledToMainContent: 0,
   };
@@ -17,7 +27,9 @@ class SelfStraighteningCurves extends Component {
     // mount, not even for resizing (well, it does a little bit, but not
     // enough to matter).
     this.maxDistanceToContent =
-      this.node.getBoundingClientRect().top + window.scrollY;
+      this.node.getBoundingClientRect().top +
+      window.scrollY -
+      this.props.buffer;
   }
 
   componentWillUnmount() {
@@ -75,10 +87,10 @@ class SelfStraighteningCurves extends Component {
         const destinationPoint = getInterpolatedValue(5, 0, progressRatio);
 
         return `
-          M 0,${originPoint}
-          C 150,${controlPoint1} 666,${controlPoint2} 1000,${destinationPoint}
-          L 1000,60
-          L 0,60
+          M -1,${originPoint}
+          C 150,${controlPoint1} 666,${controlPoint2} 1001,${destinationPoint}
+          L 1001,60
+          L -1,60
         `;
       }
 
@@ -89,24 +101,27 @@ class SelfStraighteningCurves extends Component {
   };
 
   render() {
+    const { colors } = this.props;
     const { percentScrolledToMainContent } = this.state;
+
+    const [firstColor, secondColor, thirdColor] = colors;
 
     return (
       <Svg innerRef={node => (this.node = node)} viewBox="0 0 1000 60">
         <path
           d={this.calculatePathForCurve('tertiary')}
           stroke="none"
-          fill={COLORS.green[500]}
+          fill={thirdColor}
         />
         <path
           d={this.calculatePathForCurve('secondary')}
           stroke="none"
-          fill={COLORS.green[700]}
+          fill={secondColor}
         />
         <path
           d={this.calculatePathForCurve('primary')}
           stroke="none"
-          fill="#FFF"
+          fill={firstColor}
         />
       </Svg>
     );

@@ -4,4 +4,22 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
- // You can delete this file if you're not using it
+exports.createPages = ({ boundActionCreators, graphql }) => {
+  // need createRedirect action in boundActionCreators collection
+  // to make the redirection magic happen.
+  // https://www.gatsbyjs.org/docs/bound-action-creators/
+  const { createRedirect } = boundActionCreators;
+
+  createRedirect({
+    fromPath: '/posts',
+    toPath: '/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
+  createRedirect({
+    fromPath: '/posts/',
+    toPath: '/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
+};

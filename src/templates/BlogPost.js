@@ -3,51 +3,33 @@ import styled from 'styled-components';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
-import { COLORS } from '../constants';
+import { COLORS, Z_INDICES } from '../constants';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
-import PostTitle from '../components/PostTitle';
-import Mountains from '../components/Mountains';
-import SelfStraighteningCurves from '../components/SelfStraighteningCurves';
+import WatermelonGradientHeader from '../components/headers/WatermelonGradientHeader';
 
-export default ({
-  title,
-  publishedOn,
-  headerType,
-  headerImage,
-  headerBackground,
-  headerTitleGradientSteps,
-  children,
-}) => (
-  <FullWidth>
-    <Header background={headerBackground}>
-      <MaxWidthWrapper>
-        <PostTitle gradientSteps={headerTitleGradientSteps}>{title}</PostTitle>
-        <Byline>
-          <Unemphasized>Written by</Unemphasized>{' '}
-          <AuthorName>Josh Comeau</AuthorName>
-          <Unemphasized> on</Unemphasized>{' '}
-          <PublishedDate>
-            {format(parse(publishedOn), 'MMMM Mo, YYYY')}
-          </PublishedDate>
-        </Byline>
-      </MaxWidthWrapper>
+const getHeader = headerStyle => {
+  switch (headerStyle) {
+    case 'watermelon-gradient':
+    default:
+      return WatermelonGradientHeader;
+  }
+};
 
-      <CurveWrapper>
-        <SelfStraighteningCurves />
-      </CurveWrapper>
+export default ({ title, publishedOn, headerStyle, headerImage, children }) => {
+  const Header = getHeader(headerStyle);
 
-      <MountainsWrapper>
-        <Mountains />
-      </MountainsWrapper>
-    </Header>
+  return (
+    <FullWidth>
+      <Header title={title} publishedOn={publishedOn} image={headerImage} />
 
-    <MainContent>
-      <MaxWidthWrapper>{children}</MaxWidthWrapper>
-    </MainContent>
-  </FullWidth>
-);
+      <MainContent>
+        <MaxWidthWrapper>{children}</MaxWidthWrapper>
+      </MainContent>
+    </FullWidth>
+  );
+};
 
 const Header = styled.div`
   position: relative;
@@ -90,6 +72,9 @@ const CurveWrapper = styled.div`
 `;
 
 const MainContent = styled.div`
+  position: relative;
+  background: ${COLORS.white};
+  z-index: ${Z_INDICES.mainContent};
   padding-top: 5rem;
   height: 100vh; /* temp */
 `;

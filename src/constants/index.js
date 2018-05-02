@@ -30,8 +30,8 @@ export const COLORS = {
     '700': '#304FFE',
   },
   purple: {
-    '500': '#6139f5',
-    '700': '#4520cc',
+    '500': '#651fff',
+    '700': '#4919b7',
   },
   gray: {
     '100': '#f2f2f2',
@@ -43,6 +43,8 @@ export const COLORS = {
     '800': '#2A2A2A',
     '900': '#111',
   },
+  white: '#FFF',
+  black: '#000',
 };
 
 export const BREAKPOINT_SIZES = {
@@ -75,3 +77,8 @@ export const MAX_WIDTH = {
 
 const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
 export const IS_MOBILE_USER_AGENT = mobileRegex.test(navigator.userAgent);
+
+export const Z_INDICES = {
+  header: 1,
+  mainContent: 2,
+};
