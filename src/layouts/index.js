@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import { COLORS } from '../constants';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 
+import './global';
 import './reset.css';
 import './fonts.css';
 

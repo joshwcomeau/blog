@@ -7,6 +7,7 @@ import { COLORS, Z_INDICES } from '../constants';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
+import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 
 const getHero = heroStyle => {
@@ -25,7 +26,10 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
       <Hero title={title} publishedOn={publishedOn} image={heroImage} />
 
       <MainContent>
-        <MaxWidthWrapper>{children}</MaxWidthWrapper>
+        <MaxWidthWrapper>
+          <LargeScreenSidebar />
+          {children}
+        </MaxWidthWrapper>
       </MainContent>
     </FullWidth>
   );
