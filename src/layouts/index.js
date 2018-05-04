@@ -15,6 +15,10 @@ injectGlobal`
     line-height: 1.4;
   }
 
+  a {
+    color: ${COLORS.blue[500]};
+  }
+
   ::selection {
     background-color: ${COLORS.lime[500]};
   }

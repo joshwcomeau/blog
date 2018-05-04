@@ -2,26 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 
-export const Icon = ({ icon, iconHover, color, colorHover, ...delegated }) => (
-  <Wrapper>
-    <IconWrapper>
-      <IconBase icon={icon} style={{ color }} {...delegated} />
-    </IconWrapper>
-    {iconHover && (
-      <IconHoverWrapper>
-        <IconBase
-          icon={iconHover}
-          style={{ color: colorHover }}
-          {...delegated}
-        />
-      </IconHoverWrapper>
-    )}
-  </Wrapper>
-);
+export const ClickableIcon = ({
+  href,
+  icon,
+  iconHover,
+  color,
+  colorHover,
+  padding = 10,
+  ...delegated
+}) =>
+  console.log(color, colorHover) || (
+    <ExternalLink href={href} padding={padding}>
+      <IconWrapper>
+        <IconBase icon={icon} style={{ color }} {...delegated} />
+      </IconWrapper>
+      {iconHover && (
+        <IconHoverWrapper>
+          <IconBase
+            icon={iconHover}
+            style={{ color: colorHover }}
+            {...delegated}
+          />
+        </IconHoverWrapper>
+      )}
+    </ExternalLink>
+  );
 
-const Wrapper = styled.span`
+const ExternalLink = styled.a`
   display: inline-block;
   position: relative;
+
+  &:hover {
+    & > span:nth-child(2) {
+      opacity: 1;
+    }
+  }
 `;
 
 const IconWrapper = styled.span`
@@ -38,10 +53,6 @@ const IconHoverWrapper = styled.span`
   left: 0;
   opacity: 0;
   transition: opacity 200ms;
-
-  &:hover {
-    opacity: 1;
-  }
 `;
 
-export default Icon;
+export default ClickableIcon;
