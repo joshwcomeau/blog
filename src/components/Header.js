@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
+import { Motion, spring } from 'react-motion';
 
-import { COLORS, Z_INDICES } from '../constants';
+import { COLORS, BREAKPOINTS, Z_INDICES } from '../constants';
 import { humanizeDate } from '../helpers/date.helpers';
 import { clamp } from '../utils';
 
@@ -91,33 +92,53 @@ class Header extends PureComponent {
     const { title, publishedOn, heroStyle } = this.props;
     const { translateAmount, isWithinVisibleRange } = this.state;
 
+    const HOME_ICON_SIZE = 28;
+
     // TODO: color should depend on heroStyle.
     // Also, `heroStyle` should be renamed.
     const color = COLORS.pink[300];
 
-    return (
-      <Wrapper
-        style={{
-          transform: `translateY(${translateAmount}px)`,
-          opacity: isWithinVisibleRange ? 1 : 0,
-        }}
-      >
-        <IconWrapper>
-          <ClickableIcon
-            href="/"
-            icon={iosHomeOutline}
-            iconHover={iosHome}
-            size={32}
-            color={COLORS.gray[300]}
-            colorHover={COLORS.white}
-          />
-        </IconWrapper>
+    const springSettings = {
+      stiffness: 170,
+      damping: 30,
+    };
 
-        <span>
-          <Title color={color}>{title}</Title>
-          <Date>{humanizeDate(publishedOn)}</Date>
-        </span>
-      </Wrapper>
+    return (
+      <Motion
+        defaultStyle={{ translateAmount: 0 }}
+        style={{ translateAmount: spring(translateAmount, springSettings) }}
+      >
+        {({ translateAmount }) => (
+          <Wrapper
+            style={{
+              transform: `translateY(${translateAmount}px)`,
+              opacity: isWithinVisibleRange ? 1 : 0,
+              transition: isWithinVisibleRange ? '' : 'opacity 500ms',
+              pointerEvents: isWithinVisibleRange ? 'auto' : 'none',
+            }}
+          >
+            <InnerWrapper>
+              <IconWrapper size={HOME_ICON_SIZE}>
+                <ClickableIcon
+                  href="/"
+                  icon={iosHomeOutline}
+                  iconHover={iosHome}
+                  size={HOME_ICON_SIZE}
+                  color={COLORS.gray[300]}
+                  colorHover={COLORS.white}
+                />
+              </IconWrapper>
+
+              <TextWrapper>
+                <Title color={color}>
+                  {title} {title} {title}
+                </Title>
+                <Date>{humanizeDate(publishedOn)}</Date>
+              </TextWrapper>
+            </InnerWrapper>
+          </Wrapper>
+        )}
+      </Motion>
     );
   }
 }
@@ -125,35 +146,89 @@ class Header extends PureComponent {
 const Wrapper = styled.header`
   position: fixed;
   z-index: ${Z_INDICES.header};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: ${-HEIGHT - BUFFER + 10}px;
+  top: ${-HEIGHT - BUFFER}px;
+  left: 0px;
+  right: 0px;
+  height: ${HEIGHT + 10}px;
+  transition: opacity 250ms;
+  will-change: transform;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+`;
+
+const InnerWrapper = styled.div`
+  position: absolute;
+  top: 10px;
   left: 10px;
   right: 10px;
   height: ${HEIGHT}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: ${COLORS.gray[300]};
   background: ${COLORS.gray[800]};
-  transition: opacity 250ms;
-  will-change: transform;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;
 
 const Title = styled.span`
+  display: inline-block;
   color: ${props => props.color || COLORS.white};
   font-weight: 600;
   font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media ${BREAKPOINTS.md} {
+    /* Subtract roughly the amount of space needed for the home icon on the
+    left, and duplicate it for the right side to preserve balance */
+    max-width: calc(100vw - 68px - 68px);
+  }
+
+  @media ${BREAKPOINTS.mdMin} {
+    /* Subtract roughly the amount of space needed for the home icon on the
+    left, and duplicate it for the right side to preserve balance */
+    max-width: 600px;
+  }
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[900]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const Date = styled.span`
   display: inline-block;
   padding-left: 1rem;
   font-size: 1rem;
+  /* HACK: Get the date and title to all line up along a baseline */
+  transform: translateY(-2px);
+
+  @media ${BREAKPOINTS.md} {
+    display: none;
+  }
+
+  &::selection {
+    color: ${COLORS.white};
+    background-color: ${COLORS.gray[900]};
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
 `;
 
 const IconWrapper = styled.div`
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
   left: 12px;
   top: 0;
   bottom: 0;
