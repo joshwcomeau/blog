@@ -7,6 +7,7 @@ import { COLORS, Z_INDICES } from '../constants';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
+import Header from '../components/Header';
 import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 
@@ -23,11 +24,12 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
 
   return (
     <FullWidth>
+      <Header title={title} publishedOn={publishedOn} heroStyle={heroStyle} />
       <Hero title={title} publishedOn={publishedOn} image={heroImage} />
 
       <MainContent>
         <MaxWidthWrapper>
-          <LargeScreenSidebar />
+          <LargeScreenSidebar title={title} />
           {children}
         </MaxWidthWrapper>
       </MainContent>
@@ -80,7 +82,6 @@ const MainContent = styled.div`
   background: ${COLORS.white};
   z-index: ${Z_INDICES.mainContent};
   padding-top: 5rem;
-  height: 100vh; /* temp */
 `;
 
 const MountainsWrapper = styled.div`

@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 
 import { COLORS, Z_INDICES } from '../../constants';
 import { clamp } from '../../utils';
+import { humanizeDate } from '../../helpers/date.helpers';
 
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Mountains from '../Mountains';
@@ -98,7 +97,7 @@ class BaseHero extends PureComponent {
               <AuthorName color={authorColor}>Josh Comeau</AuthorName>
               <Unemphasized> on</Unemphasized>{' '}
               <PublishedDate color={publishedOnColor}>
-                {format(parse(publishedOn), 'MMMM Mo, YYYY')}
+                {humanizeDate(publishedOn)}
               </PublishedDate>
             </Byline>
           </MaxWidthWrapper>

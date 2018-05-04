@@ -2,6 +2,7 @@
 
 export const COLORS = {
   pink: {
+    '300': '#FF4081',
     '500': '#f40088',
     '700': '#cc0072',
   },
@@ -52,7 +53,7 @@ export const BREAKPOINT_SIZES = {
   xs: 320,
   sm: 540,
   md: 900,
-  lg: 1100,
+  lg: 1024,
   xl: 1440,
 };
 
@@ -77,5 +78,6 @@ export const IS_MOBILE_USER_AGENT = mobileRegex.test(navigator.userAgent);
 
 export const Z_INDICES = {
   hero: 1,
-  mainContent: 2,
+  mainContent: 10,
+  header: 100,
 };

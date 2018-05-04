@@ -26,6 +26,14 @@ window.twttr = (function(d, s, id) {
   if (d.getElementById(id)) return;
   js = d.createElement(s);
   js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1';
+  js.src = 'https://connect.facebook.net/en_US/all.js#xfbml=1';
   fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'facebook-jssdk');
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId: '401677530300534',
+    xfbml: true,
+    version: 'v2.9',
+  });
+};
