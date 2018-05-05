@@ -1,24 +1,26 @@
+// TODO: Ahhh this abstraction sucks. Find a better one.
 import React from 'react';
 import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 
+import Link from './Link';
+
 export const ClickableIcon = ({
   href,
-  onClick,
+  target,
+  external,
   icon,
   iconHover,
   color,
   colorHover,
-  padding = 10,
   ...delegated
 }) => {
-  const Element = href ? ExternalLink : Button;
-
   return (
-    <Element href={href} onClick={onClick} padding={padding}>
+    <LinkWrapper external={external} href={href} target={target}>
       <IconWrapper>
         <IconBase icon={icon} style={{ color }} {...delegated} />
       </IconWrapper>
+
       {iconHover && (
         <IconHoverWrapper>
           <IconBase
@@ -28,22 +30,13 @@ export const ClickableIcon = ({
           />
         </IconHoverWrapper>
       )}
-    </Element>
+    </LinkWrapper>
   );
 };
 
-const ExternalLink = styled.a`
-  display: inline-block;
+const LinkWrapper = styled(Link)`
   position: relative;
-`;
-
-const Button = styled.button`
-  display: inline-block;
-  position: relative;
-  border: none;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
+  display: block;
 `;
 
 const IconWrapper = styled.span`
@@ -61,11 +54,7 @@ const IconHoverWrapper = styled.span`
   opacity: 0;
   transition: opacity 200ms;
 
-  ${ExternalLink}:hover & {
-    opacity: 1;
-  }
-
-  ${Button}:hover & {
+  ${LinkWrapper}:hover & {
     opacity: 1;
   }
 `;

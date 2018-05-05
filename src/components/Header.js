@@ -9,13 +9,13 @@ import { humanizeDate } from '../helpers/date.helpers';
 import { clamp } from '../utils';
 
 import ClickableIcon from './ClickableIcon';
+import InvisibleButton from './InvisibleButton';
 
 const HEIGHT = 50;
 const BUFFER = 75;
 
 class Header extends PureComponent {
   state = {
-    scrolledToTop: true,
     translateAmount: 0,
   };
 
@@ -33,14 +33,6 @@ class Header extends PureComponent {
 
   handleScroll = () => {
     const currentScrollPosition = window.scrollY;
-
-    const scrolledToTop = currentScrollPosition === 0;
-    if (scrolledToTop && !this.state.scrolledToTop) {
-      this.setState({ scrolledToTop, translateAmount: 0 });
-      this.scrollPosition = currentScrollPosition;
-      this.lockedScrollPosition = 0;
-      return;
-    }
 
     const currentScrollDirection =
       currentScrollPosition > this.scrollPosition ? 'down' : 'up';
@@ -79,6 +71,14 @@ class Header extends PureComponent {
     }
   };
 
+  scrollToTop = () => {
+    console.log('Scrollin');
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   render() {
     const { title, publishedOn, heroStyle } = this.props;
     const { translateAmount, scrolledToTop } = this.state;
@@ -87,7 +87,7 @@ class Header extends PureComponent {
 
     // TODO: color should depend on heroStyle.
     // Also, `heroStyle` should be renamed.
-    const color = COLORS.pink[300];
+    const color = COLORS.pink[500];
 
     const springSettings = {
       stiffness: 170,
@@ -103,9 +103,6 @@ class Header extends PureComponent {
           <Wrapper
             style={{
               transform: `translateY(${translateAmount}px)`,
-              opacity: scrolledToTop ? 0 : 1,
-              transition: scrolledToTop ? 'opacity 500ms' : '',
-              pointerEvents: scrolledToTop ? 'none' : 'auto',
             }}
           >
             <InnerWrapper>
@@ -121,7 +118,9 @@ class Header extends PureComponent {
               </IconWrapper>
 
               <TextWrapper>
-                <Title color={color}>{title}</Title>
+                <Title color={color} onClick={this.scrollToTop}>
+                  {title}
+                </Title>
                 <Date>{humanizeDate(publishedOn)}</Date>
               </TextWrapper>
             </InnerWrapper>
@@ -150,14 +149,14 @@ const Wrapper = styled.header`
 
 const InnerWrapper = styled.div`
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 10px;
   right: 10px;
   height: ${HEIGHT}px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${COLORS.gray[800]};
+  color: ${COLORS.gray[500]};
   background: ${COLORS.white};
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
 `;
@@ -167,7 +166,7 @@ const TextWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const Title = styled.span`
+const Title = styled(InvisibleButton)`
   display: inline-block;
   color: ${props => props.color || COLORS.white};
   font-weight: 600;
