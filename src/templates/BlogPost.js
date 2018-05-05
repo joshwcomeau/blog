@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
@@ -24,6 +25,10 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
 
   return (
     <FullWidth>
+      <Helmet>
+        <title>{title} - Josh Comeau's blog</title>
+      </Helmet>
+
       <Header title={title} publishedOn={publishedOn} heroStyle={heroStyle} />
       <Hero title={title} publishedOn={publishedOn} image={heroImage} />
 
