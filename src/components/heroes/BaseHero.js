@@ -231,8 +231,7 @@ const CurveBlocker = styled.div`
 `;
 
 const MainContent = styled.div`
-  padding-top: 5rem;
-  height: 100vh; /* temp */
+  padding-top: 80px;
 `;
 
 export default BaseHero;

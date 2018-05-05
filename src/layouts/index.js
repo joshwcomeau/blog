@@ -11,6 +11,10 @@ import './reset.css';
 import './fonts.css';
 
 injectGlobal`
+  html {
+    font-size: 16px;
+  }
+
   body {
     line-height: 1.4;
   }

@@ -4,21 +4,23 @@ import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 
 import Link from './Link';
+import InvisibleButton from './InvisibleButton';
 
 export const ClickableIcon = ({
   href,
-  target,
-  external,
   icon,
   iconHover,
   color,
   colorHover,
+  size,
   ...delegated
 }) => {
+  const Wrapper = href ? LinkWrapper : ButtonWrapper;
+
   return (
-    <LinkWrapper external={external} href={href} target={target}>
+    <Wrapper href={href} {...delegated}>
       <IconWrapper>
-        <IconBase icon={icon} style={{ color }} {...delegated} />
+        <IconBase icon={icon} style={{ color }} size={size} />
       </IconWrapper>
 
       {iconHover && (
@@ -26,13 +28,18 @@ export const ClickableIcon = ({
           <IconBase
             icon={iconHover}
             style={{ color: colorHover }}
-            {...delegated}
+            size={size}
           />
         </IconHoverWrapper>
       )}
-    </LinkWrapper>
+    </Wrapper>
   );
 };
+
+const ButtonWrapper = styled(InvisibleButton)`
+  position: relative;
+  display: block;
+`;
 
 const LinkWrapper = styled(Link)`
   position: relative;
@@ -55,6 +62,10 @@ const IconHoverWrapper = styled.span`
   transition: opacity 200ms;
 
   ${LinkWrapper}:hover & {
+    opacity: 1;
+  }
+
+  ${ButtonWrapper}:hover & {
     opacity: 1;
   }
 `;

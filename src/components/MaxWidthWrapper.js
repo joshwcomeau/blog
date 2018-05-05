@@ -18,7 +18,7 @@ const getPadding = ({ paddingOn }) => {
     return 0;
   }
 
-  return deviceType === 'mobile' ? '1rem' : '2rem';
+  return deviceType === 'mobile' ? '16px' : '32px';
 };
 
 const MaxWidthWrapper = styled.div`

@@ -5,10 +5,13 @@ import { socialTwitter } from 'react-icons-kit/ionicons/socialTwitter';
 import { socialTwitterOutline } from 'react-icons-kit/ionicons/socialTwitterOutline';
 import { socialFacebook } from 'react-icons-kit/ionicons/socialFacebook';
 import { socialFacebookOutline } from 'react-icons-kit/ionicons/socialFacebookOutline';
+import { ic_format_size } from 'react-icons-kit/md/ic_format_size';
+
+import { COLORS, BREAKPOINT_SIZES } from '../constants';
+import { changeFontSize } from '../helpers/theme.helpers';
 
 import ClickableIcon from './ClickableIcon';
 import Spacer from './Spacer';
-import { COLORS, BREAKPOINT_SIZES } from '../constants';
 
 const WIDTH = 32;
 
@@ -61,6 +64,16 @@ class LargeScreenSidebar extends Component {
     }
   };
 
+  handleTextZoomLeftClick = ev => {
+    changeFontSize('increment');
+  };
+
+  handleTextZoomRightClick = ev => {
+    ev.preventDefault();
+
+    changeFontSize('decrement');
+  };
+
   render() {
     const { title } = this.props;
     const { isVisible } = this.state;
@@ -98,6 +111,20 @@ class LargeScreenSidebar extends Component {
           color={COLORS.gray[500]}
           colorHover={COLORS.gray[700]}
         />
+
+        <Spacer size={20} />
+        <Divider />
+        <Spacer size={20} />
+
+        <ClickableIcon
+          size={WIDTH}
+          onClick={this.handleTextZoomLeftClick}
+          onContextMenu={this.handleTextZoomRightClick}
+          icon={ic_format_size}
+          iconHover={ic_format_size}
+          color={COLORS.gray[500]}
+          colorHover={COLORS.gray[700]}
+        />
       </Wrapper>
     );
   }
@@ -114,6 +141,11 @@ const Wrapper = styled.div`
     props.isVisible ? 'translate(-300%, 105%)' : 'translate(-350%, 105%)'};
   transition: opacity 500ms ease-out, transform 700ms ease-out;
   will-change: transform;
+`;
+
+const Divider = styled.div`
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
 `;
 
 export default LargeScreenSidebar;
