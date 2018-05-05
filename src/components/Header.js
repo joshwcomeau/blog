@@ -72,7 +72,6 @@ class Header extends PureComponent {
   };
 
   scrollToTop = () => {
-    console.log('Scrollin');
     window.scroll({
       top: 0,
       behavior: 'smooth',
