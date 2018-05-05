@@ -14,6 +14,7 @@ export const FRONT_MATTER = {
   heroImage: StarryBgSrc,
   heroBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
   heroTitleGradientSteps: ['80deg', COLORS.pink[500], COLORS.purple[700]],
+  slug: 'foldable-interfaces',
   abstract:
     "Learn how to fold up the DOM like origami. We'll look at how to create Flipboard-like folding UI, and how to abstract that into generalized, reusable React components.",
 };

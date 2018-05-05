@@ -196,7 +196,7 @@ const Title = styled(InvisibleButton)`
 
 const Date = styled.span`
   display: inline-block;
-  padding-left: 1rem;
+  padding-left: 25px;
   font-size: 1rem;
   /* HACK: Get the date and title to all line up along a baseline */
   transform: translateY(-2px);

@@ -5,6 +5,7 @@ import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
 import { COLORS, Z_INDICES } from '../constants';
+import { siteMetadata } from '../../gatsby-config';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
@@ -26,7 +27,9 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
   return (
     <FullWidth>
       <Helmet>
-        <title>{title} - Josh Comeau's blog</title>
+        <title>
+          {title} - {siteMetadata.title}
+        </title>
       </Helmet>
 
       <Header title={title} publishedOn={publishedOn} heroStyle={heroStyle} />
@@ -96,4 +99,14 @@ const MountainsWrapper = styled.div`
   right: 0;
   bottom: 0;
   width: 40%;
+`;
+
+export const query = graphql`
+  query SomeQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
 `;
