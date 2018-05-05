@@ -13,21 +13,9 @@ import ClickableIcon from './ClickableIcon';
 const HEIGHT = 50;
 const BUFFER = 75;
 
-// TODO: Right now, 3 things are dependent on a scroll threshold:
-//   - This Header
-//   - LargeScreenSidebar
-//   - BaseHero
-//
-// It would be great if all 3 drew on the same value (even if the numbers
-// aren't identical, they should all be derived from the same root value).
-const SCROLL_THRESHOLD = 66;
-
-const getIsWithinVisibleRange = scrollAmount =>
-  scrollAmount / window.innerHeight * 100 > SCROLL_THRESHOLD;
-
 class Header extends PureComponent {
   state = {
-    isWithinVisibleRange: false,
+    scrolledToTop: true,
     translateAmount: 0,
   };
 
@@ -46,9 +34,12 @@ class Header extends PureComponent {
   handleScroll = () => {
     const currentScrollPosition = window.scrollY;
 
-    const isWithinVisibleRange = getIsWithinVisibleRange(currentScrollPosition);
-    if (isWithinVisibleRange !== this.state.isWithinVisibleRange) {
-      this.setState({ isWithinVisibleRange });
+    const scrolledToTop = currentScrollPosition === 0;
+    if (scrolledToTop && !this.state.scrolledToTop) {
+      this.setState({ scrolledToTop, translateAmount: 0 });
+      this.scrollPosition = currentScrollPosition;
+      this.lockedScrollPosition = 0;
+      return;
     }
 
     const currentScrollDirection =
@@ -84,13 +75,13 @@ class Header extends PureComponent {
     this.scrollPosition = currentScrollPosition;
 
     if (translateAmount !== this.state.translateAmount) {
-      this.setState({ translateAmount });
+      this.setState({ translateAmount, scrolledToTop: false });
     }
   };
 
   render() {
     const { title, publishedOn, heroStyle } = this.props;
-    const { translateAmount, isWithinVisibleRange } = this.state;
+    const { translateAmount, scrolledToTop } = this.state;
 
     const HOME_ICON_SIZE = 28;
 
@@ -112,9 +103,9 @@ class Header extends PureComponent {
           <Wrapper
             style={{
               transform: `translateY(${translateAmount}px)`,
-              opacity: isWithinVisibleRange ? 1 : 0,
-              transition: isWithinVisibleRange ? '' : 'opacity 500ms',
-              pointerEvents: isWithinVisibleRange ? 'auto' : 'none',
+              opacity: scrolledToTop ? 0 : 1,
+              transition: scrolledToTop ? 'opacity 500ms' : '',
+              pointerEvents: scrolledToTop ? 'none' : 'auto',
             }}
           >
             <InnerWrapper>
@@ -124,15 +115,13 @@ class Header extends PureComponent {
                   icon={iosHomeOutline}
                   iconHover={iosHome}
                   size={HOME_ICON_SIZE}
-                  color={COLORS.gray[300]}
-                  colorHover={COLORS.white}
+                  color={COLORS.gray[500]}
+                  colorHover={COLORS.gray[700]}
                 />
               </IconWrapper>
 
               <TextWrapper>
-                <Title color={color}>
-                  {title} {title} {title}
-                </Title>
+                <Title color={color}>{title}</Title>
                 <Date>{humanizeDate(publishedOn)}</Date>
               </TextWrapper>
             </InnerWrapper>
@@ -168,8 +157,9 @@ const InnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${COLORS.gray[300]};
-  background: ${COLORS.gray[800]};
+  color: ${COLORS.gray[800]};
+  background: ${COLORS.white};
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
 `;
 
 const TextWrapper = styled.div`

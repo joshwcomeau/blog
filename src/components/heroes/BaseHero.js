@@ -80,43 +80,47 @@ class BaseHero extends PureComponent {
     const { heroScrollPercentage } = this.state;
 
     return (
-      <Wrapper>
-        <Hero
-          innerRef={node => (this.node = node)}
-          height={height}
-          gutter={gutter}
-          background={background}
-        >
-          <MaxWidthWrapper>
-            {/* TODO: Support other kinds of titles? */}
-            <GradientTitle gradient={titleGradientSteps.join(', ')}>
-              {title}
-            </GradientTitle>
-            <Byline>
-              <Unemphasized>Written by</Unemphasized>{' '}
-              <AuthorName color={authorColor}>Josh Comeau</AuthorName>
-              <Unemphasized> on</Unemphasized>{' '}
-              <PublishedDate color={publishedOnColor}>
-                {humanizeDate(publishedOn)}
-              </PublishedDate>
-            </Byline>
-          </MaxWidthWrapper>
+      <span>
+        <Wrapper>
+          <Hero
+            innerRef={node => (this.node = node)}
+            height={height}
+            gutter={gutter}
+            background={background}
+          >
+            <MaxWidthWrapper>
+              {/* TODO: Support other kinds of titles? */}
+              <GradientTitle gradient={titleGradientSteps.join(', ')}>
+                {title}
+              </GradientTitle>
+              <Byline>
+                <Unemphasized>Written by</Unemphasized>{' '}
+                <AuthorName color={authorColor}>Josh Comeau</AuthorName>
+                <Unemphasized> on</Unemphasized>{' '}
+                <PublishedDate color={publishedOnColor}>
+                  {humanizeDate(publishedOn)}
+                </PublishedDate>
+              </Byline>
+            </MaxWidthWrapper>
 
-          {decorations}
-        </Hero>
+            {decorations}
+          </Hero>
 
-        <HeroSpacer height={height} />
+          <HeroSpacer height={height} />
 
-        <CurveWrapper gutter={gutter}>
-          <SelfStraighteningCurves
-            percentStraightened={heroScrollPercentage}
-            colors={curveColors}
-            buffer={gutter * 1.5}
-          />
-        </CurveWrapper>
+          <CurveWrapper gutter={gutter}>
+            <SelfStraighteningCurves
+              percentStraightened={heroScrollPercentage}
+              colors={curveColors}
+              buffer={gutter * 1.5}
+            />
+          </CurveWrapper>
+        </Wrapper>
 
-        <CurveBlocker gutter={gutter} />
-      </Wrapper>
+        <TopCurveBlocker gutter={gutter} />
+        <LeftCurveBlocker gutter={gutter} />
+        <RightCurveBlocker gutter={gutter} />
+      </span>
     );
   }
 }
@@ -222,12 +226,29 @@ const CurveWrapper = styled.div`
 
 const CurveBlocker = styled.div`
   position: absolute;
-  z-index: 3;
+  z-index: ${Z_INDICES.blockers};
+  background: ${COLORS.white};
+`;
+
+const TopCurveBlocker = styled(CurveBlocker)`
+  top: ${props => props.gutter * -9}px;
+  left: 0;
+  right: 0;
+  height: ${props => props.gutter * 10}px;
+`;
+
+const LeftCurveBlocker = styled(CurveBlocker)`
   top: 0;
   left: 0;
   bottom: 0;
   width: ${props => props.gutter}px;
-  background: ${COLORS.white};
+`;
+
+const RightCurveBlocker = styled(CurveBlocker)`
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: ${props => props.gutter}px;
 `;
 
 const MainContent = styled.div`
