@@ -6,8 +6,6 @@ const Link = ({ external, href, target, ...delegated }) => {
   const hrefProp = external ? { href } : { to: href };
   const rel = target === '_blank' ? 'noopener noreferrer' : delegated.rel;
 
-  console.log(external);
-
   // prettier-ignore
   return external
     ? <a href={href} target={target} rel={rel} {...delegated} />

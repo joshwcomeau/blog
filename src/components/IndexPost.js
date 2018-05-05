@@ -22,20 +22,10 @@ const IndexPost = ({ slug, title, abstract, publishedOn }) => {
   );
 };
 
-const Wrapper = styled.div`
-  padding: 25px;
-  /* border-radius: 5px; */
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.2);
-  }
-`;
+const Wrapper = styled.div``;
 
 const PostLink = styled(Link)`
-  /* color: ${COLORS.pink[500]}; */
-  text-decoration: none;
+  color: ${COLORS.pink[500]};
 `;
 
 const PostTitle = styled.h3`
@@ -43,7 +33,7 @@ const PostTitle = styled.h3`
   font-weight: 600;
   letter-spacing: -1px;
   color: ${COLORS.blue[500]};
-  margin-top: -10px;
+  margin: -10px 0 -4px;
 `;
 
 const Date = styled.h5`

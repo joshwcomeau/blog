@@ -23,7 +23,5 @@ export const changeFontSize = direction => {
     newSize = direction === 'increment' ? sizes[0] : sizes[sizes.length - 1];
   }
 
-  console.log(currentSize, newSize);
-
   rootElem.style.fontSize = `${newSize}px`;
 };

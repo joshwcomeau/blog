@@ -20,7 +20,9 @@ class Header extends PureComponent {
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.setTimeout(() => {
+      window.addEventListener('scroll', this.handleScroll);
+    }, 500);
 
     this.scrollPosition = window.scrollY;
     this.lockedScrollPosition = null;
