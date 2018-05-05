@@ -61,18 +61,6 @@ class LargeScreenSidebar extends Component {
     }
   };
 
-  handleClickFacebookIcon = () => {
-    FB.ui(
-      {
-        method: 'share',
-        href: window.location.href,
-      },
-      function(response) {
-        console.log(response);
-      }
-    );
-  };
-
   render() {
     const { title } = this.props;
     const { isVisible } = this.state;
@@ -84,9 +72,14 @@ class LargeScreenSidebar extends Component {
       twitterMessage
     )}`;
 
+    const facebookUrl = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(
+      window.location.href
+    )}`;
+
     return (
       <Wrapper width={WIDTH} isVisible={isVisible}>
         <ClickableIcon
+          external
           size={WIDTH}
           href={twitterUrl}
           icon={socialTwitterOutline}
@@ -96,8 +89,10 @@ class LargeScreenSidebar extends Component {
         />
         <Spacer size={20} />
         <ClickableIcon
+          external
           size={WIDTH}
-          onClick={this.handleClickFacebookIcon}
+          href={facebookUrl}
+          target="_blank"
           icon={socialFacebookOutline}
           iconHover={socialFacebook}
           color={COLORS.gray[500]}

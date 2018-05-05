@@ -80,5 +80,4 @@ export const Z_INDICES = {
   hero: 1,
   mainContent: 10,
   header: 100,
-  blockers: 1000,
 };
