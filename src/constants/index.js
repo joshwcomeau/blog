@@ -30,6 +30,10 @@ export const COLORS = {
     '500': '#3D5AFE',
     '700': '#304FFE',
   },
+  violet: {
+    '500': '#D500F9',
+    '700': '#AA00FF',
+  },
   purple: {
     '500': '#651fff',
     '700': '#4919b7',
@@ -80,4 +84,8 @@ export const Z_INDICES = {
   hero: 1,
   mainContent: 10,
   header: 100,
+};
+
+export const SIZES = {
+  homeIcon: 28,
 };
