@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 
 import { COLORS } from '../constants';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
+import Footer from '../components/Footer';
 
 import './global';
 import './reset.css';
@@ -20,7 +21,7 @@ injectGlobal`
   }
 
   a {
-    color: ${COLORS.blue[500]};
+    color: ${COLORS.pink[500]};
   }
 
   ::selection {
@@ -28,7 +29,12 @@ injectGlobal`
   }
 `;
 
-const Layout = ({ children }) => <div>{children()}</div>;
+const Layout = ({ children }) => (
+  <div>
+    {children()}
+    <Footer />
+  </div>
+);
 
 Layout.propTypes = {
   children: PropTypes.func,

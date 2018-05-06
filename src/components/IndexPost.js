@@ -22,7 +22,9 @@ const IndexPost = ({ slug, title, abstract, publishedOn }) => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-bottom: 72px;
+`;
 
 const PostLink = styled(Link)`
   color: ${COLORS.pink[500]};

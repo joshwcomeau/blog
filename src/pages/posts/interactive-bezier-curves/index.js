@@ -5,17 +5,15 @@ import { COLORS } from '../../../constants';
 import BlogPostTemplate from '../../../templates/BlogPost';
 import Paragraph from '../../../components/Paragraph';
 
-import StarryBgSrc from './yong-chuan-645079-unsplash.jpg';
-
 export const FRONT_MATTER = {
-  title: 'Foldable Interfaces',
+  title: 'Interactive Bézier Curves',
+  slug: 'interactive-bezier-curves',
   published: false,
-  publishedOn: '2018-04-29',
+  publishedOn: '2018-05-29',
   heroStyle: 'watermelon-gradient',
-  heroImage: StarryBgSrc,
+  heroImage: null,
   heroBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
   heroTitleGradientSteps: ['80deg', COLORS.pink[500], COLORS.purple[700]],
-  slug: 'foldable-interfaces',
   abstract:
     "Learn how to fold up the DOM like origami. We'll look at how to create Flipboard-like folding UI, and how to abstract that into generalized, reusable React components.",
 };

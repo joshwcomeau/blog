@@ -4,7 +4,7 @@ import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
 import { Motion, spring } from 'react-motion';
 
-import { COLORS, BREAKPOINTS, Z_INDICES } from '../constants';
+import { COLORS, BREAKPOINTS, Z_INDICES, SIZES } from '../constants';
 import { humanizeDate } from '../helpers/date.helpers';
 import { clamp } from '../utils';
 
@@ -84,8 +84,6 @@ class Header extends PureComponent {
     const { title, publishedOn, heroStyle } = this.props;
     const { translateAmount, scrolledToTop } = this.state;
 
-    const HOME_ICON_SIZE = 28;
-
     // TODO: color should depend on heroStyle.
     // Also, `heroStyle` should be renamed.
     const color = COLORS.pink[500];
@@ -107,12 +105,12 @@ class Header extends PureComponent {
             }}
           >
             <InnerWrapper>
-              <IconWrapper size={HOME_ICON_SIZE}>
+              <IconWrapper size={SIZES.homeIcon}>
                 <ClickableIcon
                   href="/"
                   icon={iosHomeOutline}
                   iconHover={iosHome}
-                  size={HOME_ICON_SIZE}
+                  size={SIZES.homeIcon}
                   color={COLORS.gray[500]}
                   colorHover={COLORS.gray[700]}
                 />
@@ -219,7 +217,7 @@ const IconWrapper = styled.div`
   position: absolute;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
-  left: 12px;
+  left: 5px;
   top: 0;
   bottom: 0;
   margin: auto;

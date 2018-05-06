@@ -38,12 +38,12 @@ export const ClickableIcon = ({
 
 const ButtonWrapper = styled(InvisibleButton)`
   position: relative;
-  display: block;
+  display: inline-block;
 `;
 
 const LinkWrapper = styled(Link)`
   position: relative;
-  display: block;
+  display: inline-block;
 `;
 
 const IconWrapper = styled.span`
