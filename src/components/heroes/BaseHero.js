@@ -170,7 +170,7 @@ const HeroSpacer = styled.div`
 `;
 
 const GradientTitle = styled.h1`
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: 900;
   line-height: 6rem;
   letter-spacing: -0.25rem;

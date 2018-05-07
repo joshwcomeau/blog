@@ -21,6 +21,7 @@
     "gatsby-plugin-meta-redirect": "^1.1.0",
     "gatsby-plugin-react-helmet": "^2.0.10",
     "gatsby-plugin-styled-components": "^2.0.11",
+    "rc-slider": "^8.6.1",
     "react-helmet": "^5.2.0",
     "react-icons-kit": "^1.1.4",
     "react-motion": "^0.5.2",

@@ -135,10 +135,9 @@ const Wrapper = styled.div`
   top: 100px;
   left: ${props => props.width * -1}px;
   width: ${props => props.width}px;
-  transform: translate(-300%, 110%);
   opacity: ${props => (props.isVisible ? 1 : 0)};
   transform: ${props =>
-    props.isVisible ? 'translate(-300%, 105%)' : 'translate(-350%, 105%)'};
+    props.isVisible ? 'translate(-325%, 105%)' : 'translate(-375%, 105%)'};
   transition: opacity 500ms ease-out, transform 700ms ease-out;
   will-change: transform;
 `;
