@@ -89,7 +89,7 @@ const MainContent = styled.div`
   position: relative;
   background: ${COLORS.white};
   z-index: ${Z_INDICES.mainContent};
-  padding-top: 80px;
+  padding-top: 20px;
 `;
 
 const MountainsWrapper = styled.div`

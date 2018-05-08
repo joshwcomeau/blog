@@ -5,6 +5,7 @@ import { COLORS } from '../../../constants';
 import BlogPostTemplate from '../../../templates/BlogPost';
 import Paragraph from '../../../components/Paragraph';
 import Heading from '../../../components/Heading';
+import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import MouseTracker from './MouseTracker';
@@ -81,7 +82,8 @@ export default () => (
 
     <Paragraph>
       When you first learn to work with SVGs, you'll often use shape elements,
-      like {'<rect>'} or {'<ellipse>'}.
+      like <InlineCode>{'<rect>'}</InlineCode> or{' '}
+      <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
 
     <Paragraph>
@@ -91,16 +93,16 @@ export default () => (
     </Paragraph>
 
     <Paragraph>
-      Vestibulum semper sem eget enim tristique semper. Integer nec placerat
-      tortor, sit amet volutpat nunc. Aliquam in velit volutpat ex iaculis
-      semper. Morbi pulvinar mauris lacus, at convallis purus maximus malesuada.
-      Integer eget mauris fringilla, mattis est condimentum, blandit arcu. Donec
-      at diam odio. Integer sodales purus velit, vitae ullamcorper orci maximus
-      ut. Maecenas vel ante eget risus scelerisque tempor vel quis felis. Cras
-      sodales, ante eget dapibus vestibulum, lorem justo egestas augue, ac
-      euismod ex metus suscipit ex. Proin sed sem libero. Suspendisse
-      ullamcorper nunc a urna iaculis, ut ultrices arcu accumsan. Vivamus
-      efficitur sed ligula eu aliquet.
+      To do neat curvy things, we need to use the{' '}
+      <InlineCode>{'<path>'}</InlineCode> element. This swiss-army-knife of an
+      SVG primitive lets you specify a sequence of steps to execute, in a
+      seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
+    <iframe
+      src="http://jsfiddle.net/zalun/NmudS/embedded/"
+      style={{ width: '100%', height: 500 }}
+      // style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+      sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+    />
   </BlogPostTemplate>
 );
