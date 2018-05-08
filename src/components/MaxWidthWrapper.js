@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import { BREAKPOINTS, BREAKPOINT_SIZES, READING_WIDTH } from '../constants';
 import { getDeviceType } from '../helpers/responsive.helpers';
 
-const getPadding = ({ paddingOn }) => {
-  if (paddingOn === 'none') {
-    return 0;
-  }
-
+const getPadding = () => {
   const deviceType = getDeviceType();
 
   if (deviceType === 'mobile' && paddingOn === 'desktop') {
@@ -28,8 +24,13 @@ const MaxWidthWrapper = styled.div`
   max-width: ${props => props.maxWidth || `${READING_WIDTH}px`};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${getPadding};
-  padding-right: ${getPadding};
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media ${BREAKPOINTS.sm} {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 `;
 
 export default MaxWidthWrapper;

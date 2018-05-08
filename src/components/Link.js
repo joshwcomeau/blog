@@ -2,14 +2,23 @@ import React from 'react';
 import GatsbyLink from 'gatsby-link';
 import styled from 'styled-components';
 
-const Link = ({ external, href, target, ...delegated }) => {
-  const hrefProp = external ? { href } : { to: href };
-  const rel = target === '_blank' ? 'noopener noreferrer' : delegated.rel;
+import { COLORS } from '../constants';
 
-  // prettier-ignore
-  return external
-    ? <a href={href} target={target} rel={rel} {...delegated} />
-    : <GatsbyLink to={href} target={target} rel={rel} {...delegated} />;
+const Link = ({ external, href, target, rel, ...delegated }) => {
+  const LinkComponent = external ? ExternalLink : InternalLink;
+
+  const safeRel = target === '_blank' ? 'noopener noreferrer' : rel;
+
+  return <LinkComponent href={href} rel={safeRel} {...delegated} />;
 };
+
+const ExternalLink = styled.a`
+  color: ${props =>
+    props.theme === 'light' ? COLORS.white : COLORS.pink[500]};
+`;
+
+const InternalLink = ExternalLink.withComponent(GatsbyLink).extend.attrs({
+  to: props => props.href,
+})``;
 
 export default Link;

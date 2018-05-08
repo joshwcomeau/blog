@@ -7,10 +7,12 @@ import Paragraph from '../../../components/Paragraph';
 import Heading from '../../../components/Heading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
+import Link from '../../../components/Link';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
+import LiveEditableCode from '../../../components/LiveEditableCode';
+import Info from '../../../components/Info';
 import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
-import LiveEditableCode from '../../../components/LiveEditableCode';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -35,7 +37,43 @@ const SectionHeading = ({ style = {}, ...delegated }) => (
 
 const CODE_SAMPLES = [
   `\
-// Hello World
+const rectangle = (
+  <rect
+    x={40}
+    y={15}
+    width={30}
+    height={65}
+    fill="hotpink"
+  />
+);
+const circle = (
+  <ellipse
+    cx={30}
+    cy={60}
+    rx={20}
+    ry={20}
+    fill="lightsalmon"
+  />
+);
+const triangle = (
+  <polygon
+    points="15,80 30,55 45,80"
+    fill="turquoise"
+  />
+);
+
+render(
+  <svg
+    style={{ background: '#333' }}
+    viewBox="0 0 80 80"
+  >
+    {rectangle}
+    {circle}
+    {triangle}
+  </svg>
+)
+`,
+  `\
 const shape = (
   <svg viewBox="0 0 300 300">
     <path
@@ -45,7 +83,7 @@ const shape = (
         L 200,200
         L 100,200
       \`}
-      fill="red"
+      fill="hotpink"
     />
   </svg>
 );
@@ -108,6 +146,8 @@ export default () => (
       <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
 
+    <LiveEditableCode code={CODE_SAMPLES[0]} split={[50, 50]} />
+
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
       comes at the cost of flexibility; you can't express "unusual" shapes like
@@ -121,7 +161,21 @@ export default () => (
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
 
-    <LiveEditableCode code={CODE_SAMPLES[0]} />
+    <LiveEditableCode code={CODE_SAMPLES[1]} />
+
+    <Info type="note">
+      If you're not already comfortable with SVG, you may find it useful to go
+      through{' '}
+      <Link
+        external
+        theme="light"
+        href="https://www.w3schools.com/graphics/svg_intro.asp"
+      >
+        the W3Schools tutorial
+      </Link>. While implementing this technique won't require additional SVG
+      knowledge, you'll feel more comfortable tweaking and expanding the
+      examples provided if you're armed with general SVG knowhow.
+    </Info>
 
     <Paragraph>
       For this blog, I thought it'd be cool if the hero image had a swoopy,
