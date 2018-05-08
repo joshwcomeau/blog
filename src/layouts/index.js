@@ -8,6 +8,7 @@ import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import Footer from '../components/Footer';
 
 import './global';
+import './prism-theme';
 import './reset.css';
 import './fonts.css';
 

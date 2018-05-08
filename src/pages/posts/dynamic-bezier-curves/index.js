@@ -10,6 +10,7 @@ import Divider from '../../../components/Divider';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
+import LiveEditableCode from '../../../components/LiveEditableCode';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -31,6 +32,27 @@ const SectionHeading = ({ style = {}, ...delegated }) => (
     {...delegated}
   />
 );
+
+const CODE_SAMPLES = [
+  `\
+// Hello World
+const shape = (
+  <svg viewBox="0 0 300 300">
+    <path
+      d={\`
+        M 100,100
+        L 200,100
+        L 200,200
+        L 100,200
+      \`}
+      fill="red"
+    />
+  </svg>
+);
+
+render(shape);
+`,
+];
 
 export default () => (
   <BlogPostTemplate {...FRONT_MATTER}>
@@ -98,11 +120,30 @@ export default () => (
       SVG primitive lets you specify a sequence of steps to execute, in a
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
-    <iframe
-      src="http://jsfiddle.net/zalun/NmudS/embedded/"
-      style={{ width: '100%', height: 500 }}
-      // style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-      sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
-    />
+
+    <LiveEditableCode code={CODE_SAMPLES[0]} />
+
+    <Paragraph>
+      For this blog, I thought it'd be cool if the hero image had a swoopy,
+      curvy bottom edge, as a way of making the hero feel less traditional. My
+      partner pointed out that it would be cool if the curve flattened out as
+      the user scrolled down; not only would this look swanky, but by pulling
+      the curve up and out of the way, it would draw focus towards the text, and
+      lead to a cleaner reading experience.
+    </Paragraph>
+
+    <Paragraph>
+      The only problem was that I hadn't really worked with Bezier curves
+      before. Sure, I was comfortable with basic SVG shapes like lines and
+      polygons... but curves felt like a next-level challenge. Polygons just
+      need some trigonometry, but curves require calculus, and I never learned
+      calculus.
+    </Paragraph>
+
+    <Paragraph>
+      Surprisingly (to me, at least), it turns out that I didn't need to learn
+      anything about derivatives. Bézier curves aren't that intimidating once
+      you understand how they work!
+    </Paragraph>
   </BlogPostTemplate>
 );

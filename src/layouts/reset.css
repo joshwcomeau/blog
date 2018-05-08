@@ -82,7 +82,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: 'Futura PT';
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -123,4 +122,12 @@ table {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+html,
+input,
+button,
+select,
+option {
+  font-family: 'Futura PT';
 }
