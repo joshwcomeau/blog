@@ -15,6 +15,9 @@ import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
 import BezierController from './BezierController';
 
+import basicShapesCode from './code/basic-shapes.example';
+import pathIntroCode from './code/path-intro.example';
+
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
   slug: 'dynamic-bezier-curves',
@@ -35,59 +38,6 @@ const SectionHeading = ({ style = {}, ...delegated }) => (
     {...delegated}
   />
 );
-
-const CODE_SAMPLES = [
-  `\
-const rectangle = (
-  <rect
-    x={40} y={15}
-    width={30} height={65}
-    fill="hotpink"
-  />
-);
-const circle = (
-  <ellipse
-    cx={30} cy={60}
-    rx={20} ry={20}
-    fill="lightsalmon"
-  />
-);
-const triangle = (
-  <polygon
-    points="15,80 30,55 45,80"
-    fill="turquoise"
-  />
-);
-
-render(
-  <svg
-    style={{ background: '#333' }}
-    viewBox="0 0 80 80"
-  >
-    {rectangle}
-    {circle}
-    {triangle}
-  </svg>
-)
-`,
-  `\
-const shape = (
-  <svg viewBox="0 0 300 300">
-    <path
-      d={\`
-        M 100,100
-        L 200,100
-        L 200,200
-        L 100,200
-      \`}
-      fill="hotpink"
-    />
-  </svg>
-);
-
-render(shape);
-`,
-];
 
 export default () => (
   <BlogPostTemplate {...FRONT_MATTER}>
@@ -121,8 +71,8 @@ export default () => (
     </Paragraph>
 
     <Paragraph>
-      This blog post is an intro to SVG Bézier curves, wherein we learn how to
-      create dynamic curves that respond to user input:
+      This blog post is an intro to working with Bézier curves with React.js.
+      We'll learn how to build dynamic curves that respond to user input:
     </Paragraph>
 
     <SingleAxisDemo showNote={true}>
@@ -134,21 +84,33 @@ export default () => (
     <Divider />
 
     <SectionHeading anchorId="understanding-svg-paths">
-      Understanding SVG Paths
+      A Quick SVG Refresher
     </SectionHeading>
 
     <Paragraph>
-      When you first learn to work with SVGs, you'll often use shape elements,
+      For achieving this effect, we'll use SVG. We could also use HTML Canvas, but SVG is easier to work with, and more accessible+.
+    </Paragraph>
+
+    <Paragraph>
+      While doing a deep dive into SVG is beyond the scope of this post (I'd recommend the <Link
+        external
+        href="https://www.w3schools.com/graphics/svg_intro.asp"
+      >
+        W3Schools tutorial
+      </Link> for that), we'll cover the basics, and show how to create our Bézier curve from scratch. Experienced SVG-ers can jump to [link needed].
+    </Paragraph>
+
+    <Paragraph>
+      The simplest form of SVG drawings use shape elements,
       like <InlineCode>{'<rect>'}</InlineCode> or{' '}
       <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
 
-    <LiveEditableCode code={CODE_SAMPLES[0]} split={[50, 50]} maxHeight={530} />
+    <LiveEditableCode code={basicShapesCode} split={[50, 50]} maxHeight={530} />
 
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
-      comes at the cost of flexibility; you can't express "unusual" shapes like
-      a curved line.
+      comes at the cost of flexibility; you can only create a handful of different shapes.
     </Paragraph>
 
     <Paragraph>
@@ -158,21 +120,20 @@ export default () => (
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
 
-    <LiveEditableCode code={CODE_SAMPLES[1]} />
+    <LiveEditableCode code={pathIntroCode} />
 
-    <Info type="note">
-      If you're not already comfortable with SVG, you may find it useful to go
-      through{' '}
-      <Link
-        external
-        theme="light"
-        href="https://www.w3schools.com/graphics/svg_intro.asp"
-      >
-        the W3Schools tutorial
-      </Link>. While implementing this technique won't require additional SVG
-      knowledge, you'll feel more comfortable tweaking and expanding the
-      examples provided if you're armed with general SVG knowhow.
-    </Info>
+    <Paragraph>
+      The interactive code snippet above uses 2 commands:
+    </Paragraph>
+
+    <ul>
+      <li><InlineCode>M</InlineCode>, which instructs the path to <strong>move</strong> to a specific coordinate.</li>
+      <li><InlineCode>L</InlineCode> commands, which instruct the path to create a <strong>line</strong> from the current position to the specified coordinate.</li>
+    </ul>
+
+    <Paragraph>
+      Both the <InlineCode>M</InlineCode> and <InlineCode>L</InlineCode> commands take an X/Y coordinate as their "arguments". So, the path in the code snippet above instructs the path to move to a specific point, and then draw 3 connected lines. By default, <InlineCode>{'<path>'}</InlineCode> elements are self-closing, and so a line is implicitly created from the final point to the starting one.
+    </Paragraph>
 
     <Paragraph>
       The <InlineCode>path</InlineCode> element gives us access to Bézier curves

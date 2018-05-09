@@ -23,3 +23,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     redirectInBrowser: true,
   });
 };
+
+exports.modifyWebpackConfig = ({ config }) => {
+  config.loader('example', { test: /\.example$/, loader: 'raw' });
+}

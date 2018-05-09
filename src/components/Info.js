@@ -8,7 +8,7 @@ import { COLORS, BREAKPOINTS } from '../constants';
 const ICONS_MAP = {
   note: {
     icon: iosLightbulb,
-    gradient: `-20deg, ${COLORS.purple[700]}, ${COLORS.blue[500]}`,
+    gradient: `-30deg, ${COLORS.violet[500]}, ${COLORS.purple[500]}`,
   },
   funFact: {
     icon: planet,
@@ -17,21 +17,21 @@ const ICONS_MAP = {
 };
 
 const Info = ({ type, children }) => (
-  <Wrapper type={type}>
-    <IconWrapper>
-      <IconBase size={32} icon={ICONS_MAP[type].icon} />
-    </IconWrapper>
-    <span>{children}</span>
+  <Wrapper>
+    <Contents type={type}>
+      <IconWrapper>
+        <IconBase size={32} icon={ICONS_MAP[type].icon} />
+      </IconWrapper>
+      <span>{children}</span>
+    </Contents>
+
+    <Background type={type} />
   </Wrapper>
 );
 
 const Wrapper = styled.div`
-  display: flex;
-  padding: 16px;
-  background: linear-gradient(${props => ICONS_MAP[props.type].gradient});
-  color: #fff;
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
+  position: relative;
+  margin: 2rem;
 
   @media ${BREAKPOINTS.sm} {
     margin-left: -16px;
@@ -39,8 +39,29 @@ const Wrapper = styled.div`
   }
 `;
 
+const Contents = styled.div`
+  position: relative;
+  z-index: 2;
+  display: flex;
+  padding: 16px;
+  background: ${COLORS.gray[100]};
+  /* color: #fff; */
+  font-size: 1.25rem;
+
+`
+
+const Background = styled.div`
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  /* background: linear-gradient(${props => ICONS_MAP[props.type].gradient}); */
+`
+
 const IconWrapper = styled.div`
   padding-right: 16px;
+  color: ${COLORS.violet[500]};
 `;
 
 export default Info;
