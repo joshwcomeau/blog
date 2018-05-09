@@ -13,6 +13,7 @@ import LiveEditableCode from '../../../components/LiveEditableCode';
 import Info from '../../../components/Info';
 import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
+import BezierController from './BezierController';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -39,19 +40,15 @@ const CODE_SAMPLES = [
   `\
 const rectangle = (
   <rect
-    x={40}
-    y={15}
-    width={30}
-    height={65}
+    x={40} y={15}
+    width={30} height={65}
     fill="hotpink"
   />
 );
 const circle = (
   <ellipse
-    cx={30}
-    cy={60}
-    rx={20}
-    ry={20}
+    cx={30} cy={60}
+    rx={20} ry={20}
     fill="lightsalmon"
   />
 );
@@ -146,7 +143,7 @@ export default () => (
       <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
 
-    <LiveEditableCode code={CODE_SAMPLES[0]} split={[50, 50]} />
+    <LiveEditableCode code={CODE_SAMPLES[0]} split={[50, 50]} maxHeight={530} />
 
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
@@ -178,26 +175,10 @@ export default () => (
     </Info>
 
     <Paragraph>
-      For this blog, I thought it'd be cool if the hero image had a swoopy,
-      curvy bottom edge, as a way of making the hero feel less traditional. My
-      partner pointed out that it would be cool if the curve flattened out as
-      the user scrolled down; not only would this look swanky, but by pulling
-      the curve up and out of the way, it would draw focus towards the text, and
-      lead to a cleaner reading experience.
+      The <InlineCode>path</InlineCode> element gives us access to Bézier curves
+      through the Q and C commands.
     </Paragraph>
 
-    <Paragraph>
-      The only problem was that I hadn't really worked with Bezier curves
-      before. Sure, I was comfortable with basic SVG shapes like lines and
-      polygons... but curves felt like a next-level challenge. Polygons just
-      need some trigonometry, but curves require calculus, and I never learned
-      calculus.
-    </Paragraph>
-
-    <Paragraph>
-      Surprisingly (to me, at least), it turns out that I didn't need to learn
-      anything about derivatives. Bézier curves aren't that intimidating once
-      you understand how they work!
-    </Paragraph>
+    <BezierController />
   </BlogPostTemplate>
 );

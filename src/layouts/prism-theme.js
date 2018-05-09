@@ -32,12 +32,9 @@ injectGlobal`
   font-size: 16px;
   letter-spacing: -0.5px;
   outline: none;
-  padding: 1.5rem 1.5rem;
 	margin: 0;
 	overflow: auto;
 	border-radius: 0;
-  background: #F8F8F8;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
 
   &::selection {
     color: ${COLORS.white};

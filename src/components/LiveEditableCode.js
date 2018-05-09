@@ -12,6 +12,7 @@ class LiveEditableCode extends PureComponent {
     scope: PropTypes.object,
     size: PropTypes.oneOf(['normal', 'extra-wide']),
     split: PropTypes.arrayOf(PropTypes.number),
+    maxHeight: PropTypes.number,
   };
 
   static defaultProps = {
@@ -19,7 +20,7 @@ class LiveEditableCode extends PureComponent {
   };
 
   render() {
-    const { code, scope, size, split } = this.props;
+    const { code, scope, size, split, maxHeight } = this.props;
 
     const [leftSplit, rightSplit] = split;
 
@@ -34,7 +35,7 @@ class LiveEditableCode extends PureComponent {
       >
         <FullWidth>
           <Wrapper maxWidth={maxWidth}>
-            <Left split={leftSplit}>
+            <Left split={leftSplit} maxHeight={maxHeight}>
               <LiveEditor />
             </Left>
             <Right split={rightSplit}>
@@ -55,7 +56,12 @@ const Wrapper = styled(MaxWidthWrapper)`
 `;
 
 const Left = styled.div`
+  padding: 32px;
   flex: ${props => props.split};
+  background: #f8f8f8;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  max-height: ${props => props.maxHeight}px;
+  overflow: auto;
 `;
 
 const Right = styled.div`
