@@ -42,7 +42,7 @@ class SingleAxisDemo extends PureComponent {
 
     return (
       <Wrapper>
-        <Motion style={{ axisValue: spring(this.state.axisValue) }}>
+        <Motion style={{ axisValue: this.state.axisValue }}>
           {({ axisValue }) => (
             <Box
               onMouseEnter={this.handleMouseEnter}

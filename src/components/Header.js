@@ -158,6 +158,11 @@ const InnerWrapper = styled.div`
   color: ${COLORS.gray[500]};
   background: ${COLORS.white};
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
+
+  @media (orientation: portrait) {
+    left: 0;
+    right: 0;
+  }
 `;
 
 const TextWrapper = styled.div`

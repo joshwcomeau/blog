@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
 
-import { COLORS, Z_INDICES, SIZES } from '../../constants';
+import { COLORS, Z_INDICES, SIZES, BREAKPOINTS } from '../../constants';
 import { clamp } from '../../utils';
 import { humanizeDate } from '../../helpers/date.helpers';
 
@@ -20,7 +20,6 @@ class BaseHero extends PureComponent {
     title: PropTypes.string.isRequired,
     publishedOn: PropTypes.string.isRequired,
     // Hero styles
-    height: PropTypes.number,
     gutter: PropTypes.number,
     background: PropTypes.string,
     titleGradientSteps: PropTypes.arrayOf(PropTypes.string),
@@ -29,10 +28,11 @@ class BaseHero extends PureComponent {
     curveColors: PropTypes.arrayOf(PropTypes.string),
     // Additional stuff to include, like mountains
     decorations: PropTypes.node,
+    // Environment info
+    orientation: PropTypes.oneOf(['portrait', 'landscape']),
   };
 
   static defaultProps = {
-    height: '70vh',
     gutter: 10,
   };
 
@@ -43,18 +43,25 @@ class BaseHero extends PureComponent {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
 
-    // I know that the hero height will never change.
-    // Rather than compute the node's height on every scroll, I'm caching it
-    // on the instance.
-    this.height =
-      this.node.getBoundingClientRect().height -
-      CURVE_HEIGHT -
-      this.props.gutter;
+    this.height = this.calculateHeight();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.orientation !== this.props.orientation) {
+      this.height = this.calculateHeight();
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   }
+
+  calculateHeight = () => {
+    const { gutter } = this.props;
+    // The height will only change when the orientation changes (which affects
+    // the size of the gutter, and the )
+    return this.node.getBoundingClientRect().height - CURVE_HEIGHT - gutter;
+  };
 
   handleScroll = ev => {
     let percentScrolled = window.scrollY / this.height * 100;
@@ -70,35 +77,27 @@ class BaseHero extends PureComponent {
     const {
       title,
       publishedOn,
-      height,
-      gutter,
       background,
       titleGradientSteps,
       authorColor,
       publishedOnColor,
       curveColors,
       decorations,
+      orientation,
     } = this.props;
     const { heroScrollPercentage } = this.state;
+
+    const height = orientation === 'landscape' ? '70vh' : '50vh';
+    const gutter = orientation === 'landscape' ? this.props.gutter : 0;
 
     return (
       <Wrapper>
         <Hero
           innerRef={node => (this.node = node)}
           height={height}
-          gutter={gutter}
+          gutter={orientation === 'landscape' ? gutter : 0}
           background={background}
         >
-          <IconWrapper size={45}>
-            <ClickableIcon
-              href="/"
-              icon={iosHomeOutline}
-              iconHover={iosHome}
-              size={SIZES.homeIcon}
-              color={COLORS.gray[500]}
-              colorHover={COLORS.gray[700]}
-            />
-          </IconWrapper>
           <MaxWidthWrapper>
             {/* TODO: Support other kinds of titles? */}
             <GradientTitle gradient={titleGradientSteps.join(', ')}>
@@ -127,7 +126,7 @@ class BaseHero extends PureComponent {
           />
         </CurveWrapper>
 
-        <CurveBlocker gutter={gutter} />
+        {gutter && <CurveBlocker gutter={gutter} />}
       </Wrapper>
     );
   }
@@ -184,6 +183,12 @@ const GradientTitle = styled.h1`
     -webkit-background-clip: initial;
     -webkit-text-fill-color: initial;
   }
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 3rem;
+    line-height: 3rem;
+    letter-spacing: -0.1rem;
+  }
 `;
 
 const Byline = styled.h3`
@@ -197,6 +202,10 @@ const Byline = styled.h3`
     background-color: ${COLORS.gray[800]};
     -webkit-background-clip: initial;
     -webkit-text-fill-color: initial;
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 1.2rem;
   }
 `;
 

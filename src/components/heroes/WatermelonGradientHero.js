@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from '../../constants';
+import { COLORS, BREAKPOINTS } from '../../constants';
 import Mountains from '../Mountains';
 
 import BaseHero from './BaseHero';
 
-const WatermelonGradientHero = ({ title, publishedOn }) => (
+const WatermelonGradientHero = ({ title, publishedOn, orientation }) => (
   <BaseHero
     title={title}
     publishedOn={publishedOn}
+    orientation={orientation}
     background="linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)"
     titleGradientSteps={['80deg', COLORS.pink[500], COLORS.purple[700]]}
     authorColor={COLORS.pink[500]}
@@ -30,6 +31,10 @@ const MountainsWrapper = styled.div`
   right: 0;
   bottom: 0;
   width: 40%;
+
+  @media ${BREAKPOINTS.sm} {
+    display: none;
+  }
 `;
 
 export default WatermelonGradientHero;

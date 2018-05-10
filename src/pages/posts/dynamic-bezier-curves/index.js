@@ -10,6 +10,7 @@ import Heading from '../../../components/Heading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
 import Link from '../../../components/Link';
+import Spacer from '../../../components/Spacer';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import LiveEditableCode from '../../../components/LiveEditableCode';
 import Info from '../../../components/Info';
@@ -135,25 +136,51 @@ export default () => (
         <strong>move</strong> to a specific coordinate.
       </ListItem>
       <ListItem>
-        <InlineCode>L</InlineCode> commands, which instruct the path to create a{' '}
+        <InlineCode>L</InlineCode>, which instructs the path to create a{' '}
         <strong>line</strong> from the current position to the specified
         coordinate.
       </ListItem>
     </List>
 
     <Paragraph>
-      Both the <InlineCode>M</InlineCode> and <InlineCode>L</InlineCode>{' '}
-      commands take an X/Y coordinate as their "arguments". So, the path in the
-      code snippet above instructs the path to move to a specific point, and
-      then draw 3 connected lines. By default,{' '}
-      <InlineCode>{'<path>'}</InlineCode> elements are self-closing, and so a
-      line is implicitly created from the final point to the starting one.
+      After the commands <InlineCode>M</InlineCode> and{' '}
+      <InlineCode>L</InlineCode>, we see some numbers. These can be thought of
+      as "arguments" for the commands. In this case, the arguments are
+      coordinates; both <InlineCode>M</InlineCode> and{' '}
+      <InlineCode>L</InlineCode> require a single X/Y pair.
     </Paragraph>
 
     <Paragraph>
-      The <InlineCode>path</InlineCode> element gives us access to Bézier curves
-      through the Q and C commands.
+      In other words, we can read the above path as: "Move to{' '}
+      <InlineCode>{'{x: 100, y: 100}'}</InlineCode>, then draw a line to{' '}
+      <InlineCode>{'{x: 200, y: 100}'}</InlineCode>", and so on.
     </Paragraph>
+
+    <Paragraph>
+      The <InlineCode>path</InlineCode> element features{' '}
+      <Link
+        href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"
+        external
+        target="_blank"
+      >
+        quite a number
+      </Link>{' '}
+      of these commands. There are two that are relevant for our purposes:
+    </Paragraph>
+
+    <List>
+      <ListItem>
+        <InlineCode>Q</InlineCode>, which instructs the path to create a{' '}
+        <strong>quadratic Bézier curve</strong>.
+      </ListItem>
+      <ListItem>
+        <InlineCode>C</InlineCode>, which instructs the path to create a{' '}
+        <strong>cubic Bézier curve</strong>.
+      </ListItem>
+    </List>
+
+    <Spacer size={80} />
+    <SectionHeading>Intro to Bézier Curves</SectionHeading>
 
     <BezierController />
   </BlogPostTemplate>

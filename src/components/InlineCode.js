@@ -5,6 +5,6 @@ export default styled.span`
   font-family: 'Fira Code', monospace;
   font-size: 0.8em;
   letter-spacing: -0.5px;
-  padding: 6px;
+  padding: 2px 6px;
   background: rgba(0, 0, 0, 0.1);
 `;

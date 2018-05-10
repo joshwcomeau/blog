@@ -23,10 +23,16 @@ class InitialCurve extends Component {
 
     const progressRatio = percentStraightened / 100;
 
-    const originPoint = getInterpolatedValue(25, 0, progressRatio);
-    const controlPoint1 = getInterpolatedValue(350, 0, progressRatio);
-    const controlPoint2 = getInterpolatedValue(-90, 0, progressRatio);
-    const destinationPoint = getInterpolatedValue(200, 0, progressRatio);
+    const originPoint = Math.round(getInterpolatedValue(25, 0, progressRatio));
+    const controlPoint1 = Math.round(
+      getInterpolatedValue(350, 0, progressRatio)
+    );
+    const controlPoint2 = Math.round(
+      getInterpolatedValue(-90, 0, progressRatio)
+    );
+    const destinationPoint = Math.round(
+      getInterpolatedValue(200, 0, progressRatio)
+    );
 
     return `
       M 0,${originPoint}
@@ -43,7 +49,6 @@ class InitialCurve extends Component {
         height={height}
         innerRef={node => (this.node = node)}
         viewBox="0 0 720 200"
-        preserveAspectRatio="none"
       >
         <path
           d={this.calculatePathForCurve()}
@@ -60,6 +65,7 @@ class InitialCurve extends Component {
 const Svg = styled.svg`
   display: block;
   overflow: visible;
+  box-sizing: content-box;
 `;
 
 export default InitialCurve;

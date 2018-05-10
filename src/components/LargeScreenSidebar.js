@@ -132,7 +132,8 @@ class LargeScreenSidebar extends Component {
 
 const Wrapper = styled.div`
   position: sticky;
-  top: 100px;
+  top: 0px;
+  margin-top: -175px;
   left: ${props => props.width * -1}px;
   width: ${props => props.width}px;
   opacity: ${props => (props.isVisible ? 1 : 0)};

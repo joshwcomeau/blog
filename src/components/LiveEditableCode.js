@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import FullWidth from './FullWidth';
 import MaxWidthWrapper from './MaxWidthWrapper';
+import { BREAKPOINTS } from '../constants';
 
 class LiveEditableCode extends PureComponent {
   static propTypes = {
@@ -35,13 +36,13 @@ class LiveEditableCode extends PureComponent {
       >
         <FullWidth>
           <Wrapper maxWidth={maxWidth}>
-            <Left split={leftSplit} maxHeight={maxHeight}>
+            <EditorWrapper split={leftSplit} maxHeight={maxHeight}>
               <LiveEditor />
-            </Left>
-            <Right split={rightSplit}>
+            </EditorWrapper>
+            <PreviewWrapper split={rightSplit}>
               <LiveError />
               <LivePreview />
-            </Right>
+            </PreviewWrapper>
           </Wrapper>
         </FullWidth>
       </LiveProvider>
@@ -53,21 +54,32 @@ const Wrapper = styled(MaxWidthWrapper)`
   display: flex;
   margin-top: 48px;
   margin-bottom: 72px;
+
+  @media ${BREAKPOINTS.md} {
+    flex-direction: column;
+  }
 `;
 
-const Left = styled.div`
+const EditorWrapper = styled.div`
   padding: 32px;
   flex: ${props => props.split};
   background: #f8f8f8;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
   max-height: ${props => props.maxHeight}px;
   overflow: auto;
 `;
 
-const Right = styled.div`
+const PreviewWrapper = styled.div`
   padding: 32px;
   flex: ${props => props.split};
   background: #f8f8f8;
+
+  @media ${BREAKPOINTS.md} {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  @media ${BREAKPOINTS.mdMin} {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export default LiveEditableCode;

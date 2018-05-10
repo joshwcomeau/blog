@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
-import { COLORS, Z_INDICES } from '../constants';
+import { COLORS, Z_INDICES, BREAKPOINTS } from '../constants';
 import { siteMetadata } from '../../gatsby-config';
+import { getDeviceType } from '../helpers/responsive.helpers';
 
 import FullWidth from '../components/FullWidth';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import Header from '../components/Header';
+import WindowDimensions from '../components/WindowDimensions';
 import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 
@@ -23,6 +25,7 @@ const getHero = heroStyle => {
 
 export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
   const Hero = getHero(heroStyle);
+  const deviceType = getDeviceType();
 
   return (
     <FullWidth>
@@ -33,11 +36,25 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
       </Helmet>
 
       <Header title={title} publishedOn={publishedOn} heroStyle={heroStyle} />
-      <Hero title={title} publishedOn={publishedOn} image={heroImage} />
+      <WindowDimensions>
+        {({ windowWidth, windowHeight }) => {
+          const orientation =
+            windowWidth >= windowHeight ? 'landscape' : 'portrait';
+
+          return (
+            <Hero
+              title={title}
+              publishedOn={publishedOn}
+              image={heroImage}
+              orientation={orientation}
+            />
+          );
+        }}
+      </WindowDimensions>
 
       <MainContent>
         <MaxWidthWrapper>
-          <LargeScreenSidebar title={title} />
+          {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
           {children}
         </MaxWidthWrapper>
       </MainContent>
@@ -89,7 +106,11 @@ const MainContent = styled.div`
   position: relative;
   background: ${COLORS.white};
   z-index: ${Z_INDICES.mainContent};
-  padding-top: 20px;
+  padding-top: 150px;
+
+  @media ${BREAKPOINTS.sm} {
+    padding-top: 75px;
+  }
 `;
 
 const MountainsWrapper = styled.div`

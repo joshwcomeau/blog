@@ -9,7 +9,9 @@ const Link = ({ external, href, target, rel, ...delegated }) => {
 
   const safeRel = target === '_blank' ? 'noopener noreferrer' : rel;
 
-  return <LinkComponent href={href} rel={safeRel} {...delegated} />;
+  return (
+    <LinkComponent href={href} rel={safeRel} target={target} {...delegated} />
+  );
 };
 
 const ExternalLink = styled.a`
