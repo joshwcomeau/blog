@@ -63,10 +63,7 @@ class Bezier extends PureComponent {
     } = this.props;
     const [p1, p2, p3, p4] = points;
 
-    const curveType =
-      typeof p4[0] === 'number' || typeof p4[1] === 'number'
-        ? 'cubic'
-        : 'quadratic';
+    const curveType = typeof p4 !== 'undefined' ? 'cubic' : 'quadratic';
 
     const instructions =
       curveType === 'cubic'
