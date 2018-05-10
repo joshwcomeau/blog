@@ -1,3 +1,5 @@
+// I'm editable!
+
 const rectangle = (
   <rect
     x={40} y={15}

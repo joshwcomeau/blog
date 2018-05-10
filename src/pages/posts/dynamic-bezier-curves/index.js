@@ -4,6 +4,8 @@ import { COLORS } from '../../../constants';
 
 import BlogPostTemplate from '../../../templates/BlogPost';
 import Paragraph from '../../../components/Paragraph';
+import List from '../../../components/List';
+import ListItem from '../../../components/ListItem';
 import Heading from '../../../components/Heading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
@@ -88,29 +90,32 @@ export default () => (
     </SectionHeading>
 
     <Paragraph>
-      For achieving this effect, we'll use SVG. We could also use HTML Canvas, but SVG is easier to work with, and more accessible+.
+      For achieving this effect, we'll use SVG. We could also use HTML Canvas,
+      but SVG is easier to work with, and more accessible+.
     </Paragraph>
 
     <Paragraph>
-      While doing a deep dive into SVG is beyond the scope of this post (I'd recommend the <Link
-        external
-        href="https://www.w3schools.com/graphics/svg_intro.asp"
-      >
+      While doing a deep dive into SVG is beyond the scope of this post (I'd
+      recommend the{' '}
+      <Link external href="https://www.w3schools.com/graphics/svg_intro.asp">
         W3Schools tutorial
-      </Link> for that), we'll cover the basics, and show how to create our Bézier curve from scratch. Experienced SVG-ers can jump to [link needed].
+      </Link>{' '}
+      for that), we'll cover the basics, and show how to create our Bézier curve
+      from scratch. Experienced SVG-ers can jump to [link needed].
     </Paragraph>
 
     <Paragraph>
-      The simplest form of SVG drawings use shape elements,
-      like <InlineCode>{'<rect>'}</InlineCode> or{' '}
+      The simplest form of SVG drawings use shape elements, like{' '}
+      <InlineCode>{'<rect>'}</InlineCode> or{' '}
       <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
 
-    <LiveEditableCode code={basicShapesCode} split={[50, 50]} maxHeight={530} />
+    <LiveEditableCode code={basicShapesCode} split={[50, 50]} maxHeight={585} />
 
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
-      comes at the cost of flexibility; you can only create a handful of different shapes.
+      comes at the cost of flexibility; you can only create a handful of
+      different shapes.
     </Paragraph>
 
     <Paragraph>
@@ -122,17 +127,27 @@ export default () => (
 
     <LiveEditableCode code={pathIntroCode} />
 
-    <Paragraph>
-      The interactive code snippet above uses 2 commands:
-    </Paragraph>
+    <Paragraph>The interactive code snippet above uses 2 commands:</Paragraph>
 
-    <ul>
-      <li><InlineCode>M</InlineCode>, which instructs the path to <strong>move</strong> to a specific coordinate.</li>
-      <li><InlineCode>L</InlineCode> commands, which instruct the path to create a <strong>line</strong> from the current position to the specified coordinate.</li>
-    </ul>
+    <List>
+      <ListItem>
+        <InlineCode>M</InlineCode>, which instructs the path to{' '}
+        <strong>move</strong> to a specific coordinate.
+      </ListItem>
+      <ListItem>
+        <InlineCode>L</InlineCode> commands, which instruct the path to create a{' '}
+        <strong>line</strong> from the current position to the specified
+        coordinate.
+      </ListItem>
+    </List>
 
     <Paragraph>
-      Both the <InlineCode>M</InlineCode> and <InlineCode>L</InlineCode> commands take an X/Y coordinate as their "arguments". So, the path in the code snippet above instructs the path to move to a specific point, and then draw 3 connected lines. By default, <InlineCode>{'<path>'}</InlineCode> elements are self-closing, and so a line is implicitly created from the final point to the starting one.
+      Both the <InlineCode>M</InlineCode> and <InlineCode>L</InlineCode>{' '}
+      commands take an X/Y coordinate as their "arguments". So, the path in the
+      code snippet above instructs the path to move to a specific point, and
+      then draw 3 connected lines. By default,{' '}
+      <InlineCode>{'<path>'}</InlineCode> elements are self-closing, and so a
+      line is implicitly created from the final point to the starting one.
     </Paragraph>
 
     <Paragraph>
