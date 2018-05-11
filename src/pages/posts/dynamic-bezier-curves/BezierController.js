@@ -2,19 +2,23 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 import Bezier from './Bezier';
-import RadioGroup from '../../../components/RadioGroup';
 import RadioButton from '../../../components/RadioButton';
 import { COLORS } from '../../../constants';
 
 class BezierController extends PureComponent {
+  static defaultProps = {
+    initialType: 'quadratic',
+  };
+
   state = {
     viewBoxWidth: 1000,
-    viewBoxHeight: 350,
-    p1: [50, 325],
-    p2: [100, 10],
-    p3: [666, 340],
-    p4: [975, 25],
-    type: 'cubic',
+    viewBoxHeight: 400,
+    p1: this.props.p1 || [25, 200],
+    p2: this.props.p2 || [500, 200],
+    p3: this.props.p3 || [800, 200],
+    p4: this.props.p4 || [975, 200],
+    type: this.props.initialType,
+    allowToggle: false,
   };
 
   handleUpdatePoint = (pointId, pointCoords) => {
@@ -30,41 +34,41 @@ class BezierController extends PureComponent {
   };
 
   swapType = type => {
-    console.log('Swapping', type);
     this.setState({ type });
   };
 
   render() {
+    const { allowToggle } = this.props;
     const { viewBoxWidth, viewBoxHeight, p1, p2, p3, p4, type } = this.state;
-
-    console.log(type);
 
     return (
       <div>
         <Wrapper>
-          <Controls>
-            <RadioButtonsWrapper>
-              <Label>
-                <RadioButton
-                  name="bezier-control-type"
-                  id="quadratic"
-                  isSelected={type === 'quadratic'}
-                  handleSelect={this.swapType}
-                />
-                Quadratic
-              </Label>
+          {allowToggle && (
+            <Controls>
+              <RadioButtonsWrapper>
+                <Label>
+                  <RadioButton
+                    name="bezier-control-type"
+                    id="quadratic"
+                    isSelected={type === 'quadratic'}
+                    handleSelect={this.swapType}
+                  />
+                  Quadratic
+                </Label>
 
-              <Label>
-                <RadioButton
-                  name="bezier-control-type"
-                  id="cubic"
-                  isSelected={type === 'cubic'}
-                  handleSelect={this.swapType}
-                />
-                Cubic
-              </Label>
-            </RadioButtonsWrapper>
-          </Controls>
+                <Label>
+                  <RadioButton
+                    name="bezier-control-type"
+                    id="cubic"
+                    isSelected={type === 'cubic'}
+                    handleSelect={this.swapType}
+                  />
+                  Cubic
+                </Label>
+              </RadioButtonsWrapper>
+            </Controls>
+          )}
           <BezierWrapper>
             <Bezier
               viewBoxWidth={viewBoxWidth}
@@ -74,7 +78,6 @@ class BezierController extends PureComponent {
             />
           </BezierWrapper>
         </Wrapper>
-        <Note>The points on this Bézier curve are draggable!</Note>
       </div>
     );
   }
@@ -83,6 +86,7 @@ class BezierController extends PureComponent {
 const Wrapper = styled.div`
   background: rgba(0, 0, 0, 0.1);
   padding: 1px;
+  margin-bottom: 40px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.18);
@@ -101,11 +105,12 @@ const Note = styled.div`
   padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 const RadioButtonsWrapper = styled.div`
   display: flex;
+  align-items: center;
+  font-size: 1.5rem;
 `;
 
 const Label = styled.label`

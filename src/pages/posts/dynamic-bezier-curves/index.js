@@ -10,10 +10,12 @@ import Heading from '../../../components/Heading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
 import Link from '../../../components/Link';
+import Em from '../../../components/Em';
 import Spacer from '../../../components/Spacer';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import LiveEditableCode from '../../../components/LiveEditableCode';
 import Info from '../../../components/Info';
+import Footnote from '../../../components/Footnote';
 import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
 import BezierController from './BezierController';
@@ -132,13 +134,12 @@ export default () => (
 
     <List>
       <ListItem>
-        <InlineCode>M</InlineCode>, which instructs the path to{' '}
-        <strong>move</strong> to a specific coordinate.
+        <InlineCode>M</InlineCode>, which instructs the path to <Em>move</Em> to
+        a specific coordinate.
       </ListItem>
       <ListItem>
         <InlineCode>L</InlineCode>, which instructs the path to create a{' '}
-        <strong>line</strong> from the current position to the specified
-        coordinate.
+        <Em>line</Em> from the current position to the specified coordinate.
       </ListItem>
     </List>
 
@@ -171,17 +172,57 @@ export default () => (
     <List>
       <ListItem>
         <InlineCode>Q</InlineCode>, which instructs the path to create a{' '}
-        <strong>quadratic Bézier curve</strong>.
+        <Em>quadratic</Em> Bézier curve.
       </ListItem>
       <ListItem>
         <InlineCode>C</InlineCode>, which instructs the path to create a{' '}
-        <strong>cubic Bézier curve</strong>.
+        <Em>cubic</Em> Bézier curve.
       </ListItem>
     </List>
 
     <Spacer size={80} />
     <SectionHeading>Intro to Bézier Curves</SectionHeading>
 
-    <BezierController />
+    <Paragraph>
+      Bézier curves are surprisingly common. Due to their versatility, they're a
+      staple in most graphics software like Photoshop, but they're also used as
+      timing functions: if you've ever used non-linear CSS transitions (like the
+      default "ease"), you've already worked with Bézier curves!
+    </Paragraph>
+
+    <Paragraph>But what are they, and how do they work?</Paragraph>
+
+    <Paragraph>
+      A Bézier curve is essentially a line that is acted upon by one or more{' '}
+      <Em>control points</Em>. A control point curves the line towards it, as if
+      the control point was pulling it in its direction.
+    </Paragraph>
+
+    <Paragraph>
+      The following line looks like a straight line, but check out what happens
+      when you move the <Em>control point</Em> (the middle outline point), or
+      one of the <Em>end points</Em>
+    </Paragraph>
+
+    <BezierController initialType="quadratic" />
+
+    <Paragraph>
+      The line above is a <Em>quadratic</Em> Bézier curve; this just means that
+      it has a single control point.
+    </Paragraph>
+
+    <Paragraph>
+      A <Em>cubic</Em> Bézier curve, in contrast, has <strong>two</strong>{' '}
+      control points. This allows for much more interesting curves:
+    </Paragraph>
+
+    <BezierController
+      allowToggle
+      initialType="cubic"
+      p1={[25, 25]}
+      p2={[333, 375]}
+      p3={[666, 25]}
+      p4={[975, 375]}
+    />
   </BlogPostTemplate>
 );

@@ -87,7 +87,9 @@ class Bezier extends PureComponent {
         onMouseUp={this.handleMouseUp}
       >
         <ControlLine x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} />
-        <ControlLine x1={p2[0]} y1={p2[1]} x2={p3[0]} y2={p3[1]} />
+        {curveType === 'quadratic' && (
+          <ControlLine x1={p2[0]} y1={p2[1]} x2={p3[0]} y2={p3[1]} />
+        )}
         {curveType === 'cubic' && (
           <ControlLine x1={p3[0]} y1={p3[1]} x2={p4[0]} y2={p4[1]} />
         )}
