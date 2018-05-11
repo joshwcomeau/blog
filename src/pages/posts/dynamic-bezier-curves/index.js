@@ -15,13 +15,13 @@ import Spacer from '../../../components/Spacer';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import LiveEditableCode from '../../../components/LiveEditableCode';
 import Info from '../../../components/Info';
-import Footnote from '../../../components/Footnote';
 import MouseTracker from './MouseTracker';
 import InitialCurve from './InitialCurve';
 import BezierController from './BezierController';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
+import bezierPathCode from './code/bezier-path.example';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -147,8 +147,7 @@ export default () => (
       After the commands <InlineCode>M</InlineCode> and{' '}
       <InlineCode>L</InlineCode>, we see some numbers. These can be thought of
       as "arguments" for the commands. In this case, the arguments are
-      coordinates; both <InlineCode>M</InlineCode> and{' '}
-      <InlineCode>L</InlineCode> require a single X/Y pair.
+      coordinates; both commands require a single X/Y pair.
     </Paragraph>
 
     <Paragraph>
@@ -193,15 +192,14 @@ export default () => (
     <Paragraph>But what are they, and how do they work?</Paragraph>
 
     <Paragraph>
-      A Bézier curve is essentially a line that is acted upon by one or more{' '}
+      A Bézier curve is essentially a line from a <Em>start point</Em> to an <Em>end point</Em> that is acted upon by one or more{' '}
       <Em>control points</Em>. A control point curves the line towards it, as if
       the control point was pulling it in its direction.
     </Paragraph>
 
     <Paragraph>
       The following line looks like a straight line, but check out what happens
-      when you move the <Em>control point</Em> (the middle outline point), or
-      one of the <Em>end points</Em>
+      when you move the points around—try dragging the middle control point up and down.
     </Paragraph>
 
     <BezierController initialType="quadratic" />
@@ -224,5 +222,11 @@ export default () => (
       p3={[666, 25]}
       p4={[975, 375]}
     />
+
+    <Paragraph>
+      The syntax for Bézier curves in SVG <InlineCode>path</InlineCode> definitions is a little counter-intuitive, but it looks like this: <InlineCode>M startX,startY Q controlX,controlY endX,endY</InlineCode>
+    </Paragraph>
+
+    <LiveEditableCode code={bezierPathCode} />
   </BlogPostTemplate>
 );

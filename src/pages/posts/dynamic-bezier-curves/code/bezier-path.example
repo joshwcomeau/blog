@@ -1,0 +1,17 @@
+const startPoint = '25,25';
+const controlPoint = '300,175';
+const endPoint = '25,325';
+
+render(
+  <svg viewBox="0 0 200 350">
+    <path
+      d={`
+        M ${startPoint}
+        Q ${controlPoint} ${endPoint}
+      `}
+      fill="none"
+      stroke="hotpink"
+      strokeWidth={5}
+    />
+  </svg>
+);
