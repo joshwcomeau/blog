@@ -23,6 +23,7 @@ import pathIntroCode from './code/path-intro.example';
 import bezierPathCode from './code/bezier-path.example';
 import chainedCurvesCode from './code/chained-curves.example';
 import reactBezierCode from './code/react-bezier.example';
+import optimizedReactBezierCode from './code/optimized-react-bezier.example';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -331,14 +332,32 @@ export default () => (
       </ListItem>
     </List>
 
+    <Spacer size={25} />
     <SubHeading>A note on performance</SubHeading>
 
     <Paragraph>
-      You may think that re-rendering the React component on every <InlineCode>mousemove</InlineCode> is prohibitively expensive. After all, React has this fancy reconciliation process to diff two separate virtual-DOM trees, surely that's too slow to run 60 times a second for smooth animation?
+      By using React's update cycle to manage the point coordinates, there is added overhead of letting React run its reconciliation cycle on every <InlineCode>mousemove</InlineCode>. Is this prohibitively expensive?
     </Paragraph>
 
     <Paragraph>
-      React re-renders always surprise me with how quick they are. Of course, it depends on the size of the tree; your top-level <InlineCode>{'<App>'}</InlineCode> component might take quite a while to re-render if you haven't made liberal use of <InlineCode>PureComponent</InlineCode>, but in this case, the only thing re-rendering is an SVG.
+      The answer is that it depends. React's reconciliation can be surprisingly fast, especially when dealing with such a small tree (after all, the only thing that needs to be diffed is an SVG).
+    </Paragraph>
+
+    <Paragraph>
+      I wrote an <Link external href="" target="_blank">alternative implementation</Link> that updates the DOM directly. It does run faster (about 1.5-2x faster in my quick test), but both implementations still clock in under 1ms on modern high-end hardware. With 6x CPU slowdown, the React-based implementation still runs around 50fps, while the optimized one caps at 60fps.
+    </Paragraph>
+
+    <Paragraph>If I was targeting older devices with this specific animation, it would probably make sense to drop down to the lower-level implementation.</Paragraph>
+
+    <Spacer size={80} />
+    <SectionHeading>Flattening the curve on scroll</SectionHeading>
+
+    <Paragraph>
+      I seem to have gotten a little side-tracked! Our original goal was to create a Bézier curve that flattens itself on scroll.
+    </Paragraph>
+
+    <Paragraph>
+      Given what we've gone over so far, we have almost all of the tools we need to solve this problem! A Bézier curve with its control point(s) directly between the start and end points is just a straight line, so all we have to do is work out the transition from one state to the other, and tie it to a scroll handler.
     </Paragraph>
   </BlogPostTemplate>
 );

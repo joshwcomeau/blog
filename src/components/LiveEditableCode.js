@@ -25,7 +25,7 @@ class LiveEditableCode extends PureComponent {
 
     const [leftSplit, rightSplit] = split;
 
-    const maxWidth = size === 'extra-wide' ? EXTRA_WIDE_WIDTH : undefined;
+    const maxWidth = size === 'extra-wide' ? `${EXTRA_WIDE_WIDTH}px` : undefined;
 
     return (
       <LiveProvider
