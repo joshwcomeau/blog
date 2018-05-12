@@ -14,3 +14,11 @@
   * Section tying it all together
   * Additional reading
   * Newsletter CTA for blog post (maybe 2, interspersed?)
+
+
+# Nice-to-haves
+
+* Footnotes, some way of including optional text/links
+* LiveEditableCode:
+  * Better mobile story
+  * Allow custom resizing of split (vertical line moving)
