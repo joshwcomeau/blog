@@ -79,7 +79,11 @@ export const BREAKPOINTS = {
 export const READING_WIDTH = 850;
 
 const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
-export const IS_MOBILE_USER_AGENT = mobileRegex.test(navigator.userAgent);
+
+const userAgent =
+  typeof window !== 'undefined' ? window.navigator.userAgent : 'node';
+
+export const IS_MOBILE_USER_AGENT = mobileRegex.test(userAgent);
 
 export const Z_INDICES = {
   hero: 1,

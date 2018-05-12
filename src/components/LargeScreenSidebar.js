@@ -31,7 +31,10 @@ class LargeScreenSidebar extends Component {
   };
 
   state = {
-    isVisible: isLargeEnoughScreen() && isScrolledFarEnough(),
+    isVisible:
+      typeof window === 'undefined'
+        ? false
+        : isLargeEnoughScreen() && isScrolledFarEnough(),
   };
 
   componentDidMount() {
@@ -77,6 +80,10 @@ class LargeScreenSidebar extends Component {
   render() {
     const { title } = this.props;
     const { isVisible } = this.state;
+
+    if (typeof window === 'undefined') {
+      return null;
+    }
 
     // prettier-ignore
     const twitterMessage =

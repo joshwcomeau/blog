@@ -14,8 +14,8 @@ type Props = {
 
 class WindowDimensions extends PureComponent<Props, State> {
   state = {
-    windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight,
+    windowWidth: typeof window === 'undefined' ? 1280 : window.innerWidth,
+    windowHeight: typeof window === 'undefined' ? 720 : window.innerHeight,
   };
 
   componentDidMount() {

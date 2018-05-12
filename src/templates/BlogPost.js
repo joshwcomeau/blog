@@ -121,13 +121,3 @@ const MountainsWrapper = styled.div`
   bottom: 0;
   width: 40%;
 `;
-
-export const query = graphql`
-  query SomeQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`;

@@ -6,6 +6,10 @@ export const getBreakpointFor = windowWidth =>
   ) || 'xl';
 
 export const getDeviceType = breakpoint => {
+  if (typeof window === 'undefined') {
+    return 'desktop';
+  }
+
   if (!breakpoint) {
     breakpoint = getBreakpointFor(window.innerWidth);
   }

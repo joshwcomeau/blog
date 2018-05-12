@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Helmet from 'react-helmet';
 
 import { siteMetadata } from '../../gatsby-config';
-import posts from './posts/all-posts';
+import posts from '../all-posts';
 import { COLORS } from '../constants';
 
 import Paragraph from '../components/Paragraph';

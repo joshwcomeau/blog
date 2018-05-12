@@ -15,9 +15,8 @@ import Spacer from '../../../components/Spacer';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
 import LiveEditableCode from '../../../components/LiveEditableCode';
 import Info from '../../../components/Info';
-import MouseTracker from './MouseTracker';
-import InitialCurve from './InitialCurve';
-import BezierController from './BezierController';
+import InitialCurve from '../../../components/InitialCurve';
+import BezierController from '../../../components/BezierController';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';

@@ -134,7 +134,8 @@ class Bezier extends React.PureComponent {
 
     const instructions = `
       M ${startPoint.x},${startPoint.y}
-      Q ${controlPoint.x},${controlPoint.y} ${endPoint.x},${endPoint.y}
+      Q ${controlPoint.x},${controlPoint.y}
+        ${endPoint.x},${endPoint.y}
     `;
 
     return (
