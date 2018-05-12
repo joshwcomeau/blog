@@ -45,6 +45,15 @@ const SectionHeading = ({ style = {}, ...delegated }) => (
   />
 );
 
+const SubHeading = ({ style = {}, ...delegated }) => (
+  <Heading
+    size={4}
+    style={{ ...style, color: COLORS.purple[700] }}
+    {...delegated}
+  />
+
+)
+
 export default () => (
   <BlogPostTemplate {...FRONT_MATTER}>
     <Paragraph>
@@ -290,8 +299,7 @@ export default () => (
     </Paragraph>
 
     <Paragraph>
-      Fair warning: this is a non-trivial bit of code. I've annotated it to make
-      it easier to follow, and so it's quite long! Hopefully it's clear 🤞.
+      There's a fair bit of code to manage this, even in this slightly-simplified snippet. I've annotated it heavily, which hopefully makes things easier to parse. 🤞
     </Paragraph>
 
     <LiveEditableCode
@@ -299,5 +307,38 @@ export default () => (
       code={reactBezierCode}
       maxHeight={650}
     />
+
+    <Paragraph>
+      To summarize how this works:
+    </Paragraph>
+
+    <List>
+      <ListItem>
+        React holds variables in component state for <InlineCode>startPoint</InlineCode>, <InlineCode>controlPoint</InlineCode>, and <InlineCode>endPoint</InlineCode>.
+      </ListItem>
+      <ListItem>
+        In the <Em>render</Em> method, we build the instructions for the <InlineCode>path</InlineCode> using these state variables.
+      </ListItem>
+      <ListItem>
+        When the user clicks or taps on one of the points, we update the state to keep track of which point is moving with <InlineCode>draggingPointId</InlineCode>.
+      </ListItem>
+      <ListItem>
+        As the user moves the mouse (or finger) across the SVG's surface, we do some calculations to figure out where the currently-dragging point needs to move to. This is made complex by the fact that SVGs have their own internal coordinate system (viewBox), and so we have to translate the on-screen pixels to this system.
+      </ListItem>
+
+      <ListItem>
+        Once we have the new X/Y coordinate for the active point, <InlineCode>setState</InlineCode> lets React know about this state change, and the component re-renders, which causes the <InlineCode>path</InlineCode> to be re-calculated.
+      </ListItem>
+    </List>
+
+    <SubHeading>A note on performance</SubHeading>
+
+    <Paragraph>
+      You may think that re-rendering the React component on every <InlineCode>mousemove</InlineCode> is prohibitively expensive. After all, React has this fancy reconciliation process to diff two separate virtual-DOM trees, surely that's too slow to run 60 times a second for smooth animation?
+    </Paragraph>
+
+    <Paragraph>
+      React re-renders always surprise me with how quick they are. Of course, it depends on the size of the tree; your top-level <InlineCode>{'<App>'}</InlineCode> component might take quite a while to re-render if you haven't made liberal use of <InlineCode>PureComponent</InlineCode>, but in this case, the only thing re-rendering is an SVG.
+    </Paragraph>
   </BlogPostTemplate>
 );

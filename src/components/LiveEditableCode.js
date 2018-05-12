@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import FullWidth from './FullWidth';
 import MaxWidthWrapper from './MaxWidthWrapper';
-import { BREAKPOINTS } from '../constants';
+import { BREAKPOINTS, EXTRA_WIDE_WIDTH } from '../constants';
 
 class LiveEditableCode extends PureComponent {
   static propTypes = {
@@ -25,7 +25,7 @@ class LiveEditableCode extends PureComponent {
 
     const [leftSplit, rightSplit] = split;
 
-    const maxWidth = size === 'extra-wide' ? '1058px' : undefined;
+    const maxWidth = size === 'extra-wide' ? EXTRA_WIDE_WIDTH : undefined;
 
     return (
       <LiveProvider

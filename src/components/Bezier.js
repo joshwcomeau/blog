@@ -169,7 +169,7 @@ const VisibleControlPoint = styled(Point).attrs({
   rx: 8,
   ry: 8,
 })`
-  fill: transparent;
+  fill: white;
   stroke: ${COLORS.pink[500]};
   stroke-width: 3;
 `;

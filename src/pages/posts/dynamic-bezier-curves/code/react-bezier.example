@@ -132,12 +132,20 @@ class Bezier extends React.PureComponent {
     const { viewBoxWidth, viewBoxHeight } = this.props;
     const { startPoint, controlPoint, endPoint } = this.state;
 
+    // As we've seen before, the quadratic Bézier curve
+    // involves moving to the starting point, and then
+    // specifying the control and end points with `Q`
     const instructions = `
       M ${startPoint.x},${startPoint.y}
       Q ${controlPoint.x},${controlPoint.y}
         ${endPoint.x},${endPoint.y}
     `;
 
+    // While the Bézier curve is the main attraction,
+    // we also have several shapes, including:
+    //   - the handles for the start/control/end points
+    //   - the dashed line that shows how the control
+    //     point connects to the start/end points.
     return (
       <svg
         ref={node => (this.node = node)}
@@ -147,64 +155,84 @@ class Bezier extends React.PureComponent {
         onMouseLeave={() => this.handleMouseUp()}
         style={{ overflow: 'visible' }}
       >
-        <line
-          x1={startPoint.x}
-          y1={startPoint.y}
-          x2={controlPoint.x}
-          y2={controlPoint.y}
-          stroke="rgb(200, 200, 200)"
-          strokeDasharray="5,5"
-          strokeWidth={2}
+        <ConnectingLine from={startPoint} to={controlPoint} />
+        <ConnectingLine from={controlPoint} to={endPoint} />
+
+        <Curve instructions={instructions} />
+
+        <LargeHandle
+          coordinates={startPoint}
+          onMouseDown={
+            () => this.handleMouseDown('startPoint')
+          }
         />
 
-        <line
-          x1={controlPoint.x}
-          y1={controlPoint.y}
-          x2={endPoint.x}
-          y2={endPoint.y}
-          stroke="rgb(200, 200, 200)"
-          strokeDasharray="5,5"
-          strokeWidth={2}
+        <LargeHandle
+          coordinates={endPoint}
+          onMouseDown={
+            () => this.handleMouseDown('endPoint')
+          }
         />
 
-        <path
-          d={instructions}
-          fill="none"
-          stroke="rgb(213, 0, 249)"
-          strokeWidth={5}
-        />
-
-        <ellipse
-          cx={startPoint.x}
-          cy={startPoint.y}
-          rx={15}
-          ry={15}
-          fill="rgb(244, 0, 137)"
-          onMouseDown={() => this.handleMouseDown('startPoint')}
-        />
-
-        <ellipse
-          cx={controlPoint.x}
-          cy={controlPoint.y}
-          rx={8}
-          ry={8}
-          fill="transparent"
-          stroke="rgb(244, 0, 137)"
-          strokeWidth={2}
-          onMouseDown={() => this.handleMouseDown('controlPoint')}
-        />
-
-        <ellipse
-          cx={endPoint.x}
-          cy={endPoint.y}
-          rx={15}
-          ry={15}
-          fill="rgb(244, 0, 137)"
-          onMouseDown={() => this.handleMouseDown('endPoint')}
+        <SmallHandle
+          coordinates={controlPoint}
+          onMouseDown={
+            () => this.handleMouseDown('controlPoint')
+          }
         />
       </svg>
     );
   }
 }
+
+// These helper stateless-functional-components allow us
+// to reuse styles, and give each shape a meaningful name.
+
+const ConnectingLine = ({ from, to }) => (
+  <line
+    x1={from.x}
+    y1={from.y}
+    x2={to.x}
+    y2={to.y}
+    stroke="rgb(200, 200, 200)"
+    strokeDasharray="5,5"
+    strokeWidth={2}
+  />
+);
+
+const Curve = ({ instructions }) => (
+  <path
+    d={instructions}
+    fill="none"
+    stroke="rgb(213, 0, 249)"
+    strokeWidth={5}
+  />
+);
+
+const LargeHandle = ({ coordinates, onMouseDown }) => (
+  <ellipse
+    cx={coordinates.x}
+    cy={coordinates.y}
+    rx={15}
+    ry={15}
+    fill="rgb(244, 0, 137)"
+    onMouseDown={onMouseDown}
+    style={{ cursor: '-webkit-grab' }}
+  />
+);
+
+const SmallHandle = ({ coordinates, onMouseDown }) => (
+  <ellipse
+    cx={coordinates.x}
+    cy={coordinates.y}
+    rx={8}
+    ry={8}
+    fill="rgb(255, 255, 255)"
+    stroke="rgb(244, 0, 137)"
+    strokeWidth={2}
+    onMouseDown={onMouseDown}
+    style={{ cursor: '-webkit-grab' }}
+  />
+);
 
 render(<Bezier viewBoxWidth={250} viewBoxHeight={250} />);
