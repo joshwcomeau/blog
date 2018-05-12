@@ -22,6 +22,8 @@ import BezierController from './BezierController';
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
 import bezierPathCode from './code/bezier-path.example';
+import chainedCurvesCode from './code/chained-curves.example';
+import reactBezierCode from './code/react-bezier.example';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -157,6 +159,20 @@ export default () => (
     </Paragraph>
 
     <Paragraph>
+      The coordinate system is relative to the values specified in the{' '}
+      <InlineCode>viewBox</InlineCode>. The current viewbox specifies that the
+      viewable area has a top-left corner of 0/0, a width of 300, and a height
+      of 300. So all of the coordinates specified in the{' '}
+      <InlineCode>path</InlineCode> are within that 300x300 box.
+    </Paragraph>
+
+    <Paragraph>
+      The <InlineCode>viewBox</InlineCode> is what makes SVGs scalable; we can
+      make our SVG any size we like, and everything will scale naturally, since
+      the elements within our SVG are relative to this 300x300 box.
+    </Paragraph>
+
+    <Paragraph>
       The <InlineCode>path</InlineCode> element features{' '}
       <Link
         href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"
@@ -192,22 +208,32 @@ export default () => (
     <Paragraph>But what are they, and how do they work?</Paragraph>
 
     <Paragraph>
-      A Bézier curve is essentially a line from a <Em>start point</Em> to an <Em>end point</Em> that is acted upon by one or more{' '}
+      A Bézier curve is essentially a line from a <Em>start point</Em> to an{' '}
+      <Em>end point</Em> that is acted upon by one or more{' '}
       <Em>control points</Em>. A control point curves the line towards it, as if
       the control point was pulling it in its direction.
     </Paragraph>
 
     <Paragraph>
       The following line looks like a straight line, but check out what happens
-      when you move the points around—try dragging the middle control point up and down.
+      when you move the points around—try dragging the middle control point up
+      and down.
     </Paragraph>
 
     <BezierController initialType="quadratic" />
 
     <Paragraph>
       The line above is a <Em>quadratic</Em> Bézier curve; this just means that
-      it has a single control point.
+      it has a <strong>single control point</strong>. I'm guessing it gets its
+      name from the fact that you can create parabola-like shapes with it:
     </Paragraph>
+
+    <BezierController
+      initialType="quadratic"
+      p1={[400, 15]}
+      p2={[500, 395]}
+      p4={[600, 15]}
+    />
 
     <Paragraph>
       A <Em>cubic</Em> Bézier curve, in contrast, has <strong>two</strong>{' '}
@@ -224,9 +250,55 @@ export default () => (
     />
 
     <Paragraph>
-      The syntax for Bézier curves in SVG <InlineCode>path</InlineCode> definitions is a little counter-intuitive, but it looks like this: <InlineCode>M startX,startY Q controlX,controlY endX,endY</InlineCode>
+      The syntax for Bézier curves in SVG <InlineCode>path</InlineCode>{' '}
+      definitions is a little counter-intuitive, but it looks like this:
     </Paragraph>
 
     <LiveEditableCode code={bezierPathCode} />
+
+    <Paragraph>
+      The counter-intuitive thing about this to me is that the{' '}
+      <InlineCode>startPoint</InlineCode> is inferred in the{' '}
+      <InlineCode>Q</InlineCode> command; while there are 3 points needed for a
+      quadratic Bézier curve, only 2 points are passed as arguments to{' '}
+      <InlineCode>Q</InlineCode>.
+    </Paragraph>
+
+    <Paragraph>
+      Similarly, for a cubic Bézier curve, only the control points and the end
+      point are provided to the <InlineCode>C</InlineCode> command.
+    </Paragraph>
+
+    <Paragraph>
+      This syntax does mean that curves can conveniently be chained together, as
+      one curve starts where the last one ends:
+    </Paragraph>
+
+    <LiveEditableCode code={chainedCurvesCode} />
+
+    <Spacer size={80} />
+    <SectionHeading>Bézier Curves in React</SectionHeading>
+
+    <Paragraph>
+      While all of the code samples have technically been React, we've just been
+      rendering static elements. How can we leverage React state to make our
+      SVGs dynamic?
+    </Paragraph>
+
+    <Paragraph>
+      Well, in keeping with the "meta" theme of this blog post, why not examine
+      the draggable-with-lines Bézier curves from earlier in this post?
+    </Paragraph>
+
+    <Paragraph>
+      Fair warning: this is a non-trivial bit of code. I've annotated it to make
+      it easier to follow, and so it's quite long! Hopefully it's clear 🤞.
+    </Paragraph>
+
+    <LiveEditableCode
+      size="extra-wide"
+      code={reactBezierCode}
+      maxHeight={650}
+    />
   </BlogPostTemplate>
 );

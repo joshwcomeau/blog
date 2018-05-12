@@ -6,8 +6,9 @@ render(
   <svg viewBox="0 0 200 350">
     <path
       d={`
-        M ${startPoint}
-        Q ${controlPoint} ${endPoint}
+        M 25,25
+        C 175,50 25,75 25,100
+        C 25,125 175,150 25,175
       `}
       fill="none"
       stroke="hotpink"

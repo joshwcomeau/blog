@@ -63,7 +63,7 @@ injectGlobal`
 .token.doctype,
 .token.cdata {
 	color: #B0BEC5;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .token.punctuation {

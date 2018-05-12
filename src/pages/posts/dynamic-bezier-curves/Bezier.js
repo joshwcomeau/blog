@@ -131,6 +131,19 @@ class Bezier extends PureComponent {
   }
 }
 
+const ControlPoint = ({ cx, cy, onMouseDown }) => (
+  <g>
+    <VisibleControlPoint cx={cx} cy={cy} rx={8} ry={8} />
+    <InvisibleHandle
+      cx={cx}
+      cy={cy}
+      rx={25}
+      ry={25}
+      onMouseDown={onMouseDown}
+    />
+  </g>
+);
+
 const Svg = styled.svg`
   position: relative;
   overflow: visible;
@@ -151,13 +164,18 @@ const EndPoint = styled(Point).attrs({
   fill: ${COLORS.pink[500]};
 `;
 
-const ControlPoint = styled(Point).attrs({
+const VisibleControlPoint = styled(Point).attrs({
   rx: 8,
   ry: 8,
 })`
   fill: transparent;
   stroke: ${COLORS.pink[500]};
   stroke-width: 3;
+`;
+
+const InvisibleHandle = styled(Point)`
+  fill: transparent;
+  stroke: transparent;
 `;
 
 const ControlLine = styled.line`

@@ -52,7 +52,7 @@ class LiveEditableCode extends PureComponent {
 
 const Wrapper = styled(MaxWidthWrapper)`
   display: flex;
-  margin-top: 48px;
+  margin-top: 2rem;
   margin-bottom: 72px;
 
   @media ${BREAKPOINTS.md} {
