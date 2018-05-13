@@ -15,7 +15,7 @@ class Bezier extends PureComponent {
     viewBoxHeight: PropTypes.number,
     strokeColor: PropTypes.string,
     strokeWidth: PropTypes.number,
-    updatePoint: PropTypes.func.isRequired,
+    updatePoint: PropTypes.func,
   };
 
   static defaultProps = {
@@ -26,9 +26,11 @@ class Bezier extends PureComponent {
   };
 
   handleMouseDown = pointId => () => {
-    // TODO: Get distance from point center, so that clicking and dragging a
-    // new point doesn't center it on the cursor.
-    this.setState({ draggingPointId: pointId });
+    if (this.props.grabbable) {
+      // TODO: Get distance from point center, so that clicking and dragging a
+      // new point doesn't center it on the cursor.
+      this.setState({ draggingPointId: pointId });
+    }
   };
 
   handleMouseUp = () => {
@@ -36,10 +38,10 @@ class Bezier extends PureComponent {
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const { viewBoxWidth, viewBoxHeight, updatePoint } = this.props;
+    const { viewBoxWidth, viewBoxHeight, updatePoint, grabbable } = this.props;
     const { draggingPointId } = this.state;
 
-    if (!draggingPointId) {
+    if (!draggingPointId || !grabbable || !updatePoint) {
       return;
     }
 
@@ -61,6 +63,7 @@ class Bezier extends PureComponent {
       viewBoxHeight,
       strokeColor,
       strokeWidth,
+      grabbable,
     } = this.props;
     const [p1, p2, p3, p4] = points;
 
@@ -106,12 +109,14 @@ class Bezier extends PureComponent {
           cx={p1[0]}
           cy={p1[1]}
           onMouseDown={this.handleMouseDown('p1')}
+          grabbable={grabbable}
         />
 
         <ControlPoint
           cx={p2[0]}
           cy={p2[1]}
           onMouseDown={this.handleMouseDown('p2')}
+          grabbable={grabbable}
         />
 
         {curveType === 'cubic' && (
@@ -119,6 +124,7 @@ class Bezier extends PureComponent {
             cx={p3[0]}
             cy={p3[1]}
             onMouseDown={this.handleMouseDown('p3')}
+            grabbable={grabbable}
           />
         )}
 
@@ -126,6 +132,7 @@ class Bezier extends PureComponent {
           cx={lastPoint[0]}
           cy={lastPoint[1]}
           onMouseDown={this.handleMouseDown(lastPointId)}
+          grabbable={grabbable}
         />
       </Svg>
     );
@@ -151,10 +158,10 @@ const Svg = styled.svg`
 `;
 
 const Point = styled.ellipse`
-  cursor: -webkit-grab;
+  cursor: ${props => props.grabbable ? '-webkit-grab' : 'default'};
 
   &:active {
-    cursor: -webkit-grabbing;
+    cursor: ${props => props.grabbable ? '-webkit-grabbing' : 'default'};
   }
 `;
 

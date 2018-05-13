@@ -1,0 +1,49 @@
+/**
+ * `getInterpolatedValue` provides a midpoint value
+ * between y1 and y2, based on the ratio provided.
+ *
+ * @param {number} y1 - the value when our curve is
+ *                      totally curvy
+ * @param {number} y2 - the value when our curve is
+ *                      totally flat
+ * @param {number} x  - a value from 0 to 1 that
+ *                      represents the ratio of curvy
+ *                      to flat (0 = totally curvy,
+ *                      1 = totally flat).
+ */
+const getInterpolatedValue = (y1, y2, x) => {
+  // The slope of a line can be calculated as Δy / Δx.
+  //
+  // In this case, the domain of our function (AKA the
+  // possible X values) are from 0 (x1) to 1 (x2).
+  // Δx is therefore just equal to 1 (since 1 - 0 = 1).
+  //
+  // Because dividing by 1 has no effect, our slope in
+  // this case can just be Δy.
+  const a = y2 - y1;
+
+  // Next, we know that y = ax + b.
+  //
+  // `b` is the Y-axis intercept, which we know is `y1`,
+  // since `y1` is the `y` value when `x` is 0.
+  return a * x + y1;
+}
+
+
+// Let's test it! Feel free to sub in your own values
+// to see how the output changes.
+
+// Case 1: `y` ranges from 200 to 0, with 25% through.
+const case1 = getInterpolatedValue(200, 0, 0.25);
+
+// Case 2: `y` ranges from 0-1000, and we're 90% there.
+const case2 = getInterpolatedValue(0, 1000, 0.9);
+
+
+render(
+  <span style={{ fontSize: 21 }}>
+    <h4 style={{ fontSize: 24 }}>Test cases:</h4>
+    Case 1 is {case1}.<br />
+    Case 2 is {case2}.
+  </span>
+);

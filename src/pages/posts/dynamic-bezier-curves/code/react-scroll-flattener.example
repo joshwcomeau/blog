@@ -1,0 +1,64 @@
+const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+
+class DynamicBezierCurve extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      y1: 0,
+      y2: 300,
+      scrollRatio: 0,
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(ev) {
+    let amountScrolled = window.scrollY / this.props.height;
+
+    amountScrolled = clamp(amountScrolled, 0, 1);
+
+    if (this.state.scrollRatio !== amountScrolled) {
+      this.setState({ scrollRatio: amountScrolled });
+    }
+  }
+
+  render() {
+    const { y1, y2 } = this.state;
+
+    // NOTE: I'm assuming a hardcoded viewBox of 300x300.
+    // In reality, these should probably be props, that can
+    // be string-interpolated into these instructions:
+    const instructions = `
+      M 0,300
+      C 100,${y1} 200,${y2} 300,0
+    `;
+
+    return (
+      <svg
+        ref={node => (this.node = node)}
+        viewBox="0 0 300 300"
+        style={{ overflow: 'visible' }}
+      >
+        <Curve instructions={instructions} />
+      </svg>
+    );
+  }
+}
+
+const Curve = ({ instructions }) => (
+  <path
+    d={instructions}
+    fill="none"
+    stroke="rgb(213, 0, 249)"
+    strokeWidth={5}
+  />
+);
+
+render(<DynamicBezierCurve />);

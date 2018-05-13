@@ -40,7 +40,7 @@ const Footer = () => (
       <ClickableIcon
         external
         size={WIDTH}
-        href="https://www.github.com/joshwcomeau"
+        href="mailto:joshwcomeau@gmail.com"
         icon={iosEmail}
         iconHover={iosEmail}
         color={COLORS.gray[400]}
