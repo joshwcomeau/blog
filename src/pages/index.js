@@ -8,6 +8,7 @@ import { COLORS } from '../constants';
 
 import Paragraph from '../components/Paragraph';
 import Divider from '../components/Divider';
+import Em from '../components/Em';
 import TextLink from '../components/TextLink';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import IndexPost from '../components/IndexPost';
@@ -33,14 +34,33 @@ const IndexPage = () => (
       <InnerWrapper>
         <Title>Hey look, it's a blog!</Title>
         <Paragraph>
-          Hi, I'm <Name>Josh Comeau</Name>. I'm a front-end engineer at{' '}
-          <TextLink external={true} href="https://khanacademy.org">
+          Hi, I'm <Name>Josh Comeau</Name>. I'm a front-end engineer / web
+          developer at{' '}
+          <TextLink external href="https://khanacademy.org" target="_blank">
             Khan Academy
-          </TextLink>.<br />I started using React.js in 2014, and I haven't
-          stopped experimenting with it since.
+          </TextLink>.
         </Paragraph>
+
         <Paragraph>
-          This is my developer blog. I hope you find it useful!
+          Early in 2018 I released{' '}
+          <TextLink
+            external={true}
+            href="https://pudding.cool/2018/02/waveforms/"
+            target="_blank"
+          >
+            Waveforms
+          </TextLink>, an explorable explanation about the peculiar magic of
+          sound waves. I got a bunch of feedback aftwerwards from audio folks
+          who said that they <Em>finally understood&nbsp;</Em> how sound works,
+          that my interactive thingy helped them bridge the gap between
+          theoretical knowledge and intuitive understanding.
+        </Paragraph>
+
+        <Paragraph>
+          This blog is a continuation of that experiment, but for front-end
+          programming things. I plan to use it as a way to share experiments and
+          ideas, hopefully in a way that makes them easy to learn, digest, and
+          use in your own projects!
         </Paragraph>
 
         <Divider />

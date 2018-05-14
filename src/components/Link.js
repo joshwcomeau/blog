@@ -1,6 +1,7 @@
 import React from 'react';
 import GatsbyLink from 'gatsby-link';
 import styled from 'styled-components';
+import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
 import { COLORS } from '../constants';
 
@@ -14,7 +15,7 @@ const Link = ({ external, href, target, rel, ...delegated }) => {
   );
 };
 
-const ExternalLink = styled.a`
+const ExternalLink = styled(OutboundLink)`
   color: ${props =>
     props.theme === 'light' ? COLORS.white : COLORS.pink[500]};
 `;
