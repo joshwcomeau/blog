@@ -20,6 +20,7 @@ import Info from '../../../components/Info';
 import InitialCurve from '../../../components/InitialCurve';
 import BezierController from '../../../components/BezierController';
 import BezierFlattener from '../../../components/BezierFlattener';
+import BezierInterpolationGraph from '../../../components/BezierInterpolationGraph';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
@@ -90,7 +91,7 @@ export default () => (
       This blog post is an intro to working with Bézier curves with React.js.
       We'll learn how to build dynamic curves that respond to user input:
     </Paragraph>
-    <SingleAxisDemo showNote={true}>
+    <SingleAxisDemo id="flattenable-curve" showNote={true}>
       {value => (
         <InitialCurve percentStraightened={value} color={COLORS.pink[500]} />
       )}
@@ -213,13 +214,14 @@ export default () => (
       when you move the points around—try dragging the middle control point up
       and down.
     </Paragraph>
-    <BezierController initialType="quadratic" />
+    <BezierController id="initial" initialType="quadratic" />
     <Paragraph>
       The line above is a <Em>quadratic</Em> Bézier curve; this just means that
       it has a <strong>single control point</strong>. I'm guessing it gets its
       name from the fact that you can create parabola-like shapes with it:
     </Paragraph>
     <BezierController
+      id="parabola"
       initialType="quadratic"
       p1={[400, 15]}
       p2={[500, 395]}
@@ -230,6 +232,7 @@ export default () => (
       control points. This allows for much more interesting curves:
     </Paragraph>
     <BezierController
+      id="toggleable"
       allowToggle
       initialType="cubic"
       p1={[25, 25]}
@@ -392,9 +395,11 @@ export default () => (
       (flattened value). We can graph a line that goes from 200 to 0, and we can
       assume X goes from 0 (curved) to 1 (flattened).
     </Paragraph>
-    <Paragraph>
-      <strong>TODO: Insert graph?</strong>
-    </Paragraph>
+
+    <div style={{ maxWidth: 400, margin: 'auto' }}>
+      <BezierInterpolationGraph />
+    </div>
+
     <Paragraph>
       Because we know the first and last points of our line, we have all the
       variables we need for that formula!
