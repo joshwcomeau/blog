@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { COLORS } from '../constants';
+import { trackEvent } from '../helpers/analytics.helpers';
 
 class Bezier extends PureComponent {
   state = {
@@ -23,9 +24,16 @@ class Bezier extends PureComponent {
     viewBoxHeight: 250,
     strokeColor: COLORS.violet[500],
     strokeWidth: 6,
+    grabbable: true,
   };
 
   handleMouseDown = pointId => () => {
+    trackEvent({
+      category: 'Bezier',
+      action: 'explore',
+      value: pointId,
+    });
+
     if (this.props.grabbable) {
       // TODO: Get distance from point center, so that clicking and dragging a
       // new point doesn't center it on the cursor.
@@ -139,14 +147,15 @@ class Bezier extends PureComponent {
   }
 }
 
-const ControlPoint = ({ cx, cy, onMouseDown }) => (
+const ControlPoint = ({ cx, cy, onMouseDown, grabbable }) => (
   <g>
-    <VisibleControlPoint cx={cx} cy={cy} rx={8} ry={8} />
+    <VisibleControlPoint cx={cx} cy={cy} rx={8} ry={8} grabbable={grabbable} />
     <InvisibleHandle
       cx={cx}
       cy={cy}
       rx={25}
       ry={25}
+      grabbable={grabbable}
       onMouseDown={onMouseDown}
     />
   </g>
@@ -158,10 +167,10 @@ const Svg = styled.svg`
 `;
 
 const Point = styled.ellipse`
-  cursor: ${props => props.grabbable ? '-webkit-grab' : 'default'};
+  cursor: ${props => (props.grabbable ? '-webkit-grab' : 'default')};
 
   &:active {
-    cursor: ${props => props.grabbable ? '-webkit-grabbing' : 'default'};
+    cursor: ${props => (props.grabbable ? '-webkit-grabbing' : 'default')};
   }
 `;
 
@@ -169,7 +178,7 @@ const EndPoint = styled(Point).attrs({
   rx: 15,
   ry: 15,
 })`
-  fill: ${COLORS.pink[500]};
+  fill: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
 `;
 
 const VisibleControlPoint = styled(Point).attrs({
@@ -177,7 +186,7 @@ const VisibleControlPoint = styled(Point).attrs({
   ry: 8,
 })`
   fill: white;
-  stroke: ${COLORS.pink[500]};
+  stroke: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
   stroke-width: 3;
 `;
 
