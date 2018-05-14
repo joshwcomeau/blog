@@ -14,6 +14,7 @@ import Header from '../components/Header';
 import WindowDimensions from '../components/WindowDimensions';
 import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
+import Spacer from '../components/Spacer';
 
 const getHero = heroStyle => {
   switch (heroStyle) {
@@ -57,6 +58,8 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
           {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
           {children}
         </MaxWidthWrapper>
+
+        <Spacer size={160} />
       </MainContent>
     </FullWidth>
   );

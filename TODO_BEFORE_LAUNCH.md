@@ -4,11 +4,8 @@
 * Create newsletter CTA for homepage
 * Analytics
   * Set up conversions for things like interacting with interactive widgets
+  * Track "has been read", by using IntersectionObserver on an element near the bottom of the page.
 * Bezier blog:
-  * diff between quadratic and cubic
-  * moveable line with toggle for quad/cub
-  * section on interpolation
-  * Section tying it all together
   * Additional reading
   * Newsletter CTA for blog post (maybe 2, interspersed?)
 
@@ -24,3 +21,5 @@
 * Size optimizations (lazy-load react-katex and its CSS?)
 * Fancy links (underlines that fill?)
 * Change mountains SVG to curves.
+* Infer whether the link is external or not by whether it starts with `http`. Auto-apply `target=_blank` for external links
+*

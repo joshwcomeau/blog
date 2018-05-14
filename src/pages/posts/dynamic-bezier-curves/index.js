@@ -12,6 +12,8 @@ import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
 import TextLink from '../../../components/TextLink';
 import Em from '../../../components/Em';
+import NewsletterSignup from '../../../components/NewsletterSignup';
+import HighlightedSection from '../../../components/HighlightedSection';
 import Spacer from '../../../components/Spacer';
 import Latex from '../../../components/Latex';
 import SingleAxisDemo from '../../../components/SingleAxisDemo';
@@ -451,40 +453,164 @@ export default () => (
       into something usable.
     </Paragraph>
     <Paragraph>
-      There are a number of ways we could do this. Let's start with the most
-      straight-forward: Writing a single React component that flattens a curve
-      on scroll.
+      There are a number of ways we could do this. Here's the most
+      straightforward approach I could think of: bundling the scroll-handling
+      with the Bézier curve in one purpose-built component.
     </Paragraph>
 
     <LiveEditableCode
-      scope={{getInterpolatedValue}}
+      scope={{ getInterpolatedValue }}
       size="extra-wide"
       code={reactScrollFlattenerCode}
       maxHeight={650}
     />
 
+    <Paragraph>
+      The drawback to this method is that it's not very reusable, unless you
+      need exactly the same curve with exactly the same kind of effect. One
+      potential quality-of-life improvement would be to separate the
+      scroll-handling logic from the SVG-drawing component, by creating a
+      wrapper component. This is left as an exercise for the reader.
+    </Paragraph>
+
     <Spacer size={25} />
     <SubHeading>Another note on performance</SubHeading>
     <Paragraph>
-      I was initially skeptical of this code, as it uses a DOM-accessing method, <Em>getBoundingClientRect</Em>, inside a scroll handler that might fire dozens of times a second.
+      So, when I wrote that component, I was thinking purely of developer
+      ergonomics. I was skeptical that it would perform well on lower-end
+      devices.
     </Paragraph>
 
     <Paragraph>
-      To my surprise, though, this seems to perform alright, even on my low-end used Chromebook.
+      To my surprise, though, it's not half bad; on my low-end used Chromebook,
+      it stutters a little bit from time to time but mostly runs at 60fps. On my
+      iPhone 6, it runs well.
     </Paragraph>
 
     <Paragraph>
-      That said, your mileage may vary. If you want to improve performance, there are a few ways this could be optimized:
+      That said, your mileage may vary. If you want to improve performance,
+      there are a few ways this could be optimized:
     </Paragraph>
 
     <List>
       <ListItem>
-        <TextLink external href="https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf" target="_blank">Throttle</TextLink> the scroll-handler so that it only fires every 20ms or so.
+        <TextLink
+          external
+          href="https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf"
+          target="_blank"
+        >
+          Throttle
+        </TextLink>{' '}
+        the scroll-handler so that it only fires every 20ms or so. This is to
+        calm down certain touch-screen or trackpad interfaces that can fire far
+        more often than is required.
       </ListItem>
       <ListItem>
-        Avoid calling `getBoundingClientRect` on every scroll event; instead, figure out the distance from the element to the top of the <em>document</em> on mount, and store it on the instance (eg. <InlineCode>this.distanceFromTopOfDoc = 3000</InlineCode>). On every scroll event, you can compare <InlineCode>window.scrollTop</InlineCode> to that value. Note that this method assumes that other elements in the DOM above the curve won't ever change their height.
+        One of the more expensive parts of this effect is that we're interacting
+        with the DOM, via{' '}
+        <InlineCode>
+          <TextLink
+            external
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect"
+            target="_blank"
+          >
+            getBoundingClientRect
+          </TextLink>
+        </InlineCode>
+        , on every scroll event. Ideally, we could cache the distance between
+        the top of the document and the top of our Bézier curve on our
+        component, and just check the current scroll distance against this
+        value.
+        <br />
+        <br />
+        Unfortunately, this method opens up new problems. It assumes that
+        nothing between the top of the document and your Bézier curve will
+        change height, since our calculations assume a static distance between
+        the two. Mobile browsers like iOS Safari will hide their chrome as you
+        scroll down, so we'd have to factor that in as well.
+        <br />
+        <br />
+        It's far from impossible, but it wasn't worth the trouble for me, given
+        that performance was satisfactory on the devices I'm targeting.
+      </ListItem>
+      <ListItem>
+        We're also paying for the overhead of React's lifecycle by storing{' '}
+        <InlineCode>scrollRatio</InlineCode> in state. We <em>could</em> work
+        with the DOM directly, by setting the new <InlineCode>path</InlineCode>{' '}
+        instructions using <InlineCode>setAttribute</InlineCode>. This is
+        similar to the approach I took in my{' '}
+        <TextLink href="optimized-version">alternative approach</TextLink> to
+        the draggable Bézier example.
       </ListItem>
     </List>
 
+    <Paragraph>
+      Note that some of these optimizations come at the expense of developer
+      ergonomics; this is often the tradeoff, and whether it's worth it will
+      depend on your audience, and how critical the animation is to the
+      experience.
+    </Paragraph>
+
+    <Spacer size={80} />
+
+    <SectionHeading>In Conclusion</SectionHeading>
+
+    <Paragraph>Whew, you made it through this Bézier deep-dive!</Paragraph>
+    <Paragraph>
+      The technique described in this blog post is foundational, and there's
+      tons of flourishes you can add on top of it:
+    </Paragraph>
+
+    <List>
+      <ListItem>
+        This blog uses 3 layered Bézier curves with different fill colours to
+        provide depth to the experience.
+      </ListItem>
+      <ListItem>
+        You can experiment with different easings for the interpolation (Bézier
+        curves are often used for{' '}
+        <TextLink external href="http://cubic-bezier.com/" target="_blank">
+          timing functions
+        </TextLink>, after all!). What if the curve got{' '}
+        <em>even more dramatic</em> before smoothing it out?
+      </ListItem>
+      <ListItem>
+        You could experiment with{' '}
+        <TextLink
+          external
+          href="https://github.com/chenglou/react-motion"
+          target="_blank"
+        >
+          spring physics
+        </TextLink>, to give the transition inertia.
+      </ListItem>
+    </List>
+
+    <Paragraph>
+      I'm excited to see what you build with this technique! Let me know{' '}
+      <TextLink external href="https://twitter.com/joshwcomeau" target="_blank">
+        on Twitter
+      </TextLink>.
+    </Paragraph>
+
+    <Spacer size={20} />
+    <SubHeading>Join the Newsletter</SubHeading>
+
+    <Paragraph>
+      This blog post is the first thing I've tried in this format. It was a heck
+      of a lot of fun to build, but it was also a <em>tremendous</em> amount of
+      work compared to writing a Medium post.
+    </Paragraph>
+    <Paragraph>
+      One of the ways you can help signal to me that this content is worth the
+      extra work is by signing up for the newsletter!
+    </Paragraph>
+    <Paragraph>
+      The newsletter will be sent once every few weeks, and will include
+      sneak-peaks of upcoming blog posts, as well as special "behind-the-scenes"
+      content where I share how these posts are built.
+    </Paragraph>
+
+    <NewsletterSignup />
   </BlogPostTemplate>
 );
