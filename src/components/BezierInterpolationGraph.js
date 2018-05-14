@@ -55,16 +55,6 @@ const BezierInterpolationGraph = () => (
     />
 
     <line
-      x1={220}
-      y1={20}
-      x2={420}
-      y2={220}
-      stroke={COLORS.pink[500]}
-      strokeWidth={4}
-      strokeLinecap="round"
-    />
-
-    <line
       x1={0}
       y1={220}
       x2={440}
@@ -137,15 +127,26 @@ const BezierInterpolationGraph = () => (
     />
 
     <text textAnchor="middle" x={420} y={240} dy={8}>
-      1
+      1.0
     </text>
+
+    <line
+      x1={220}
+      y1={20}
+      x2={420}
+      y2={220}
+      stroke={COLORS.pink[500]}
+      strokeWidth={4}
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const Svg = styled.svg`
   overflow: visible;
   display: block;
-  margin-bottom: 32px;
+  margin: 48px auto;
+  max-width: 400px;
 `;
 
 export default BezierInterpolationGraph;

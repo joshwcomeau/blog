@@ -6,12 +6,16 @@ import IconBase from 'react-icons-kit';
 import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
 
+import { COLORS } from '../constants';
+import { interactWithExplorable } from '../helpers/analytics.helpers';
+
 import Slider from './Slider';
 import Spacer from './Spacer';
-import { COLORS } from '../constants';
 
 class SingleAxisDemo extends PureComponent {
   static propTypes = {
+    // `id` is for Google Analytics
+    id: PropTypes.string.isRequired,
     height: PropTypes.number,
     defaultAxisValue: PropTypes.number,
     sliderOrientation: PropTypes.oneOf(['vertical', 'horizontal']),
@@ -31,7 +35,14 @@ class SingleAxisDemo extends PureComponent {
     isHovering: false,
   };
 
-  updateSliderVal = val => this.setState({ axisValue: val });
+  updateSliderVal = val => {
+    interactWithExplorable({
+      component: 'SingleAxisDemo',
+      label: this.props.id,
+    });
+
+    this.setState({ axisValue: val });
+  };
 
   handleMouseEnter = () => this.setState({ isHovering: true });
   handleMouseLeave = () => this.setState({ isHovering: false });

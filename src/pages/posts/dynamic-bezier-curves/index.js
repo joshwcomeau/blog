@@ -396,9 +396,7 @@ export default () => (
       assume X goes from 0 (curved) to 1 (flattened).
     </Paragraph>
 
-    <div style={{ maxWidth: 400, margin: 'auto' }}>
-      <BezierInterpolationGraph />
-    </div>
+    <BezierInterpolationGraph />
 
     <Paragraph>
       Because we know the first and last points of our line, we have all the

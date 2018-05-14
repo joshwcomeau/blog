@@ -1,14 +1,29 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { COLORS } from '../constants';
+import { interactWithExplorable } from '../helpers/analytics.helpers';
 
 import Bezier from './Bezier';
 import RadioButton from './RadioButton';
 
 class BezierController extends PureComponent {
+  static propTypes = {
+    // `id` is used in Google Analytics tracking.
+    // Plz use something unique.
+    id: PropTypes.string.isRequired,
+    initialType: PropTypes.oneOf(['quadratic', 'cubic']),
+    allowToggle: PropTypes.bool,
+    p1: PropTypes.arrayOf(PropTypes.number),
+    p2: PropTypes.arrayOf(PropTypes.number),
+    p3: PropTypes.arrayOf(PropTypes.number),
+    p4: PropTypes.arrayOf(PropTypes.number),
+  };
+
   static defaultProps = {
     initialType: 'quadratic',
+    allowToggle: false,
   };
 
   state = {
@@ -23,6 +38,11 @@ class BezierController extends PureComponent {
   };
 
   handleUpdatePoint = (pointId, pointCoords) => {
+    interactWithExplorable({
+      component: 'Bezier',
+      label: this.props.id,
+    });
+
     // HACK: Quadratic curves take P1, P2, and P4 (not P3).
     // This is to make transitioning between the two feel more natural.
     // Sadly, this means we have to patch that association when the quadratic
@@ -35,6 +55,11 @@ class BezierController extends PureComponent {
   };
 
   swapType = type => {
+    interactWithExplorable({
+      component: 'Bezier',
+      label: this.props.id,
+    });
+
     this.setState({ type });
   };
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Sriracha');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,500|Sriracha');
 
 @font-face {
   font-family: 'Futura PT';
@@ -32,19 +32,5 @@
   font-family: 'Futura PT';
   src: url('../assets/fonts/futura/FuturaPT-Light.woff') format('woff');
   font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Fira Code';
-  src: url('../assets/fonts/fira-code/FiraCode-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Fira Code';
-  src: url('../assets/fonts/fira-code/FiraCode-Medium.woff2') format('woff2');
-  font-weight: 700;
   font-style: normal;
 }

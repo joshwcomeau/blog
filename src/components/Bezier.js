@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { COLORS } from '../constants';
-import { trackEvent } from '../helpers/analytics.helpers';
 
 class Bezier extends PureComponent {
   state = {
@@ -28,12 +27,6 @@ class Bezier extends PureComponent {
   };
 
   handleMouseDown = pointId => () => {
-    trackEvent({
-      category: 'Bezier',
-      action: 'explore',
-      value: pointId,
-    });
-
     if (this.props.grabbable) {
       // TODO: Get distance from point center, so that clicking and dragging a
       // new point doesn't center it on the cursor.
