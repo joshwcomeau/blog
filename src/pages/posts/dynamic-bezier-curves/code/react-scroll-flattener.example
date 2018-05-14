@@ -1,14 +1,27 @@
-const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+// Utility function that clamps a given value to a
+// specific range (inclusive, between min and max).
+const clamp = (val, min, max) => (
+  Math.max(min, Math.min(max, val))
+);
 
 class DynamicBezierCurve extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    // We'll keep track of how far the user has
+    // scrolled through this element.
+    // 0:   it's juuust starting to touch the
+    //      viewport, or lower.
+    // 1:   its top edge is touching the top of the
+    //      viewport, or higher.
     this.state = {
-      y1: 0,
-      y2: 300,
       scrollRatio: 0,
     };
+
+    // This live-editing environment doesn't support
+    // property-initializer syntax, so I'm doing my
+    // binds in the constructor. 🤷
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -20,31 +33,76 @@ class DynamicBezierCurve extends React.PureComponent {
   }
 
   handleScroll(ev) {
-    let amountScrolled = window.scrollY / this.props.height;
+    const svgBB = this.node.getBoundingClientRect();
 
-    amountScrolled = clamp(amountScrolled, 0, 1);
+    // Our amount scrolled will be the ratio of how far our
+    // element is into the viewport. We subtract it from 1
+    // because we want to invert the relationship (have it
+    // go from 0 to 1, not from 1 to 0).
+    let scrollRatio = 1 - svgBB.top / window.innerHeight;
 
-    if (this.state.scrollRatio !== amountScrolled) {
-      this.setState({ scrollRatio: amountScrolled });
+    // We don't care about the negative values when it's
+    // below the viewport, or the greater-than-1 values when
+    // it's above the viewport.
+    scrollRatio = clamp(scrollRatio, 0, 1);
+
+    // Small optimization, avoid re-rendering when the
+    // SVG isn't in the viewport.
+    if (this.state.scrollRatio !== scrollRatio) {
+      this.setState({ scrollRatio });
     }
   }
 
   render() {
-    const { y1, y2 } = this.state;
+    const { scrollRatio } = this.state;
 
-    // NOTE: I'm assuming a hardcoded viewBox of 300x300.
-    // In reality, these should probably be props, that can
-    // be string-interpolated into these instructions:
+    // Use our `getInterpolatedValue` function from the previous
+    // code snippet to figure out the values for the start point
+    // and the control points.
+    const startPoint = getInterpolatedValue(
+      300,  // curvy value
+      0,    // flat value
+      scrollRatio
+    );
+
+    const firstControlPoint = getInterpolatedValue(
+      -100, // curvy value
+      0,    // flat value
+      scrollRatio
+    );
+
+    const secondControlPoint = getInterpolatedValue(
+      450,  // curvy value
+      0,    // flat value
+      scrollRatio
+    );
+
+    // NOTE: I'm not bothering to interpolate the `endPoint`,
+    // because that value starts at 0 and ends at 0. All the
+    // other points rise up to join it, but it doesn't have
+    // to move.
+
+    // Create the SVG path instructions, using our interpolated
+    // values.
+    // NOTE: The `x` values are dependent on the 300x300 viewBox,
+    // hardcoded below. To make this component reusable, it might
+    // be wise to make the viewBox size a prop, and then derive
+    // the `x` values as fractions of the viewBox width.
     const instructions = `
-      M 0,300
-      C 100,${y1} 200,${y2} 300,0
+      M 0,${startPoint}
+      C 100,${firstControlPoint} 200,${secondControlPoint} 300,0
     `;
 
     return (
       <svg
         ref={node => (this.node = node)}
         viewBox="0 0 300 300"
-        style={{ overflow: 'visible' }}
+        style={{
+          // `overflow: visible` is a neat trick to allow for the
+          // curve to spill over slightly. Without this prop, the
+          // rounded ends of the line would be cut off.
+          overflow: 'visible'
+        }}
       >
         <Curve instructions={instructions} />
       </svg>
@@ -58,6 +116,7 @@ const Curve = ({ instructions }) => (
     fill="none"
     stroke="rgb(213, 0, 249)"
     strokeWidth={5}
+    strokeLinecap="round"
   />
 );
 

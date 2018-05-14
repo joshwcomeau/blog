@@ -457,9 +457,34 @@ export default () => (
     </Paragraph>
 
     <LiveEditableCode
+      scope={{getInterpolatedValue}}
       size="extra-wide"
       code={reactScrollFlattenerCode}
       maxHeight={650}
     />
+
+    <Spacer size={25} />
+    <SubHeading>Another note on performance</SubHeading>
+    <Paragraph>
+      I was initially skeptical of this code, as it uses a DOM-accessing method, <Em>getBoundingClientRect</Em>, inside a scroll handler that might fire dozens of times a second.
+    </Paragraph>
+
+    <Paragraph>
+      To my surprise, though, this seems to perform alright, even on my low-end used Chromebook.
+    </Paragraph>
+
+    <Paragraph>
+      That said, your mileage may vary. If you want to improve performance, there are a few ways this could be optimized:
+    </Paragraph>
+
+    <List>
+      <ListItem>
+        <TextLink external href="https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf" target="_blank">Throttle</TextLink> the scroll-handler so that it only fires every 20ms or so.
+      </ListItem>
+      <ListItem>
+        Avoid calling `getBoundingClientRect` on every scroll event; instead, figure out the distance from the element to the top of the <em>document</em> on mount, and store it on the instance (eg. <InlineCode>this.distanceFromTopOfDoc = 3000</InlineCode>). On every scroll event, you can compare <InlineCode>window.scrollTop</InlineCode> to that value. Note that this method assumes that other elements in the DOM above the curve won't ever change their height.
+      </ListItem>
+    </List>
+
   </BlogPostTemplate>
 );

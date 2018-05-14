@@ -12,6 +12,7 @@ const BezierInterpolationGraph = () => (
   <Svg viewBox="0 0 440 440">
     {range(1, 22).map(i => (
       <line
+        key={i}
         x1={i * 20}
         y1={0}
         x2={i * 20}
@@ -23,6 +24,7 @@ const BezierInterpolationGraph = () => (
 
     {range(1, 22).map(i => (
       <line
+        key={i}
         x1={0}
         y1={i * 20}
         x2={440}
