@@ -10,7 +10,7 @@ import ListItem from '../../../components/ListItem';
 import Heading from '../../../components/Heading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
-import Link from '../../../components/Link';
+import TextLink from '../../../components/TextLink';
 import Em from '../../../components/Em';
 import Spacer from '../../../components/Spacer';
 import Latex from '../../../components/Latex';
@@ -108,9 +108,12 @@ export default () => (
     <Paragraph>
       While doing a deep dive into SVG is beyond the scope of this post (I'd
       recommend the{' '}
-      <Link external href="https://www.w3schools.com/graphics/svg_intro.asp">
+      <TextLink
+        external
+        href="https://www.w3schools.com/graphics/svg_intro.asp"
+      >
         W3Schools tutorial
-      </Link>{' '}
+      </TextLink>{' '}
       for that), we'll cover the basics, and show how to create our Bézier curve
       from scratch. Experienced SVG-ers can jump to [link needed].
     </Paragraph>
@@ -170,13 +173,13 @@ export default () => (
     </Paragraph>
     <Paragraph>
       The <InlineCode>path</InlineCode> element features{' '}
-      <Link
+      <TextLink
         href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"
         external
         target="_blank"
       >
         quite a number
-      </Link>{' '}
+      </TextLink>{' '}
       of these commands. There are two that are relevant for our purposes:
     </Paragraph>
     <List>
@@ -309,6 +312,7 @@ export default () => (
         <InlineCode>path</InlineCode> to be re-calculated.
       </ListItem>
     </List>
+
     <Spacer size={25} />
     <SubHeading>A note on performance</SubHeading>
     <Paragraph>
@@ -323,18 +327,13 @@ export default () => (
     </Paragraph>
     <Paragraph>
       I wrote an{' '}
-      <Link external href="" target="_blank">
+      <TextLink external href="" target="_blank">
         alternative implementation
-      </Link>{' '}
-      that updates the DOM directly. It does run faster (about 1.5-2x faster in
-      my quick test), but both implementations still clock in under 1ms on
-      modern high-end hardware. With 6x CPU slowdown, the React-based
-      implementation still runs around 50fps, while the optimized one caps at
-      60fps.
-    </Paragraph>
-    <Paragraph>
-      If I was targeting older devices with this specific animation, it would
-      probably make sense to drop down to the lower-level implementation.
+      </TextLink>{' '}
+      that updates the DOM directly. It does run faster (about 1.5x faster in my
+      quick test), but both implementations still clock in under 1ms on modern
+      high-end hardware. On the cheapest Chromebook I could find, the
+      "unoptimized" one still averaged 50fps or so.
     </Paragraph>
 
     <Spacer size={80} />

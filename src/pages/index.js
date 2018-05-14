@@ -19,8 +19,14 @@ const IndexPage = () => (
     <Helmet
       title={siteMetadata.title}
       meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
+        {
+          name: 'description',
+          content: 'Web development and front-end engineering blog.',
+        },
+        {
+          name: 'keywords',
+          content: 'reactjs, javascript, front-end, web development',
+        },
       ]}
     />
     <BorderWrapper>

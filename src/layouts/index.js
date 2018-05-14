@@ -7,6 +7,8 @@ import { COLORS } from '../constants';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import Footer from '../components/Footer';
 
+import faviconSrc from '../assets/favicon-swirl.png';
+
 import './global';
 import './prism-theme';
 import './reset.css';
@@ -32,6 +34,9 @@ injectGlobal`
 
 const Layout = ({ children }) => (
   <div>
+    <Helmet>
+      <link rel="icon" type="image/png" href={`${faviconSrc}?v=1`} />
+    </Helmet>
     {children()}
     <Footer />
   </div>
