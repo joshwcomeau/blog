@@ -197,7 +197,10 @@ export default () => (
     </List>
 
     <Spacer size={80} />
-    <SectionHeading>Intro to Bézier Curves</SectionHeading>
+    <SectionHeading anchorId="intro-to-bezier-curves">
+      Intro to Bézier Curves
+    </SectionHeading>
+
     <Paragraph>
       Bézier curves are surprisingly common. Due to their versatility, they're a
       staple in most graphics software like Photoshop, but they're also used as
@@ -265,7 +268,10 @@ export default () => (
     <LiveEditableCode code={chainedCurvesCode} />
 
     <Spacer size={80} />
-    <SectionHeading>Bézier Curves in React</SectionHeading>
+    <SectionHeading anchorId="bezier-curves-in-react">
+      Bézier Curves in React
+    </SectionHeading>
+
     <Paragraph>
       While all of the code samples have technically been React, we've just been
       rendering static elements. How can we leverage React state to make our
@@ -319,7 +325,9 @@ export default () => (
     </List>
 
     <Spacer size={25} />
-    <SubHeading>A note on performance</SubHeading>
+    <SubHeading anchorId="a-note-on-performance">
+      A note on performance
+    </SubHeading>
     <Paragraph>
       By using React's update cycle to manage the point coordinates, there is
       added overhead of letting React run its reconciliation cycle on every{' '}
@@ -342,7 +350,9 @@ export default () => (
     </Paragraph>
 
     <Spacer size={80} />
-    <SectionHeading>Curve Interpolation</SectionHeading>
+    <SectionHeading anchorId="curve-interpolation">
+      Curve Interpolation
+    </SectionHeading>
 
     <Paragraph>
       I seem to have gotten a little side-tracked! Our original goal was to
@@ -446,7 +456,9 @@ export default () => (
     </Paragraph>
 
     <Spacer size={80} />
-    <SectionHeading>Handling Scroll in React</SectionHeading>
+    <SectionHeading anchorId="handling-scroll-in-react">
+      Handling Scroll in React
+    </SectionHeading>
 
     <Paragraph>
       We're in the home stretch now! We just need to combine all these ideas
@@ -474,7 +486,9 @@ export default () => (
     </Paragraph>
 
     <Spacer size={25} />
-    <SubHeading>Another note on performance</SubHeading>
+    <SubHeading anchorId="another-note-on-perforamnce">
+      Another note on performance
+    </SubHeading>
     <Paragraph>
       So, when I wrote that component, I was thinking purely of developer
       ergonomics. I was skeptical that it would perform well on lower-end
@@ -553,7 +567,7 @@ export default () => (
 
     <Spacer size={80} />
 
-    <SectionHeading>In Conclusion</SectionHeading>
+    <SectionHeading anchorId="in-conclusion">In Conclusion</SectionHeading>
 
     <Paragraph>Whew, you made it through this Bézier deep-dive!</Paragraph>
     <Paragraph>
@@ -594,7 +608,7 @@ export default () => (
     </Paragraph>
 
     <Spacer size={20} />
-    <SubHeading>Join the Newsletter</SubHeading>
+    <SubHeading anchorId="join-the-newsletter">Join the Newsletter</SubHeading>
 
     <Paragraph>
       This blog post is the first thing I've tried in this format. It was a heck
