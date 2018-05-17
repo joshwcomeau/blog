@@ -16,17 +16,11 @@ const BUFFER = 75;
 
 class Header extends PureComponent {
   state = {
-    translateAmount: 0,
+    isTitleVisible: false,
   };
 
   componentDidMount() {
-    window.setTimeout(() => {
-      window.addEventListener('scroll', this.handleScroll);
-    }, 500);
-
-    this.scrollPosition = window.scrollY;
-    this.lockedScrollPosition = null;
-    this.scrollDirection = 'down';
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
@@ -34,42 +28,16 @@ class Header extends PureComponent {
   }
 
   handleScroll = () => {
+    const { isTitleVisible } = this.state;
     const currentScrollPosition = window.scrollY;
 
-    const currentScrollDirection =
-      currentScrollPosition > this.scrollPosition ? 'down' : 'up';
-
-    if (this.scrollDirection === 'down' && currentScrollDirection === 'up') {
-      // We don't want to allow the locked position to be changed if we're
-      // in the middle of showing/hiding the header; this causes an odd glitchy
-      // effect.
-      const isMidReveal = this.state.translateAmount !== 0;
-
-      if (!isMidReveal) {
-        this.lockedScrollPosition = this.scrollPosition;
-      }
+    if (!isTitleVisible && currentScrollPosition > window.innerHeight * 0.7) {
+      this.setState({ isTitleVisible: true });
     } else if (
-      this.scrollDirection === 'up' &&
-      currentScrollDirection === 'down'
+      isTitleVisible &&
+      currentScrollPosition < window.innerHeight * 0.5
     ) {
-      const isMidReveal = this.state.translateAmount !== HEIGHT + BUFFER;
-
-      if (!isMidReveal) {
-        this.lockedScrollPosition = this.scrollPosition + HEIGHT + BUFFER;
-      }
-    }
-
-    const translateAmount = clamp(
-      this.lockedScrollPosition - currentScrollPosition,
-      0,
-      HEIGHT + BUFFER
-    );
-
-    this.scrollDirection = currentScrollDirection;
-    this.scrollPosition = currentScrollPosition;
-
-    if (translateAmount !== this.state.translateAmount) {
-      this.setState({ translateAmount, scrolledToTop: false });
+      this.setState({ isTitleVisible: false });
     }
   };
 
@@ -82,7 +50,7 @@ class Header extends PureComponent {
 
   render() {
     const { title, publishedOn, heroStyle } = this.props;
-    const { translateAmount, scrolledToTop } = this.state;
+    const { isTitleVisible } = this.state;
 
     // TODO: color should depend on heroStyle.
     // Also, `heroStyle` should be renamed.
@@ -94,38 +62,27 @@ class Header extends PureComponent {
     };
 
     return (
-      <Motion
-        defaultStyle={{ translateAmount: 0 }}
-        style={{ translateAmount: spring(translateAmount, springSettings) }}
-      >
-        {({ translateAmount }) => (
-          <Wrapper
-            style={{
-              transform: `translateY(${translateAmount}px)`,
-            }}
-          >
-            <InnerWrapper>
-              <IconWrapper size={SIZES.homeIcon}>
-                <ClickableIcon
-                  href="/"
-                  icon={iosHomeOutline}
-                  iconHover={iosHome}
-                  size={SIZES.homeIcon}
-                  color={COLORS.gray[500]}
-                  colorHover={COLORS.gray[700]}
-                />
-              </IconWrapper>
+      <Wrapper>
+        <InnerWrapper>
+          <IconWrapper size={SIZES.homeIcon}>
+            <ClickableIcon
+              href="/"
+              icon={iosHomeOutline}
+              iconHover={iosHome}
+              size={SIZES.homeIcon}
+              color={COLORS.gray[500]}
+              colorHover={COLORS.gray[700]}
+            />
+          </IconWrapper>
 
-              <TextWrapper>
-                <Title color={color} onClick={this.scrollToTop}>
-                  {title}
-                </Title>
-                <Date>{humanizeDate(publishedOn)}</Date>
-              </TextWrapper>
-            </InnerWrapper>
-          </Wrapper>
-        )}
-      </Motion>
+          <TextWrapper isVisible={isTitleVisible}>
+            <Title color={color} onClick={this.scrollToTop}>
+              {title}
+            </Title>
+            <Date>{humanizeDate(publishedOn)}</Date>
+          </TextWrapper>
+        </InnerWrapper>
+      </Wrapper>
     );
   }
 }
@@ -133,7 +90,7 @@ class Header extends PureComponent {
 const Wrapper = styled.header`
   position: fixed;
   z-index: ${Z_INDICES.header};
-  top: ${-HEIGHT - BUFFER}px;
+  top: 0px;
   left: 0px;
   right: 0px;
   height: ${HEIGHT + 10}px;
@@ -168,6 +125,9 @@ const InnerWrapper = styled.div`
 const TextWrapper = styled.div`
   display: flex;
   align-items: flex-end;
+  opacity: ${props => (props.isVisible ? 1 : 0)};
+  pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
+  transition: opacity 700ms;
 `;
 
 const Title = styled(InvisibleButton)`

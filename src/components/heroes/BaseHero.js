@@ -12,7 +12,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import ClickableIcon from '../ClickableIcon';
 import SelfStraighteningCurves from '../SelfStraighteningCurves';
 
-const CURVE_HEIGHT = 70;
+const CURVE_HEIGHT = 140;
 
 class BaseHero extends PureComponent {
   static PropTypes = {
