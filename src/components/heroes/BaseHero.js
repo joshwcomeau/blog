@@ -30,6 +30,7 @@ class BaseHero extends PureComponent {
     decorations: PropTypes.node,
     // Environment info
     orientation: PropTypes.oneOf(['portrait', 'landscape']),
+    headerHeight: PropTypes.number,
   };
 
   static defaultProps = {
@@ -57,10 +58,15 @@ class BaseHero extends PureComponent {
   }
 
   calculateHeight = () => {
-    const { gutter } = this.props;
+    const { gutter, headerHeight } = this.props;
     // The height will only change when the orientation changes (which affects
     // the size of the gutter, and the )
-    return this.node.getBoundingClientRect().height - CURVE_HEIGHT - gutter;
+    return (
+      this.node.getBoundingClientRect().height -
+      CURVE_HEIGHT -
+      gutter -
+      headerHeight
+    );
   };
 
   handleScroll = ev => {
@@ -89,6 +95,8 @@ class BaseHero extends PureComponent {
 
     const height = orientation === 'landscape' ? '70vh' : '50vh';
     const gutter = orientation === 'landscape' ? this.props.gutter : 0;
+
+    console.log(gutter);
 
     return (
       <Wrapper>

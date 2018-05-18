@@ -12,11 +12,18 @@ export const trackEvent = ({ category, action, label, value }) => {
   window.ga('send', 'event', category, action, label, value);
 };
 
-export const interactWithExplorable = ({ component, label, value }) => {
+export const interactWithExplorable = ({ component, label }) => {
   trackEvent({
-    category: component,
-    action: 'explore',
+    category: 'explorable',
+    action: component,
     label,
-    value,
+  });
+};
+
+export const interactWithCodeSample = ({ component, label }) => {
+  trackEvent({
+    category: 'code-snippet',
+    action: component,
+    label,
   });
 };

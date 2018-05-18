@@ -160,10 +160,10 @@ const Svg = styled.svg`
 `;
 
 const Point = styled.ellipse`
-  cursor: ${props => (props.grabbable ? '-webkit-grab' : 'default')};
+  cursor: ${props => (props.grabbable ? '-webkit-grab' : 'not-allowed')};
 
   &:active {
-    cursor: ${props => (props.grabbable ? '-webkit-grabbing' : 'default')};
+    cursor: ${props => (props.grabbable ? '-webkit-grabbing' : 'not-allowed')};
   }
 `;
 

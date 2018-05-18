@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
@@ -11,10 +12,15 @@ import { clamp } from '../utils';
 import ClickableIcon from './ClickableIcon';
 import InvisibleButton from './InvisibleButton';
 
-const HEIGHT = 50;
 const BUFFER = 75;
 
 class Header extends PureComponent {
+  static propTypes = {
+    height: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    publishedOn: PropTypes.string,
+  };
+
   state = {
     isTitleVisible: false,
   };
@@ -49,7 +55,7 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { title, publishedOn, heroStyle } = this.props;
+    const { height, title, publishedOn, heroStyle } = this.props;
     const { isTitleVisible } = this.state;
 
     // TODO: color should depend on heroStyle.
@@ -63,7 +69,7 @@ class Header extends PureComponent {
 
     return (
       <Wrapper>
-        <InnerWrapper>
+        <InnerWrapper height={height}>
           <IconWrapper size={SIZES.homeIcon}>
             <ClickableIcon
               href="/"
@@ -93,7 +99,6 @@ const Wrapper = styled.header`
   top: 0px;
   left: 0px;
   right: 0px;
-  height: ${HEIGHT + 10}px;
   transition: opacity 250ms;
   will-change: transform;
   background: linear-gradient(
@@ -108,7 +113,7 @@ const InnerWrapper = styled.div`
   top: 0px;
   left: 10px;
   right: 10px;
-  height: ${HEIGHT}px;
+  height: ${props => props.height}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +147,7 @@ const Title = styled(InvisibleButton)`
   @media ${BREAKPOINTS.md} {
     /* Subtract roughly the amount of space needed for the home icon on the
     left, and duplicate it for the right side to preserve balance */
-    max-width: calc(100vw - 68px - 68px);
+    max-width: calc(100vw - 55px - 55px);
   }
 
   @media ${BREAKPOINTS.mdMin} {
@@ -182,7 +187,7 @@ const IconWrapper = styled.div`
   position: absolute;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
-  left: 5px;
+  left: 12px;
   top: 0;
   bottom: 0;
   margin: auto;

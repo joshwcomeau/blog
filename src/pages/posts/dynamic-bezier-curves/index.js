@@ -125,7 +125,12 @@ export default () => (
       <InlineCode>{'<rect>'}</InlineCode> or{' '}
       <InlineCode>{'<ellipse>'}</InlineCode>.
     </Paragraph>
-    <LiveEditableCode code={basicShapesCode} split={[50, 50]} maxHeight={585} />
+    <LiveEditableCode
+      id="basic-shapes"
+      code={basicShapesCode}
+      split={[50, 50]}
+      maxHeight={585}
+    />
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
       comes at the cost of flexibility; you can only create a handful of
@@ -138,7 +143,7 @@ export default () => (
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
 
-    <LiveEditableCode code={pathIntroCode} />
+    <LiveEditableCode id="path-intro" code={pathIntroCode} />
 
     <Paragraph>The interactive code snippet above uses 2 commands:</Paragraph>
     <List>
@@ -249,7 +254,7 @@ export default () => (
       The syntax for Bézier curves in SVG <InlineCode>path</InlineCode>{' '}
       definitions is a little counter-intuitive, but it looks like this:
     </Paragraph>
-    <LiveEditableCode code={bezierPathCode} />
+    <LiveEditableCode id="bezier-path" code={bezierPathCode} />
     <Paragraph>
       The counter-intuitive thing about this to me is that the{' '}
       <InlineCode>startPoint</InlineCode> is inferred in the{' '}
@@ -265,7 +270,7 @@ export default () => (
       This syntax does mean that curves can conveniently be chained together, as
       one curve starts where the last one ends:
     </Paragraph>
-    <LiveEditableCode code={chainedCurvesCode} />
+    <LiveEditableCode id="chained-curves" code={chainedCurvesCode} />
 
     <Spacer size={80} />
     <SectionHeading anchorId="bezier-curves-in-react">
@@ -287,6 +292,7 @@ export default () => (
       makes things easier to parse. 🤞
     </Paragraph>
     <LiveEditableCode
+      id="react-bezier"
       size="extra-wide"
       code={reactBezierCode}
       maxHeight={650}
@@ -445,6 +451,7 @@ export default () => (
     </Paragraph>
 
     <LiveEditableCode
+      id="interpolate-function"
       maxHeight={600}
       split={[0.8, 0.2]}
       code={interpolateFunctionCode}
@@ -471,6 +478,7 @@ export default () => (
     </Paragraph>
 
     <LiveEditableCode
+      id="react-scroll-flattener"
       scope={{ getInterpolatedValue }}
       size="extra-wide"
       code={reactScrollFlattenerCode}

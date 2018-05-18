@@ -16,6 +16,8 @@ import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 import Spacer from '../components/Spacer';
 
+const HEADER_HEIGHT = 50;
+
 const getHero = heroStyle => {
   switch (heroStyle) {
     case 'watermelon-gradient':
@@ -36,7 +38,12 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
         </title>
       </Helmet>
 
-      <Header title={title} publishedOn={publishedOn} heroStyle={heroStyle} />
+      <Header
+        height={HEADER_HEIGHT}
+        title={title}
+        publishedOn={publishedOn}
+        heroStyle={heroStyle}
+      />
       <WindowDimensions>
         {({ windowWidth, windowHeight }) => {
           const orientation =
@@ -44,6 +51,7 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
 
           return (
             <Hero
+              headerHeight={HEADER_HEIGHT}
               title={title}
               publishedOn={publishedOn}
               image={heroImage}

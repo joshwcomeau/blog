@@ -20,7 +20,7 @@ const WIDTH = 32;
 // the header?)
 const SCROLL_THRESHOLD = 66;
 
-const isLargeEnoughScreen = () => window.innerWidth >= BREAKPOINT_SIZES.lg;
+const isLargeEnoughScreen = () => window.innerWidth >= 1080;
 
 const isScrolledFarEnough = () =>
   window.scrollY / window.innerHeight * 100 > SCROLL_THRESHOLD;
@@ -145,7 +145,7 @@ const Wrapper = styled.div`
   width: ${props => props.width}px;
   opacity: ${props => (props.isVisible ? 1 : 0)};
   transform: ${props =>
-    props.isVisible ? 'translate(-325%, 105%)' : 'translate(-375%, 105%)'};
+    props.isVisible ? 'translate(-138px, 105%)' : 'translate(-158px, 105%)'};
   transition: opacity 500ms ease-out, transform 700ms ease-out;
   will-change: transform;
 `;

@@ -23,7 +23,7 @@ class InitialCurve extends Component {
 
     const progressRatio = percentStraightened / 100;
 
-    const originPoint = Math.round(getInterpolatedValue(25, 0, progressRatio));
+    const originPoint = Math.round(getInterpolatedValue(0, 0, progressRatio));
     const controlPoint1 = Math.round(
       getInterpolatedValue(350, 0, progressRatio)
     );
@@ -53,7 +53,7 @@ class InitialCurve extends Component {
         <path
           d={this.calculatePathForCurve()}
           stroke={color}
-          strokeWidth={10}
+          strokeWidth={12}
           strokeLinecap="round"
           fill="none"
         />

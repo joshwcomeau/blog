@@ -1,8 +1,6 @@
 // Utility function that clamps a given value to a
 // specific range (inclusive, between min and max).
-const clamp = (val, min, max) => (
-  Math.max(min, Math.min(max, val))
-);
+const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
 
 class DynamicBezierCurve extends React.PureComponent {
   constructor(props) {
@@ -35,11 +33,18 @@ class DynamicBezierCurve extends React.PureComponent {
   handleScroll(ev) {
     const svgBB = this.node.getBoundingClientRect();
 
+    // This page has a 50px header.
+    // We want the scroll to be flat once it reaches this
+    // header, plus a few extra pixels so that it's not
+    // RIGHT at the end.
+    const BUFFER = 50 + 5;
+    const scrollFinishedAt = svgBB.top - BUFFER;
+
     // Our amount scrolled will be the ratio of how far our
     // element is into the viewport. We subtract it from 1
     // because we want to invert the relationship (have it
     // go from 0 to 1, not from 1 to 0).
-    let scrollRatio = 1 - svgBB.top / window.innerHeight;
+    let scrollRatio = 1 - scrollFinishedAt / window.innerHeight;
 
     // We don't care about the negative values when it's
     // below the viewport, or the greater-than-1 values when
@@ -60,20 +65,20 @@ class DynamicBezierCurve extends React.PureComponent {
     // code snippet to figure out the values for the start point
     // and the control points.
     const startPoint = getInterpolatedValue(
-      300,  // curvy value
-      0,    // flat value
+      300, // curvy value
+      0, // flat value
       scrollRatio
     );
 
     const firstControlPoint = getInterpolatedValue(
       -100, // curvy value
-      0,    // flat value
+      0, // flat value
       scrollRatio
     );
 
     const secondControlPoint = getInterpolatedValue(
-      450,  // curvy value
-      0,    // flat value
+      450, // curvy value
+      0, // flat value
       scrollRatio
     );
 
@@ -101,7 +106,7 @@ class DynamicBezierCurve extends React.PureComponent {
           // `overflow: visible` is a neat trick to allow for the
           // curve to spill over slightly. Without this prop, the
           // rounded ends of the line would be cut off.
-          overflow: 'visible'
+          overflow: 'visible',
         }}
       >
         <Curve instructions={instructions} />

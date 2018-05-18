@@ -77,7 +77,7 @@ export const BREAKPOINTS = {
 };
 
 export const READING_WIDTH = 850;
-export const EXTRA_WIDE_WIDTH = 1060;
+export const EXTRA_WIDE_WIDTH = 1024;
 
 const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
 
