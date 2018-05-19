@@ -25,6 +25,7 @@ import InitialCurve from '../../../components/InitialCurve';
 import BezierController from '../../../components/BezierController';
 import BezierFlattener from '../../../components/BezierFlattener';
 import BezierInterpolationGraph from '../../../components/BezierInterpolationGraph';
+import InterstitialNewsletterSignup from '../../../components/InterstitialNewsletterSignup';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
@@ -115,6 +116,7 @@ export default () => (
     </Paragraph>
     <LiveEditableCode
       id="basic-shapes"
+      gistId="01114efda3cb02e4ffa3b49431c14982"
       code={basicShapesCode}
       split={[50, 50]}
       maxHeight={585}
@@ -259,6 +261,8 @@ export default () => (
       one curve starts where the last one ends:
     </Paragraph>
     <LiveEditableCode id="chained-curves" code={chainedCurvesCode} />
+
+    <InterstitialNewsletterSignup />
 
     <Spacer size={80} />
     <SectionHeading anchorId="bezier-curves-in-react">
