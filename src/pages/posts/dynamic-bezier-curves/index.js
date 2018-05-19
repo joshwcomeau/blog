@@ -8,7 +8,8 @@ import BlogPostTemplate from '../../../templates/BlogPost';
 import Paragraph from '../../../components/Paragraph';
 import List from '../../../components/List';
 import ListItem from '../../../components/ListItem';
-import Heading from '../../../components/Heading';
+import SectionHeading from '../../../components/SectionHeading';
+import SectionSubHeading from '../../../components/SectionSubHeading';
 import InlineCode from '../../../components/InlineCode';
 import Divider from '../../../components/Divider';
 import TextLink from '../../../components/TextLink';
@@ -48,22 +49,6 @@ export const FRONT_MATTER = {
     "Learn how to fold up the DOM like origami. We'll look at how to create Flipboard-like folding UI, and how to abstract that into generalized, reusable React components.",
 };
 
-const SectionHeading = ({ style = {}, ...delegated }) => (
-  <Heading
-    size={3}
-    style={{ ...style, color: COLORS.pink[500] }}
-    {...delegated}
-  />
-);
-
-const SubHeading = ({ style = {}, ...delegated }) => (
-  <Heading
-    size={4}
-    style={{ ...style, color: COLORS.purple[700] }}
-    {...delegated}
-  />
-);
-
 export default () => (
   <BlogPostTemplate {...FRONT_MATTER}>
     <Paragraph>
@@ -100,6 +85,7 @@ export default () => (
         <InitialCurve percentStraightened={value} color={COLORS.pink[500]} />
       )}
     </SingleAxisDemo>
+
     <Divider />
 
     <SectionHeading anchorId="understanding-svg-paths">
@@ -333,9 +319,9 @@ export default () => (
     </List>
 
     <Spacer size={25} />
-    <SubHeading anchorId="a-note-on-performance">
+    <SectionSubHeading anchorId="a-note-on-performance">
       A note on performance
-    </SubHeading>
+    </SectionSubHeading>
     <Paragraph>
       By using React's update cycle to manage the point coordinates, there is
       added overhead of letting React run its reconciliation cycle on every{' '}
@@ -535,9 +521,9 @@ export default () => (
     </Paragraph>
 
     <Spacer size={25} />
-    <SubHeading anchorId="another-note-on-perforamnce">
+    <SectionSubHeading anchorId="another-note-on-perforamnce">
       Another note on performance
-    </SubHeading>
+    </SectionSubHeading>
     <Paragraph>
       The two versions above were written without any concern for performance.
       As it turns out, the performance is not so bad; on my low-end Chromebook,
@@ -616,7 +602,7 @@ export default () => (
       </ListItem>
     </List>
 
-    <Spacer size={80} />
+    <Divider />
 
     <SectionHeading anchorId="in-conclusion">In Conclusion</SectionHeading>
 
@@ -659,7 +645,9 @@ export default () => (
     </Paragraph>
 
     <Spacer size={20} />
-    <SubHeading anchorId="join-the-newsletter">Join the Newsletter</SubHeading>
+    <SectionSubHeading anchorId="join-the-newsletter">
+      Join the Newsletter
+    </SectionSubHeading>
 
     <Paragraph>
       This blog post is the first thing I've tried in this format. It was a heck
