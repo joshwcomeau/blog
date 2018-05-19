@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { COLORS } from '../../../constants';
 import { getInterpolatedValue } from '../../../utils';
@@ -32,6 +33,7 @@ import reactBezierCode from './code/react-bezier.example';
 import optimizedReactBezierCode from './code/optimized-react-bezier.example';
 import interpolateFunctionCode from './code/interpolate-function.example';
 import reactScrollFlattenerCode from './code/react-scroll-flattener.example';
+import reactScrollFlattenerRefactoredCode from './code/react-scroll-flattener-refactored.example';
 
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
@@ -472,25 +474,64 @@ export default () => (
       into something usable.
     </Paragraph>
     <Paragraph>
-      There are a number of ways we could do this. Here's the most
-      straightforward approach I could think of: bundling the scroll-handling
-      with the Bézier curve in one purpose-built component.
+      Let's start by building a component that contains our scroll-handler to
+      interpolate from the bottom of the viewport to the top, and connect those
+      values to a Bézier curve in the <Em>render</Em> function:
     </Paragraph>
 
     <LiveEditableCode
       id="react-scroll-flattener"
-      scope={{ getInterpolatedValue }}
+      scope={{ getInterpolatedValue, PropTypes }}
       size="extra-wide"
       code={reactScrollFlattenerCode}
       maxHeight={650}
     />
 
     <Paragraph>
-      The drawback to this method is that it's not very reusable, unless you
-      need exactly the same curve with exactly the same kind of effect. One
-      potential quality-of-life improvement would be to separate the
-      scroll-handling logic from the SVG-drawing component, by creating a
-      wrapper component. This is left as an exercise for the reader.
+      This initial approach seems to work OK! There are two things I want to
+      improve though:
+    </Paragraph>
+
+    <List>
+      <ListItem>
+        The "timing" of the flattening feels wrong to me.
+        <br />
+        <Spacer size={10} />
+        When the curve fully enters the viewport, it's already starting to be
+        flattened. We don't get to see it in 100%-curved form. Worse, it hasn't
+        finished flattening by the time it scrolls out of view! This is because
+        this page has a header that takes up the top 50px of the viewport, and
+        we aren't taking that into account.
+        <br />
+        <Spacer size={10} />
+        To solve these problems, we need to define a <Em>scrollable area</Em>,
+        instead of just using the viewport.
+      </ListItem>
+      <ListItem>
+        This component is doing an awful lot. It feels like we could extract a
+        couple components from this. Refactoring it would not only make it
+        easier to follow/understand, but it would make it more reusable.
+      </ListItem>
+    </List>
+
+    <Paragraph>
+      Let's fix these problems. Here's a refactored version:
+    </Paragraph>
+
+    <LiveEditableCode
+      id="react-scroll-flattener-refactored"
+      scope={{ getInterpolatedValue, PropTypes }}
+      size="extra-wide"
+      code={reactScrollFlattenerRefactoredCode}
+      maxHeight={650}
+    />
+
+    <Paragraph>
+      Ahh, much nicer! The effect is more pleasant as the flattening animation
+      happens within a smaller scroll window, and the code is easier to parse.
+      As a bonus, our <InlineCode>BezierCurve</InlineCode> and{' '}
+      <InlineCode>ScrollArea</InlineCode> components are generic, so they could
+      be useful in totally different contexts.
     </Paragraph>
 
     <Spacer size={25} />
@@ -498,13 +539,8 @@ export default () => (
       Another note on performance
     </SubHeading>
     <Paragraph>
-      So, when I wrote that component, I was thinking purely of developer
-      ergonomics. I was skeptical that it would perform well on lower-end
-      devices.
-    </Paragraph>
-
-    <Paragraph>
-      To my surprise, though, it's not half bad; on my low-end used Chromebook,
+      The two versions above were written without any concern for performance.
+      As it turns out, the performance is not so bad; on my low-end Chromebook,
       it stutters a little bit from time to time but mostly runs at 60fps. On my
       iPhone 6, it runs well.
     </Paragraph>
@@ -523,9 +559,9 @@ export default () => (
         >
           Throttle
         </TextLink>{' '}
-        the scroll-handler so that it only fires every 20ms or so. This is to
-        calm down certain touch-screen or trackpad interfaces that can fire far
-        more often than is required.
+        the scroll-handler in <InlineCode>ScrollArea</InlineCode> that it only
+        fires every 20ms or so. This is to calm down certain touch-screen or
+        trackpad interfaces that can fire far more often than is required.
       </ListItem>
       <ListItem>
         One of the more expensive parts of this effect is that we're interacting
@@ -539,39 +575,46 @@ export default () => (
             getBoundingClientRect
           </TextLink>
         </InlineCode>
-        , on every scroll event. Ideally, we could cache the distance between
-        the top of the document and the top of our Bézier curve on our
-        component, and just check the current scroll distance against this
-        value.
+        , on every scroll event. Ideally, we could cache the position of our{' '}
+        <InlineCode>ScrollArea</InlineCode> on mount, and then check the current
+        scroll distance against this value.
         <br />
-        <br />
+        <Spacer size={10} />
         Unfortunately, this method opens up new problems. It assumes that
         nothing between the top of the document and your Bézier curve will
         change height, since our calculations assume a static distance between
         the two. Mobile browsers like iOS Safari will hide their chrome as you
         scroll down, so we'd have to factor that in as well.
         <br />
-        <br />
+        <Spacer size={10} />
         It's far from impossible, but it wasn't worth the trouble for me, given
         that performance was satisfactory on the devices I'm targeting.
       </ListItem>
       <ListItem>
-        We're also paying for the overhead of React's lifecycle by storing{' '}
-        <InlineCode>scrollRatio</InlineCode> in state. We <em>could</em> work
-        with the DOM directly, by setting the new <InlineCode>path</InlineCode>{' '}
-        instructions using <InlineCode>setAttribute</InlineCode>. This is
-        similar to the approach I took in my{' '}
-        <TextLink href="optimized-version">alternative approach</TextLink> to
-        the draggable Bézier example.
+        By storing
+        <InlineCode>scrollRatio</InlineCode> in state and re-rendering whenever
+        it changes, React needs some time to work out how the DOM has changed as
+        a result of the scroll.
+        <br />
+        <Spacer size={10} />
+        The refactor to extract several components, while very good for DX and
+        reusability, also means that React has a slightly more complex tree to
+        reconcile.
+        <br />
+        <Spacer size={10} />
+        This all sounds a bit scary, but as we discovered earlier, React's
+        reconciliation process is very quick on small trees like this. The cost
+        of the refactor was negligible on my chromebook [CHECK THIS].
+        <br />
+        <Spacer size={10} />
+        If you really need to extract every drop of performance, you could work
+        with the DOM directly, by setting the new <InlineCode>
+          path
+        </InlineCode>{' '}
+        instructions using <InlineCode>setAttribute</InlineCode>. Note that
+        you'd need to store everything in 1 component again.
       </ListItem>
     </List>
-
-    <Paragraph>
-      Note that some of these optimizations come at the expense of developer
-      ergonomics; this is often the tradeoff, and whether it's worth it will
-      depend on your audience, and how critical the animation is to the
-      experience.
-    </Paragraph>
 
     <Spacer size={80} />
 

@@ -15,7 +15,7 @@ const Wrapper = styled.span`
   display: ${props => (props.block ? 'block' : 'inline')};
   margin: ${props => (props.block ? '42px auto' : '0')};
   font-size: 21px;
-  color: ${COLORS.violet[700]};
+  color: ${COLORS.gray[600]};
 `;
 
 export default Latex;
