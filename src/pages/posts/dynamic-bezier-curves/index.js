@@ -638,19 +638,20 @@ export default () => (
     </Paragraph>
     <Paragraph>
       One of the ways you can help signal to me that this content is worth the
-      extra work is by signing up for the newsletter!
+      extra work is by signing up for the newsletter! The newsletter will be
+      sent once every few weeks, and subscribers will be the first to hear about
+      new posts.
     </Paragraph>
-    <Paragraph>
-      The newsletter will be sent once every few weeks, and will include
-      sneak-peaks of upcoming blog posts, as well as special "behind-the-scenes"
-      content where I share how these posts are built.
-    </Paragraph>
+
     <NewsletterSignup id="conclusion" />
+    <Spacer size={80} />
     <SectionSubHeading>Additional Reading</SectionSubHeading>
-    Curious to learn more about Bézier curves? There's an{' '}
-    <TextLink external href="https://pomax.github.io/bezierinfo/">
-      amazing explorable explanation
-    </TextLink>{' '}
-    that dives deep into the math of Bézier curves.
+    <Paragraph>
+      Curious to learn more about Bézier curves? There's an{' '}
+      <TextLink external href="https://pomax.github.io/bezierinfo/">
+        amazing explorable explanation
+      </TextLink>{' '}
+      that dives deep into the math of Bézier curves.
+    </Paragraph>
   </BlogPostTemplate>
 );

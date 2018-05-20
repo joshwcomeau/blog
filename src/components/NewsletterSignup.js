@@ -43,13 +43,15 @@ class NewsletterSignup extends Component<Props, State> {
           target="popupwindow"
           onSubmit={this.handleSubmit}
         >
-          <EmailInput required type="email" name="email" id="tlemail" />
+          <EmailInput
+            required
+            type="email"
+            name="email"
+            id="tlemail"
+            placeholder="name@domain.com"
+          />
 
-          <MagicGradientButton
-            style={{ width: 150, height: 60, fontSize: '1.5rem' }}
-          >
-            Subscribe
-          </MagicGradientButton>
+          <SubmitButton>Subscribe</SubmitButton>
           <input type="hidden" value="1" name="embed" />
         </Form>
 
@@ -78,7 +80,10 @@ const Form = styled.form`
   max-width: 500px;
   margin: auto;
   display: flex;
-  outline: 8px solid rgba(255, 255, 255, 0.12);
+
+  @media ${BREAKPOINTS.sm} {
+    flex-direction: column;
+  }
 `;
 
 const EmailInput = styled.input`
@@ -86,6 +91,7 @@ const EmailInput = styled.input`
   height: 60px;
   padding: 0 20px;
   font-size: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 
   @media ${BREAKPOINTS.sm} {
     display: block;
@@ -93,14 +99,15 @@ const EmailInput = styled.input`
   }
 `;
 
-const SubmitButton = styled.button`
-  display: block;
-  width: 125px;
+const SubmitButton = styled(MagicGradientButton)`
+  width: 150px;
   height: 60px;
-  border: none;
   font-size: 1.5rem;
-  color: white;
-  background: linear-gradient(${COLORS.pink[700]}, #ac00b2);
+
+  @media ${BREAKPOINTS.sm} {
+    margin-top: 8px;
+    width: 100%;
+  }
 `;
 
 export default NewsletterSignup;
