@@ -27,3 +27,10 @@ export const interactWithCodeSample = ({ component, label }) => {
     label,
   });
 };
+
+export const signUpForNewsletter = ({ id }) => {
+  trackEvent({
+    category: 'newsletter',
+    action: id,
+  });
+};

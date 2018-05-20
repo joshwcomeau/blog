@@ -40,6 +40,7 @@ export const COLORS = {
     '700': '#4919b7',
   },
   gray: {
+    '50': '#f8f8f8',
     '100': '#f2f2f2',
     '200': '#eaeaea',
     '300': '#cccccc',
