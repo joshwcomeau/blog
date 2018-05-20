@@ -33,7 +33,6 @@ import pathIntroCode from './code/path-intro.example';
 import bezierPathCode from './code/bezier-path.example';
 import chainedCurvesCode from './code/chained-curves.example';
 import reactBezierCode from './code/react-bezier.example';
-import optimizedReactBezierCode from './code/optimized-react-bezier.example';
 import interpolateFunctionCode from './code/interpolate-function.example';
 import reactScrollFlattenerCode from './code/react-scroll-flattener.example';
 import reactScrollFlattenerRefactoredCode from './code/react-scroll-flattener-refactored.example';
@@ -130,7 +129,11 @@ export default () => (
       SVG primitive lets you specify a sequence of steps to execute, in a
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
-    <LiveEditableCode id="path-intro" code={pathIntroCode} />
+    <LiveEditableCode
+      id="path-intro"
+      gistId="27a7f8f1b1a8dcd93d4330b90a7dcc86"
+      code={pathIntroCode}
+    />
     <Paragraph>The interactive code snippet above uses 2 commands:</Paragraph>
     <List>
       <ListItem>
@@ -238,7 +241,11 @@ export default () => (
       The syntax for Bézier curves in SVG <InlineCode>path</InlineCode>{' '}
       definitions is a little counter-intuitive, but it looks like this:
     </Paragraph>
-    <LiveEditableCode id="bezier-path" code={bezierPathCode} />
+    <LiveEditableCode
+      id="bezier-path"
+      gistId="1720d55b885e61dc070a59fabc500142"
+      code={bezierPathCode}
+    />
     <Paragraph>
       The counter-intuitive thing about this to me is that the{' '}
       <InlineCode>startPoint</InlineCode> is inferred in the{' '}
@@ -254,7 +261,11 @@ export default () => (
       This syntax does mean that curves can conveniently be chained together, as
       one curve starts where the last one ends:
     </Paragraph>
-    <LiveEditableCode id="chained-curves" code={chainedCurvesCode} />
+    <LiveEditableCode
+      id="chained-curves"
+      gistId="5f7315ec4751cf2dadb5ba41f037dcdc"
+      code={chainedCurvesCode}
+    />
     <InterstitialNewsletterSignup />
     <Spacer size={80} />
     <SectionHeading anchorId="bezier-curves-in-react">
@@ -276,6 +287,7 @@ export default () => (
     </Paragraph>
     <LiveEditableCode
       id="react-bezier"
+      gistId="f164468fc145cc8abb28f6b12652f93b"
       size="extra-wide"
       code={reactBezierCode}
       maxHeight={650}
@@ -425,6 +437,7 @@ export default () => (
     </Paragraph>
     <LiveEditableCode
       id="interpolate-function"
+      gistId="63a1555b693153f08908a727c98a7310"
       maxHeight={600}
       split={[0.8, 0.2]}
       code={interpolateFunctionCode}
@@ -448,6 +461,7 @@ export default () => (
     </Paragraph>
     <LiveEditableCode
       id="react-scroll-flattener"
+      gistId="9e3fa23fb1f291ee781ed110b6cb7843"
       scope={{ getInterpolatedValue, PropTypes }}
       size="extra-wide"
       code={reactScrollFlattenerCode}
@@ -483,6 +497,7 @@ export default () => (
     </Paragraph>
     <LiveEditableCode
       id="react-scroll-flattener-refactored"
+      gistId="e568721ed56b040e05e101874ca2b799"
       scope={{ getInterpolatedValue, PropTypes }}
       size="extra-wide"
       code={reactScrollFlattenerRefactoredCode}

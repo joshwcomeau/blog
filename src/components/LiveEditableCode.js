@@ -17,6 +17,7 @@ class LiveEditableCode extends PureComponent {
     // `gistId` needed for mobile, since we don't embed code on mobile.
     // (I haven't figured out how to make it a good experience :/)
     gistId: PropTypes.string.isRequired,
+
     code: PropTypes.string.isRequired,
     scope: PropTypes.object,
     size: PropTypes.oneOf(['normal', 'extra-wide']),
