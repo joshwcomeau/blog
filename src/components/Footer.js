@@ -6,7 +6,8 @@ import { socialGithub } from 'react-icons-kit/ionicons/socialGithub';
 import { socialGithubOutline } from 'react-icons-kit/ionicons/socialGithubOutline';
 import { iosEmail } from 'react-icons-kit/ionicons/iosEmail';
 import { iosEmailOutline } from 'react-icons-kit/ionicons/iosEmailOutline';
-import { COLORS } from '../constants';
+
+import { COLORS, BREAKPOINTS } from '../constants';
 
 import ClickableIcon from './ClickableIcon';
 
@@ -57,6 +58,10 @@ const Wrapper = styled.footer`
   padding: 20px;
   background: ${COLORS.gray[100]};
   color: ${COLORS.gray[900]};
+
+  @media ${BREAKPOINTS.sm} {
+    margin: 6px;
+  }
 `;
 
 const Name = styled.span`

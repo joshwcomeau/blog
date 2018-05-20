@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from '../constants';
+import { COLORS, BREAKPOINTS } from '../constants';
 import { humanizeDate } from '../helpers/date.helpers';
 
 import Paragraph from '../components/Paragraph';
@@ -14,10 +14,7 @@ const IndexPost = ({ slug, title, abstract, publishedOn }) => {
         <PostTitle>{title}</PostTitle>
       </PostLink>
       <Date>{humanizeDate(publishedOn)}</Date>
-      <Abstract>
-        {abstract}{' '}
-        {/* <ReadMoreLink href={`/posts/${slug}`}>Read More</ReadMoreLink> */}
-      </Abstract>
+      <Abstract>{abstract} </Abstract>
     </Wrapper>
   );
 };
@@ -32,10 +29,15 @@ const PostLink = styled(Link)`
 
 const PostTitle = styled.h3`
   font-size: 48px;
+  line-height: 50px;
   font-weight: 600;
   letter-spacing: -1px;
   color: ${COLORS.blue[500]};
   margin: -10px 0 -4px;
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 42px;
+  }
 `;
 
 const Date = styled.h5`
@@ -43,6 +45,7 @@ const Date = styled.h5`
   font-weight: 500;
   color: ${COLORS.gray[500]};
   margin-bottom: 24px;
+  margin-top: 12px;
 `;
 
 const Abstract = styled(Paragraph)`

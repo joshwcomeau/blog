@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 
 import { siteMetadata } from '../../gatsby-config';
 import posts from '../all-posts';
-import { COLORS } from '../constants';
+import { COLORS, BREAKPOINTS } from '../constants';
 
 import Paragraph from '../components/Paragraph';
 import Divider from '../components/Divider';
@@ -72,24 +72,31 @@ const IndexPage = () => (
 );
 
 const Wrapper = styled.div`
-  /* margin: 10px 10px 0; */
   padding: 10px;
   background: linear-gradient(
     120deg,
     ${COLORS.pink[500]},
     ${COLORS.purple[500]}
   );
+
+  @media ${BREAKPOINTS.sm} {
+    padding: 6px;
+  }
 `;
 
 const BorderWrapper = styled.div`
   position: relative;
   padding: 15vh 0 5vh;
   background: #fff;
+
+  @media ${BREAKPOINTS.sm} {
+    padding: 10vh 0 5vh;
+  }
 `;
 
 const InnerWrapper = styled(MaxWidthWrapper)`
   position: relative;
-  padding: 40px 0;
+  padding: 40px 20px;
   color: ${COLORS.gray[900]};
 `;
 
@@ -98,6 +105,11 @@ const Title = styled.h1`
   font-size: 5rem;
   font-weight: 900;
   letter-spacing: -2.4px;
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+  }
 `;
 
 const Name = styled.span`

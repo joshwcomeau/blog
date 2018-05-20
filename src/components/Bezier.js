@@ -45,7 +45,6 @@ class Bezier extends PureComponent {
       ev.preventDefault();
       const touch = ev.touches[0];
       [x, y] = [touch.screenX, touch.screenY];
-      console.log(x, y);
     } else {
       [x, y] = [ev.clientX, ev.clientY];
     }
