@@ -14,6 +14,8 @@ import './prism-theme';
 import './reset.css';
 import './fonts.css';
 
+import '../polyfills/intersection-observer';
+
 injectGlobal`
   html {
     font-size: 16px;

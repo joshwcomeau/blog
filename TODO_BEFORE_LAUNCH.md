@@ -1,13 +1,8 @@
-* Buy domain
-* Set up deploy (netlify?)
-* Set up newsletter
-* Create newsletter CTA for homepage
 * Analytics
   * Set up conversions for things like interacting with interactive widgets
   * Track "has been read", by using IntersectionObserver on an element near the bottom of the page.
 * Bezier blog:
   * Additional reading
-  * Newsletter CTA for blog post (maybe 2, interspersed?)
 
 # Nice-to-haves
 

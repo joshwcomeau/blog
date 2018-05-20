@@ -26,6 +26,7 @@ import BezierController from '../../../components/BezierController';
 import BezierFlattener from '../../../components/BezierFlattener';
 import BezierInterpolationGraph from '../../../components/BezierInterpolationGraph';
 import InterstitialNewsletterSignup from '../../../components/InterstitialNewsletterSignup';
+import TrackRead from '../../../components/TrackRead';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
@@ -86,13 +87,10 @@ export default () => (
         <InitialCurve percentStraightened={value} color={COLORS.pink[500]} />
       )}
     </SingleAxisDemo>
-
     <Divider />
-
     <SectionHeading anchorId="understanding-svg-paths">
       A Quick SVG Refresher
     </SectionHeading>
-
     <Paragraph>
       For achieving this effect, we'll use SVG. We could also use HTML Canvas,
       but SVG is easier to work with, and more accessible+.
@@ -132,9 +130,7 @@ export default () => (
       SVG primitive lets you specify a sequence of steps to execute, in a
       seemingly-inscrutable bundle of letters and numbers:
     </Paragraph>
-
     <LiveEditableCode id="path-intro" code={pathIntroCode} />
-
     <Paragraph>The interactive code snippet above uses 2 commands:</Paragraph>
     <List>
       <ListItem>
@@ -190,12 +186,10 @@ export default () => (
         <Em>cubic</Em> Bézier curve.
       </ListItem>
     </List>
-
     <Spacer size={80} />
     <SectionHeading anchorId="intro-to-bezier-curves">
       Intro to Bézier Curves
     </SectionHeading>
-
     <Paragraph>
       Bézier curves are surprisingly common. Due to their versatility, they're a
       staple in most graphics software like Photoshop, but they're also used as
@@ -261,14 +255,11 @@ export default () => (
       one curve starts where the last one ends:
     </Paragraph>
     <LiveEditableCode id="chained-curves" code={chainedCurvesCode} />
-
     <InterstitialNewsletterSignup />
-
     <Spacer size={80} />
     <SectionHeading anchorId="bezier-curves-in-react">
       Bézier Curves in React
     </SectionHeading>
-
     <Paragraph>
       While all of the code samples have technically been React, we've just been
       rendering static elements. How can we leverage React state to make our
@@ -321,7 +312,6 @@ export default () => (
         <InlineCode>path</InlineCode> to be re-calculated.
       </ListItem>
     </List>
-
     <Spacer size={25} />
     <SectionSubHeading anchorId="a-note-on-performance">
       A note on performance
@@ -346,12 +336,10 @@ export default () => (
       high-end hardware. On the cheapest Chromebook I could find, the
       "unoptimized" one still averaged 50fps or so.
     </Paragraph>
-
     <Spacer size={80} />
     <SectionHeading anchorId="curve-interpolation">
       Curve Interpolation
     </SectionHeading>
-
     <Paragraph>
       I seem to have gotten a little side-tracked! Our original goal was to
       create a Bézier curve that flattens itself on scroll.
@@ -362,10 +350,8 @@ export default () => (
       between the start and end points is just a straight line! So we just need
       to transition the control points from their curvy values to a flat value.
     </Paragraph>
-
     <BezierFlattener />
     <Spacer size={32} />
-
     <Paragraph>
       We need a way to <Em>interpolate values</Em>. We know where the control
       points should be at 0% and 100%, but what about when the user is 25%
@@ -405,9 +391,7 @@ export default () => (
       (flattened value). We can graph a line that goes from 200 to 0, and we can
       assume X goes from 0 (curved) to 1 (flattened).
     </Paragraph>
-
     <BezierInterpolationGraph />
-
     <Paragraph>
       Because we know the first and last points of our line, we have all the
       variables we need for that formula!
@@ -430,35 +414,29 @@ export default () => (
     </List>
     <Paragraph>Filling it in:</Paragraph>
     <Latex block>{'y = -200x + 200'}</Latex>
-
     <Paragraph>
       If it's 25% of the way through, <Latex>x</Latex> will be 0.25, and so our{' '}
       <Latex>y</Latex> value would be{' '}
       <Latex>y = (-200)(0.25) + 200 = 150</Latex>, which feels right: 150 is 1/4
       of the way between 200 and 0.
     </Paragraph>
-
     <Paragraph>
       Here's our function that performs the above calculations:
     </Paragraph>
-
     <LiveEditableCode
       id="interpolate-function"
       maxHeight={600}
       split={[0.8, 0.2]}
       code={interpolateFunctionCode}
     />
-
     <Paragraph>
       Looks like teenage-me was wrong; algebra <strong>is</strong> useful and
       practical!
     </Paragraph>
-
     <Spacer size={80} />
     <SectionHeading anchorId="handling-scroll-in-react">
       Handling Scroll in React
     </SectionHeading>
-
     <Paragraph>
       We're in the home stretch now! We just need to combine all these ideas
       into something usable.
@@ -468,7 +446,6 @@ export default () => (
       interpolate from the bottom of the viewport to the top, and connect those
       values to a Bézier curve in the <Em>render</Em> function:
     </Paragraph>
-
     <LiveEditableCode
       id="react-scroll-flattener"
       scope={{ getInterpolatedValue, PropTypes }}
@@ -476,12 +453,10 @@ export default () => (
       code={reactScrollFlattenerCode}
       maxHeight={650}
     />
-
     <Paragraph>
       This initial approach seems to work OK! There are two things I want to
       improve though:
     </Paragraph>
-
     <List>
       <ListItem>
         The "timing" of the flattening feels wrong to me.
@@ -503,11 +478,9 @@ export default () => (
         easier to follow/understand, but it would make it more reusable.
       </ListItem>
     </List>
-
     <Paragraph>
       Let's fix these problems. Here's a refactored version:
     </Paragraph>
-
     <LiveEditableCode
       id="react-scroll-flattener-refactored"
       scope={{ getInterpolatedValue, PropTypes }}
@@ -515,7 +488,6 @@ export default () => (
       code={reactScrollFlattenerRefactoredCode}
       maxHeight={650}
     />
-
     <Paragraph>
       Ahh, much nicer! The effect is more pleasant as the flattening animation
       happens within a smaller scroll window, and the code is easier to parse.
@@ -523,7 +495,6 @@ export default () => (
       <InlineCode>ScrollArea</InlineCode> components are generic, so they could
       be useful in totally different contexts.
     </Paragraph>
-
     <Spacer size={25} />
     <SectionSubHeading anchorId="another-note-on-perforamnce">
       Another note on performance
@@ -534,12 +505,10 @@ export default () => (
       it stutters a little bit from time to time but mostly runs at 60fps. On my
       iPhone 6, it runs well.
     </Paragraph>
-
     <Paragraph>
       That said, your mileage may vary. If you want to improve performance,
       there are a few ways this could be optimized:
     </Paragraph>
-
     <List>
       <ListItem>
         <TextLink
@@ -605,17 +574,14 @@ export default () => (
         you'd need to store everything in 1 component again.
       </ListItem>
     </List>
-
     <Divider />
-
     <SectionHeading anchorId="in-conclusion">In Conclusion</SectionHeading>
-
+    <TrackRead slug={FRONT_MATTER.slug} />
     <Paragraph>Whew, you made it through this Bézier deep-dive!</Paragraph>
     <Paragraph>
       The technique described in this blog post is foundational, and there's
       tons of flourishes you can add on top of it:
     </Paragraph>
-
     <List>
       <ListItem>
         This blog uses 3 layered Bézier curves with different fill colours to
@@ -640,19 +606,16 @@ export default () => (
         </TextLink>, to give the transition inertia.
       </ListItem>
     </List>
-
     <Paragraph>
       I'm excited to see what you build with this technique! Let me know{' '}
       <TextLink external href="https://twitter.com/joshwcomeau" target="_blank">
         on Twitter
       </TextLink>.
     </Paragraph>
-
     <Spacer size={20} />
     <SectionSubHeading anchorId="join-the-newsletter">
       Join the Newsletter
     </SectionSubHeading>
-
     <Paragraph>
       This blog post is the first thing I've tried in this format. It was a heck
       of a lot of fun to build, but it was also a <em>tremendous</em> amount of
@@ -667,7 +630,12 @@ export default () => (
       sneak-peaks of upcoming blog posts, as well as special "behind-the-scenes"
       content where I share how these posts are built.
     </Paragraph>
-
-    <NewsletterSignup />
+    <NewsletterSignup id="conclusion" />
+    <SectionSubHeading>Additional Reading</SectionSubHeading>
+    Curious to learn more about Bézier curves? There's an{' '}
+    <TextLink external href="https://pomax.github.io/bezierinfo/">
+      amazing explorable explanation
+    </TextLink>{' '}
+    that dives deep into the math of Bézier curves.
   </BlogPostTemplate>
 );

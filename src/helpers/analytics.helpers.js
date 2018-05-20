@@ -5,7 +5,11 @@ export const trackEvent = ({ category, action, label, value }) => {
   }
 
   // Ignore in development, when the GA snippet isn't loaded.
-  if (typeof window.ga === 'undefined') {
+  if (
+    typeof window.ga === 'undefined' ||
+    process.env.NODE_ENV !== 'production'
+  ) {
+    console.info('`trackEvent` called:', { category, action, label, value });
     return;
   }
 
@@ -31,6 +35,14 @@ export const interactWithCodeSample = ({ component, label }) => {
 export const signUpForNewsletter = ({ id }) => {
   trackEvent({
     category: 'newsletter',
-    action: id,
+    label: id,
+  });
+};
+
+export const finishedReadingPost = ({ slug }) => {
+  trackEvent({
+    category: 'blog-post',
+    action: 'read',
+    label: slug,
   });
 };

@@ -32,7 +32,7 @@ const Wrapper = styled(Link)`
   }
 
   &:hover:after {
-    transform: translateY(-6px);
+    transform: translateY(-0.25em);
     opacity: 0;
     transition: transform 250ms, opacity 450ms;
   }

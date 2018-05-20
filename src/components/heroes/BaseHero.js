@@ -96,8 +96,6 @@ class BaseHero extends PureComponent {
     const height = orientation === 'landscape' ? '70vh' : '50vh';
     const gutter = orientation === 'landscape' ? this.props.gutter : 0;
 
-    console.log(gutter);
-
     return (
       <Wrapper>
         <Hero

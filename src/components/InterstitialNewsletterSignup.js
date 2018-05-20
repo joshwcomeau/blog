@@ -25,7 +25,7 @@ const InterstitialNewsletterSignup = () => (
         interaction stuff with React.
       </Paragraph>
 
-      <NewsletterSignup />
+      <NewsletterSignup id="interstitial" />
     </MaxWidthWrapper>
   </Wrapper>
 );

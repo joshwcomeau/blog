@@ -7,6 +7,7 @@ import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
 
 import { COLORS } from '../constants';
+import { throttle } from '../utils';
 import { interactWithExplorable } from '../helpers/analytics.helpers';
 
 import Slider from './Slider';
@@ -36,13 +37,16 @@ class SingleAxisDemo extends PureComponent {
   };
 
   updateSliderVal = val => {
+    this.setState({ axisValue: val });
+    this.track();
+  };
+
+  track = throttle(() => {
     interactWithExplorable({
       component: 'SingleAxisDemo',
       label: this.props.id,
     });
-
-    this.setState({ axisValue: val });
-  };
+  }, 5000);
 
   handleMouseEnter = () => this.setState({ isHovering: true });
   handleMouseLeave = () => this.setState({ isHovering: false });

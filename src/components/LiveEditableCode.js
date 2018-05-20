@@ -16,6 +16,7 @@ class LiveEditableCode extends PureComponent {
     id: PropTypes.string.isRequired,
     // `gistId` needed for mobile, since we don't embed code on mobile.
     // (I haven't figured out how to make it a good experience :/)
+    gistId: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired,
     scope: PropTypes.object,
     size: PropTypes.oneOf(['normal', 'extra-wide']),
@@ -44,12 +45,13 @@ class LiveEditableCode extends PureComponent {
   };
 
   render() {
-    const { gistUrl, code, scope, size, split, maxHeight } = this.props;
-
+    const { gistId, code, scope, size, split, maxHeight } = this.props;
     const [leftSplit, rightSplit] = split;
 
     const maxWidth =
       size === 'extra-wide' ? `${EXTRA_WIDE_WIDTH}px` : undefined;
+
+    const gistUrl = `https://gist.github.com/joshwcomeau/${gistId}`;
 
     return (
       <LiveProvider
@@ -113,8 +115,10 @@ const EditorWrapper = styled(DesktopOnly)`
 `;
 
 const NotAvailableWrapper = styled(MobileOnly)`
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: ${COLORS.gray[50]};
   padding: 25px;
+  text-align: center;
 `;
 
 const PreviewWrapper = styled.div`
