@@ -26,7 +26,7 @@ class Bezier extends PureComponent {
     grabbable: true,
   };
 
-  handleMouseDown = pointId => () => {
+  handleSelectPoint = pointId => () => {
     if (this.props.grabbable) {
       // TODO: Get distance from point center, so that clicking and dragging a
       // new point doesn't center it on the cursor.
@@ -34,11 +34,22 @@ class Bezier extends PureComponent {
     }
   };
 
-  handleMouseUp = () => {
+  handleRelease = () => {
     this.setState({ draggingPointId: null });
   };
 
-  handleMouseMove = ({ clientX, clientY }) => {
+  handleDrag = ev => {
+    // This event handles both mouseMove and touchMove.
+    let x, y;
+    if (ev.touches) {
+      ev.preventDefault();
+      const touch = ev.touches[0];
+      [x, y] = [touch.screenX, touch.screenY];
+      console.log(x, y);
+    } else {
+      [x, y] = [ev.clientX, ev.clientY];
+    }
+
     const { viewBoxWidth, viewBoxHeight, updatePoint, grabbable } = this.props;
     const { draggingPointId } = this.state;
 
@@ -47,7 +58,7 @@ class Bezier extends PureComponent {
     }
 
     const svgBB = this.node.getBoundingClientRect();
-    const positionRelativeToSvg = [clientX - svgBB.left, clientY - svgBB.top];
+    const positionRelativeToSvg = [x - svgBB.left, y - svgBB.top];
 
     const positionWithinViewBox = [
       positionRelativeToSvg[0] * viewBoxWidth / svgBB.width,
@@ -88,8 +99,9 @@ class Bezier extends PureComponent {
       <Svg
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
         innerRef={node => (this.node = node)}
-        onMouseMove={this.handleMouseMove}
-        onMouseUp={this.handleMouseUp}
+        onMouseMove={this.handleDrag}
+        onTouchMove={this.handleDrag}
+        onMouseUp={this.handleRelease}
       >
         <ControlLine x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} />
         {curveType === 'quadratic' && (
@@ -109,14 +121,16 @@ class Bezier extends PureComponent {
         <EndPoint
           cx={p1[0]}
           cy={p1[1]}
-          onMouseDown={this.handleMouseDown('p1')}
+          onMouseDown={this.handleSelectPoint('p1')}
+          onTouchStart={this.handleSelectPoint('p1')}
           grabbable={grabbable}
         />
 
         <ControlPoint
           cx={p2[0]}
           cy={p2[1]}
-          onMouseDown={this.handleMouseDown('p2')}
+          onMouseDown={this.handleSelectPoint('p2')}
+          onTouchStart={this.handleSelectPoint('p2')}
           grabbable={grabbable}
         />
 
@@ -124,7 +138,8 @@ class Bezier extends PureComponent {
           <ControlPoint
             cx={p3[0]}
             cy={p3[1]}
-            onMouseDown={this.handleMouseDown('p3')}
+            onMouseDown={this.handleSelectPoint('p3')}
+            onTouchStart={this.handleSelectPoint('p3')}
             grabbable={grabbable}
           />
         )}
@@ -132,7 +147,8 @@ class Bezier extends PureComponent {
         <EndPoint
           cx={lastPoint[0]}
           cy={lastPoint[1]}
-          onMouseDown={this.handleMouseDown(lastPointId)}
+          onMouseDown={this.handleSelectPoint(lastPointId)}
+          onTouchStart={this.handleSelectPoint(lastPointId)}
           grabbable={grabbable}
         />
       </Svg>

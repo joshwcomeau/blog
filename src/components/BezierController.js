@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { COLORS } from '../constants';
+import { throttle } from '../utils';
 import { interactWithExplorable } from '../helpers/analytics.helpers';
 
 import Bezier from './Bezier';
@@ -38,11 +39,6 @@ class BezierController extends PureComponent {
   };
 
   handleUpdatePoint = (pointId, pointCoords) => {
-    interactWithExplorable({
-      component: 'Bezier',
-      label: this.props.id,
-    });
-
     // HACK: Quadratic curves take P1, P2, and P4 (not P3).
     // This is to make transitioning between the two feel more natural.
     // Sadly, this means we have to patch that association when the quadratic
@@ -52,16 +48,21 @@ class BezierController extends PureComponent {
     }
 
     this.setState({ [pointId]: pointCoords });
+
+    this.track();
   };
 
   swapType = type => {
+    this.setState({ type });
+    this.track();
+  };
+
+  track = throttle(() => {
     interactWithExplorable({
       component: 'Bezier',
       label: this.props.id,
     });
-
-    this.setState({ type });
-  };
+  }, 5000);
 
   render() {
     const { allowToggle } = this.props;
