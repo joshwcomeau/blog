@@ -16,7 +16,7 @@ const ListItem = ({ children }) => (
 const Wrapper = styled.li`
   display: flex;
   align-items: flex-start;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 
 const IconWrapper = styled.div`

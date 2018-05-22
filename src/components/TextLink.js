@@ -53,7 +53,7 @@ const HoverText = styled.span`
   user-select: none;
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 
-  transition: clip-path 700ms;
+  transition: clip-path 500ms;
 
   ${Wrapper}:hover & {
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);

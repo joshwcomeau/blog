@@ -27,6 +27,9 @@ import BezierFlattener from '../../../components/BezierFlattener';
 import BezierInterpolationGraph from '../../../components/BezierInterpolationGraph';
 import InterstitialNewsletterSignup from '../../../components/InterstitialNewsletterSignup';
 import TrackRead from '../../../components/TrackRead';
+import VideoGif from '../../../components/VideoGif';
+
+import dynamicBezierClipSrc from '../../../assets/videos/dynamic-bezier-clip.mp4';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';
@@ -40,46 +43,60 @@ import reactScrollFlattenerRefactoredCode from './code/react-scroll-flattener-re
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
   slug: 'dynamic-bezier-curves',
-  published: false,
-  publishedOn: '2018-05-29',
+  published: true,
+  publishedOn: '2018-05-22',
   heroStyle: 'watermelon-gradient',
   heroImage: null,
   heroBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
   heroTitleGradientSteps: ['80deg', COLORS.pink[500], COLORS.purple[700]],
   abstract:
-    "Learn how to fold up the DOM like origami. We'll look at how to create Flipboard-like folding UI, and how to abstract that into generalized, reusable React components.",
+    "A deep dive into Bézier curves in React. We'll look at how to build dynamic effects such as scroll-to-flatten using SVG path instructions, and how to architect our components for maximum readability and reusability.",
 };
 
 export default () => (
   <BlogPostTemplate {...FRONT_MATTER}>
     <Paragraph>
-      Maybe it's the aspiring designer in me, but I find the process of
-      sketching out rough mockups at the start of a new project incredibly
-      exciting.
+      First off - woohoo! This is my first published post on the new blog. I'm
+      super excited. Thanks for checking it out! 🥂
+    </Paragraph>
+
+    <Paragraph>
+      While building this blog, I wanted it to feel whimsical, with plenty of
+      charming interactions and animations. I built this while working on my
+      React Europe talk,{' '}
+      <TextLink external href="https://www.youtube.com/watch?v=Z2d9rw9RwyE">
+        The Case for Whimsy
+      </TextLink>, and so it was very much on my mind.
+    </Paragraph>
+
+    <Paragraph>
+      For example, did you notice that as you started scrolling on this page,
+      the Bézier curves that border the green title hero thingy started
+      flattening? Keep your eye on the swoopy curves just above the post text as
+      you scroll through the top of the document. Notice how they become flat as
+      they approach the header at the top of the viewport?
+    </Paragraph>
+
+    <VideoGif maxWidth={602} src={dynamicBezierClipSrc} />
+
+    <Paragraph>
+      In a delightful bit of serendipity, I realized while building the blog
+      that this feature would make a great first blog post!
     </Paragraph>
     <Paragraph>
-      For this blog, I thought it'd be cool if the hero image had a swoopy,
-      curvy bottom edge, as a way of making the hero feel less traditional. My
-      partner pointed out that it would be cool if the curve flattened out as
-      the user scrolled down; not only would this look swanky, but by pulling
-      the curve up and out of the way, it would draw focus towards the text, and
-      lead to a cleaner reading experience.
+      The whole reason I built my own blog was that I wanted a way to build
+      explorable explanations. Unlike with plain text on Medium, this blog is
+      just a React app, and so I can create and embed interactive elements that
+      help the reader build an intuitive understanding of the subject being
+      presented. These dynamic "flattenable" Bézier curves are a perfect subject
+      for this format, as they have underlying complexity that would be
+      difficult to explain with words alone.
     </Paragraph>
+
     <Paragraph>
-      The only problem was that I hadn't really worked with Bezier curves
-      before. Sure, I was comfortable with basic SVG shapes like lines and
-      polygons... but curves felt like a next-level challenge. Polygons just
-      need some trigonometry, but curves require calculus, and I never learned
-      calculus.
-    </Paragraph>
-    <Paragraph>
-      Surprisingly (to me, at least), it turns out that I didn't need to learn
-      anything about derivatives. Bézier curves aren't that intimidating once
-      you understand how they work!
-    </Paragraph>
-    <Paragraph>
-      This blog post is an intro to working with Bézier curves with React.js.
-      We'll learn how to build dynamic curves that respond to user input:
+      In this blog post, we'll go through the basics of working with Bézier
+      curves and SVG in React.js. We'll learn how to build dynamic curves that
+      respond to user input:
     </Paragraph>
     <SingleAxisDemo id="flattenable-curve" showNote={true}>
       {value => (
@@ -647,11 +664,20 @@ export default () => (
     <Spacer size={80} />
     <SectionSubHeading>Additional Reading</SectionSubHeading>
     <Paragraph>
-      Curious to learn more about Bézier curves? There's an{' '}
-      <TextLink external href="https://pomax.github.io/bezierinfo/">
-        amazing explorable explanation
-      </TextLink>{' '}
-      that dives deep into the math of Bézier curves.
+      Learn more about the math and mechanics behind Bézier curves with these
+      two amazing resources:
     </Paragraph>
+    <List>
+      <ListItem>
+        <TextLink external href="http://jamie-wong.com/post/bezier-curves/">
+          Bezier Curves from the Ground Up
+        </TextLink>, by Jamie Wong
+      </ListItem>
+      <ListItem>
+        <TextLink external href="https://pomax.github.io/bezierinfo/">
+          A Primer on Bézier curves
+        </TextLink>, by Mike "Pomax" Kamermans
+      </ListItem>
+    </List>
   </BlogPostTemplate>
 );
