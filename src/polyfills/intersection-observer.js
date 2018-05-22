@@ -8,7 +8,7 @@
  *
  */
 
-(function(window, document) {
+function applyPolyfill(window, document) {
   'use strict';
 
   // Exits early if all IntersectionObserver and IntersectionObserverEntry
@@ -714,4 +714,9 @@
   // Exposes the constructors globally.
   window.IntersectionObserver = IntersectionObserver;
   window.IntersectionObserverEntry = IntersectionObserverEntry;
-})(window, document);
+}
+
+// Don't attempt to apply the polyfill during SSR.
+if (typeof window !== 'undefined') {
+  applyPolyfill(window, document);
+}
