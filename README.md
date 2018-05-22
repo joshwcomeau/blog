@@ -1,26 +1,7 @@
-# gatsby-starter-default
-The default Gatsby starter.
+# Josh Comeau's fun interactive blog thing
 
-For an overview of the project structure please refer to the [Gatsby documentation - Building with Components](https://www.gatsbyjs.org/docs/building-with-components/).
+I started a blog! [Go look at it](https://www.joshwcomeau.com).
 
-## Install
+The code for this blog is kind of messy and problematic right now. My focus has been on getting it shipped. The biggest issue is that the homepage requires the entirety of every blog post; this will likely be fixed once I migrate to something like MDX.
 
-Make sure that you have the Gatsby CLI program installed:
-```sh
-npm install --global gatsby-cli
-```
-
-And run from your CLI:
-```sh
-gatsby new gatsby-example-site
-```
-
-Then you can run it by:
-```sh
-cd gatsby-example-site
-npm run develop
-```
-
-## Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+So yeah, please don't use this codebase for inspiration! The code snippets used in the blog posts are a much more trustworthy source.
