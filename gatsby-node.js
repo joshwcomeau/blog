@@ -26,4 +26,4 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
 exports.modifyWebpackConfig = ({ config }) => {
   config.loader('example', { test: /\.example$/, loader: 'raw' });
-}
+};

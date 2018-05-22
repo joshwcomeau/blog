@@ -29,6 +29,15 @@ class LiveEditableCode extends PureComponent {
     split: [66, 34],
   };
 
+  hasBeenMounted = false;
+
+  componentDidMount() {
+    // HACK - There's an issue with React-Live and SSR.
+    // To avoid dealing with this issue for now, I'm just not rendering things
+    // on the initial pass.
+    this.hasBeenMounted = true;
+  }
+
   trackChange = () => {
     // I'm not interested in how many tweaks the user makes,
     // I just wanna know if they interact with it at all.
@@ -53,6 +62,10 @@ class LiveEditableCode extends PureComponent {
       size === 'extra-wide' ? `${EXTRA_WIDE_WIDTH}px` : undefined;
 
     const gistUrl = `https://gist.github.com/joshwcomeau/${gistId}`;
+
+    if (!this.hasBeenMounted) {
+      return null;
+    }
 
     return (
       <LiveProvider
