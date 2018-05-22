@@ -21,7 +21,6 @@ const Footer = () => (
     </Copyright>
     <Icons>
       <ClickableIcon
-        external
         size={WIDTH}
         href="https://www.twitter.com/joshwcomeau"
         icon={socialTwitter}
@@ -30,7 +29,6 @@ const Footer = () => (
         colorHover={COLORS.gray[800]}
       />
       <ClickableIcon
-        external
         size={WIDTH}
         href="https://www.github.com/joshwcomeau"
         icon={socialGithub}
@@ -39,7 +37,6 @@ const Footer = () => (
         colorHover={COLORS.gray[800]}
       />
       <ClickableIcon
-        external
         size={WIDTH}
         href="mailto:joshwcomeau@gmail.com"
         icon={iosEmail}

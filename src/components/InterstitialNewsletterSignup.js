@@ -20,9 +20,9 @@ const InterstitialNewsletterSignup = () => (
       <Spacer size={20} />
 
       <Paragraph>
-        Finding this blog post worthwhile? Receive early notifications for
-        upcoming posts. I'll be writing more about neat animation and
-        interaction stuff with React.
+        Finding this post helpful? You should sign up for the newsletter!
+        Subscribers are the first to know about new posts. I may even share some
+        special additional content 😮
       </Paragraph>
 
       <NewsletterSignup id="interstitial" />

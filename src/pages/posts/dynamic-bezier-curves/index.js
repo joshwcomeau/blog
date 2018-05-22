@@ -6,6 +6,7 @@ import { getInterpolatedValue } from '../../../utils';
 
 import BlogPostTemplate from '../../../templates/BlogPost';
 import Paragraph from '../../../components/Paragraph';
+import Sidenote from '../../../components/Sidenote';
 import List from '../../../components/List';
 import ListItem from '../../../components/ListItem';
 import SectionHeading from '../../../components/SectionHeading';
@@ -64,7 +65,7 @@ export default () => (
       While building this blog, I wanted it to feel whimsical, with plenty of
       charming interactions and animations. I built this while working on my
       React Europe talk,{' '}
-      <TextLink external href="https://www.youtube.com/watch?v=Z2d9rw9RwyE">
+      <TextLink href="https://www.youtube.com/watch?v=Z2d9rw9RwyE">
         The Case for Whimsy
       </TextLink>, and so it was very much on my mind.
     </Paragraph>
@@ -77,17 +78,16 @@ export default () => (
       they approach the header at the top of the viewport?
     </Paragraph>
 
-    <VideoGif maxWidth={602} src={dynamicBezierClipSrc} />
-
     <Paragraph>
       In a delightful bit of serendipity, I realized while building the blog
       that this feature would make a great first blog post!
     </Paragraph>
     <Paragraph>
-      The whole reason I built my own blog was that I wanted a way to build
-      explorable explanations. Unlike with plain text on Medium, this blog is
-      just a React app, and so I can create and embed interactive elements that
-      help the reader build an intuitive understanding of the subject being
+      The whole reason I started this blog was that I wanted a way to build
+      dynamic, interactive articles that are more effective at sharing and
+      teaching concepts. Unlike with plain text on Medium, this blog is just a
+      React app, and so I can create and embed interactive elements that help
+      the reader build an intuitive understanding of the subject being
       presented. These dynamic "flattenable" Bézier curves are a perfect subject
       for this format, as they have underlying complexity that would be
       difficult to explain with words alone.
@@ -109,19 +109,18 @@ export default () => (
     </SectionHeading>
     <Paragraph>
       For achieving this effect, we'll use SVG. We could also use HTML Canvas,
-      but SVG is easier to work with, and more accessible+.
+      but I generally prefer to work with SVG. It's simpler, more React-like in
+      its API, and more a11y-friendly.
     </Paragraph>
     <Paragraph>
       While doing a deep dive into SVG is beyond the scope of this post (I'd
       recommend the{' '}
-      <TextLink
-        external
-        href="https://www.w3schools.com/graphics/svg_intro.asp"
-      >
+      <TextLink href="https://www.w3schools.com/graphics/svg_intro.asp">
         W3Schools tutorial
       </TextLink>{' '}
-      for that), we'll cover the basics, and show how to create our Bézier curve
-      from scratch. Experienced SVG-ers can jump to [link needed].
+      for that), we'll cover the basics, and show how to create some shapes from
+      scratch. Experienced SVG-ers can jump to{' '}
+      <TextLink href="#intro-to-bezier-curves">the next section</TextLink>.
     </Paragraph>
     <Paragraph>
       The simplest form of SVG drawings use shape elements, like{' '}
@@ -187,11 +186,7 @@ export default () => (
     </Paragraph>
     <Paragraph>
       The <InlineCode>path</InlineCode> element features{' '}
-      <TextLink
-        href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"
-        external
-        target="_blank"
-      >
+      <TextLink href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths">
         quite a number
       </TextLink>{' '}
       of these commands. There are two that are relevant for our purposes:
@@ -264,7 +259,7 @@ export default () => (
       code={bezierPathCode}
     />
     <Paragraph>
-      The counter-intuitive thing about this to me is that the{' '}
+      The thing that makes this counter-intuitive, to me at least, is that the{' '}
       <InlineCode>startPoint</InlineCode> is inferred in the{' '}
       <InlineCode>Q</InlineCode> command; while there are 3 points needed for a
       quadratic Bézier curve, only 2 points are passed as arguments to{' '}
@@ -283,15 +278,19 @@ export default () => (
       gistId="5f7315ec4751cf2dadb5ba41f037dcdc"
       code={chainedCurvesCode}
     />
+    <Paragraph>
+      Ok, I think that's enough playing with vanilla SVGs. Let's see how we can
+      leverage React to make these curves dynamic!
+    </Paragraph>
+    <Spacer size={50} />
     <InterstitialNewsletterSignup />
     <Spacer size={80} />
     <SectionHeading anchorId="bezier-curves-in-react">
       Bézier Curves in React
     </SectionHeading>
     <Paragraph>
-      While all of the code samples have technically been React, we've just been
-      rendering static elements. How can we leverage React state to make our
-      SVGs dynamic?
+      Up to this point, we've been looking at static SVGs. How do we make them
+      change, over time or based on user input?
     </Paragraph>
     <Paragraph>
       Well, in keeping with the "meta" theme of this blog post, why not examine
@@ -309,6 +308,15 @@ export default () => (
       code={reactBezierCode}
       maxHeight={650}
     />
+
+    <Sidenote>
+      <Em>Note:</Em> The full version, with support for touch events, can be
+      found{' '}
+      <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/Bezier.js">
+        on GitHub
+      </TextLink>.
+    </Sidenote>
+
     <Paragraph>To summarize how this works:</Paragraph>
     <List>
       <ListItem>
@@ -353,14 +361,16 @@ export default () => (
     <Paragraph>
       The answer is that it depends. React's reconciliation can be surprisingly
       fast, especially when dealing with such a small tree (after all, the only
-      thing that needs to be diffed is an SVG).
+      thing that needs to be diffed is an SVG). Especially in "production" mode,
+      when React doesn't have to do a lot of dev warning checks, this process
+      can take fractions of a millisecond.
     </Paragraph>
     <Paragraph>
       I wrote an{' '}
-      <TextLink external href="" target="_blank">
+      <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/pages/posts/dynamic-bezier-curves/code/optimized-react-bezier.example">
         alternative implementation
       </TextLink>{' '}
-      that updates the DOM directly. It does run faster (about 1.5x faster in my
+      that updates the DOM directly. It does run faster (about 50% faster in my
       quick test), but both implementations still clock in under 1ms on modern
       high-end hardware. On the cheapest Chromebook I could find, the
       "unoptimized" one still averaged 50fps or so.
@@ -396,7 +406,7 @@ export default () => (
       For this, some secondary-school maths will come in handy.
     </Paragraph>
     <Paragraph>
-      If you plunge the depths of your memory, you may remember how to calculate
+      If you plumb the depths of your memory, you may remember how to calculate
       the <Em>slope</Em> of a line. The slope tells you how the line changes
       over time. We calculate it by dividing the{' '}
       <strong>
@@ -409,21 +419,38 @@ export default () => (
     </Paragraph>
     <Latex block>{'slope = \\frac{y2 - y1}{x2 - x1} = \\frac{Δy}{Δx}'}</Latex>
     <Paragraph>
-      There's also this bugger, the formula to calculate the <Latex>y</Latex>{' '}
-      value for any given <Latex>x</Latex> value. By convention, slope is given
-      the variable <Latex>a</Latex>:
+      There's also this rascal, the linear equation formula. This allows us to
+      graph a straight line, and figure out the <Latex>y</Latex> value for a
+      given <Latex>x</Latex> value. By convention, slope is given the variable{' '}
+      <Latex>a</Latex>:
     </Paragraph>
     <Latex block>y = ax + b</Latex>
     <Paragraph>
-      To understand how this'll help us interpolate, let's imagine that our
-      control point's <Latex>y</Latex> value goes from 200 (curved value) to 0
-      (flattened value). We can graph a line that goes from 200 to 0, and we can
-      assume X goes from 0 (curved) to 1 (flattened).
+      How does this relate to interpolation? Well, let's imagine that our Bézier
+      curve's control point, when it's all curvy, is <Latex>200</Latex> pixels
+      away from its flattened position, so we'll give it an initial{' '}
+      <Latex>y</Latex> value of <Latex>200</Latex>. The <Latex>x</Latex> in this
+      case is really just a measure of progress, so we'll have it range from{' '}
+      <Latex>0</Latex> (completely curvy) to <Latex>1</Latex> (completely flat).
+      If we graph this line, we get this:
     </Paragraph>
     <BezierInterpolationGraph />
+
     <Paragraph>
-      Because we know the first and last points of our line, we have all the
-      variables we need for that formula!
+      To clarify, this line represents the range of possible <Latex>y</Latex>{' '}
+      values for a quadratic Bézier curve's control point. Our <Latex>x</Latex>{' '}
+      values represent the degree of "flattening"; this is useful to us because
+      we want to be able to provide an <Latex>x</Latex> value like{' '}
+      <Latex>0.46</Latex>, and figure out what the corresponding{' '}
+      <Latex>y</Latex> value is (our <Latex>x</Latex> value will come from user
+      input, like the amount of progress scrolled through the viewport).
+    </Paragraph>
+
+    <Paragraph>
+      To make our formula work, we need to know at least 2 points on this line.
+      Thankfully, we do! We know that the line is fully curved at{' '}
+      <InlineCode>{`{ x: 0, y: 200 }`}</InlineCode>, and we know the line is
+      totally flat at <InlineCode>{`{ x: 1, y: 0 }`}</InlineCode>.
     </Paragraph>
     <List>
       <ListItem>
@@ -543,11 +570,7 @@ export default () => (
     </Paragraph>
     <List>
       <ListItem>
-        <TextLink
-          external
-          href="https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf"
-          target="_blank"
-        >
+        <TextLink href="https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf">
           Throttle
         </TextLink>{' '}
         the scroll-handler in <InlineCode>ScrollArea</InlineCode> that it only
@@ -558,11 +581,7 @@ export default () => (
         One of the more expensive parts of this effect is that we're interacting
         with the DOM, via{' '}
         <InlineCode>
-          <TextLink
-            external
-            href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect"
-            target="_blank"
-          >
+          <TextLink href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">
             getBoundingClientRect
           </TextLink>
         </InlineCode>
@@ -595,7 +614,7 @@ export default () => (
         <Spacer size={10} />
         This all sounds a bit scary, but as we discovered earlier, React's
         reconciliation process is very quick on small trees like this. The cost
-        of the refactor was negligible on my chromebook [CHECK THIS].
+        of the refactor was negligible on my chromebook.
         <br />
         <Spacer size={10} />
         If you really need to extract every drop of performance, you could work
@@ -622,27 +641,20 @@ export default () => (
       <ListItem>
         You can experiment with different easings for the interpolation (Bézier
         curves are often used for{' '}
-        <TextLink external href="http://cubic-bezier.com/" target="_blank">
-          timing functions
-        </TextLink>, after all!). What if the curve got{' '}
-        <em>even more dramatic</em> before smoothing it out?
+        <TextLink href="http://cubic-bezier.com/">timing functions</TextLink>,
+        after all!). What if the curve got <em>even more dramatic</em> before
+        smoothing it out?
       </ListItem>
       <ListItem>
         You could experiment with{' '}
-        <TextLink
-          external
-          href="https://github.com/chenglou/react-motion"
-          target="_blank"
-        >
+        <TextLink href="https://github.com/chenglou/react-motion">
           spring physics
         </TextLink>, to give the transition inertia.
       </ListItem>
     </List>
     <Paragraph>
       I'm excited to see what you build with this technique! Let me know{' '}
-      <TextLink external href="https://twitter.com/joshwcomeau" target="_blank">
-        on Twitter
-      </TextLink>.
+      <TextLink href="https://twitter.com/joshwcomeau">on Twitter</TextLink>.
     </Paragraph>
     <Spacer size={20} />
     <SectionSubHeading anchorId="join-the-newsletter">
@@ -669,12 +681,12 @@ export default () => (
     </Paragraph>
     <List>
       <ListItem>
-        <TextLink external href="http://jamie-wong.com/post/bezier-curves/">
+        <TextLink href="http://jamie-wong.com/post/bezier-curves/">
           Bezier Curves from the Ground Up
         </TextLink>, by Jamie Wong
       </ListItem>
       <ListItem>
-        <TextLink external href="https://pomax.github.io/bezierinfo/">
+        <TextLink href="https://pomax.github.io/bezierinfo/">
           A Primer on Bézier curves
         </TextLink>, by Mike "Pomax" Kamermans
       </ListItem>

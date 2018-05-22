@@ -36,7 +36,7 @@ const IndexPage = () => (
         <Paragraph>
           Hi, I'm <Name>Josh Comeau</Name>. I'm a front-end engineer / web
           developer at{' '}
-          <TextLink external href="https://khanacademy.org" target="_blank">
+          <TextLink href="https://khanacademy.org" target="_blank">
             Khan Academy
           </TextLink>.
         </Paragraph>
@@ -44,7 +44,6 @@ const IndexPage = () => (
         <Paragraph>
           Early in 2018 I released{' '}
           <TextLink
-            external={true}
             href="https://pudding.cool/2018/02/waveforms/"
             target="_blank"
           >

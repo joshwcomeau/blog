@@ -5,7 +5,16 @@ import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
 import { COLORS } from '../constants';
 
-const Link = ({ external, href, target, rel, ...delegated }) => {
+const Link = ({ href, target, rel, ...delegated }) => {
+  // Links are external if they start with `http` or `https`
+  const external = href.match(/^http/i);
+
+  // By default, external links should open in a new tab.
+  // This is overrideable though.
+  if (typeof target === 'undefined') {
+    target = external ? '_blank' : '_self';
+  }
+
   const LinkComponent = external ? ExternalLink : InternalLink;
 
   const safeRel = target === '_blank' ? 'noopener noreferrer' : rel;

@@ -74,9 +74,7 @@ class LiveEditableCode extends PureComponent {
 
             <NotAvailableWrapper>
               Live-editable code not available on smaller screens.{' '}
-              <TextLink external href={gistUrl}>
-                View the gist
-              </TextLink>
+              <TextLink href={gistUrl}>View the gist</TextLink>
             </NotAvailableWrapper>
           </Wrapper>
         </FullWidth>

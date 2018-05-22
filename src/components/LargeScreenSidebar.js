@@ -99,7 +99,6 @@ class LargeScreenSidebar extends Component {
     return (
       <Wrapper width={WIDTH} isVisible={isVisible}>
         <ClickableIcon
-          external
           size={WIDTH}
           href={twitterUrl}
           icon={socialTwitterOutline}
@@ -109,7 +108,6 @@ class LargeScreenSidebar extends Component {
         />
         <Spacer size={20} />
         <ClickableIcon
-          external
           size={WIDTH}
           href={facebookUrl}
           target="_blank"
