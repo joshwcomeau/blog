@@ -138,6 +138,10 @@ export default () => (
       split={[50, 50]}
       maxHeight={585}
     />
+    <Sidenote>
+      <Em>Note:</Em> All the code snippets in this page are React elements, not
+      HTML.
+    </Sidenote>
     <Paragraph>
       These shapes are straightforward and declarative, but that simplicity
       comes at the cost of flexibility; you can only create a handful of

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from '../constants';
+import { COLORS, BREAKPOINTS } from '../constants';
 
 import Link from './Link';
 
@@ -31,10 +31,12 @@ const Wrapper = styled(Link)`
     transition: transform 250ms 200ms, opacity 450ms 200ms;
   }
 
-  &:hover:after {
-    transform: translateY(-0.25em);
-    opacity: 0;
-    transition: transform 250ms, opacity 450ms;
+  @media ${BREAKPOINTS.smMin} {
+    &:hover:after {
+      transform: translateY(-0.25em);
+      opacity: 0;
+      transition: transform 250ms, opacity 450ms;
+    }
   }
 `;
 
@@ -57,5 +59,9 @@ const HoverText = styled.span`
 
   ${Wrapper}:hover & {
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    display: none;
   }
 `;
