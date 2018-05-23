@@ -45,7 +45,7 @@ export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
   slug: 'dynamic-bezier-curves',
   published: true,
-  publishedOn: '2018-05-22',
+  publishedOn: '2018-05-23',
   heroStyle: 'watermelon-gradient',
   heroImage: null,
   heroBackground: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
