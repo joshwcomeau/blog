@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { COLORS } from '../constants';
+import { getDeviceType } from '../helpers/responsive.helpers';
 
 class Bezier extends PureComponent {
   state = {
@@ -44,7 +45,7 @@ class Bezier extends PureComponent {
     if (ev.touches) {
       ev.preventDefault();
       const touch = ev.touches[0];
-      [x, y] = [touch.screenX, touch.screenY];
+      [x, y] = [touch.clientX, touch.clientY];
     } else {
       [x, y] = [ev.clientX, ev.clientY];
     }
@@ -94,6 +95,8 @@ class Bezier extends PureComponent {
     const lastPoint = curveType === 'cubic' ? p4 : p3;
     const lastPointId = curveType === 'cubic' ? 'p4' : 'p3';
 
+    const isMobile = getDeviceType() === 'mobile';
+
     return (
       <Svg
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -101,6 +104,7 @@ class Bezier extends PureComponent {
         onMouseMove={this.handleDrag}
         onTouchMove={this.handleDrag}
         onMouseUp={this.handleRelease}
+        onTouchEnd={this.handleRelease}
       >
         <ControlLine x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} />
         {curveType === 'quadratic' && (
@@ -123,6 +127,7 @@ class Bezier extends PureComponent {
           onMouseDown={this.handleSelectPoint('p1')}
           onTouchStart={this.handleSelectPoint('p1')}
           grabbable={grabbable}
+          isMobile={isMobile}
         />
 
         <ControlPoint
@@ -131,6 +136,7 @@ class Bezier extends PureComponent {
           onMouseDown={this.handleSelectPoint('p2')}
           onTouchStart={this.handleSelectPoint('p2')}
           grabbable={grabbable}
+          isMobile={isMobile}
         />
 
         {curveType === 'cubic' && (
@@ -140,6 +146,7 @@ class Bezier extends PureComponent {
             onMouseDown={this.handleSelectPoint('p3')}
             onTouchStart={this.handleSelectPoint('p3')}
             grabbable={grabbable}
+            isMobile={isMobile}
           />
         )}
 
@@ -149,22 +156,35 @@ class Bezier extends PureComponent {
           onMouseDown={this.handleSelectPoint(lastPointId)}
           onTouchStart={this.handleSelectPoint(lastPointId)}
           grabbable={grabbable}
+          isMobile={isMobile}
         />
       </Svg>
     );
   }
 }
 
-const ControlPoint = ({ cx, cy, onMouseDown, grabbable }) => (
+const ControlPoint = ({
+  cx,
+  cy,
+  onMouseDown,
+  onTouchStart,
+  grabbable,
+  isMobile,
+}) => (
   <g>
-    <VisibleControlPoint cx={cx} cy={cy} rx={8} ry={8} grabbable={grabbable} />
+    <VisibleControlPoint
+      cx={cx}
+      cy={cy}
+      grabbable={grabbable}
+      isMobile={isMobile}
+    />
     <InvisibleHandle
       cx={cx}
       cy={cy}
-      rx={25}
-      ry={25}
       grabbable={grabbable}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
+      isMobile={isMobile}
     />
   </g>
 );
@@ -172,6 +192,7 @@ const ControlPoint = ({ cx, cy, onMouseDown, grabbable }) => (
 const Svg = styled.svg`
   position: relative;
   overflow: visible;
+  touch-action: none;
 `;
 
 const Point = styled.ellipse`
@@ -183,22 +204,25 @@ const Point = styled.ellipse`
 `;
 
 const EndPoint = styled(Point).attrs({
-  rx: 15,
-  ry: 15,
+  rx: props => (props.isMobile ? 40 : 15),
+  ry: props => (props.isMobile ? 40 : 15),
 })`
   fill: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
 `;
 
 const VisibleControlPoint = styled(Point).attrs({
-  rx: 8,
-  ry: 8,
+  rx: props => (props.isMobile ? 20 : 8),
+  ry: props => (props.isMobile ? 20 : 8),
 })`
   fill: white;
   stroke: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
   stroke-width: 3;
 `;
 
-const InvisibleHandle = styled(Point)`
+const InvisibleHandle = styled(Point).attrs({
+  rx: props => (props.isMobile ? 40 : 25),
+  ry: props => (props.isMobile ? 40 : 25),
+})`
   fill: transparent;
   stroke: transparent;
 `;

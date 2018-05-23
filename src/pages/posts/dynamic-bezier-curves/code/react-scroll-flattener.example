@@ -95,13 +95,6 @@ class DynamicBezierCurve extends React.PureComponent {
       <svg
         ref={node => (this.node = node)}
         viewBox="0 0 300 300"
-        style={{
-          // `overflow: visible` is a neat trick to allow
-          // for the curve to spill over slightly. Without
-          // this prop, the rounded ends of the line would
-          // be cut off.
-          overflow: 'visible',
-        }}
       >
         <path d={instructions} fill="hotpink" />
       </svg>
@@ -112,6 +105,6 @@ class DynamicBezierCurve extends React.PureComponent {
 // Utility function that clamps a given value to a
 // specific range (inclusive, between min and max).
 const clamp = (val, min, max) =>
-Math.max(min, Math.min(max, val));
+  Math.max(min, Math.min(max, val));
 
 render(<DynamicBezierCurve headerHeight={55} />);

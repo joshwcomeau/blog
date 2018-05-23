@@ -98,7 +98,11 @@ export default () => (
       curves and SVG in React.js. We'll learn how to build dynamic curves that
       respond to user input:
     </Paragraph>
-    <SingleAxisDemo id="flattenable-curve" showNote={true}>
+    <SingleAxisDemo
+      id="flattenable-curve"
+      showNote={true}
+      defaultAxisValue={20}
+    >
       {value => (
         <InitialCurve percentStraightened={value} color={COLORS.pink[500]} />
       )}
@@ -443,14 +447,14 @@ export default () => (
       we want to be able to provide an <Latex>x</Latex> value like{' '}
       <Latex>0.46</Latex>, and figure out what the corresponding{' '}
       <Latex>y</Latex> value is (our <Latex>x</Latex> value will come from user
-      input, like the amount of progress scrolled through the viewport).
+      input, like the percentage scrolled through the viewport).
     </Paragraph>
 
     <Paragraph>
       To make our formula work, we need to know at least 2 points on this line.
-      Thankfully, we do! We know that the line is fully curved at{' '}
-      <InlineCode>{`{ x: 0, y: 200 }`}</InlineCode>, and we know the line is
-      totally flat at <InlineCode>{`{ x: 1, y: 0 }`}</InlineCode>.
+      Thankfully, we do! We know that the initial position, fully curved, is at{' '}
+      <InlineCode>{`{ x: 0, y: 200 }`}</InlineCode>, and we know that the curve
+      becomes fully flattened at <InlineCode>{`{ x: 1, y: 0 }`}</InlineCode>.
     </Paragraph>
     <List>
       <ListItem>
@@ -662,7 +666,7 @@ export default () => (
     </SectionSubHeading>
     <Paragraph>
       This blog post is the first thing I've tried in this format. It was a heck
-      of a lot of fun to build, but it was also a <em>tremendous</em> amount of
+      of a lot of fun to build, but it was also a <Em>tremendous</Em> amount of
       work compared to writing a Medium post.
     </Paragraph>
     <Paragraph>

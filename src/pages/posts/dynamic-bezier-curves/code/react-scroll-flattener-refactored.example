@@ -95,7 +95,7 @@ const BezierCurve = ({
  * for the effect we want to build. This last component
  * assembles them.
  *
- * It takes the `headerHeight` as a prop,so that we
+ * It takes the `headerHeight` as a prop, so that we
  * can flatten it at the right moment.
  */
 const ScrollBasedBezier = ({ headerHeight }) => (
@@ -148,7 +148,7 @@ const ScrollBasedBezier = ({ headerHeight }) => (
   </ScrollArea>
 );
 
-render(<ScrollBasedBezier headerHeight={55} />);
-
 const clamp = (val, min, max) =>
   Math.max(min, Math.min(max, val));
+
+render(<ScrollBasedBezier headerHeight={55} />);
