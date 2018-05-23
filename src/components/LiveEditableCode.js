@@ -29,13 +29,15 @@ class LiveEditableCode extends PureComponent {
     split: [66, 34],
   };
 
-  hasBeenMounted = false;
+  state = {
+    hasBeenMounted: false,
+  };
 
   componentDidMount() {
     // HACK - There's an issue with React-Live and SSR.
     // To avoid dealing with this issue for now, I'm just not rendering things
     // on the initial pass.
-    this.hasBeenMounted = true;
+    this.setState({ hasBeenMounted: true });
   }
 
   trackChange = () => {
@@ -63,7 +65,7 @@ class LiveEditableCode extends PureComponent {
 
     const gistUrl = `https://gist.github.com/joshwcomeau/${gistId}`;
 
-    if (!this.hasBeenMounted) {
+    if (!this.state.hasBeenMounted) {
       return null;
     }
 
