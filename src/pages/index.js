@@ -37,8 +37,10 @@ const IndexPage = () => (
       <InnerWrapper>
         <Title>Hey look, it's a blog!</Title>
         <Paragraph>
-          Hi, I'm <Name>Josh Comeau</Name>. I'm a front-end engineer / web
-          developer at{' '}
+          Hi, I'm{' '}
+          <TextLink href="https://www.twitter.com/joshwcomeau">
+            Josh Comeau
+          </TextLink>. I'm a front-end engineer / web developer at{' '}
           <TextLink href="https://khanacademy.org" target="_blank">
             Khan Academy
           </TextLink>.
@@ -139,12 +141,6 @@ const Title = styled.h1`
     font-size: 3.5rem;
     letter-spacing: -1px;
   }
-`;
-
-const Name = styled.span`
-  font-weight: 600;
-  color: ${COLORS.pink[500]};
-  letter-spacing: -0.5px;
 `;
 
 const Heading = styled.h2`

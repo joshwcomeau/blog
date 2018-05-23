@@ -132,7 +132,7 @@ class BaseHero extends PureComponent {
           />
         </CurveWrapper>
 
-        {gutter && <CurveBlocker gutter={gutter} />}
+        {!!gutter && <CurveBlocker gutter={gutter} />}
       </Wrapper>
     );
   }
