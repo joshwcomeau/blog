@@ -409,7 +409,9 @@ export default () => (
       initial curvy value, and the flat-line value.
     </Paragraph>
     <Paragraph>
-      For this, some secondary-school maths will come in handy.
+      For this, some secondary-school maths will come in handy. If you're
+      already up to speed on interpolation, you can{' '}
+      <TextLink href="#handling-scroll-in-react">skip this bit</TextLink>.
     </Paragraph>
     <Paragraph>
       If you plumb the depths of your memory, you may remember how to calculate
@@ -479,7 +481,7 @@ export default () => (
     <Paragraph>
       If it's 25% of the way through, <Latex>x</Latex> will be 0.25, and so our{' '}
       <Latex>y</Latex> value would be{' '}
-      <Latex>y = (-200)(0.25) + 200 = 150</Latex>, which feels right: 150 is 1/4
+      <Latex>y = (-200)(0.25) + 200 = 150</Latex>, which is correct: 150 is 1/4
       of the way between 200 and 0.
     </Paragraph>
     <Paragraph>
