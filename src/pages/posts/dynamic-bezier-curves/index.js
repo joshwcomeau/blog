@@ -290,9 +290,7 @@ export default () => (
       Ok, I think that's enough playing with vanilla SVGs. Let's see how we can
       leverage React to make these curves dynamic!
     </Paragraph>
-    <Spacer size={50} />
-    <InterstitialNewsletterSignup />
-    <Spacer size={80} />
+
     <SectionHeading anchorId="bezier-curves-in-react">
       Bézier Curves in React
     </SectionHeading>
