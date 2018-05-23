@@ -14,6 +14,9 @@ import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import IndexPost from '../components/IndexPost';
 import Mountains from '../components/Mountains';
 import Logo from '../components/Logo';
+import SectionHeading from '../components/SectionHeading';
+import NewsletterSignup from '../components/NewsletterSignup';
+import Spacer from '../components/Spacer';
 
 const IndexPage = () => (
   <Wrapper>
@@ -65,6 +68,33 @@ const IndexPage = () => (
         <Divider />
 
         {posts.map(post => <IndexPost key={post.slug} {...post} />)}
+
+        <Divider />
+
+        <NewsletterWrapper>
+          <SectionHeading>Join the Newsletter 🗞</SectionHeading>
+
+          <Spacer size={20} />
+
+          <Paragraph>
+            I'm having so much fun building dynamic, interactive tutorials and
+            deep-dives! I've only written the first post so far, but I have a
+            bunch of ideas for other stuff to cover.
+          </Paragraph>
+
+          <Paragraph>
+            If this stuff interests you as well, you can join the newsletter.
+            I'll let you know when new posts are up (in fact, subscribers will
+            get sneak peeks!).
+          </Paragraph>
+
+          <Paragraph>
+            It also sends a strong signal to me that this stuff is worth
+            building, and will likely motivate me to create more content!
+          </Paragraph>
+
+          <NewsletterSignup id="homepage" />
+        </NewsletterWrapper>
       </InnerWrapper>
     </BorderWrapper>
   </Wrapper>
@@ -121,6 +151,11 @@ const Heading = styled.h2`
   margin-bottom: 3rem;
   font-size: 48px;
   letter-spacing: -1px;
+`;
+
+const NewsletterWrapper = styled.div`
+  background: ${COLORS.gray[50]};
+  padding: 48px;
 `;
 
 export default IndexPage;

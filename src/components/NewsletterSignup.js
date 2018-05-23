@@ -58,7 +58,7 @@ class NewsletterSignup extends Component<Props, State> {
         <Spacer size={20} />
 
         <Disclaimer>
-          I promise it'll be worthwhile and not too often. Quality over
+          I promise it'll be worthwhile and not-too-often. Quality over
           quantity!
         </Disclaimer>
       </Wrapper>
@@ -92,6 +92,7 @@ const EmailInput = styled.input`
   padding: 0 20px;
   font-size: 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: none;
 
   @media ${BREAKPOINTS.sm} {
     display: block;

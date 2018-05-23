@@ -10,7 +10,12 @@ import FullWidth from './FullWidth';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Spacer from './Spacer';
 
-const InterstitialNewsletterSignup = () => (
+const DEFAULT_COPY = `
+Finding this post helpful? You should sign up for the newsletter!
+Subscribers are the first to know about new posts. I may even share some
+special additional content 😮`
+
+const InterstitialNewsletterSignup = ({ copy = DEFAULT_COPY }) => (
   <Wrapper>
     <MaxWidthWrapper>
       <SectionHeading color={COLORS.violet[700]}>
@@ -20,9 +25,7 @@ const InterstitialNewsletterSignup = () => (
       <Spacer size={20} />
 
       <Paragraph>
-        Finding this post helpful? You should sign up for the newsletter!
-        Subscribers are the first to know about new posts. I may even share some
-        special additional content 😮
+        {copy}
       </Paragraph>
 
       <NewsletterSignup id="interstitial" />
