@@ -85,18 +85,18 @@ export default () => (
     <Paragraph>
       The whole reason I started this blog was that I wanted a way to build
       dynamic, interactive articles that are more effective at sharing and
-      teaching concepts. Unlike with plain text on Medium, this blog is just a
-      React app, and so I can create and embed interactive elements that help
-      the reader build an intuitive understanding of the subject being
-      presented. These dynamic "flattenable" Bézier curves are a perfect subject
-      for this format, as they have underlying complexity that would be
-      difficult to explain with words alone.
+      teaching concepts. Unlike with plain text on Medium, this blog is a
+      fully-powered React app, and so I can create and embed interactive
+      elements that help the reader build an intuitive understanding of the
+      subject being presented. These dynamic "flattenable" Bézier curves are a
+      perfect subject for this format, as they have underlying complexity that
+      would be difficult to explain with words alone.
     </Paragraph>
 
     <Paragraph>
-      In this blog post, we'll go through the basics of working with Bézier
-      curves and SVG in React.js. We'll learn how to build dynamic curves that
-      respond to user input:
+      In this maiden blog post, we'll go through the basics of working with
+      Bézier curves and SVG in React.js. We'll learn how to build dynamic curves
+      that respond to user input:
     </Paragraph>
     <SingleAxisDemo
       id="flattenable-curve"
@@ -113,8 +113,8 @@ export default () => (
     </SectionHeading>
     <Paragraph>
       For achieving this effect, we'll use SVG. We could also use HTML Canvas,
-      but I generally prefer to work with SVG. It's simpler, more React-like in
-      its API, and more a11y-friendly.
+      but I generally prefer to work with SVG. It's more React-like in its API,
+      there's less complexity in setting it up, and it's more a11y-friendly.
     </Paragraph>
     <Paragraph>
       While doing a deep dive into SVG is beyond the scope of this post (I'd
@@ -233,9 +233,9 @@ export default () => (
     </Paragraph>
     <BezierController id="initial" initialType="quadratic" />
     <Paragraph>
-      The line above is a <Em>quadratic</Em> Bézier curve; this just means that
-      it has a <strong>single control point</strong>. I'm guessing it gets its
-      name from the fact that you can create parabola-like shapes with it:
+      The line above is a <Em>quadratic</Em> Bézier curve; this means that it
+      has a <strong>single control point</strong>. I'm guessing it gets its name
+      from the fact that you can create parabola-like shapes with it:
     </Paragraph>
     <BezierController
       id="parabola"
@@ -394,7 +394,7 @@ export default () => (
     <Paragraph>
       Given what we've gone over so far, we have almost all of the tools we need
       to solve this problem! A Bézier curve with its control point(s) directly
-      between the start and end points is just a straight line! So we just need
+      between the start and end points is actually a straight line! So we need
       to transition the control points from their curvy values to a flat value.
     </Paragraph>
     <BezierFlattener />
@@ -438,7 +438,7 @@ export default () => (
       curve's control point, when it's all curvy, is <Latex>200</Latex> pixels
       away from its flattened position, so we'll give it an initial{' '}
       <Latex>y</Latex> value of <Latex>200</Latex>. The <Latex>x</Latex> in this
-      case is really just a measure of progress, so we'll have it range from{' '}
+      case is really a measure of progress, so we'll have it range from{' '}
       <Latex>0</Latex> (completely curvy) to <Latex>1</Latex> (completely flat).
       If we graph this line, we get this:
     </Paragraph>
@@ -503,8 +503,8 @@ export default () => (
       Handling Scroll in React
     </SectionHeading>
     <Paragraph>
-      We're in the home stretch now! We just need to combine all these ideas
-      into something usable.
+      We're in the home stretch now! Time to combine all these ideas into
+      something usable.
     </Paragraph>
     <Paragraph>
       Let's start by building a component that contains our scroll-handler to
@@ -536,7 +536,7 @@ export default () => (
         <br />
         <Spacer size={10} />
         To solve these problems, we need to define a <Em>scrollable area</Em>,
-        instead of just using the viewport.
+        instead of using the viewport.
       </ListItem>
       <ListItem>
         This component is doing an awful lot. It feels like we could extract a
