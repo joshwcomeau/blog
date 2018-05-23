@@ -570,7 +570,9 @@ export default () => (
       The two versions above were written without any concern for performance.
       As it turns out, the performance is not so bad; on my low-end Chromebook,
       it stutters a little bit from time to time but mostly runs at 60fps. On my
-      iPhone 6, it runs well.
+      sluggish iPhone 6, it runs well enough (the biggest issue on mobile is
+      that the browser address bar changes on scroll. Because of that, it may be
+      wise to disable scroll-based things like this altogether on mobile).
     </Paragraph>
     <Paragraph>
       That said, your mileage may vary. If you want to improve performance,
