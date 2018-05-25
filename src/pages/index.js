@@ -74,7 +74,7 @@ const IndexPage = () => (
         <Divider />
 
         <NewsletterWrapper>
-          <SectionHeading>Join the Newsletter 🗞</SectionHeading>
+          <SectionHeading anchorId="join">Join the Newsletter 🗞</SectionHeading>
 
           <Spacer size={20} />
 
