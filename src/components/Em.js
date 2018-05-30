@@ -5,4 +5,5 @@ export default styled.em`
   font-family: 'Sriracha';
   font-size: 0.9em;
   color: ${props => props.color || COLORS.purple[700]};
+  font-style: normal;
 `;
