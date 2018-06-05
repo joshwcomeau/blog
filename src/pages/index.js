@@ -55,7 +55,7 @@ const IndexPage = () => (
             Waveforms
           </TextLink>, an explorable explanation about the peculiar magic of
           sound waves. I got a bunch of feedback aftwerwards from audio folks
-          who said that they <Em>finally understood&nbsp;</Em> how sound works,
+          who said that they <Em>finally understood</Em> how sound works,
           that my interactive thingy helped them bridge the gap between
           theoretical knowledge and intuitive understanding.
         </Paragraph>
