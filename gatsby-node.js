@@ -24,6 +24,15 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   });
 };
 
-exports.modifyWebpackConfig = ({ config }) => {
-  config.loader('example', { test: /\.example$/, loader: 'raw' });
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.example$/,
+          use: 'raw-loader',
+        },
+      ],
+    },
+  });
 };

@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { injectGlobal } from 'styled-components';
 import Helmet from 'react-helmet';
 
-import { COLORS } from '../constants';
-import MaxWidthWrapper from '../components/MaxWidthWrapper';
-import Footer from '../components/Footer';
+import { COLORS } from '../../constants';
+import MaxWidthWrapper from '../MaxWidthWrapper';
+import Footer from '../Footer';
 
-import faviconSrc from '../assets/favicon-swirl.png';
+import faviconSrc from '../../assets/favicon-swirl.png';
 
 import './global';
 import './prism-theme';
 import './reset.css';
 import './fonts.css';
 
-import '../polyfills/intersection-observer';
+import '../../polyfills/intersection-observer';
 
 injectGlobal`
   html {
@@ -35,13 +35,13 @@ injectGlobal`
 `;
 
 const Layout = ({ children }) => (
-  <div>
+  <Fragment>
     <Helmet>
       <link rel="icon" type="image/png" href={`${faviconSrc}?v=1`} />
     </Helmet>
-    {children()}
+    {children}
     <Footer />
-  </div>
+  </Fragment>
 );
 
 Layout.propTypes = {

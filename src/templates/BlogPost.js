@@ -15,6 +15,7 @@ import WindowDimensions from '../components/WindowDimensions';
 import LargeScreenSidebar from '../components/LargeScreenSidebar';
 import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
 import Spacer from '../components/Spacer';
+import Layout from '../components/MainLayout';
 
 const HEADER_HEIGHT = 50;
 
@@ -31,45 +32,47 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
   const deviceType = getDeviceType();
 
   return (
-    <FullWidth>
-      <Helmet>
-        <title>
-          {title} - {siteMetadata.title}
-        </title>
-      </Helmet>
+    <Layout>
+      <FullWidth>
+        <Helmet>
+          <title>
+            {title} - {siteMetadata.title}
+          </title>
+        </Helmet>
 
-      <Header
-        height={HEADER_HEIGHT}
-        title={title}
-        publishedOn={publishedOn}
-        heroStyle={heroStyle}
-      />
-      <WindowDimensions>
-        {({ windowWidth, windowHeight }) => {
-          const orientation =
-            windowWidth >= windowHeight ? 'landscape' : 'portrait';
+        <Header
+          height={HEADER_HEIGHT}
+          title={title}
+          publishedOn={publishedOn}
+          heroStyle={heroStyle}
+        />
+        <WindowDimensions>
+          {({ windowWidth, windowHeight }) => {
+            const orientation =
+              windowWidth >= windowHeight ? 'landscape' : 'portrait';
 
-          return (
-            <Hero
-              headerHeight={HEADER_HEIGHT}
-              title={title}
-              publishedOn={publishedOn}
-              image={heroImage}
-              orientation={orientation}
-            />
-          );
-        }}
-      </WindowDimensions>
+            return (
+              <Hero
+                headerHeight={HEADER_HEIGHT}
+                title={title}
+                publishedOn={publishedOn}
+                image={heroImage}
+                orientation={orientation}
+              />
+            );
+          }}
+        </WindowDimensions>
 
-      <MainContent>
-        <MaxWidthWrapper>
-          {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
-          {children}
-        </MaxWidthWrapper>
+        <MainContent>
+          <MaxWidthWrapper>
+            {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
+            {children}
+          </MaxWidthWrapper>
 
-        <Spacer size={160} />
-      </MainContent>
-    </FullWidth>
+          <Spacer size={160} />
+        </MainContent>
+      </FullWidth>
+    </Layout>
   );
 };
 

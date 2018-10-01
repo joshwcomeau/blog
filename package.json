@@ -16,14 +16,16 @@
   "license": "MIT",
   "dependencies": {
     "date-fns": "^1.29.0",
-    "gatsby": "^1.9.247",
-    "gatsby-link": "^1.6.40",
-    "gatsby-plugin-google-analytics": "^1.0.31",
+    "gatsby": "2.0.12",
+    "gatsby-link": "2.0.2",
+    "gatsby-plugin-google-analytics": "2.0.6",
     "gatsby-plugin-meta-redirect": "^1.1.0",
-    "gatsby-plugin-react-helmet": "^2.0.10",
-    "gatsby-plugin-styled-components": "^2.0.11",
+    "gatsby-plugin-react-helmet": "3.0.0",
+    "gatsby-plugin-styled-components": "3.0.0",
     "katex": "^0.9.0",
     "rc-slider": "^8.6.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-helmet": "^5.2.0",
     "react-icons-kit": "^1.1.4",
     "react-katex": "^2.0.2",
@@ -32,6 +34,8 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.8.0",
+    "gatsby-plugin-flow": "^1.0.1",
     "prettier": "^1.12.0"
   }
 }
