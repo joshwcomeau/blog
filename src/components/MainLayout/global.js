@@ -32,7 +32,7 @@ const run = () => {
   })(document, 'script', 'facebook-jssdk');
 
   window.fbAsyncInit = function() {
-    FB.init({
+    window.FB.init({
       appId: '401677530300534',
       xfbml: true,
       version: 'v2.9',

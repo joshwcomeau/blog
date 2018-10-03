@@ -15,7 +15,7 @@ import SelfStraighteningCurves from '../SelfStraighteningCurves';
 const CURVE_HEIGHT = 140;
 
 class BaseHero extends PureComponent {
-  static PropTypes = {
+  static propTypes = {
     // Post data
     title: PropTypes.string.isRequired,
     publishedOn: PropTypes.string.isRequired,

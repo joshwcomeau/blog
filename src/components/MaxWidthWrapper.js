@@ -3,20 +3,6 @@ import styled from 'styled-components';
 import { BREAKPOINTS, BREAKPOINT_SIZES, READING_WIDTH } from '../constants';
 import { getDeviceType } from '../helpers/responsive.helpers';
 
-const getPadding = () => {
-  const deviceType = getDeviceType();
-
-  if (deviceType === 'mobile' && paddingOn === 'desktop') {
-    return 0;
-  }
-
-  if (deviceType === 'desktop' && paddingOn === 'mobile') {
-    return 0;
-  }
-
-  return deviceType === 'mobile' ? '16px' : '32px';
-};
-
 const MaxWidthWrapper = styled.div`
   position: relative;
   z-index: 2;

@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 
-import { COLORS } from '../constants';
+import { COLORS } from '../../constants';
 
 injectGlobal`
 /**

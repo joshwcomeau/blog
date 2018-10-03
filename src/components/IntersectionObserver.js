@@ -33,7 +33,7 @@ class IntersectionObserver extends PureComponent<Props> {
       children,
       onIntersect,
       onlyFireOn,
-      ...intersectionOptions,
+      ...intersectionOptions
     } = this.props;
 
     this.observer = new window.IntersectionObserver(entries => {
