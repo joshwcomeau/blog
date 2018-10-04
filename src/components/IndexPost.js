@@ -7,10 +7,10 @@ import { humanizeDate } from '../helpers/date.helpers';
 import Paragraph from '../components/Paragraph';
 import Link from '../components/Link';
 
-const IndexPost = ({ slug, title, abstract, publishedOn }) => {
+const IndexPost = ({ path, title, abstract, publishedOn }) => {
   return (
     <Wrapper>
-      <PostLink href={`/posts/${slug}`}>
+      <PostLink href={path}>
         <PostTitle>{title}</PostTitle>
       </PostLink>
       <Date>{humanizeDate(publishedOn)}</Date>
