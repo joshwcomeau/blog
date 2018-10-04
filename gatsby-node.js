@@ -4,11 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-exports.createPages = ({ boundActionCreators, graphql }) => {
-  // need createRedirect action in boundActionCreators collection
-  // to make the redirection magic happen.
-  // https://www.gatsbyjs.org/docs/bound-action-creators/
-  const { createRedirect } = boundActionCreators;
+exports.createPages = ({ actions, graphql }) => {
+  const { createRedirect } = actions;
 
   createRedirect({
     fromPath: '/posts',

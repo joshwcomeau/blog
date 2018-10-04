@@ -48,7 +48,7 @@ const MainText = styled.span`
 `;
 
 const HoverText = styled.span`
-  display: inline-block
+  display: inline-block;
   position: absolute;
   z-index: 2;
   left: 0;

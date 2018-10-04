@@ -32,6 +32,10 @@ injectGlobal`
   ::selection {
     background-color: ${COLORS.lime[500]};
   }
+
+  button:focus:not(:focus-visible) {
+    outline: none;
+  }
 `;
 
 const Layout = ({ children }) => (
