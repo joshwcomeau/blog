@@ -1,3 +1,12 @@
+/*
+  This first post was not originally written in MDX.
+
+  Rather than spend a bunch of time converting it, I'm just "wrapping" it, by
+  importing the original component.
+
+  Not the cleanest solution, but by far the fastest :)
+*/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
