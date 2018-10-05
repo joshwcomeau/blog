@@ -33,7 +33,7 @@ import LiveEditableCode from 'components/LiveEditableCode';
 import InitialCurve from 'components/InitialCurve';
 import BezierController from 'components/BezierController';
 import BezierFlattener from 'components/BezierFlattener';
-import BezierInterpolationGraph from './components/BezierInterpolationGraph';
+import BezierInterpolationGraph from 'components/BezierInterpolationGraph';
 import TrackRead from 'components/TrackRead';
 
 import basicShapesCode from './code/basic-shapes.example';
