@@ -1,4 +1,7 @@
 // @flow
+/**
+ * NOTE: Currently Unused
+ */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -6,7 +9,6 @@ import { COLORS } from 'constants';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import Heading from '../Heading';
 
 type Props = {
   background: string,

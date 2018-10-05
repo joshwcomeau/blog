@@ -1,10 +1,14 @@
-// Generate some mountains! Useful as decoration for blog heroes.
+/**
+ * Hero background mountains.
+ *
+ * TODO: Create 'ClientOnly', and use with 'FadeIn', to only show mountains
+ * on the client
+ */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { COLORS } from 'constants';
-import { random, range } from 'utils';
+import { random } from 'utils';
 
 const VIEWBOX_WIDTH = 200;
 const VIEWBOX_HEIGHT = 200;
@@ -16,29 +20,21 @@ const generatePeaks = () => {
   //          /      \/   \
   //        /         \    \
 
-  const numOfPoints = 2;
-
   const vh = VIEWBOX_HEIGHT;
   const vw = VIEWBOX_WIDTH;
 
-  return range(0, numOfPoints - 1).map(i => {
-    switch (i) {
-      case 0: {
-        return `
-          ${random(vw * 0, vw * 0.1)}, ${vh}
-          ${random(vw * 0.2, vw * 0.5)}, ${random(vh * 0.2, vh * 0.4)}
-          ${random(vw * 0.7, vw * 0.8)}, ${vh}
-        `;
-      }
-      case 1: {
-        return `
-          ${random(vw * 0.25, vw * 0.5)}, ${vh}
-          ${random(vw * 0.7, vw)}, ${random(0, vh * 0.2)}
-          ${random(vw * 1.1, vw * 1.5)}, ${vh}
-        `;
-      }
-    }
-  });
+  return [
+    `
+      ${random(vw * 0, vw * 0.1)}, ${vh}
+      ${random(vw * 0.2, vw * 0.5)}, ${random(vh * 0.2, vh * 0.4)}
+      ${random(vw * 0.7, vw * 0.8)}, ${vh}
+    `,
+    `
+      ${random(vw * 0.25, vw * 0.5)}, ${vh}
+      ${random(vw * 0.7, vw)}, ${random(0, vh * 0.2)}
+      ${random(vw * 1.1, vw * 1.5)}, ${vh}
+    `,
+  ];
 };
 
 class Mountains extends Component {

@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { socialTwitter } from 'react-icons-kit/ionicons/socialTwitter';
-import { socialTwitterOutline } from 'react-icons-kit/ionicons/socialTwitterOutline';
 import { socialGithub } from 'react-icons-kit/ionicons/socialGithub';
-import { socialGithubOutline } from 'react-icons-kit/ionicons/socialGithubOutline';
 import { iosEmail } from 'react-icons-kit/ionicons/iosEmail';
-import { iosEmailOutline } from 'react-icons-kit/ionicons/iosEmailOutline';
 
 import { COLORS, BREAKPOINTS } from 'constants';
 

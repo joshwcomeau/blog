@@ -13,8 +13,6 @@ import Em from '../components/Em';
 import TextLink from '../components/TextLink';
 import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import IndexPost from '../components/IndexPost';
-import Mountains from '../components/Mountains';
-import Logo from '../components/Logo';
 import SectionHeading from '../components/SectionHeading';
 import NewsletterSignup from '../components/NewsletterSignup';
 import Spacer from '../components/Spacer';
@@ -150,7 +148,6 @@ const getPosts = (data: any): Array<PostData> =>
         id: node.id,
         path: node.path,
         title: node.context.frontmatter.title,
-        abstract: node.context.frontmatter.abstract,
         publishedOn: node.context.frontmatter.publishedOn,
         abstract: node.context.frontmatter.abstract,
       };
@@ -218,12 +215,6 @@ const Title = styled.h1`
     font-size: 3.5rem;
     letter-spacing: -1px;
   }
-`;
-
-const Heading = styled.h2`
-  margin-bottom: 3rem;
-  font-size: 48px;
-  letter-spacing: -1px;
 `;
 
 const NewsletterWrapper = styled.div`

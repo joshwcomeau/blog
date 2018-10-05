@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
-import styled, { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components';
 import Helmet from 'react-helmet';
 
 import { COLORS } from 'constants';
 
-import MaxWidthWrapper from '../MaxWidthWrapper';
 import Footer from '../Footer';
 
 import faviconSrc from '../../assets/favicon-swirl.png';
@@ -43,7 +42,9 @@ const Layout = ({ children }) => (
     <Helmet>
       <link rel="icon" type="image/png" href={`${faviconSrc}?v=1`} />
     </Helmet>
+
     {children}
+
     <Footer />
   </Fragment>
 );

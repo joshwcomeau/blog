@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 import { link as linkIcon } from 'react-icons-kit/ionicons/link';
 
-import { BREAKPOINTS, COLORS } from 'constants';
+import { BREAKPOINTS } from 'constants';
 
 class Heading extends Component<Props> {
   static propTypes = {

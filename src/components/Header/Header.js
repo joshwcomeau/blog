@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
-import { Motion, spring } from 'react-motion';
 
 import { COLORS, BREAKPOINTS, Z_INDICES, SIZES } from 'constants';
 import { humanizeDate } from 'helpers/date.helpers';
-import { clamp } from 'utils';
 
 import ClickableIcon from '../ClickableIcon';
 import InvisibleButton from '../InvisibleButton';
-
-const BUFFER = 75;
 
 class Header extends PureComponent {
   static propTypes = {
@@ -55,17 +51,12 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { height, title, publishedOn, heroStyle } = this.props;
+    const { height, title, publishedOn } = this.props;
     const { isTitleVisible } = this.state;
 
     // TODO: color should depend on heroStyle.
     // Also, `heroStyle` should be renamed.
     const color = COLORS.pink[500];
-
-    const springSettings = {
-      stiffness: 170,
-      damping: 30,
-    };
 
     return (
       <Wrapper>

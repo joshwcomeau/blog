@@ -56,6 +56,4 @@ const Abstract = styled(Paragraph)`
   margin-bottom: 0.5rem;
 `;
 
-const ReadMoreLink = styled(Link)``;
-
 export default IndexPost;

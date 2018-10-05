@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Motion, spring } from 'react-motion';
 import IconBase from 'react-icons-kit';
 import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
@@ -52,31 +51,27 @@ class SingleAxisDemo extends PureComponent {
   handleMouseLeave = () => this.setState({ isHovering: false });
 
   render() {
-    const { height, defaultAxisValue, showNote, children } = this.props;
-    const { isHovering } = this.state;
+    const { height, showNote, children } = this.props;
+    const { isHovering, axisValue } = this.state;
 
     return (
       <Wrapper>
-        <Motion style={{ axisValue: this.state.axisValue }}>
-          {({ axisValue }) => (
-            <Box
-              onMouseEnter={this.handleMouseEnter}
-              onMouseLeave={this.handleMouseLeave}
-            >
-              <ChildWrapper>{children(axisValue)}</ChildWrapper>
+        <Box
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <ChildWrapper>{children(axisValue)}</ChildWrapper>
 
-              <Spacer size={30} />
+          <Spacer size={30} />
 
-              <SliderWrapper>
-                <Slider
-                  value={axisValue}
-                  height={height}
-                  onChange={this.updateSliderVal}
-                />
-              </SliderWrapper>
-            </Box>
-          )}
-        </Motion>
+          <SliderWrapper>
+            <Slider
+              value={axisValue}
+              height={height}
+              onChange={this.updateSliderVal}
+            />
+          </SliderWrapper>
+        </Box>
 
         {showNote && (
           <InteractivityNotice>

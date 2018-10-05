@@ -1,4 +1,7 @@
 // @flow
+/**
+ * Currently unused
+ */
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 
@@ -17,7 +20,7 @@ const COLUMN_WIDTH = 20;
 
 type ShapeId = 'cross' | 'circle' | 'squiggle';
 
-const generateDirectionShape = (id, { primary, secondary }) => {
+const generateDirectionShape = (id: ShapeId, { primary, secondary }) => {
   switch (id) {
     case 'cross':
       return (
@@ -68,6 +71,9 @@ const generateDirectionShape = (id, { primary, secondary }) => {
           stroke={primary}
         />
       );
+
+    default:
+      throw new Error('Unrecognized shape ID: ' + id);
   }
 };
 
@@ -128,7 +134,7 @@ class Emphasis extends Component<Props, State> {
     const animationDelay = random(-animationDuration, 0);
     const animationDirection = sample(['normal', 'reverse']);
 
-    const shapeId = sample(['cross', 'circle', 'squiggle']);
+    const shapeId: ShapeId = sample(['cross', 'circle', 'squiggle']);
     const colors =
       COLOR_THEMES[decorationColor] || sample(Object.values(COLOR_THEMES));
 
@@ -146,7 +152,7 @@ class Emphasis extends Component<Props, State> {
           top,
           left,
           opacity,
-          // animation,
+          animation,
         }}
       >
         {generateDirectionShape(shapeId, colors)}

@@ -6,40 +6,35 @@
 
   Not the cleanest solution, but by far the fastest :)
 */
+/* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { COLORS } from '../../../constants';
-import { getInterpolatedValue } from '../../../utils';
+import { COLORS } from 'constants';
+import { getInterpolatedValue } from 'utils';
 
-import BlogPostTemplate from '../../../templates/BlogPost';
-import Paragraph from '../../../components/Paragraph';
-import Sidenote from '../../../components/Sidenote';
-import List from '../../../components/List';
-import ListItem from '../../../components/ListItem';
-import SectionHeading from '../../../components/SectionHeading';
-import SectionSubHeading from '../../../components/SectionSubHeading';
-import InlineCode from '../../../components/InlineCode';
-import Divider from '../../../components/Divider';
-import TextLink from '../../../components/TextLink';
-import Em from '../../../components/Em';
-import NewsletterSignup from '../../../components/NewsletterSignup';
-import HighlightedSection from '../../../components/HighlightedSection';
-import Spacer from '../../../components/Spacer';
-import Latex from '../../../components/Latex';
-import SingleAxisDemo from '../../../components/SingleAxisDemo';
-import LiveEditableCode from '../../../components/LiveEditableCode';
-import Info from '../../../components/Info';
-import InitialCurve from '../../../components/InitialCurve';
-import BezierController from '../../../components/BezierController';
-import BezierFlattener from '../../../components/BezierFlattener';
+import BlogPostTemplate from 'templates/BlogPost';
+import Paragraph from 'components/Paragraph';
+import Sidenote from 'components/Sidenote';
+import List from 'components/List';
+import ListItem from 'components/ListItem';
+import SectionHeading from 'components/SectionHeading';
+import SectionSubHeading from 'components/SectionSubHeading';
+import InlineCode from 'components/InlineCode';
+import Divider from 'components/Divider';
+import TextLink from 'components/TextLink';
+import Em from 'components/Em';
+import NewsletterSignup from 'components/NewsletterSignup';
+import Spacer from 'components/Spacer';
+import Latex from 'components/Latex';
+import SingleAxisDemo from 'components/SingleAxisDemo';
+import LiveEditableCode from 'components/LiveEditableCode';
+import InitialCurve from 'components/InitialCurve';
+import BezierController from 'components/BezierController';
+import BezierFlattener from 'components/BezierFlattener';
 import BezierInterpolationGraph from './components/BezierInterpolationGraph';
-import InterstitialNewsletterSignup from '../../../components/InterstitialNewsletterSignup';
-import TrackRead from '../../../components/TrackRead';
-import VideoGif from '../../../components/VideoGif';
-
-import dynamicBezierClipSrc from '../../../assets/videos/dynamic-bezier-clip.mp4';
+import TrackRead from 'components/TrackRead';
 
 import basicShapesCode from './code/basic-shapes.example';
 import pathIntroCode from './code/path-intro.example';

@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { iosHome } from 'react-icons-kit/ionicons/iosHome';
-import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
 
-import { COLORS, Z_INDICES, SIZES, BREAKPOINTS } from '../../constants';
+import { COLORS, Z_INDICES, BREAKPOINTS } from '../../constants';
 import { clamp } from '../../utils';
 import { humanizeDate } from '../../helpers/date.helpers';
 
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import ClickableIcon from '../ClickableIcon';
 import SelfStraighteningCurves from '../SelfStraighteningCurves';
 
 const CURVE_HEIGHT = 140;
@@ -126,8 +123,8 @@ class BaseHero extends PureComponent {
 
         <CurveWrapper gutter={gutter}>
           <SelfStraighteningCurves
-            percentStraightened={heroScrollPercentage}
             colors={curveColors}
+            percentStraightened={heroScrollPercentage}
             buffer={gutter * 1.5}
           />
         </CurveWrapper>
@@ -141,18 +138,6 @@ class BaseHero extends PureComponent {
 const Wrapper = styled.div`
   position: relative;
   z-index: ${Z_INDICES.hero};
-`;
-
-const IconWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  left: -5px;
-  top: -5px;
-  background: ${COLORS.white};
 `;
 
 const Hero = styled.section`
@@ -267,10 +252,6 @@ const CurveBlocker = styled.div`
   bottom: 0;
   width: ${props => props.gutter}px;
   background: ${COLORS.white};
-`;
-
-const MainContent = styled.div`
-  padding-top: 80px;
 `;
 
 export default BaseHero;

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { BREAKPOINTS, COLORS } from 'constants';
+import { BREAKPOINTS } from 'constants';
 import { signUpForNewsletter } from 'helpers/analytics.helpers';
 
-import Heading from '../Heading';
-import Paragraph from '../Paragraph';
-import DecoratedText from '../DecoratedText';
 import MagicGradientButton from '../MagicGradientButton';
 import Spacer from '../Spacer';
 

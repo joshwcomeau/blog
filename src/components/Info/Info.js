@@ -1,6 +1,8 @@
 /**
  * A sidebar bit of knowledge or information.
  * To be used as additional information, within a blog post
+ *
+ * NOTE: CURRENTLY UNUSED. See `Sidenote` instead?
  */
 import React from 'react';
 import styled from 'styled-components';

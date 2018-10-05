@@ -128,12 +128,6 @@ const BezierWrapper = styled.div`
   background: ${COLORS.white};
 `;
 
-const Note = styled.div`
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-`;
-
 const RadioButtonsWrapper = styled.div`
   display: flex;
   align-items: center;

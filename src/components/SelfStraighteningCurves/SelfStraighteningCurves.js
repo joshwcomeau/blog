@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
-import { clamp, getInterpolatedValue } from 'utils';
+import { getInterpolatedValue } from 'utils';
+
+// NOTE: This should be dynamic, but I did things hacky.
+const HEIGHT = 140;
 
 class SelfStraighteningCurves extends Component {
   static propTypes = {
     colors: PropTypes.arrayOf(PropTypes.string),
-    height: PropTypes.number,
     buffer: PropTypes.number,
     percentStraightened: PropTypes.number,
   };
@@ -73,14 +74,13 @@ class SelfStraighteningCurves extends Component {
 
   render() {
     const {
-      height,
       colors: [firstColor, secondColor, thirdColor],
     } = this.props;
 
     return (
       <Svg
         width="100%"
-        height={140}
+        height={HEIGHT}
         innerRef={node => (this.node = node)}
         viewBox="0 0 1000 120"
         preserveAspectRatio="none"

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { BREAKPOINTS, BREAKPOINT_SIZES, READING_WIDTH } from 'constants';
-import { getDeviceType } from 'helpers/responsive.helpers';
+import { BREAKPOINTS, READING_WIDTH } from 'constants';
 
 const MaxWidthWrapper = styled.div`
   position: relative;
