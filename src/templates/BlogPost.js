@@ -13,7 +13,7 @@ import MaxWidthWrapper from '../components/MaxWidthWrapper';
 import Header from '../components/Header';
 import WindowDimensions from '../components/WindowDimensions';
 import LargeScreenSidebar from '../components/LargeScreenSidebar';
-import WatermelonGradientHero from '../components/heroes/WatermelonGradientHero';
+import WatermelonGradientHero from '../components/WatermelonGradientHero';
 import Spacer from '../components/Spacer';
 import Layout from '../components/MainLayout';
 

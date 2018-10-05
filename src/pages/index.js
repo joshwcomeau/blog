@@ -31,6 +31,8 @@ type PostData = {
 const IndexPage = ({ data }) => {
   const posts = getPosts(data);
 
+  console.log(posts);
+
   return (
     <Wrapper>
       <Helmet
