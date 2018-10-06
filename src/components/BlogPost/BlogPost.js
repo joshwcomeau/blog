@@ -2,12 +2,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import { MDXProvider } from '@mdx-js/tag';
 
 import { siteMetadata } from '../../../gatsby-config';
 
 import { COLORS, Z_INDICES, BREAKPOINTS } from 'constants';
 import { getDeviceType } from 'helpers/responsive.helpers';
 
+import App from 'components/App';
 import FullWidth from 'components/FullWidth';
 import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Header from 'components/Header';
@@ -15,7 +17,9 @@ import WindowDimensions from 'components/WindowDimensions';
 import LargeScreenSidebar from 'components/LargeScreenSidebar';
 import WatermelonGradientHero from 'components/WatermelonGradientHero';
 import Spacer from 'components/Spacer';
-import App from 'components/App';
+import Paragraph from 'components/Paragraph';
+import SectionHeading from 'components/SectionHeading';
+import SectionSubHeading from 'components/SectionSubHeading';
 
 import type { Frontmatter } from 'types';
 
@@ -43,46 +47,54 @@ export default ({ children, pageContext }: Props) => {
   const deviceType = getDeviceType();
 
   return (
-    <App>
-      <FullWidth>
-        <Helmet>
-          <title>
-            {title} - {siteMetadata.title}
-          </title>
-        </Helmet>
+    <MDXProvider
+      components={{
+        h1: SectionHeading,
+        h2: SectionSubHeading,
+        p: Paragraph,
+      }}
+    >
+      <App>
+        <FullWidth>
+          <Helmet>
+            <title>
+              {title} - {siteMetadata.title}
+            </title>
+          </Helmet>
 
-        <Header
-          height={HEADER_HEIGHT}
-          title={title}
-          publishedOn={publishedOn}
-          heroStyle={heroStyle}
-        />
-        <WindowDimensions>
-          {({ windowWidth, windowHeight }) => {
-            const orientation =
-              windowWidth >= windowHeight ? 'landscape' : 'portrait';
+          <Header
+            height={HEADER_HEIGHT}
+            title={title}
+            publishedOn={publishedOn}
+            heroStyle={heroStyle}
+          />
+          <WindowDimensions>
+            {({ windowWidth, windowHeight }) => {
+              const orientation =
+                windowWidth >= windowHeight ? 'landscape' : 'portrait';
 
-            return (
-              <Hero
-                headerHeight={HEADER_HEIGHT}
-                title={title}
-                publishedOn={publishedOn}
-                orientation={orientation}
-              />
-            );
-          }}
-        </WindowDimensions>
+              return (
+                <Hero
+                  headerHeight={HEADER_HEIGHT}
+                  title={title}
+                  publishedOn={publishedOn}
+                  orientation={orientation}
+                />
+              );
+            }}
+          </WindowDimensions>
 
-        <MainContent>
-          <MaxWidthWrapper>
-            {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
-            {children}
-          </MaxWidthWrapper>
+          <MainContent>
+            <MaxWidthWrapper>
+              {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
+              {children}
+            </MaxWidthWrapper>
 
-          <Spacer size={160} />
-        </MainContent>
-      </FullWidth>
-    </App>
+            <Spacer size={160} />
+          </MainContent>
+        </FullWidth>
+      </App>
+    </MDXProvider>
   );
 };
 

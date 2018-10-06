@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-sizing: content-box;
+  border-radius: 5px;
 `;
 
 const Caption = styled.div`
@@ -23,4 +24,5 @@ const Caption = styled.div`
 
 const Video = styled.video`
   width: 100%;
+  border-radius: 3px;
 `;

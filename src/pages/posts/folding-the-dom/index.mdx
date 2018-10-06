@@ -1,0 +1,48 @@
+---
+  title: Folding the DOM
+  slug: folding-the-dom
+  published: false
+  publishedOn: 2018-10-05
+  abstract: A deep dive into DOM folding techniques, to be used in animations and interactions.
+---
+import {Spring} from 'react-spring';
+
+import cssEngineSrc from 'assets/videos/css-engine.mp4';
+
+import TextLink from 'components/TextLink';
+import SingleAxisDemo from 'components/SingleAxisDemo';
+import VideoGif from 'components/VideoGif';
+import {SingleFoldByRatio} from 'components/FoldDemos';
+
+In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
+
+And yet, all modern browsers support a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
+
+<VideoGif
+  src={cssEngineSrc}
+  caption={
+    <>
+      Believe it or not, this is just a collection of textured divs!
+      {' '}
+      <TextLink href="https://keithclark.co.uk/labs/css-fps/">
+        View Live
+      </TextLink>
+    </>
+  }
+/>
+
+Today I'd like to leverage that 3D engine to perform a neat trick: folding up a DOM node. This effect is a great way to add some whimsical charm to opening or closing an item.
+
+<SingleAxisDemo
+  showNote={true}
+  id="fold-intro"
+  height={250}
+>
+  {percentage => (
+    <Spring to={{percentage}}>
+      {interpolated => (
+        <SingleFoldByRatio percentage={interpolated.percentage} />
+      )}
+    </Spring>
+  )}
+</SingleAxisDemo>
