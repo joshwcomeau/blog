@@ -6,12 +6,19 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-flow',
     'gatsby-plugin-styled-components',
-    'gatsby-mdx',
+    {
+      resolve: `gatsby-mdx`,
+      options: {
+        defaultLayouts: {
+          posts: require.resolve('./src/components/BlogPost/BlogPost.js'),
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'pages',
-        path: `${__dirname}/src/pages`,
+        name: 'posts',
+        path: `${__dirname}/src/pages/posts`,
       },
     },
     {

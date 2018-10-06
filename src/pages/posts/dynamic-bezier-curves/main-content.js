@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { COLORS } from 'constants';
 import { getInterpolatedValue } from 'utils';
 
-import BlogPostTemplate from 'templates/BlogPost';
+import BlogPost from 'components/BlogPost';
 import Paragraph from 'components/Paragraph';
 import Sidenote from 'components/Sidenote';
 import List from 'components/List';
@@ -59,7 +59,7 @@ export const FRONT_MATTER = {
 };
 
 export default () => (
-  <BlogPostTemplate {...FRONT_MATTER}>
+  <BlogPost {...FRONT_MATTER}>
     <Paragraph>
       First off - woohoo! This is my first published post on the new blog. I'm
       super excited. Thanks for checking it out! 🥂
@@ -705,5 +705,5 @@ export default () => (
         </TextLink>, by Mike "Pomax" Kamermans
       </ListItem>
     </List>
-  </BlogPostTemplate>
+  </BlogPost>
 );

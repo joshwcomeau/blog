@@ -40,8 +40,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         constants: path.resolve(__dirname, 'src/constants'),
         helpers: path.resolve(__dirname, 'src/helpers'),
         pages: path.resolve(__dirname, 'src/pages'),
-        templates: path.resolve(__dirname, 'src/templates'),
         utils: path.resolve(__dirname, 'src/utils'),
+        types: path.resolve(__dirname, 'src/types'),
       },
     },
   });
