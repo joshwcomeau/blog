@@ -7,6 +7,7 @@ import { graphql } from 'gatsby';
 import { siteMetadata } from '../../gatsby-config';
 import { COLORS, BREAKPOINTS } from '../constants';
 
+import App from '../components/App';
 import Paragraph from '../components/Paragraph';
 import Divider from '../components/Divider';
 import Em from '../components/Em';
@@ -29,101 +30,101 @@ type PostData = {
 const IndexPage = ({ data }) => {
   const posts = getPosts(data);
 
-  console.log(posts);
-
   return (
-    <Wrapper>
-      <Helmet
-        title={siteMetadata.title}
-        meta={[
-          {
-            name: 'description',
-            content: 'Web development and front-end engineering blog.',
-          },
-          {
-            name: 'keywords',
-            content: 'reactjs, javascript, front-end, web development',
-          },
-        ]}
-      />
-      <BorderWrapper>
-        <InnerWrapper>
-          <Title>Hey look, it's a blog!</Title>
-          <Paragraph>
-            Hi, I'm{' '}
-            <TextLink href="https://www.twitter.com/joshwcomeau">
-              Josh Comeau
-            </TextLink>. I'm a front-end engineer / web developer at{' '}
-            <TextLink href="https://khanacademy.org" target="_blank">
-              Khan Academy
-            </TextLink>.
-          </Paragraph>
-
-          <Paragraph>
-            Early in 2018 I released{' '}
-            <TextLink
-              href="https://pudding.cool/2018/02/waveforms/"
-              target="_blank"
-            >
-              Waveforms
-            </TextLink>, an explorable explanation about the peculiar magic of
-            sound waves. I got a bunch of feedback aftwerwards from audio folks
-            who said that they <Em>finally understood</Em> how sound works, that
-            my interactive thingy helped them bridge the gap between theoretical
-            knowledge and intuitive understanding.
-          </Paragraph>
-
-          <Paragraph>
-            This blog is a continuation of that experiment, but for front-end
-            programming things. I plan to use it as a way to share experiments
-            and ideas, hopefully in a way that makes them easy to learn, digest,
-            and use in your own projects!
-          </Paragraph>
-
-          <Divider />
-
-          {posts.map(post => (
-            <IndexPost
-              key={post.id}
-              id={post.id}
-              path={post.path}
-              title={post.title}
-              abstract={post.abstract}
-              publishedOn={post.publishedOn}
-            />
-          ))}
-
-          <Divider />
-
-          <NewsletterWrapper>
-            <SectionHeading anchorId="join">
-              Join the Newsletter 🗞
-            </SectionHeading>
-
-            <Spacer size={20} />
-
+    <App>
+      <Wrapper>
+        <Helmet
+          title={siteMetadata.title}
+          meta={[
+            {
+              name: 'description',
+              content: 'Web development and front-end engineering blog.',
+            },
+            {
+              name: 'keywords',
+              content: 'reactjs, javascript, front-end, web development',
+            },
+          ]}
+        />
+        <BorderWrapper>
+          <InnerWrapper>
+            <Title>Hey look, it's a blog!</Title>
             <Paragraph>
-              I'm having so much fun building dynamic, interactive tutorials and
-              deep-dives! I've only written the first post so far, but I have a
-              bunch of ideas for other stuff to cover.
+              Hi, I'm{' '}
+              <TextLink href="https://www.twitter.com/joshwcomeau">
+                Josh Comeau
+              </TextLink>. I'm a front-end engineer / web developer at{' '}
+              <TextLink href="https://khanacademy.org" target="_blank">
+                Khan Academy
+              </TextLink>.
             </Paragraph>
 
             <Paragraph>
-              If this stuff interests you as well, you can join the newsletter.
-              I'll let you know when new posts are up (in fact, subscribers will
-              get sneak peeks!).
+              Early in 2018 I released{' '}
+              <TextLink
+                href="https://pudding.cool/2018/02/waveforms/"
+                target="_blank"
+              >
+                Waveforms
+              </TextLink>, an explorable explanation about the peculiar magic of
+              sound waves. I got a bunch of feedback aftwerwards from audio
+              folks who said that they <Em>finally understood</Em> how sound
+              works, that my interactive thingy helped them bridge the gap
+              between theoretical knowledge and intuitive understanding.
             </Paragraph>
 
             <Paragraph>
-              It also sends a strong signal to me that this stuff is worth
-              building, and will likely motivate me to create more content!
+              This blog is a continuation of that experiment, but for front-end
+              programming things. I plan to use it as a way to share experiments
+              and ideas, hopefully in a way that makes them easy to learn,
+              digest, and use in your own projects!
             </Paragraph>
 
-            <NewsletterSignup id="homepage" />
-          </NewsletterWrapper>
-        </InnerWrapper>
-      </BorderWrapper>
-    </Wrapper>
+            <Divider />
+
+            {posts.map(post => (
+              <IndexPost
+                key={post.id}
+                id={post.id}
+                path={post.path}
+                title={post.title}
+                abstract={post.abstract}
+                publishedOn={post.publishedOn}
+              />
+            ))}
+
+            <Divider />
+
+            <NewsletterWrapper>
+              <SectionHeading anchorId="join">
+                Join the Newsletter 🗞
+              </SectionHeading>
+
+              <Spacer size={20} />
+
+              <Paragraph>
+                I'm having so much fun building dynamic, interactive tutorials
+                and deep-dives! I've only written the first post so far, but I
+                have a bunch of ideas for other stuff to cover.
+              </Paragraph>
+
+              <Paragraph>
+                If this stuff interests you as well, you can join the
+                newsletter. I'll let you know when new posts are up (in fact,
+                subscribers will get sneak peeks!).
+              </Paragraph>
+
+              <Paragraph>
+                It also sends a strong signal to me that this stuff is worth
+                building, and will likely motivate me to create more content!
+              </Paragraph>
+
+              <NewsletterSignup id="homepage" />
+            </NewsletterWrapper>
+          </InnerWrapper>
+        </BorderWrapper>
+      </Wrapper>
+    </App>
   );
 };
 

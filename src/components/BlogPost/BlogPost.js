@@ -1,19 +1,23 @@
+// @flow
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
-import { COLORS, Z_INDICES, BREAKPOINTS } from '../constants';
-import { siteMetadata } from '../../gatsby-config';
-import { getDeviceType } from '../helpers/responsive.helpers';
+import { siteMetadata } from '../../../gatsby-config';
 
-import FullWidth from '../components/FullWidth';
-import MaxWidthWrapper from '../components/MaxWidthWrapper';
-import Header from '../components/Header';
-import WindowDimensions from '../components/WindowDimensions';
-import LargeScreenSidebar from '../components/LargeScreenSidebar';
-import WatermelonGradientHero from '../components/WatermelonGradientHero';
-import Spacer from '../components/Spacer';
-import Layout from '../components/MainLayout';
+import { COLORS, Z_INDICES, BREAKPOINTS } from 'constants';
+import { getDeviceType } from 'helpers/responsive.helpers';
+
+import FullWidth from 'components/FullWidth';
+import MaxWidthWrapper from 'components/MaxWidthWrapper';
+import Header from 'components/Header';
+import WindowDimensions from 'components/WindowDimensions';
+import LargeScreenSidebar from 'components/LargeScreenSidebar';
+import WatermelonGradientHero from 'components/WatermelonGradientHero';
+import Spacer from 'components/Spacer';
+import App from 'components/App';
+
+import type { Frontmatter } from 'types';
 
 const HEADER_HEIGHT = 50;
 
@@ -25,12 +29,21 @@ const getHero = heroStyle => {
   }
 };
 
-export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
+type Props = {
+  children: React$Node,
+  pageContext: {
+    frontmatter: Frontmatter,
+  },
+};
+
+export default ({ children, pageContext }: Props) => {
+  const { title, publishedOn, heroStyle } = pageContext.frontmatter;
+
   const Hero = getHero(heroStyle);
   const deviceType = getDeviceType();
 
   return (
-    <Layout>
+    <App>
       <FullWidth>
         <Helmet>
           <title>
@@ -54,7 +67,6 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
                 headerHeight={HEADER_HEIGHT}
                 title={title}
                 publishedOn={publishedOn}
-                image={heroImage}
                 orientation={orientation}
               />
             );
@@ -70,7 +82,7 @@ export default ({ title, publishedOn, heroStyle, heroImage, children }) => {
           <Spacer size={160} />
         </MainContent>
       </FullWidth>
-    </Layout>
+    </App>
   );
 };
 

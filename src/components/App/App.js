@@ -37,7 +37,7 @@ injectGlobal`
   }
 `;
 
-const Layout = ({ children }) => (
+export default ({ children }) => (
   <Fragment>
     <Helmet>
       <link rel="icon" type="image/png" href={`${faviconSrc}?v=1`} />
@@ -48,5 +48,3 @@ const Layout = ({ children }) => (
     <Footer />
   </Fragment>
 );
-
-export default Layout;
