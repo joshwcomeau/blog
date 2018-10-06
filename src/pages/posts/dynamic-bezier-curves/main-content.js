@@ -8,13 +8,12 @@
 */
 /* eslint-disable jsx-a11y/accessible-emoji */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { COLORS } from 'constants';
 import { getInterpolatedValue } from 'utils';
 
-import BlogPost from 'components/BlogPost';
 import Paragraph from 'components/Paragraph';
 import Sidenote from 'components/Sidenote';
 import List from 'components/List';
@@ -59,7 +58,7 @@ export const FRONT_MATTER = {
 };
 
 export default () => (
-  <BlogPost {...FRONT_MATTER}>
+  <Fragment>
     <Paragraph>
       First off - woohoo! This is my first published post on the new blog. I'm
       super excited. Thanks for checking it out! 🥂
@@ -705,5 +704,5 @@ export default () => (
         </TextLink>, by Mike "Pomax" Kamermans
       </ListItem>
     </List>
-  </BlogPost>
+  </Fragment>
 );
