@@ -20,6 +20,7 @@ import Spacer from 'components/Spacer';
 import Paragraph from 'components/Paragraph';
 import SectionHeading from 'components/SectionHeading';
 import SectionSubHeading from 'components/SectionSubHeading';
+import TextLink from 'components/TextLink';
 
 import type { Frontmatter } from 'types';
 
@@ -52,6 +53,7 @@ export default ({ children, pageContext }: Props) => {
         h1: SectionHeading,
         h2: SectionSubHeading,
         p: Paragraph,
+        a: TextLink,
       }}
     >
       <App>

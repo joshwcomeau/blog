@@ -19,15 +19,19 @@ type Props = {
 const RcSliderWithTooltip = createSliderWithTooltip(RcSlider);
 
 class Slider extends Component<Props> {
+  static defaultProps = {
+    orientation: 'vertical',
+  };
+
   render() {
-    const { label, ...delegatedProps } = this.props;
+    const { label, orientation, ...delegatedProps } = this.props;
 
     return (
       <div>
         {label && <Label>{label}</Label>}
 
         <RcSliderWithTooltip
-          vertical
+          vertical={orientation === 'vertical'}
           {...delegatedProps}
           tipProps={{ placement: 'bottom' }}
         />

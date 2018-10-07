@@ -101,11 +101,7 @@ export default () => (
       Bézier curves and SVG in React.js. We'll learn how to build dynamic curves
       that respond to user input:
     </Paragraph>
-    <SingleAxisDemo
-      id="flattenable-curve"
-      showNote={true}
-      defaultAxisValue={20}
-    >
+    <SingleAxisDemo id="flattenable-curve" showNote={true} defaultValue={20}>
       {value => (
         <InitialCurve percentStraightened={value} color={COLORS.pink[500]} />
       )}
