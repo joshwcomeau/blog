@@ -10,9 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run develop"
   },
-  "keywords": [
-    "gatsby"
-  ],
+  "keywords": ["gatsby"],
   "license": "MIT",
   "dependencies": {
     "@mdx-js/mdx": "^0.15.5",
@@ -36,6 +34,7 @@
     "react-katex": "^2.0.2",
     "react-live": "^1.10.1",
     "react-motion": "^0.5.2",
+    "react-powerplug": "0.1.6",
     "react-spring": "^5.9.2",
     "styled-components": "^3.2.6"
   },

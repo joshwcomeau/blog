@@ -7730,6 +7730,10 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-powerplug@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/react-powerplug/-/react-powerplug-0.1.6.tgz#054f25fd45f8c26a1f75ca02f62d07d12b712035"
+
 react-side-effect@^1.1.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.5.tgz#f26059e50ed9c626d91d661b9f3c8bb38cd0ff2d"
