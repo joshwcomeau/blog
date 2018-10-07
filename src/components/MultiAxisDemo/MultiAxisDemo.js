@@ -1,9 +1,8 @@
+// @flow
+// TODO: Update this to use `Demo`
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import IconBase from 'react-icons-kit';
-import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
-import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
 
 import { COLORS } from 'constants';
 import { throttle } from 'utils';
@@ -12,9 +11,21 @@ import { interactWithExplorable } from 'helpers/analytics.helpers';
 import Slider from '../Slider';
 import Spacer from '../Spacer';
 
+type Value = {
+  id: string,
+  label: string,
+  value: number,
+};
+
+type Props = {
+  // `id` is for Google Analytics
+  id: string,
+
+  children: values,
+};
+
 class SingleAxisDemo extends PureComponent {
   static propTypes = {
-    // `id` is for Google Analytics
     id: PropTypes.string.isRequired,
     height: PropTypes.number,
     defaultValue: PropTypes.number,

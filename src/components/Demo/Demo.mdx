@@ -1,0 +1,42 @@
+---
+name: Demo
+---
+
+import { Playground, PropsTable } from 'docz'
+import {Value} from 'react-powerplug';
+
+import Demo from './'
+import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
+
+
+# Demo
+
+> An interactive demonstration of how various properties affect a rendered
+> child.
+
+## Multiple Choice - box color
+
+<Playground>
+  <Demo
+    id="colors"
+    initialValues={{
+      rgb: 'red',
+    }}
+    controls={(values, updateValue) => (
+      <MultipleChoiceControl
+        id="rgb"
+        label="Color"
+        selectedChoiceId={values.rgb}
+        handleSelect={id => updateValue('rgb', id)}
+      >
+        <Choice id="red">Red</Choice>
+        <Choice id="green">Green</Choice>
+        <Choice id="blue">Blue</Choice>
+      </MultipleChoiceControl>
+    )}
+  >
+    {({ rgb }) =>
+      <div style={{ width: 100, height: 100, backgroundColor: rgb }} />
+    }
+  </Demo>
+</Playground>

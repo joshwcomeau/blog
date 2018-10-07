@@ -7,7 +7,12 @@ import InvisibleButton from '../InvisibleButton';
 
 const Choice = ({ id, parentId, isSelected, handleSelect, children }) => (
   <Wrapper onClick={() => handleSelect(id)}>
-    <RadioButton id={id} name={parentId} isSelected={isSelected} />
+    <RadioButton
+      id={id}
+      name={parentId}
+      isSelected={isSelected}
+      handleSelect={handleSelect}
+    />
     <Label>{children}</Label>
   </Wrapper>
 );
