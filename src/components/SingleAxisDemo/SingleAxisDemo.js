@@ -17,21 +17,19 @@ class SingleAxisDemo extends PureComponent {
     // `id` is for Google Analytics
     id: PropTypes.string.isRequired,
     height: PropTypes.number,
-    defaultAxisValue: PropTypes.number,
-    sliderOrientation: PropTypes.oneOf(['vertical', 'horizontal']),
+    defaultValue: PropTypes.number,
     showNote: PropTypes.bool,
     children: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     height: 200,
-    defaultAxisValue: 0,
-    sliderOrientation: 'vertical',
+    defaultValue: 0,
     showNote: false,
   };
 
   state = {
-    axisValue: this.props.defaultAxisValue,
+    axisValue: this.props.defaultValue,
     isHovering: false,
   };
 
@@ -51,7 +49,7 @@ class SingleAxisDemo extends PureComponent {
   handleMouseLeave = () => this.setState({ isHovering: false });
 
   render() {
-    const { height, showNote, children } = this.props;
+    const { id, height, showNote, children, ...delegated } = this.props;
     const { isHovering, axisValue } = this.state;
 
     return (
@@ -66,6 +64,7 @@ class SingleAxisDemo extends PureComponent {
 
           <SliderWrapper>
             <Slider
+              {...delegated}
               value={axisValue}
               height={height}
               onChange={this.updateSliderVal}
@@ -81,7 +80,7 @@ class SingleAxisDemo extends PureComponent {
                 icon={isHovering ? iosFlask : iosFlaskOutline}
               />
             </IconWrapper>
-            This is an interactive demo! Feel free to poke around with it.
+            This is an interactive demo! Try dragging the slider on the right.
           </InteractivityNotice>
         )}
       </Wrapper>
@@ -94,11 +93,13 @@ const Wrapper = styled.div``;
 const ChildWrapper = styled.div`
   flex: 1;
   padding: 30px;
+  text-align: center;
 `;
 
 const Box = styled.div`
   display: flex;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 
   &:hover {
     border-color: rgba(0, 0, 0, 0.18);
@@ -109,6 +110,7 @@ const SliderWrapper = styled.div`
   display: flex;
   padding: 30px;
   background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 4px 4px 0;
 
   ${Box}:hover & {
     background: rgba(0, 0, 0, 0.18);

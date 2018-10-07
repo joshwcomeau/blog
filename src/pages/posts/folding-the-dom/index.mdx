@@ -6,17 +6,20 @@
   abstract: A deep dive into DOM folding techniques, to be used in animations and interactions.
 ---
 import {Spring} from 'react-spring';
+import {State} from 'react-powerplug';
 
 import cssEngineSrc from 'assets/videos/css-engine.mp4';
+import autumnSrc from 'assets/images/sandis-helvigs-autumn.jpg';
 
 import TextLink from 'components/TextLink';
 import SingleAxisDemo from 'components/SingleAxisDemo';
 import VideoGif from 'components/VideoGif';
+import InlineCode from 'components/InlineCode';
 import {SingleFoldByRatio} from 'components/FoldDemos';
 
 In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
-And yet, all modern browsers support a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
+And yet, for _years_ now, browsers have bundled in a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
 
 <VideoGif
   src={cssEngineSrc}
@@ -31,17 +34,88 @@ And yet, all modern browsers support a surprisingly capable 3D CSS engine! Someo
   }
 />
 
-Today I'd like to leverage that 3D engine to perform a neat trick: folding up a DOM node. This effect is a great way to add some whimsical charm to opening or closing an item.
+Today I'd like to leverage that 3D engine to perform a neat trick: folding up a DOM node. This effect is a great way to add some whimsical charm to your web products.
+
+Take a look at what I mean, by unfolding this [beautiful autumn photo](https://unsplash.com/photos/vrY49w_-Bmc) by Sandis Helvigs:
 
 <SingleAxisDemo
   showNote={true}
+  defaultValue={100}
   id="fold-intro"
-  height={250}
 >
   {percentage => (
-    <Spring to={{percentage}}>
+    <Spring
+      to={{percentage}}
+      config={{
+        tension: 60,
+        friction: 13,
+      }}
+    >
       {interpolated => (
-        <SingleFoldByRatio percentage={interpolated.percentage} />
+        <SingleFoldByRatio
+          // The height of our node should be a fraction of the window height,
+          // but no larger than 500px
+          height={Math.min(
+            Math.round(window.innerHeight * 0.6),
+            500
+          )}
+          // Our width is just 2/3rds of our height.
+          // Regrettably, because MDX doesn't support variables, I have to
+          // duplicate all that stuff:
+          width={
+            Math.min(
+              Math.round(window.innerHeight * 0.6 * 0.666),
+              333
+            )
+          }
+          percentage={interpolated.percentage}
+        >
+          <img src={autumnSrc} style={{ width: '100%' }} />
+        </SingleFoldByRatio>
+      )}
+    </Spring>
+  )}
+</SingleAxisDemo>
+
+This effect uses CSS <InlineCode>transform: rotateX</InlineCode> to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
+
+## Perspective
+
+<InlineCode>perspective</InlineCode> is a CSS property that controls the distance between the "camera" and the element. Elements much closer to the camera will have a much more dramatic effect when moving in 3D.
+
+<SingleAxisDemo
+  defaultValue={100}
+  id="fold-perspective"
+>
+  {percentage => (
+    <Spring
+      to={{percentage}}
+      config={{
+        tension: 60,
+        friction: 13,
+      }}
+    >
+      {interpolated => (
+        <SingleFoldByRatio
+          // The height of our node should be a fraction of the window height,
+          // but no larger than 500px
+          height={Math.min(
+            Math.round(window.innerHeight * 0.6),
+            500
+          )}
+          // Our width is just 2/3rds of our height.
+          // Regrettably, because MDX doesn't support variables, I have to
+          // duplicate all that stuff:
+          width={
+            Math.min(
+              Math.round(window.innerHeight * 0.6 * 0.666),
+              333
+            )
+          }
+          percentage={interpolated.percentage}
+        >
+          <img src={autumnSrc} style={{ width: '100%' }} />
+        </SingleFoldByRatio>
       )}
     </Spring>
   )}
