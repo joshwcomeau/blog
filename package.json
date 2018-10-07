@@ -8,7 +8,8 @@
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run develop"
+    "start": "npm run develop",
+    "docz": "docz dev"
   },
   "keywords": ["gatsby"],
   "license": "MIT",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.8.0",
+    "docz": "^0.12.5",
     "gatsby-plugin-flow": "^1.0.1",
     "prettier": "^1.12.0"
   }

@@ -1,0 +1,37 @@
+{
+  "config": {
+    "title": "Blog",
+    "description": "Josh Comeau's personal blog",
+    "themeConfig": {},
+    "menu": [],
+    "ordering": "descending",
+    "version": "1.0.0",
+    "repository": null,
+    "native": false,
+    "files": "src/components/**/*.mdx"
+  },
+  "entries": {
+    "src/components/MultipleChoiceControl/MultipleChoiceControl.mdx": {
+      "name": "MultipleChoiceControl",
+      "id": "428c58b227af274981020f26585defc1",
+      "filepath": "src/components/MultipleChoiceControl/MultipleChoiceControl.mdx",
+      "link": null,
+      "slug": "src-components-multiple-choice-control-multiple-choice-control",
+      "route": "/src-components-multiple-choice-control-multiple-choice-control",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "button",
+          "value": "Button"
+        },
+        {
+          "depth": 2,
+          "slug": "basic-usage",
+          "value": "Basic usage"
+        }
+      ]
+    }
+  }
+}

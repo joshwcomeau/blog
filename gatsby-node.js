@@ -4,7 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const path = require('path');
+const alias = require('./webpack-alias');
 
 exports.createPages = ({ actions, graphql }) => {
   const { createRedirect } = actions;
@@ -34,15 +34,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       ],
     },
     resolve: {
-      alias: {
-        assets: path.resolve(__dirname, 'src/assets'),
-        components: path.resolve(__dirname, 'src/components'),
-        constants: path.resolve(__dirname, 'src/constants'),
-        helpers: path.resolve(__dirname, 'src/helpers'),
-        pages: path.resolve(__dirname, 'src/pages'),
-        utils: path.resolve(__dirname, 'src/utils'),
-        types: path.resolve(__dirname, 'src/types'),
-      },
+      alias,
     },
   });
 };
