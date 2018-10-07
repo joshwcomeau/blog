@@ -6,7 +6,7 @@ import RadioButton from '../RadioButton';
 import InvisibleButton from '../InvisibleButton';
 
 const Choice = ({ id, parentId, isSelected, handleSelect, children }) => (
-  <Wrapper onClick={() => handleSelect(id)}>
+  <Wrapper onClick={handleSelect}>
     <RadioButton
       id={id}
       name={parentId}

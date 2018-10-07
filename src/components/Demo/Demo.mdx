@@ -14,7 +14,7 @@ import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
 > An interactive demonstration of how various properties affect a rendered
 > child.
 
-## Multiple Choice - box color
+## Color - multiple choice
 
 <Playground>
   <Demo
@@ -27,7 +27,7 @@ import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
         id="rgb"
         label="Color"
         selectedChoiceId={values.rgb}
-        handleSelect={id => updateValue('rgb', id)}
+        updateValue={updateValue}
       >
         <Choice id="red">Red</Choice>
         <Choice id="green">Green</Choice>
@@ -40,3 +40,5 @@ import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
     }
   </Demo>
 </Playground>
+
+

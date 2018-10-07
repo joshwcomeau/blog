@@ -10,19 +10,19 @@ type Props = {
   id: string,
   label: string,
   selectedChoiceId: string,
-  handleSelect: (id: string) => void,
+  updateValue: (key: string, value: string | number) => void,
   children: React$Node,
 };
 
-class MultipleChoiceControl extends Component {
+class MultipleChoiceControl extends Component<Props> {
   render() {
-    const { id, label, selectedChoiceId, children, handleSelect } = this.props;
+    const { id, label, selectedChoiceId, children, updateValue } = this.props;
 
     const clonedChildren = Children.toArray(this.props.children).map(child =>
       React.cloneElement(child, {
         parentId: id,
         isSelected: selectedChoiceId === child.props.id,
-        handleSelect,
+        handleSelect: () => updateValue(id, child.props.id),
       })
     );
 
