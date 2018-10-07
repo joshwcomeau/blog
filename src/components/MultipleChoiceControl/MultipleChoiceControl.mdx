@@ -3,15 +3,31 @@ name: MultipleChoiceControl
 ---
 
 import { Playground, PropsTable } from 'docz'
-import Button from './'
+import {Value} from 'react-powerplug';
 
-# Button
+import MultipleChoiceControl from './MultipleChoiceControl'
+import Choice from './Choice'
 
-<PropsTable of={Button} />
+# MultipleChoiceControl
 
-## Basic usage
+> A radio button group, to be used (along with other Control components) with
+> MultiAxisDemo
+
+## Static
 
 <Playground>
-  <Button>Click me</Button>
-  <Button kind="secondary">Click me</Button>
+  <Value>
+    {({ value, setValue }) => (
+      <MultipleChoiceControl
+        id="things"
+        label="Things"
+        selectedChoiceId={value}
+        handleSelect={val => console.log(val) || setValue(val)}
+      >
+        <Choice id="a">Apple</Choice>
+        <Choice id="b">Banana</Choice>
+        <Choice id="c">Carrot</Choice>
+      </MultipleChoiceControl>
+    )}
+  </Value>
 </Playground>
