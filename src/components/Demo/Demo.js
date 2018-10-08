@@ -54,7 +54,7 @@ const ChildWrapper = styled.div`
 `;
 
 const ControlsWrapper = styled.div`
-  padding: 30px;
+  padding: 15px 30px;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 0 0 4px 4px;
 

@@ -1,0 +1,67 @@
+---
+name: Slider
+---
+
+import { Playground, PropsTable } from 'docz'
+import {Value} from 'react-powerplug';
+
+import Slider from '../Slider';
+
+
+# Slider
+
+> A simple slider component. Can be used to select within a range of numbers.
+
+<PropsTable of={Slider} />
+
+## Vertical
+
+<Playground>
+  <Value initial={0}>
+    {({ value, setValue }) => (
+      <div style={{ display: 'flex', height: 200}}>
+        <Slider
+          orientation="vertical"
+          value={value}
+          step={1}
+          onChange={setValue}
+        />
+      </div>
+    )}
+  </Value>
+</Playground>
+
+## Horizontal
+
+<Playground>
+  <Value initial={0}>
+    {({ value, setValue }) => (
+      <div style={{ display: 'flex', width: '100%'}}>
+        <Slider
+          orientation="horizontal"
+          value={value}
+          step={1}
+          onChange={setValue}
+        />
+      </div>
+    )}
+  </Value>
+</Playground>
+
+## With tooltip
+
+<Playground>
+  <Value initial={0}>
+    {({ value, setValue }) => (
+      <div style={{ display: 'flex', width: '100%'}}>
+        <Slider
+          withTooltip
+          orientation="horizontal"
+          value={value}
+          step={1}
+          onChange={setValue}
+        />
+      </div>
+    )}
+  </Value>
+</Playground>

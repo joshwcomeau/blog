@@ -79,9 +79,38 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
 
 This effect uses CSS <InlineCode>transform: rotateX</InlineCode> to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
 
+## Transform
+
+<InlineCode>transform</InlineCode> is our gateway to all sorts of effects. Transform
+
 ## Perspective
 
 <InlineCode>perspective</InlineCode> is a CSS property that controls the distance between the "camera" and the element. Elements much closer to the camera will have a much more dramatic effect when moving in 3D.
+
+
+<Demo
+  id="transform-properties"
+  controls={
+    <>
+      <MultipleChoiceControl
+        id="axis"
+        label="Axis"
+      >
+        <Choice id="x" label="X Axis" />
+      </MultipleChoiceControl>
+      <SliderControl
+        id="perspective"
+        label="Perspective"
+        min={100}
+        max={20000}
+      />
+    </>
+  }
+>
+  {({ values }) => (
+
+  )}
+</Demo>
 
 <SingleAxisDemo
   defaultValue={100}

@@ -7,6 +7,7 @@ import {Value} from 'react-powerplug';
 
 import Demo from './'
 import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
+import SliderControl from '../SliderControl';
 
 
 # Demo
@@ -26,7 +27,7 @@ import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
       <MultipleChoiceControl
         id="rgb"
         label="Color"
-        selectedChoiceId={values.rgb}
+        value={values.rgb}
         updateValue={updateValue}
       >
         <Choice id="red">Red</Choice>
@@ -36,9 +37,67 @@ import MultipleChoiceControl, {Choice} from '../MultipleChoiceControl';
     )}
   >
     {({ rgb }) =>
-      <div style={{ width: 100, height: 100, backgroundColor: rgb }} />
+      <div
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: 6,
+          backgroundColor: rgb
+        }}
+      />
     }
   </Demo>
 </Playground>
 
 
+## Color - sliders
+
+<Playground>
+  <Demo
+    id="colors"
+    initialValues={{
+      hue: 128,
+      saturation: 50,
+      lightness: 70,
+    }}
+    controls={(values, updateValue) => (
+      <>
+        <SliderControl
+          id="hue"
+          label="Hue"
+          value={values.hue}
+          min={0}
+          max={255}
+          updateValue={updateValue}
+        />
+        <SliderControl
+          id="saturation"
+          label="Saturation"
+          value={values.saturation}
+          min={0}
+          max={100}
+          updateValue={updateValue}
+        />
+        <SliderControl
+          id="lightness"
+          label="Lightness"
+          value={values.lightness}
+          min={0}
+          max={100}
+          updateValue={updateValue}
+        />
+      </>
+    )}
+  >
+    {({ hue, saturation, lightness }) =>
+      <div
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: 6,
+          backgroundColor: 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)',
+        }}
+      />
+    }
+  </Demo>
+</Playground>
