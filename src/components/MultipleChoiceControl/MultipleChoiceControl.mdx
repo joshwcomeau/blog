@@ -22,7 +22,7 @@ import Choice from './Choice'
         id="things"
         label="Things"
         value={value}
-        handleSelect={setValue}
+        updateValue={(key, val) => setValue(val)}
       >
         <Choice id="a">Apple</Choice>
         <Choice id="b">Banana</Choice>
