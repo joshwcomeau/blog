@@ -10,7 +10,11 @@ import { State } from 'react-powerplug';
 
 import cssEngineSrc from 'assets/videos/css-engine.mp4';
 import autumnSrc from 'assets/images/sandis-helvigs-autumn.jpg';
+import pigletSrc from 'assets/images/annie-spratt-piglet.jpg';
 
+import Demo from 'components/Demo';
+import MultipleChoiceControl, { Choice } from 'components/MultipleChoiceControl';
+import SliderControl from 'components/SliderControl';
 import TextLink from 'components/TextLink';
 import SingleAxisDemo from 'components/SingleAxisDemo';
 import VideoGif from 'components/VideoGif';
@@ -77,75 +81,94 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
   )}
 </SingleAxisDemo>
 
-This effect uses CSS <InlineCode>transform: rotateX</InlineCode> to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
+This effect uses CSS transform: rotateX to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
 
 ## Transform
 
-<InlineCode>transform</InlineCode> is our gateway to all sorts of effects. Transform
+Transform is our gateway to all sorts of effects. With transform, we can move stuff around, scale it larger and smaller, skew it, or rotate it.
 
-## Perspective
-
-<InlineCode>perspective</InlineCode> is a CSS property that controls the distance between the "camera" and the element. Elements much closer to the camera will have a much more dramatic effect when moving in 3D.
-
+Most transform properties can specify an axis. In our case, we want to rotate
+it around its x axis, but check out what the other axes do as well:
 
 <Demo
-  id="transform-properties"
-  controls={
+  id="transform-rotate"
+  initialValues={{
+    axis: 'X',
+    degrees: 0,
+  }}
+  controls={(values, updateValue) => (
     <>
       <MultipleChoiceControl
         id="axis"
         label="Axis"
+        value={values.axis}
+        updateValue={updateValue}
       >
-        <Choice id="x" label="X Axis" />
+        <Choice id="X">X Axis</Choice>
+        <Choice id="Y">Y Axis</Choice>
+        <Choice id="Z">Z Axis</Choice>
       </MultipleChoiceControl>
       <SliderControl
-        id="perspective"
-        label="Perspective"
-        min={100}
-        max={20000}
+        id="degrees"
+        label="Degrees"
+        min={0}
+        max={360}
+        value={values.degrees}
+        updateValue={updateValue}
       />
     </>
-  }
->
-  {({ values }) => (
-
   )}
-</Demo>
-
-<SingleAxisDemo
-  defaultValue={100}
-  id="fold-perspective"
 >
-  {percentage => (
+  {({ axis, degrees }) => (
     <Spring
-      to={{percentage}}
+      to={{degrees}}
       config={{
         tension: 60,
         friction: 13,
       }}
     >
-      {interpolated => (
-        <SingleFoldByRatio
-          // The height of our node should be a fraction of the window height,
-          // but no larger than 500px
-          height={Math.min(
-            Math.round(window.innerHeight * 0.6),
-            500
-          )}
-          // Our width is just 2/3rds of our height.
-          // Regrettably, because MDX doesn't support variables, I have to
-          // duplicate all that stuff:
-          width={
-            Math.min(
-              Math.round(window.innerHeight * 0.6 * 0.666),
-              333
-            )
-          }
-          percentage={interpolated.percentage}
-        >
-          <img src={autumnSrc} style={{ width: '100%' }} />
-        </SingleFoldByRatio>
-      )}
+      {interpolated => {
+        const transform = `rotate${axis}(${interpolated.degrees}deg)`;
+        //
+        return <div style={{ perspective: 500 }}>
+          <div
+            style={{
+              paddingBottom: 30,
+            }}
+          >
+            <InlineCode
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                width: 400,
+                fontSize: 24,
+              }}
+            >
+              transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
+            </InlineCode>
+          </div>
+          <img
+            width={400}
+            height={321}
+            src={pigletSrc}
+            style={{ transform }}
+          />
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              padding: 30,
+              textAlign: 'center',
+            }}
+          >
+            Photo by <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">Annie Spratt</TextLink>.
+          </div>
+        </div>;
+      }}
     </Spring>
   )}
-</SingleAxisDemo>
+</Demo>
+
+## Perspective
+
+Perspective is a CSS property that controls the distance between the "camera" and the element. Elements much closer to the camera will have a much more dramatic effect when moving in 3D.

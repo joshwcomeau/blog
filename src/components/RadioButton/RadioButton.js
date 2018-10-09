@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { COLORS } from 'constants';
 
-const RadioButton = ({ name, id, isSelected, handleSelect, size = 16 }) => (
+const RadioButton = ({ name, id, isSelected, handleSelect, size = 15 }) => (
   <Wrapper>
     <RadioInput
       type="radio"

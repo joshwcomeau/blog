@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
+import { COLORS } from 'constants';
+
 export default styled.span`
   display: inline-block;
   font-family: 'Fira Code', monospace;
   font-size: 0.8em;
   letter-spacing: -0.5px;
   padding: 2px 6px;
-  background: rgba(0, 0, 0, 0.1);
+  background: ${COLORS.gray[200]};
 `;

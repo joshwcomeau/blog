@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DemoControl = ({ label, children }) => (
-  <Wrapper>
+const DemoControl = ({ label, children, ...delegated }) => (
+  <Wrapper {...delegated}>
     <Label>{label}</Label>
     <ChildWrapper>{children}</ChildWrapper>
   </Wrapper>

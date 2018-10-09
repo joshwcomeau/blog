@@ -16,8 +16,8 @@ const MultipleChoiceControl = ({
   id,
   label,
   value,
-  children,
   updateValue,
+  children,
 }: Props) => {
   const clonedChildren = Children.toArray(children).map(child =>
     React.cloneElement(child, {

@@ -23,12 +23,14 @@ const SliderControl = ({
 }: Props) => {
   return (
     <DemoControl label={label}>
-      <Slider
-        orientation="horizontal"
-        value={value}
-        onChange={newValue => updateValue(id, newValue)}
-        {...delegated}
-      />
+      <div style={{ flex: 1, paddingLeft: 7 }}>
+        <Slider
+          orientation="horizontal"
+          value={value}
+          onChange={newValue => updateValue(id, newValue)}
+          {...delegated}
+        />
+      </div>
     </DemoControl>
   );
 };
