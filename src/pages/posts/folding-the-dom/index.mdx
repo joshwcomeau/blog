@@ -81,14 +81,96 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
   )}
 </SingleAxisDemo>
 
+## The Trick
+
+Unfortunately, the DOM has no primitive for this; you can't actually fold a DOM node in two.
+
+Instead, we need to be sneaky; we'll use _two_ images, and set them up so that it appears like a single image.
+
+If we only needed to support images, we could use `background-position` to "crop" the second image, exactly as we need:
+
+<Demo
+  id="transform-rotate"
+  initialValues={{
+    offset: 0,
+  }}
+  controls={(values, updateValue) => (
+    <>
+      <SliderControl
+        id="offset"
+        label="Offset"
+        min={0}
+        max={250}
+        value={values.offset}
+        updateValue={updateValue}
+      />
+    </>
+  )}
+>
+  {({ offset }) => (
+    <Spring
+      to={{offset}}
+      config={{
+        tension: 60,
+        friction: 13,
+      }}
+    >
+      {interpolated => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              style={{
+                width: 333,
+                height: 250,
+                backgroundSize: '333px 500px',
+                backgroundImage: `url(${autumnSrc})`,
+                borderRadius: offset < 250 ? '0 0 0 0' : '10px 10px 0 0',
+              }}
+            />
+            <div
+              style={{
+                width: 333,
+                height: 250,
+                backgroundSize: '333px 500px',
+                backgroundImage: `url(${autumnSrc})`,
+                backgroundPosition: `0px -${interpolated.offset}px`,
+                borderRadius: offset < 250 ? '0 0 0 0' : '0 0 10px 10px',
+                transform: `translateY(${offset < 250 ? 5 : 0}px)`,
+                transition: 'transform 250ms',
+              }}
+            />
+            <InlineCode
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                fontSize: 24,
+                marginTop: 30,
+              }}
+            >
+              background-position: '0px -{Math.round(interpolated.offset)}px'
+            </InlineCode>
+          </div>
+        );
+      }}
+    </Spring>
+  )}
+</Demo>
+
+
+
 This effect uses CSS transform: rotateX to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
 
 ## Transform
 
 Transform is our gateway to all sorts of effects. With transform, we can move stuff around, scale it larger and smaller, skew it, or rotate it.
 
-Most transform properties can specify an axis. In our case, we want to rotate
-it around its x axis, but check out what the other axes do as well:
+In our
 
 <Demo
   id="transform-rotate"

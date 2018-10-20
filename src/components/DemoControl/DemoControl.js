@@ -18,6 +18,7 @@ const Label = styled.div`
   font-size: 18px;
   font-weight: bold;
   width: 30%;
+  max-width: 125px;
 `;
 
 const ChildWrapper = styled.div`
