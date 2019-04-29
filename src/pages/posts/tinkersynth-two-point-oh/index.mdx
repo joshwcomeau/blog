@@ -1,0 +1,100 @@
+---
+title: 📣 Announcing Tinkersynth 2.0
+slug: tinkersynth-two-point-oh
+published: true
+publishedOn: 2019-04-30
+abstract: Lessons learned during a hectic product launch, and some exciting new features!
+---
+
+import TextLink from '../../../components/TextLink';
+import List from '../../../components/List';
+import ListItem from '../../../components/ListItem';
+
+A few weeks ago, I wrapped up months of work on <TextLink href="https://tinkersynth.com">Tinkersynth</TextLink>, a web tool that lets users create unique generative art through serendipitous experimentation. The inspiration for the project came from my own tinkering with creative coding... I discovered pretty quickly that the best part was tweaking parameters and being surprised by the result, and I realized that an interface could be built that would let people experience that joy without having to spend months/years learning how to program.
+
+TINKERSYNTH GIF
+
+Unlike previous projects, where I tend to open-source and release everything for free, I decided to try something different this time around... I created an online store, where users could purchase the work they create, either as a digital download, or in physical form, printed on high-quality paper and shipped to their door.
+
+STORE ROW GIF
+
+My rather audacious goal was to make **5000 USD** in its first year. I had no idea how feasible this was; on the one hand, it was a totally unique shopping experience, where you _create_ the art you purchase. On the other, how many people are really looking to purchase wall art at any given time?
+
+The launch went pretty spectacularly. I got on the front pages of HackerNews and ProductHunt, and a ton of positive feedback came flooding in. But sales... sales were a bit slower.
+
+A whole separate post could be written about what I learned from a business perspective, but I'll save that digression for another time. For now, I'll just say that it didn't quite meet my expectations. To date, I've sold _about 400 USD_ worth of prints and downloads, and those sales have dried up quite a bit since launch. With the handful of services powering the backend, and the half-dozen test prints I ordered, I'm right around break-even point.
+
+In a way, though, this was kind of a relief. I learned quickly that many people wanted to use the artwork created through Tinkersynth as input to their own creative process, and having a \$15/download pricetag was totally prohibitive for that purchase. I had essentially created a Photoshop that charged you every time you saved a file, and that didn't seem right!
+
+With sales drying up, I decided to revert to my traditional modus operandi: release everything for free :D
+
+# Tinkersynth 2.0: Free and Open Source
+
+Starting today, Tinkersynth has replaced its "purchase" button with a "download" button. At any point, you can download HD images of your work. It produces two PNGs (one with a transparent background, one with an opaque one), as well as a vector SVG, so that you can pull it into Illustrator and continue working on it.
+
+Please note that I have changed the license to CC Attribution-NonCommercial 4.0. <TextLink href="http://localhost:8765/faq?q=license">Learn more about this license</TextLink>.
+
+The source code is also now public and <TextLink href="https://github.com/joshwcomeau/tinkersynth">available on GitHub</TextLink>. Fair warning: I wrote this code with the expectation that nobody else would ever see it. I'm quite proud of how I structured things in some places, but for the most part, it's a dragon's den 🐲.
+
+# 2.0 New features
+
+## Colors
+
+One of the most common pieces of constructive criticism went like this:
+
+> Woah, cool! The machine is so colorful and whimsical! But... the art itself is only black and white? It's outshined by the controls!
+
+In the very early days of Tinkersynth, I had planned to sell plotted versions of the artwork. Unlike printing, which uses powerful inkjet printers, pen plotters use pens to physically draw the lines on paper. Because of that, I was limited to a single color; it would have been too labor-intensive to swap pens for every section.
+
+Without a "friendly plotting" restriction, though, a whole new world opens up. We can use color to dramatic, wonderful effect!
+
+IMAGES OF COLOURFUL DESIGNS
+
+You can find a number of colorful presets just underneath the canvas:
+
+IMAGE OF COLORPICKER
+
+## Line thickness
+
+In a monochromatic world, I always wanted to have pretty thin lines. Things become a hot mess pretty quickly.
+
+With colors, though, things become much more interesting. Check out how this white blob turns into a beautiful kaleidoscope when the lines are colored:
+
+SAMPLE IMAGES
+
+Find it in the new cluster towards the bottom of the machine:
+
+CONTROL
+
+## Resolution
+
+In Tinkersynth, every row is actually just a series of straight lines; there are no bezier curves used in the generated output. To make straight lines seem line curved lines, you need to bunch them really close together.
+
+It occurred to me, though... sometimes, straight lines can be interesting too!
+
+SAMPLE IMAGES
+
+Find it in the new cluster towards the bottom of the machine:
+
+CONTROL
+
+# Funded by your support
+
+Over the past few years, I've built a lot of things with the hopes that it helps people out. Tinkersynth lets folks experience the joy and creativity of generative art, my Waveforms article taught people about sound, and Guppy helped bootstrap new developers.
+
+This stuff does cost quite a bit to maintain, though. My DigitalOcean bill continues to grow, as does the number of domain registrations. Many of my projects require specialized SaaS products with monthly costs. Right now, this comes out of my paycheque.
+
+Rather than try to gate my work behind paid services, I much prefer the idea of putting everything out there for free, and counting on those who benefit from it to contribute to the maintenance of these projects. To that end, I have two other things launching today:
+
+<List>
+  <ListItem>Support me on Patreon</ListItem>
+  <ListItem>Buy my work on Etsy</ListItem>
+</List>
+
+By becoming a patron, your money helps me keep these services online, and invigorates me to create exciting new things. I also set up some pretty sweet rewards, so go check it out!
+
+Alternatively, if you're still interested in purchasing art prints (maybe as a gift for someone?), I've created a brand-new Etsy store. It'll contain the very best of the generative art I've produced. Many of the pieces required additional tweaking, and aren't typical Tinkersynth output.
+
+If you have the means to support my work, and feel like it's provided something of value, I hope that you'll take this opportunity to help out :)
+
+# I
