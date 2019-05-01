@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 const RadioButton = ({ name, id, isSelected, handleSelect, size = 15 }) => (
   <Wrapper>

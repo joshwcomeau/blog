@@ -3,7 +3,7 @@ import GatsbyLink from 'gatsby-link';
 import styled from 'styled-components';
 import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 const Link = ({ href, target, rel, ...delegated }) => {
   // Links are external if they start with `http` or `https`

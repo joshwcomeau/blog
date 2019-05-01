@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { COLORS } from 'constants';
-import { throttle } from 'utils';
+import { COLORS } from '@constants';
+import { throttle } from '@utils';
 import { interactWithExplorable } from '../../helpers/analytics.helpers';
 
 import Bezier from '../Bezier';

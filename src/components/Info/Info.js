@@ -10,7 +10,7 @@ import IconBase from 'react-icons-kit';
 import { iosLightbulb } from 'react-icons-kit/ionicons/iosLightbulb';
 import { planet } from 'react-icons-kit/ionicons/planet';
 
-import { COLORS, BREAKPOINTS } from 'constants';
+import { COLORS, BREAKPOINTS } from '@constants';
 
 const ICONS_MAP = {
   note: {

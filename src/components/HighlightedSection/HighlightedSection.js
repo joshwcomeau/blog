@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';

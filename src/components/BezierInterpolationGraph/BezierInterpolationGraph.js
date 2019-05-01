@@ -6,8 +6,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
-import { range } from 'utils';
+import { COLORS } from '@constants';
+import { range } from '@utils';
 
 const BezierInterpolationGraph = () => (
   <Svg viewBox="0 0 440 440">

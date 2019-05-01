@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 import { arrowRightC } from 'react-icons-kit/ionicons/arrowRightC';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 const ListItem = ({ children }) => (
   <Wrapper>

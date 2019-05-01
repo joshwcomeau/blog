@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { getInterpolatedValue } from 'utils';
+import { getInterpolatedValue } from '@utils';
 
 class InitialCurve extends Component {
   static propTypes = {

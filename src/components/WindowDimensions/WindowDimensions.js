@@ -1,7 +1,7 @@
 // @flow
 import { PureComponent } from 'react';
 
-import { debounce } from 'utils';
+import { debounce } from '@utils';
 
 type State = {
   windowWidth: number,

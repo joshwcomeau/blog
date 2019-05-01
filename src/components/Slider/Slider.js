@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import styled, { injectGlobal } from 'styled-components';
 import RcSlider, { createSliderWithTooltip } from 'rc-slider';
 
-import { COLORS, IS_MOBILE_USER_AGENT } from 'constants';
+import { COLORS, IS_MOBILE_USER_AGENT } from '@constants';
 
 type Props = {
   label?: string,

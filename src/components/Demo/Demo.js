@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 type Updater = (key: string, value: string | number) => void;
 

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { iosHome } from 'react-icons-kit/ionicons/iosHome';
 import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
 
-import { COLORS, BREAKPOINTS, Z_INDICES, SIZES } from 'constants';
-import { humanizeDate } from 'helpers/date.helpers';
+import { COLORS, BREAKPOINTS, Z_INDICES, SIZES } from '@constants';
+import { humanizeDate } from '@helpers/date.helpers';
 
 import ClickableIcon from '../ClickableIcon';
 import InvisibleButton from '../InvisibleButton';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { getInterpolatedValue } from 'utils';
+import { getInterpolatedValue } from '@utils';
 
 // NOTE: This should be dynamic, but I did things hacky.
 const HEIGHT = 140;

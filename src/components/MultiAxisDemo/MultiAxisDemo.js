@@ -4,9 +4,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { COLORS } from 'constants';
-import { throttle } from 'utils';
-import { interactWithExplorable } from 'helpers/analytics.helpers';
+import { COLORS } from '@constants';
+import { throttle } from '@utils';
+import { interactWithExplorable } from '@helpers/analytics.helpers';
 
 import Slider from '../Slider';
 import Spacer from '../Spacer';

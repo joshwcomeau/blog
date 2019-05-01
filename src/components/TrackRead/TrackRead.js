@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { finishedReadingPost } from 'helpers/analytics.helpers';
+import { finishedReadingPost } from '@helpers/analytics.helpers';
 
 import IntersectionObserver from '../IntersectionObserver';
 

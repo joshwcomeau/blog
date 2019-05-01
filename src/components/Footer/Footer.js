@@ -4,7 +4,7 @@ import { socialTwitter } from 'react-icons-kit/ionicons/socialTwitter';
 import { socialGithub } from 'react-icons-kit/ionicons/socialGithub';
 import { iosEmail } from 'react-icons-kit/ionicons/iosEmail';
 
-import { COLORS, BREAKPOINTS } from 'constants';
+import { COLORS, BREAKPOINTS } from '@constants';
 
 import ClickableIcon from '../ClickableIcon';
 

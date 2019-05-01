@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BREAKPOINTS } from 'constants';
+import { BREAKPOINTS } from '@constants';
 
 export default styled.p`
   font-size: 1.5rem;

@@ -7,8 +7,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { COLORS } from 'constants';
-import { random } from 'utils';
+import { COLORS } from '@constants';
+import { random } from '@utils';
 
 const VIEWBOX_WIDTH = 200;
 const VIEWBOX_HEIGHT = 200;

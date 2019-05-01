@@ -10,8 +10,8 @@ import { socialFacebook } from 'react-icons-kit/ionicons/socialFacebook';
 import { socialFacebookOutline } from 'react-icons-kit/ionicons/socialFacebookOutline';
 import { ic_format_size } from 'react-icons-kit/md/ic_format_size';
 
-import { COLORS } from 'constants';
-import { changeFontSize } from 'helpers/theme.helpers';
+import { COLORS } from '@constants';
+import { changeFontSize } from '@helpers/theme.helpers';
 
 import ClickableIcon from '../ClickableIcon';
 import Spacer from '../Spacer';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS, BREAKPOINTS } from 'constants';
+import { COLORS, BREAKPOINTS } from '@constants';
 
 import BaseHero from '../BaseHero';
 import Mountains from '../Mountains';

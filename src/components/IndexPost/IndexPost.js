@@ -4,8 +4,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS, BREAKPOINTS } from 'constants';
-import { humanizeDate } from 'helpers/date.helpers';
+import { COLORS, BREAKPOINTS } from '@constants';
+import { humanizeDate } from '@helpers/date.helpers';
 
 import Paragraph from '../Paragraph';
 import Link from '../Link';

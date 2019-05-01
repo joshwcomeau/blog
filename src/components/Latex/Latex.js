@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BlockMath, InlineMath } from 'react-katex';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 import 'katex/dist/katex.min.css';
 

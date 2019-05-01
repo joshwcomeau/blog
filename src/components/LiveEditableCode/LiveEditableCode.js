@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import styled from 'styled-components';
 
-import { COLORS, BREAKPOINTS, EXTRA_WIDE_WIDTH } from 'constants';
-import { interactWithCodeSample } from 'helpers/analytics.helpers';
+import { COLORS, BREAKPOINTS, EXTRA_WIDE_WIDTH } from '@constants';
+import { interactWithCodeSample } from '@helpers/analytics.helpers';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';

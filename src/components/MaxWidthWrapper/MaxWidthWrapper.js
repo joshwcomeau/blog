@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BREAKPOINTS, READING_WIDTH } from 'constants';
+import { BREAKPOINTS, READING_WIDTH } from '@constants';
 
 const MaxWidthWrapper = styled.div`
   position: relative;

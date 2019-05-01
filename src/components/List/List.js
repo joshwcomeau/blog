@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BREAKPOINTS } from 'constants';
+import { BREAKPOINTS } from '@constants';
 
 // TODO: Find a way to share this with `Paragraph`.
 export default styled.ul`

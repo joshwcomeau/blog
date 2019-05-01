@@ -6,24 +6,24 @@ import { MDXProvider } from '@mdx-js/tag';
 
 import { siteMetadata } from '../../../gatsby-config';
 
-import { COLORS, Z_INDICES, BREAKPOINTS } from 'constants';
-import { getDeviceType } from 'helpers/responsive.helpers';
+import { COLORS, Z_INDICES, BREAKPOINTS } from '@constants';
+import { getDeviceType } from '@helpers/responsive.helpers';
 
-import App from 'components/App';
-import FullWidth from 'components/FullWidth';
-import MaxWidthWrapper from 'components/MaxWidthWrapper';
-import Header from 'components/Header';
-import WindowDimensions from 'components/WindowDimensions';
-import LargeScreenSidebar from 'components/LargeScreenSidebar';
-import WatermelonGradientHero from 'components/WatermelonGradientHero';
-import Spacer from 'components/Spacer';
-import Paragraph from 'components/Paragraph';
-import SectionHeading from 'components/SectionHeading';
-import SectionSubHeading from 'components/SectionSubHeading';
-import Quote from 'components/Quote';
-import TextLink from 'components/TextLink';
+import App from '@components/App';
+import FullWidth from '@components/FullWidth';
+import MaxWidthWrapper from '@components/MaxWidthWrapper';
+import Header from '@components/Header';
+import WindowDimensions from '@components/WindowDimensions';
+import LargeScreenSidebar from '@components/LargeScreenSidebar';
+import WatermelonGradientHero from '@components/WatermelonGradientHero';
+import Spacer from '@components/Spacer';
+import Paragraph from '@components/Paragraph';
+import SectionHeading from '@components/SectionHeading';
+import SectionSubHeading from '@components/SectionSubHeading';
+import Quote from '@components/Quote';
+import TextLink from '@components/TextLink';
 
-import type { Frontmatter } from 'types';
+import type { Frontmatter } from '@types';
 
 const HEADER_HEIGHT = 50;
 

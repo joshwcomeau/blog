@@ -5,9 +5,9 @@ import IconBase from 'react-icons-kit';
 import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
 
-import { COLORS } from 'constants';
-import { throttle } from 'utils';
-import { interactWithExplorable } from 'helpers/analytics.helpers';
+import { COLORS } from '@constants';
+import { throttle } from '@utils';
+import { interactWithExplorable } from '@helpers/analytics.helpers';
 
 import Slider from '../Slider';
 import Spacer from '../Spacer';

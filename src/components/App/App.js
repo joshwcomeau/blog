@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { injectGlobal } from 'styled-components';
 import Helmet from 'react-helmet';
 
-import { COLORS } from 'constants';
+import { COLORS } from '@constants';
 
 import Footer from '../Footer';
 
