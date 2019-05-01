@@ -43,6 +43,7 @@ const Base = styled.div`
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  margin-bottom: 8px;
 `;
 
 const H1 = styled(Base)`
@@ -53,14 +54,17 @@ const H1 = styled(Base)`
 const H2 = styled(Base)`
   font-size: 48px;
   letter-spacing: -0.5px;
+  margin-top: 65px;
 `;
 
 const H3 = styled(Base)`
   font-size: 36px;
+  margin-top: 65px;
 `;
 
 const H4 = styled(Base)`
   font-size: 28px;
+  margin-top: 30px;
 `;
 
 const H5 = styled(Base)`

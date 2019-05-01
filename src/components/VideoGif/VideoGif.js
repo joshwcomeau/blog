@@ -23,6 +23,8 @@ const Caption = styled.div`
 `;
 
 const Video = styled.video`
-  width: 100%;
+  display: block;
+  max-width: 100%;
+  margin: auto;
   border-radius: 3px;
 `;
