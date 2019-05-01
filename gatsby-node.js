@@ -33,8 +33,5 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         },
       ],
     },
-    resolve: {
-      alias,
-    },
   });
 };

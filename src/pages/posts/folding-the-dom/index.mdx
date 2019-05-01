@@ -1,10 +1,11 @@
 ---
-  title: Folding the DOM
-  slug: folding-the-dom
-  published: false
-  publishedOn: 2018-10-05
-  abstract: A deep dive into DOM folding techniques, to be used in animations and interactions.
+title: Folding the DOM
+slug: folding-the-dom
+published: false
+publishedOn: 2018-10-05
+abstract: A deep dive into DOM folding techniques, to be used in animations and interactions.
 ---
+
 import { Spring } from 'react-spring';
 import { State } from 'react-powerplug';
 
@@ -13,7 +14,9 @@ import autumnSrc from 'assets/images/sandis-helvigs-autumn.jpg';
 import pigletSrc from 'assets/images/annie-spratt-piglet.jpg';
 
 import Demo from 'components/Demo';
-import MultipleChoiceControl, { Choice } from 'components/MultipleChoiceControl';
+import MultipleChoiceControl, {
+  Choice,
+} from 'components/MultipleChoiceControl';
 import SliderControl from 'components/SliderControl';
 import TextLink from 'components/TextLink';
 import SingleAxisDemo from 'components/SingleAxisDemo';
@@ -29,8 +32,7 @@ And yet, for _years_ now, browsers have bundled in a surprisingly capable 3D CSS
   src={cssEngineSrc}
   caption={
     <>
-      Believe it or not, this is just a collection of textured divs!
-      {' '}
+      Believe it or not, this is just a collection of textured divs!{' '}
       <TextLink href="https://keithclark.co.uk/labs/css-fps/">
         View Live
       </TextLink>
@@ -42,14 +44,10 @@ Today I'd like to leverage that 3D engine to perform a neat trick: folding up a 
 
 Take a look at what I mean, by unfolding this [beautiful autumn photo](https://unsplash.com/photos/vrY49w_-Bmc) by Sandis Helvigs:
 
-<SingleAxisDemo
-  showNote={true}
-  defaultValue={100}
-  id="fold-intro"
->
+<SingleAxisDemo showNote={true} defaultValue={100} id="fold-intro">
   {percentage => (
     <Spring
-      to={{percentage}}
+      to={{ percentage }}
       config={{
         tension: 60,
         friction: 13,
@@ -59,18 +57,16 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
         <SingleFoldByRatio
           // The height of our node should be a fraction of the window height,
           // but no larger than 500px
-          height={Math.min(
-            Math.round(window.innerHeight * 0.6),
-            500
-          )}
+          height={
+            typeof window !== 'undefined' &&
+            Math.min(Math.round(window.innerHeight * 0.6), 500)
+          }
           // Our width is just 2/3rds of our height.
           // Regrettably, because MDX doesn't support variables, I have to
           // duplicate all that stuff:
           width={
-            Math.min(
-              Math.round(window.innerHeight * 0.6 * 0.666),
-              333
-            )
+            typeof window !== 'undefined' &&
+            Math.min(Math.round(window.innerHeight * 0.6 * 0.666), 333)
           }
           percentage={interpolated.percentage}
         >
@@ -109,7 +105,7 @@ If we only needed to support images, we could use `background-position` to "crop
 >
   {({ offset }) => (
     <Spring
-      to={{offset}}
+      to={{ offset }}
       config={{
         tension: 60,
         friction: 13,
@@ -162,8 +158,6 @@ If we only needed to support images, we could use `background-position` to "crop
   )}
 </Demo>
 
-
-
 This effect uses CSS transform: rotateX to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
 
 ## Transform
@@ -203,7 +197,7 @@ In our
 >
   {({ axis, degrees }) => (
     <Spring
-      to={{degrees}}
+      to={{ degrees }}
       config={{
         tension: 60,
         friction: 13,
@@ -212,40 +206,46 @@ In our
       {interpolated => {
         const transform = `rotate${axis}(${interpolated.degrees}deg)`;
         //
-        return <div style={{ perspective: 500 }}>
-          <div
-            style={{
-              paddingBottom: 30,
-            }}
-          >
-            <InlineCode
+        return (
+          <div style={{ perspective: 500 }}>
+            <div
+              style={{
+                paddingBottom: 30,
+              }}
+            >
+              <InlineCode
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  width: 400,
+                  fontSize: 24,
+                }}
+              >
+                transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
+              </InlineCode>
+            </div>
+            <img
+              width={400}
+              height={321}
+              src={pigletSrc}
+              style={{ transform }}
+            />
+            <div
               style={{
                 position: 'relative',
                 zIndex: 2,
-                width: 400,
-                fontSize: 24,
+                padding: 30,
+                textAlign: 'center',
               }}
             >
-              transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
-            </InlineCode>
+              Photo by{' '}
+              <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">
+                Annie Spratt
+              </TextLink>
+              .
+            </div>
           </div>
-          <img
-            width={400}
-            height={321}
-            src={pigletSrc}
-            style={{ transform }}
-          />
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 2,
-              padding: 30,
-              textAlign: 'center',
-            }}
-          >
-            Photo by <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">Annie Spratt</TextLink>.
-          </div>
-        </div>;
+        );
       }}
     </Spring>
   )}

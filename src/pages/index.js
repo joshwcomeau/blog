@@ -137,9 +137,11 @@ const getPosts = (data: any): Array<PostData> =>
     .map(edge => {
       const { node } = edge;
 
+      console.log(node);
+
       // Not all site pages are posts.
       // We can identify posts because they have frontmatter.
-      const isAPost = !!node.context.frontmatter;
+      const isAPost = node && node.context && !!node.context.frontmatter;
 
       if (!isAPost) {
         return null;
