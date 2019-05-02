@@ -158,13 +158,16 @@ If we only needed to support images, we could use `background-position` to "crop
   )}
 </Demo>
 
-This effect uses CSS transform: rotateX to rotate the bottom half upwards. There are a few CSS properties that we'll be leveraging:
+Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single
+image.
+
+To achieve a realistic folding effect, we'll need to leverage a few CSS properties.
 
 ## Transform
 
 Transform is our gateway to all sorts of effects. With transform, we can move stuff around, scale it larger and smaller, skew it, or rotate it.
 
-In our
+In our case, we want to use a rotation, along the X axis:
 
 <Demo
   id="transform-rotate"
