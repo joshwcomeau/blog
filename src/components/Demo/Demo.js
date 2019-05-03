@@ -44,6 +44,7 @@ const Box = styled.div`
   border: 1px solid ${COLORS.gray[200]};
   border-radius: 5px;
   margin-bottom: 40px;
+  overflow: hidden;
 
   &:hover {
     border-color: #ddd;
@@ -62,11 +63,11 @@ const ControlsWrapper = styled.div`
   position: relative;
   z-index: 2;
   padding: 15px 30px;
-  background: ${COLORS.gray[200]};
+  background: rgba(215, 215, 215, 0.7);
   border-radius: 0 0 4px 4px;
 
   ${Box}:hover & {
-    background: #ddd;
+    background: rgba(215, 215, 215, 0.92);
   }
 `;
 
