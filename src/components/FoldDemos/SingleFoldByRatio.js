@@ -64,7 +64,7 @@ const TopHalf = styled(Half)``;
 
 const BottomHalf = styled(Half)`
   transform-origin: top center;
-  transform-style: preserve-3d;
+  /* transform-style: preserve-3d; */
 `;
 
 const InverseShifter = styled.div`

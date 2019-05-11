@@ -1,0 +1,49 @@
+const Foldable = ({ width, height, src }) => {
+  const [foldRatio, setFoldRatio] = React.useState(0);
+
+  const maxOffset = height / 2;
+
+  console.log(foldRatio);
+  React.useEffect(() => {
+    setFoldRatio(0.5);
+  }, [])
+
+  return (
+    <>
+      <div
+        style={{
+          width,
+          height: height / 2,
+          backgroundSize: `${width}px ${height}px`,
+          backgroundImage:
+            `url(${src})`,
+        }}
+      />
+      <div
+        style={{
+          width,
+          height: height / 2,
+          backgroundPosition: `0px ${height / 2 * -1}px`,
+          backgroundSize: `${width}px ${height}px`,
+          backgroundImage:
+            `url(${src})`,
+        }}
+      />
+
+      <br />
+      <h4>Fold ratio:</h4>
+      <input
+        type="range"
+        min={0}
+        max={1}
+        step={0.01}
+        value={foldRatio}
+        onChange={ev => setFoldRatio(ev.target.value)}
+      />
+    </>
+  )
+}
+
+render(
+  <Foldable width={200} height={300} src={src} />
+)

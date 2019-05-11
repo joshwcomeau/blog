@@ -11,6 +11,7 @@ import { State } from 'react-powerplug';
 
 import cssEngineSrc from '@assets/videos/css-engine.mp4';
 import autumnSrc from '@assets/images/sandis-helvigs-autumn.jpg';
+import autumnSmallSrc from '@assets/images/sandis-helvigs-autumn.jpg';
 import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
 
 import Demo from '@components/Demo';
@@ -24,6 +25,9 @@ import VideoGif from '@components/VideoGif';
 import InlineCode from '@components/InlineCode';
 import AutoRotate from '@components/AutoRotate';
 import { SingleFoldByRatio } from '@components/FoldDemos';
+import LiveEditableCode from '@components/LiveEditableCode';
+
+import mvpExampleCode from './code/mvp.example';
 
 In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
@@ -364,6 +368,19 @@ Try changing it from the default "center" value to "top" or "bottom".
 )}
 
 </Demo>
+
+# Our MVP
+
+With all those pieces, we can achieve a "minimum viable product" for this effect. Here's what we get when we combine them:
+
+<LiveEditableCode
+  id="mvp-example"
+  gistId="01114efda3cb02e4ffa3b49431c14982"
+  code={mvpExampleCode}
+  split={[75, 25]}
+  maxHeight={585}
+  scope={{ src: autumnSmallSrc }}
+/>
 
 ## Adding a back
 
