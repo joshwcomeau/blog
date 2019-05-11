@@ -8,7 +8,7 @@ type Updater = (key: string, value: string | number) => void;
 
 type Props = {
   id: string,
-  controls: (updateValue: Updater) => React$Node,
+  controls?: (updateValue: Updater) => React$Node,
   children: (values: any) => React$Node,
 };
 
@@ -30,9 +30,11 @@ class Demo extends Component<Props, State> {
       <Box>
         <ChildWrapper>{children(this.state)}</ChildWrapper>
 
-        <ControlsWrapper>
-          {controls(this.state, this.updateValue)}
-        </ControlsWrapper>
+        {controls && (
+          <ControlsWrapper>
+            {controls(this.state, this.updateValue)}
+          </ControlsWrapper>
+        )}
       </Box>
     );
   }

@@ -79,8 +79,7 @@ const Image = styled.img`
 
 const Backside = styled.div`
   position: absolute;
-  z-index: 2;
-  top: -1px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;

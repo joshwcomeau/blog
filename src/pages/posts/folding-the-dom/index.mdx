@@ -71,7 +71,7 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
           }
           percentage={interpolated.percentage}
         >
-          <img src={autumnSrc} style={{ width: '100%' }} />
+          <img src={autumnSrc} style={{ height: 500 }} />
         </SingleFoldByRatio>
       )}
     </Spring>
@@ -308,20 +308,6 @@ The solution to this is to apply a "perspective" property to the parent containe
           <AutoRotate>
             <img width={400} height={321} src={pigletSrc} />
           </AutoRotate>
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 2,
-              padding: 30,
-              textAlign: 'center',
-            }}
-          >
-            Photo by{' '}
-            <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">
-              Annie Spratt
-            </TextLink>
-            .
-          </div>
         </div>
       )}
     </Spring>
@@ -374,22 +360,41 @@ Try changing it from the default "center" value to "top" or "bottom".
       <AutoRotate style={{ transformOrigin: `${originY} center` }}>
         <img width={475} height={321} src={pigletSrc} />
       </AutoRotate>
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          padding: 30,
-          textAlign: 'center',
-        }}
-      >
-        Photo by{' '}
-        <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">
-          Annie Spratt
-        </TextLink>
-        .
-      </div>
+    </div>
+)}
+
+</Demo>
+
+## Adding a back
+
+We mostly have all the pieces we need to produce this effect. One nice touch we can add is a backside, so that we can clearly tell the front and back apart when the item rotates fully. Notice how the back of this rotating card is a not-quite-opaque white:
+
+<Demo id="transform-origin">
+  {() => (
+    <div style={{ perspective: '1200px' }}>
+      <AutoRotate>
+        <div style={{ position: 'relative' }}>
+          <img width={475} height={321} src={pigletSrc} />
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(255, 255, 255, 0.8)',
+            transform: 'rotateX(180deg) translateZ(0.01px)',
+            backfaceVisibility: 'hidden',
+          }}
+        />
+      </AutoRotate>
     </div>
   )}
 </Demo>
 
 # Putting it all together
+
+We're getting pretty close to all the pieces we need!
+
+If we _split an image into two nodes_, we can _fold the bottom half_, and orient the fold along the _top edge of the bottom node_.

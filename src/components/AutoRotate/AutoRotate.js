@@ -41,6 +41,7 @@ const AutoRotate = ({ axis = 'X', children, ...delegated }) => {
 
 const Wrapper = styled.div`
   animation: ${props => animations[props.axis]} 4000ms linear infinite;
+  will-change: transform;
 `;
 
 export default AutoRotate;
