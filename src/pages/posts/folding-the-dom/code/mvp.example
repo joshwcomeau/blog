@@ -1,49 +1,73 @@
-const Foldable = ({ width, height, src }) => {
-  const [foldRatio, setFoldRatio] = React.useState(0);
+class Foldable extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const maxOffset = height / 2;
+    this.state = {
+      // Amount, in degrees, to fold our bottom
+      // half up. Ranges from 0 to 180.
+      foldAngle: 0,
+    }
+  }
 
-  console.log(foldRatio);
-  React.useEffect(() => {
-    setFoldRatio(0.5);
-  }, [])
+  render() {
+    const {width, height, src} = this.props;
+    const {foldAngle} = this.state;
 
-  return (
-    <>
-      <div
-        style={{
-          width,
-          height: height / 2,
-          backgroundSize: `${width}px ${height}px`,
-          backgroundImage:
-            `url(${src})`,
-        }}
-      />
-      <div
-        style={{
-          width,
-          height: height / 2,
-          backgroundPosition: `0px ${height / 2 * -1}px`,
-          backgroundSize: `${width}px ${height}px`,
-          backgroundImage:
-            `url(${src})`,
-        }}
-      />
+    // Both our top half and bottom half share
+    // a few common styles
+    const sharedStyles = {
+      width,
+      height: height / 2,
+      backgroundSize: `${width}px ${height}px`,
+      backgroundImage:
+        `url(${src})`,
+    };
 
-      <br />
-      <h4>Fold ratio:</h4>
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.01}
-        value={foldRatio}
-        onChange={ev => setFoldRatio(ev.target.value)}
-      />
-    </>
-  )
+    // Our bottom half has its background
+    // image shifted up by half of the
+    // total height.
+    const backgroundShift = height / 2 * -1;
+
+    return (
+      <div style={{ perspective: 500 }}>
+        <div style={sharedStyles} />
+        <div
+          style={{
+            ...sharedStyles,
+            backgroundPosition:
+              `0px ${backgroundShift}px`,
+            transform:
+              `rotateX(${foldAngle}deg)`,
+            transformOrigin: 'center top',
+            // This optional prop can improve
+            // performance, by letting the
+            // browser optimize it:
+            willChange: 'transform',
+          }}
+        />
+
+        <br />
+        <h4>Fold ratio:</h4>
+        <input
+          type="range"
+          min={0}
+          max={180}
+          value={foldAngle}
+          onChange={ev =>
+            this.setState({
+              foldAngle: ev.target.value
+            })
+          }
+        />
+      </div>
+    )
+  }
 }
 
 render(
-  <Foldable width={200} height={300} src={src} />
+  <Foldable
+    width={200}
+    height={300}
+    src={src}
+  />
 )
