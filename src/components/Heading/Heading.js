@@ -7,6 +7,12 @@ import { link as linkIcon } from 'react-icons-kit/ionicons/link';
 
 import { BREAKPOINTS } from '@constants';
 
+const slugify = str =>
+  str
+    .toLowerCase()
+    .replace(/\s/g, '-')
+    .replace(/[^a-zA-Z0-9-]/g, '');
+
 class Heading extends Component<Props> {
   static propTypes = {
     size: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
@@ -18,18 +24,41 @@ class Heading extends Component<Props> {
     size: 3,
   };
 
+  componentDidMount() {
+    // Check and see if the anchor ID is duplicated
+    const anchorId = this.getDerivedAnchorId();
+
+    const numOfAnchorsWithThisId = document.querySelectorAll(`#${anchorId}`)
+      .length;
+
+    if (numOfAnchorsWithThisId > 1) {
+      console.error(
+        'Found multiple anchors on the page with this ID:',
+        anchorId,
+        '\n\n',
+        'Please add an explicit unique "anchorId" to this Heading'
+      );
+    }
+  }
+
+  getDerivedAnchorId = () => {
+    return this.props.anchorId || slugify(this.props.children);
+  };
+
   render() {
-    const { size, anchorId, children, ...delegated } = this.props;
+    const { size, children, ...delegated } = this.props;
 
     const Element = [H1, H2, H3, H4, H5, H6][size - 1];
 
+    // If we don't provide an anchor-id (as is the case with MDX posts),
+    // derive it from the children.
+    const anchorId = this.getDerivedAnchorId();
+
     return (
       <Element {...delegated}>
-        {anchorId && (
-          <Anchor id={anchorId} href={`#${anchorId}`}>
-            <IconBase size="0.75em" icon={linkIcon} />
-          </Anchor>
-        )}
+        <Anchor id={anchorId} href={`#${anchorId}`}>
+          <IconBase size="0.75em" icon={linkIcon} />
+        </Anchor>
 
         {children}
       </Element>
