@@ -241,7 +241,8 @@ const CurveWrapper = styled.div`
   width: calc(100% - ${props => props.gutter * 2}px);
   min-width: 900px;
   right: ${props => props.gutter}px;
-  bottom: 0;
+  /* Fix any half-pixel gaps */
+  bottom: -1px;
 `;
 
 const CurveBlocker = styled.div`

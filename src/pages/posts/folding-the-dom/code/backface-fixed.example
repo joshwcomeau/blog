@@ -6,7 +6,6 @@ const RotatingCard = ({
   <div style={{ perspective: 1000 }}>
     <Wrapper
       style={{
-        // This property's new ⤸
         transformStyle: 'preserve-3d',
       }}
     >
@@ -23,7 +22,8 @@ const RotatingCard = ({
       {/* Our backface */}
       <div
         style={{
-          // This property is also new ⤸
+          // This property is new ⤸
+          transform: 'rotateY(180deg) translateZ(0.1px)',
           backfaceVisibility: 'hidden',
           position: 'absolute',
           top: 0,

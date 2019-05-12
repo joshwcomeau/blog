@@ -33,6 +33,7 @@ import LiveEditableCode from '@components/LiveEditableCode';
 import mvpExampleCode from './code/mvp.example';
 import backfaceInitialCode from './code/backface-initial.example';
 import backfaceHiddenCode from './code/backface-hidden.example';
+import backfaceFixedCode from './code/backface-fixed.example';
 
 In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
@@ -65,17 +66,11 @@ Here's what we'll be building. Drag the slider downwards to reveal a [beautiful 
     >
       {interpolated => (
         <SingleFoldByRatio
-          // The height of our node should be a fraction of the window height,
-          // but no larger than 500px
           height={500}
-          // Our width is just 2/3rds of our height.
-          // Regrettably, because MDX doesn't support variables, I have to
-          // duplicate all that stuff:
           width={375}
           percentage={interpolated.percentage}
-        >
-          <img src={foldDemoImageSrc} style={{ height: 500 }} />
-        </SingleFoldByRatio>
+          src={foldDemoImageSrc}
+        />
       )}
     </Spring>
   )}
@@ -412,18 +407,20 @@ First, we need a new `div`, with a nearly-opaque white background. We'll positio
   scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
 />
 
-How do we ensure that this is only shown for the backside of the card? If you're like me, you're probably thinking of a JS solution, triggering `opacity` on a `setInterval` to show/hide it as the card rotates. Fortunately, though, CSS has an elegant solution for us, built right into the language!
+Next, we need to make sure that this div is only shown when the card is facing the viewer.
 
-We need to learn about a couple more properties:
+If you're like me, you're probably thinking of a JS solution, triggering `opacity` on a `setInterval` to show/hide it as the card rotates. Fortunately, though, CSS has an elegant solution for us, built right into the language.
 
-### Backface Visibility
+We need to learn about a couple more properties.
 
-CSS lets us specify that the backside of an element shouldn't be visible, so that when its rotation eclipses 180 degrees, it shouldn't render anything.
+### Backface Visibility and Transform Style
 
-Let's use this to hide our backface when it's facing away from the viewer:
+The `backface-visibility` property allows us to specify whether an item should be visible when it's rotated more than 90 degrees in either direction.
+
+In this case, we also need to add `transform-style: preserve-3d` to the parent element (the one responsible for the animation). This property allows elements to be positioned in 3D space, and it allows `backface-visibility` to work correctly in this context.
 
 <LiveEditableCode
-  id="backface-initial"
+  id="backface-hidden"
   gistId="01114efda3cb02e4ffa3b49431c14982"
   code={backfaceHiddenCode}
   split={[70, 30]}
@@ -431,9 +428,27 @@ Let's use this to hide our backface when it's facing away from the viewer:
   scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
 />
 
+Eagle-eyed readers—or, those who can read Chinese—might've noticed that this effect is backwards. Right now, we _only_ see our white "back" when the card is facing forwards!
+
+We can fix this by being a little sneaky, and giving our backside element a 180-degree rotation. Think of it like stacking two playing cards, and then rotating the top one 180 degrees, so that the two cards are facing each other. Now, when you rotate the entire stack, you're always seeing the backside of _one_ of the elements.
+
+We can also apply a Z-translate, to push the element a bit closer to the viewer
+than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space.
+
+<LiveEditableCode
+  id="backface-fixed"
+  gistId="01114efda3cb02e4ffa3b49431c14982"
+  code={backfaceFixedCode}
+  split={[70, 30]}
+  maxHeight={585}
+  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+/>
+
+Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works.
+
 ### Transform Style
 
-We need to add a new rule to the parent element: <InlineCode>transform-style: preserve-3d</InlineCode>.
+We need to add a new rule to the parent node: <InlineCode>transform-style: preserve-3d</InlineCode>.
 
 This property allows elements to be positioned in 3D space. As we'll see, this is important because we'll have two DOM nodes occupying the same space: the front half of the card, and the back half. In a traditional web context, we'd use z-index to sort this out, but when working with transforms, we're delegating that to the 3D engine.
 

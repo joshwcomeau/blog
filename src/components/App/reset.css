@@ -131,3 +131,7 @@ select,
 option {
   font-family: 'Futura PT';
 }
+
+code {
+  font-size: 0.95em;
+}
