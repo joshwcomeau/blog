@@ -21,7 +21,7 @@ const SingleFoldByRatio = ({ width, height, percentage, children }) => {
         <HideOverflow side="bottom">
           <Shadow
             style={{
-              opacity: Math.min(0.5, percentage * 0.01),
+              opacity: percentage * 0.015,
             }}
           />
           <InverseShifter height={height}>{children}</InverseShifter>
@@ -64,7 +64,7 @@ const TopHalf = styled(Half)``;
 
 const BottomHalf = styled(Half)`
   transform-origin: top center;
-  /* transform-style: preserve-3d; */
+  transform-style: preserve-3d;
 `;
 
 const InverseShifter = styled.div`
@@ -79,13 +79,14 @@ const Image = styled.img`
 
 const Backside = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
   background: rgba(255, 255, 255, 0.9);
-  transform: rotateX(180deg) translateZ(0.01px);
+  transform: rotateX(180deg) translateZ(2px);
   backface-visibility: hidden;
+  border-radius: 10px 10px 0 0;
 `;
 
 const Shadow = styled.div`

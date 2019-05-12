@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = ({ src, caption }) => (
+const Image = ({ src, caption, ...delegated }) => (
   <Wrapper>
-    <Img src={src} />
+    <Img src={src} {...delegated} />
     {caption && <Caption>{caption}</Caption>}
   </Wrapper>
 );
@@ -24,8 +24,10 @@ const Caption = styled.div`
 `;
 
 const Img = styled.img`
+  display: block;
   width: 100%;
   border-radius: 3px;
+  margin: auto; /* In case width is overridden, center it */
 `;
 
 export default Image;

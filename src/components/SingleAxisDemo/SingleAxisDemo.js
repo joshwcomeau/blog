@@ -75,10 +75,7 @@ class SingleAxisDemo extends PureComponent {
         {showNote && (
           <InteractivityNotice>
             <IconWrapper isHovering={isHovering}>
-              <IconBase
-                size={32}
-                icon={isHovering ? iosFlask : iosFlaskOutline}
-              />
+              <IconBase size={32} icon={iosFlask} />
             </IconWrapper>
             This is an interactive demo! Try dragging the slider on the right.
           </InteractivityNotice>

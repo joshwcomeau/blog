@@ -18,10 +18,13 @@ import LargeScreenSidebar from '@components/LargeScreenSidebar';
 import WatermelonGradientHero from '@components/WatermelonGradientHero';
 import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
+import List from '@components/List';
+import ListItem from '@components/ListItem';
 import SectionHeading from '@components/SectionHeading';
 import SectionSubHeading from '@components/SectionSubHeading';
 import Quote from '@components/Quote';
 import TextLink from '@components/TextLink';
+import Heading from '@components/Heading';
 
 import type { Frontmatter } from '@types';
 
@@ -56,6 +59,8 @@ export default ({ children, pageContext }: Props) => {
         p: Paragraph,
         a: TextLink,
         blockquote: Quote,
+        ul: List,
+        li: ListItem,
       }}
     >
       <App>
