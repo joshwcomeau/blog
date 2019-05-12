@@ -2,7 +2,6 @@
 import React, { Children } from 'react';
 
 import DemoControl from '../DemoControl';
-import Choice from './Choice';
 
 type Props = {
   id: string,

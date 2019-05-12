@@ -45,6 +45,9 @@ type Props = {
   },
 };
 
+const SubSubHeading = props =>
+  console.log(props) || <Heading size={4} {...props} />;
+
 export default ({ children, pageContext }: Props) => {
   const { title, publishedOn, heroStyle } = pageContext.frontmatter;
 
@@ -56,6 +59,7 @@ export default ({ children, pageContext }: Props) => {
       components={{
         h1: SectionHeading,
         h2: SectionSubHeading,
+        h3: SubSubHeading,
         p: Paragraph,
         a: TextLink,
         blockquote: Quote,

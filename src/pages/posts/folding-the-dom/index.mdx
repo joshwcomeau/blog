@@ -15,8 +15,6 @@ import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
 import foldDemoImageSmallSrc from '@assets/images/francois-hoang-china-small.jpg';
 import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
 import foldIssueSrc from '@assets/images/fold-issue.gif';
-import allWhiteSrc from '@assets/images/all-white.gif';
-import backwardsSrc from '@assets/images/backwards.gif';
 
 import Demo from '@components/Demo';
 import MultipleChoiceControl, {
@@ -418,7 +416,7 @@ How do we ensure that this is only shown for the backside of the card? If you're
 
 We need to learn about a couple more properties:
 
-#### Backface Visibility
+### Backface Visibility
 
 CSS lets us specify that the backside of an element shouldn't be visible, so that when its rotation eclipses 180 degrees, it shouldn't render anything.
 
@@ -433,7 +431,7 @@ Let's use this to hide our backface when it's facing away from the viewer:
   scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
 />
 
-#### Transform Style
+### Transform Style
 
 We need to add a new rule to the parent element: <InlineCode>transform-style: preserve-3d</InlineCode>.
 

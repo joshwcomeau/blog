@@ -1,6 +1,5 @@
 // @flow
-import React, { Component, Children } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 import DemoControl from '../DemoControl';
 import Slider from '../Slider';

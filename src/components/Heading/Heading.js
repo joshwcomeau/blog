@@ -110,7 +110,7 @@ const H3 = styled(Base)`
 `;
 
 const H4 = styled(Base)`
-  font-size: 28px;
+  font-size: 25px;
   padding-top: 30px;
 `;
 

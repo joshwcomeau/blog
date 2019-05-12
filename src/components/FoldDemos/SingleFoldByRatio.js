@@ -71,12 +71,6 @@ const InverseShifter = styled.div`
   transform: translateY(${props => props.height / 2 * -1}px);
 `;
 
-const Image = styled.img`
-  position: relative;
-  z-index: 1;
-  width: 100%;
-`;
-
 const Backside = styled.div`
   position: absolute;
   top: -1px;

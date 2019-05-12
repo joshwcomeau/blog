@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import IconBase from 'react-icons-kit';
 import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
-import { iosFlaskOutline } from 'react-icons-kit/ionicons/iosFlaskOutline';
 
 import { COLORS } from '@constants';
 import { throttle } from '@utils';
