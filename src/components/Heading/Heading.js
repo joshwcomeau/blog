@@ -24,6 +24,8 @@ class Heading extends Component<Props> {
     size: 3,
   };
 
+  node: HTMLElement;
+
   componentDidMount() {
     // Check and see if the anchor ID is duplicated
     const anchorId = this.getDerivedAnchorId();
@@ -45,6 +47,18 @@ class Heading extends Component<Props> {
     return this.props.anchorId || slugify(this.props.children);
   };
 
+  handleAnchorClick = ev => {
+    ev.preventDefault();
+
+    const offset = this.node.getBoundingClientRect().top + window.scrollY;
+
+    window.scroll({
+      top: offset,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   render() {
     const { size, children, ...delegated } = this.props;
 
@@ -55,8 +69,12 @@ class Heading extends Component<Props> {
     const anchorId = this.getDerivedAnchorId();
 
     return (
-      <Element {...delegated}>
-        <Anchor id={anchorId} href={`#${anchorId}`}>
+      <Element {...delegated} innerRef={node => (this.node = node)}>
+        <Anchor
+          id={anchorId}
+          href={`#${anchorId}`}
+          onClick={this.handleAnchorClick}
+        >
           <IconBase size="0.75em" icon={linkIcon} />
         </Anchor>
 
@@ -83,17 +101,17 @@ const H1 = styled(Base)`
 const H2 = styled(Base)`
   font-size: 48px;
   letter-spacing: -0.5px;
-  margin-top: 65px;
+  padding-top: 65px;
 `;
 
 const H3 = styled(Base)`
   font-size: 36px;
-  margin-top: 65px;
+  padding-top: 65px;
 `;
 
 const H4 = styled(Base)`
   font-size: 28px;
-  margin-top: 30px;
+  padding-top: 30px;
 `;
 
 const H5 = styled(Base)`
