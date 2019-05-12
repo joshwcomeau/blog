@@ -1,0 +1,72 @@
+const RotatingCard = ({
+  src,
+  width,
+  height
+}) => (
+  <div style={{ perspective: 1000 }}>
+    <Wrapper>
+      {/* Our image being rotated */}
+      <img
+        src={src}
+        style={{
+          width,
+          height,
+          display: 'block',
+          backfaceVisibility: 'hidden',
+        }}
+      />
+
+      {/* Our backface */}
+      <div
+        style={{
+          // The new property ⤸
+          backfaceVisibility: 'hidden',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor:
+            'hsla(0, 100%, 100%, 0.9)'
+        }}
+      />
+    </Wrapper>
+  </div>
+)
+
+////////////////////////////////////
+/* Relevant bits above this line */
+//////////////////////////////////
+
+// I'm using "styled-components" to do the CSS
+// rotation animation. This is how you specify
+// a CSS keyframes animation.
+const rotationKeyframes = keyframes`
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+`
+
+const Wrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  animation:
+    ${rotationKeyframes}
+    4000ms
+    linear
+    infinite;
+`
+
+// `src` is injected in from the parent
+// blog post.
+render(
+  <RotatingCard
+    width={210}
+    height={280}
+    src={src}
+  />
+)

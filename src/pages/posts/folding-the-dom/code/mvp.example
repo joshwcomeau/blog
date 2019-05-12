@@ -23,22 +23,25 @@ class Foldable extends React.Component {
         `url(${src})`,
     };
 
-    // Our bottom half has its background
-    // image shifted up by half of the
-    // total height.
-    const backgroundShift = height / 2 * -1;
-
     return (
       <div style={{ perspective: 500 }}>
+        {/* Top half */}
         <div style={sharedStyles} />
+
+        {/* Bottom half */}
         <div
           style={{
             ...sharedStyles,
-            backgroundPosition:
-              `0px ${backgroundShift}px`,
+            // Shift our background up to
+            // make it contiguous with the
+            // top half:
+            backgroundPosition: `0px -100%`,
+
+            // Apply the folding rotation:
             transform:
               `rotateX(${foldAngle}deg)`,
             transformOrigin: 'center top',
+
             // This optional prop can improve
             // performance, by letting the
             // browser optimize it:
@@ -46,9 +49,11 @@ class Foldable extends React.Component {
           }}
         />
 
+        {/* Slider control */}
         <br />
-        <h4>Fold ratio:</h4>
+        <label htmlFor="slider">Fold ratio:</label>
         <input
+          id="slider"
           type="range"
           min={0}
           max={180}
@@ -58,6 +63,7 @@ class Foldable extends React.Component {
               foldAngle: ev.target.value
             })
           }
+          style={{ width }}
         />
       </div>
     )

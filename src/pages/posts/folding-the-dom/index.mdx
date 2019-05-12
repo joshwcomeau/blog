@@ -8,11 +8,15 @@ abstract: A deep dive into DOM folding techniques, to be used in animations and 
 
 import { Spring } from 'react-spring';
 import { State } from 'react-powerplug';
+import styled, { keyframes } from 'styled-components';
 
 import cssEngineSrc from '@assets/videos/css-engine.mp4';
-import autumnSrc from '@assets/images/sandis-helvigs-autumn.jpg';
-import autumnSmallSrc from '@assets/images/sandis-helvigs-autumn.jpg';
+import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
+import foldDemoImageSmallSrc from '@assets/images/francois-hoang-china-small.jpg';
 import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
+import foldIssueSrc from '@assets/images/fold-issue.gif';
+import allWhiteSrc from '@assets/images/all-white.gif';
+import backwardsSrc from '@assets/images/backwards.gif';
 
 import Demo from '@components/Demo';
 import MultipleChoiceControl, {
@@ -23,11 +27,14 @@ import TextLink from '@components/TextLink';
 import SingleAxisDemo from '@components/SingleAxisDemo';
 import VideoGif from '@components/VideoGif';
 import InlineCode from '@components/InlineCode';
+import Image from '@components/Image';
 import AutoRotate from '@components/AutoRotate';
 import { SingleFoldByRatio } from '@components/FoldDemos';
 import LiveEditableCode from '@components/LiveEditableCode';
 
 import mvpExampleCode from './code/mvp.example';
+import backfaceInitialCode from './code/backface-initial.example';
+import backfaceHiddenCode from './code/backface-hidden.example';
 
 In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
@@ -45,9 +52,9 @@ And yet, for _years_ now, browsers have bundled in a surprisingly capable 3D CSS
   }
 />
 
-Today I'd like to leverage that 3D engine to perform a neat trick: folding up a DOM node. This effect is a great way to add some whimsical charm to your web products.
+Today I'd like to leverage that 3D engine to perform a neat trick: folding up an image.
 
-Take a look at what I mean, by unfolding this [beautiful autumn photo](https://unsplash.com/photos/vrY49w_-Bmc) by Sandis Helvigs:
+Here's what we'll be building. Drag the slider downwards to reveal a [beautiful neon photo](https://unsplash.com/photos/2x6VHSRVqSA) by Francois Hoang:
 
 <SingleAxisDemo showNote={true} defaultValue={100} id="fold-intro">
   {percentage => (
@@ -62,25 +69,29 @@ Take a look at what I mean, by unfolding this [beautiful autumn photo](https://u
         <SingleFoldByRatio
           // The height of our node should be a fraction of the window height,
           // but no larger than 500px
-          height={
-            typeof window !== 'undefined' &&
-            Math.min(Math.round(window.innerHeight * 0.6), 500)
-          }
+          height={500}
           // Our width is just 2/3rds of our height.
           // Regrettably, because MDX doesn't support variables, I have to
           // duplicate all that stuff:
-          width={
-            typeof window !== 'undefined' &&
-            Math.min(Math.round(window.innerHeight * 0.6 * 0.666), 333)
-          }
+          width={375}
           percentage={interpolated.percentage}
         >
-          <img src={autumnSrc} style={{ height: 500 }} />
+          <img src={foldDemoImageSrc} style={{ height: 500 }} />
         </SingleFoldByRatio>
       )}
     </Spring>
   )}
 </SingleAxisDemo>
+
+This effect could be useful in a number of scenarios:
+
+- As a preloader for images. They unfold once they're ready, and the folded copy could use a much-lower-res base64-encoded version!
+- As an on-mount animation when clicking to view an image, to add whimsical charm to an otherwise common feature.
+- For JS game development
+
+This tutorial is React-specific, but the concepts can easily be ported to vanilla JS/CSS, as well as other front-end frameworks.
+
+**This is Part I of a two-part series.** In the next part, we'll look at how to generalize this effect to work on _any DOM node_, not just images.
 
 ## The Trick
 
@@ -88,7 +99,7 @@ Unfortunately, the DOM has no primitive for this; you can't actually fold a DOM 
 
 Instead, we need to be sneaky; we'll use _two_ images, and set them up so that it appears like a single image.
 
-If we only needed to support images, we could use `background-position` to "crop" the second image, exactly as we need:
+Each image is set to take up 50% of the real height, and then the bottom image has its `background-position` shifted up
 
 <Demo
   id="transform-rotate"
@@ -101,7 +112,7 @@ If we only needed to support images, we could use `background-position` to "crop
         id="offset"
         label="Offset"
         min={0}
-        max={250}
+        max={100}
         value={values.offset}
         updateValue={updateValue}
       />
@@ -130,8 +141,8 @@ If we only needed to support images, we could use `background-position` to "crop
                 width: 333,
                 height: 250,
                 backgroundSize: '333px 500px',
-                backgroundImage: `url(${autumnSrc})`,
-                borderRadius: offset < 250 ? '0 0 0 0' : '10px 10px 0 0',
+                backgroundImage: `url(${foldDemoImageSrc})`,
+                borderRadius: offset < 100 ? '0 0 0 0' : '10px 10px 0 0',
               }}
             />
             <div
@@ -139,10 +150,10 @@ If we only needed to support images, we could use `background-position` to "crop
                 width: 333,
                 height: 250,
                 backgroundSize: '333px 500px',
-                backgroundImage: `url(${autumnSrc})`,
-                backgroundPosition: `0px -${interpolated.offset}px`,
-                borderRadius: offset < 250 ? '0 0 0 0' : '0 0 10px 10px',
-                transform: `translateY(${offset < 250 ? 5 : 0}px)`,
+                backgroundImage: `url(${foldDemoImageSrc})`,
+                backgroundPosition: `0 ${interpolated.offset}%`,
+                borderRadius: offset < 100 ? '0 0 0 0' : '0 0 10px 10px',
+                transform: `translateY(${offset < 100 ? 5 : 0}px)`,
                 transition: 'transform 250ms',
               }}
             />
@@ -154,7 +165,7 @@ If we only needed to support images, we could use `background-position` to "crop
                 marginTop: 30,
               }}
             >
-              background-position: '0px -{Math.round(interpolated.offset)}px'
+              background-position: '0 {Math.round(interpolated.offset)}%'
             </InlineCode>
           </div>
         );
@@ -166,7 +177,7 @@ If we only needed to support images, we could use `background-position` to "crop
 Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single
 image.
 
-To achieve a realistic folding effect, we'll need to leverage a few CSS properties.
+To fold the bottom image up, we'll need to make use of a few CSS properties.
 
 ## Transform
 
@@ -377,14 +388,68 @@ With all those pieces, we can achieve a "minimum viable product" for this effect
   id="mvp-example"
   gistId="01114efda3cb02e4ffa3b49431c14982"
   code={mvpExampleCode}
-  split={[65, 35]}
+  split={[70, 30]}
   maxHeight={585}
-  scope={{ src: autumnSmallSrc }}
+  scope={{ src: foldDemoImageSmallSrc }}
 />
 
-## Adding a back
+With a little bit of CSS and a sprinkle of React state, we have the fundamental effect we're after!
 
-We mostly have all the pieces we need to produce this effect. One nice touch we can add is a backside, so that we can clearly tell the front and back apart when the item rotates fully. Notice how the back of this rotating card is a not-quite-opaque white:
+You may have noticed, though, that it's missing some of the bells and whistles of the original demo. Let's flesh some of these out.
+
+## Adding a backface
+
+In our original demo, the "back" of the card has a slightly-transparent white background. The idea is to make it seem like a slightly-seethrough piece of paper.
+
+Let's tackle this problem in isolation at first, and then we can add it in to our full demo.
+
+First, we need a new `div`, with a nearly-opaque white background. We'll position this in the same place as our card:
+
+<LiveEditableCode
+  id="backface-initial"
+  gistId="01114efda3cb02e4ffa3b49431c14982"
+  code={backfaceInitialCode}
+  split={[70, 30]}
+  maxHeight={585}
+  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+/>
+
+How do we ensure that this is only shown for the backside of the card? If you're like me, you're probably thinking of a JS solution, triggering `opacity` on a `setInterval` to show/hide it as the card rotates. Fortunately, though, CSS has an elegant solution for us, built right into the language!
+
+We need to learn about a couple more properties:
+
+#### Backface Visibility
+
+CSS lets us specify that the backside of an element shouldn't be visible, so that when its rotation eclipses 180 degrees, it shouldn't render anything.
+
+Let's use this to hide our backface when it's facing away from the viewer:
+
+<LiveEditableCode
+  id="backface-initial"
+  gistId="01114efda3cb02e4ffa3b49431c14982"
+  code={backfaceHiddenCode}
+  split={[70, 30]}
+  maxHeight={585}
+  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+/>
+
+#### Transform Style
+
+We need to add a new rule to the parent element: <InlineCode>transform-style: preserve-3d</InlineCode>.
+
+This property allows elements to be positioned in 3D space. As we'll see, this is important because we'll have two DOM nodes occupying the same space: the front half of the card, and the back half. In a traditional web context, we'd use z-index to sort this out, but when working with transforms, we're delegating that to the 3D engine.
+
+## Bug-fixing
+
+If you're a Chrome user, you may have noticed an unsightly gap happening in the crook of the fold:
+
+<Image src={foldIssueSrc} style={{ width: 420 }} />
+
+I have no idea what the deal is with this. At first I thought it was a pixel-rounding issue, but it seems to happen with even numbers, where there should be no rounding. It only happens in Chrome, sometimes. I think it might be that, when using 3D transforms, pixel-perfection isn't guaranteed.
+
+In true "every problem is a nail" fashion, we can use this trick again, adding a third copy of the image and putting it behind our two layers, to fill any gap that opens during the animation.
+
+You can view the solution in the full source code. TODO
 
 <Demo id="transform-origin">
   {() => (
