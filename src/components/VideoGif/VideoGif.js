@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default ({ src, maxWidth, caption }) => (
   <Wrapper style={{ maxWidth }}>
-    <Video autoPlay loop src={src} />
+    <Video autoPlay loop controls src={src} />
     {caption && <Caption>{caption}</Caption>}
   </Wrapper>
 );

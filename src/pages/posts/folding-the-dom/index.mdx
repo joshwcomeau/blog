@@ -308,50 +308,51 @@ By default, rotations assume that you want to spin the items around their center
 
 Try changing it from the default "center" value to "top" or "bottom".
 
-<Demo
-  id="transform-origin"
-  initialValues={{
-    originX: 'center',
-    originY: 'center',
-  }}
-  controls={(values, updateValue) => (
-    <MultipleChoiceControl
-      id="originY"
-      label="Y"
-      value={values.originY}
-      updateValue={updateValue}
-    >
-      <Choice id="top">Top</Choice>
-      <Choice id="center">Center</Choice>
-      <Choice id="bottom">Bottom</Choice>
-    </MultipleChoiceControl>
-  )}
->
-  {({ originY }) => (
-    <div style={{ perspective: '1200px' }}>
-      <div
-        style={{
-          paddingBottom: 30,
-        }}
+<RenderWhenOnscreen height={536}>
+  <Demo
+    id="transform-origin"
+    initialValues={{
+      originX: 'center',
+      originY: 'center',
+    }}
+    controls={(values, updateValue) => (
+      <MultipleChoiceControl
+        id="originY"
+        label="Y"
+        value={values.originY}
+        updateValue={updateValue}
       >
-        <InlineCode
+        <Choice id="top">Top</Choice>
+        <Choice id="center">Center</Choice>
+        <Choice id="bottom">Bottom</Choice>
+      </MultipleChoiceControl>
+    )}
+  >
+    {({ originY }) => (
+      <div style={{ perspective: '1200px' }}>
+        <div
           style={{
-            position: 'relative',
-            zIndex: 2,
-            width: 475,
-            fontSize: 24,
+            paddingBottom: 30,
           }}
         >
-          transform-origin: {originY} center;
-        </InlineCode>
+          <InlineCode
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              width: 475,
+              fontSize: 24,
+            }}
+          >
+            transform-origin: {originY} center;
+          </InlineCode>
+        </div>
+        <AutoRotate style={{ transformOrigin: `${originY} center` }}>
+          <img width={475} src={catsSrc} />
+        </AutoRotate>
       </div>
-      <AutoRotate style={{ transformOrigin: `${originY} center` }}>
-        <img width={475}  src={catsSrc} />
-      </AutoRotate>
-    </div>
-)}
-
-</Demo>
+    )}
+  </Demo>
+</RenderWhenOnscreen>
 
 # Our MVP
 
@@ -380,14 +381,16 @@ Let's tackle this problem in isolation at first, and then we can add it in to ou
 
 First, we need a new `div`, with a nearly-opaque white background. We'll position this in the same place as our card:
 
-<LiveEditableCode
-  id="backface-initial"
-  gistId="01114efda3cb02e4ffa3b49431c14982"
-  code={backfaceInitialCode}
-  split={[70, 30]}
-  maxHeight={585}
-  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
-/>
+<RenderWhenOnscreen height={585}>
+  <LiveEditableCode
+    id="backface-initial"
+    gistId="01114efda3cb02e4ffa3b49431c14982"
+    code={backfaceInitialCode}
+    split={[70, 30]}
+    maxHeight={585}
+    scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+  />
+</RenderWhenOnscreen>
 
 Next, we need to make sure that this div is only shown when the card is facing the viewer.
 
@@ -401,14 +404,16 @@ The `backface-visibility` property allows us to specify whether an item should b
 
 In this case, we also need to add `transform-style: preserve-3d` to the parent element (the one responsible for the animation). This property allows elements to be positioned in 3D space, and it allows `backface-visibility` to work correctly in this context.
 
-<LiveEditableCode
-  id="backface-hidden"
-  gistId="01114efda3cb02e4ffa3b49431c14982"
-  code={backfaceHiddenCode}
-  split={[70, 30]}
-  maxHeight={585}
-  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
-/>
+<RenderWhenOnscreen height={585}>
+  <LiveEditableCode
+    id="backface-hidden"
+    gistId="01114efda3cb02e4ffa3b49431c14982"
+    code={backfaceHiddenCode}
+    split={[70, 30]}
+    maxHeight={585}
+    scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+  />
+</RenderWhenOnscreen>
 
 Eagle-eyed readers—or, those who can read Chinese—might've noticed that this effect is backwards. Right now, we _only_ see our white "back" when the card is facing forwards!
 
@@ -416,14 +421,16 @@ We can fix this by being a little sneaky, and giving our backside element a 180-
 
 We can also apply a very slight Z-translate, to push the element a bit closer to the viewer than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space.
 
-<LiveEditableCode
-  id="backface-fixed"
-  gistId="01114efda3cb02e4ffa3b49431c14982"
-  code={backfaceFixedCode}
-  split={[70, 30]}
-  maxHeight={585}
-  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
-/>
+<RenderWhenOnscreen height={585}>
+  <LiveEditableCode
+    id="backface-fixed"
+    gistId="01114efda3cb02e4ffa3b49431c14982"
+    code={backfaceFixedCode}
+    split={[70, 30]}
+    maxHeight={585}
+    scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+  />
+</RenderWhenOnscreen>
 
 Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works.
 
@@ -463,6 +470,18 @@ As the card moves through the second half, there's the illusion of thickness, as
 I discovered this one by accident, by playing with the amount of Z-axis translation when adding the backside. To get backface-visibility working, it technically only needs to be `0.01px`, but by setting it to `2px`, it gives this nice illusion of depth.
 
 See <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js#L83">this line</TextLink> in the source.
+
+### Translation
+
+In this demo, I wanted the whole card to move up as it's unfolded, so that it always appeared centered in the parent container.
+
+This was accomplished with a `transform: translateY()` on the parent, using the percentage of opening as the value to tween based on. This did introduce a subtle flickering bug on Chrome, and the solution was to add a third copy of the image in the crook of the fold.
+
+Full details available <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js">in the source</TextLink>.
+
+### Spring physics
+
+In the demo, I'm using React Spring to animate changes in value, when the slider is dragged. Spring physics produce much more organic, beautiful motion than using traditional easing. Its use is outside the scope of this article, but it has <TextLink href="react-spring.io/docs">excellent documentation</TextLink> you can consult!
 
 # Conclusion
 
