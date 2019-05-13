@@ -14,7 +14,7 @@ import cssEngineSrc from '@assets/videos/css-engine.mp4';
 import partTwoPreview from '@assets/videos/folding-pt2-pre.mp4';
 import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
 import foldDemoImageSmallSrc from '@assets/images/francois-hoang-china-small.jpg';
-import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
+import catsSrc from '@assets/images/cats.jpg';
 import foldIssueSrc from '@assets/images/fold-issue.gif';
 
 import Demo from '@components/Demo';
@@ -219,12 +219,7 @@ In our case, we want to use a rotation, along the X axis:
                 transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
               </InlineCode>
             </div>
-            <img
-              width={400}
-              height={321}
-              src={pigletSrc}
-              style={{ transform }}
-            />
+            <img width={400} src={catsSrc} style={{ transform }} />
             <div
               style={{
                 position: 'relative',
@@ -234,8 +229,8 @@ In our case, we want to use a rotation, along the X axis:
               }}
             >
               Photo by{' '}
-              <TextLink href="https://unsplash.com/photos/mlOPryU1p_U">
-                Annie Spratt
+              <TextLink href="https://unsplash.com/photos/YCPkW_r_6uA">
+                Jari Hytönen
               </TextLink>
               .
             </div>
@@ -298,7 +293,7 @@ The solution to this is to apply a "perspective" property to the parent containe
               </InlineCode>
             </div>
             <AutoRotate>
-              <img width={400} height={321} src={pigletSrc} />
+              <img width={400} src={catsSrc} />
             </AutoRotate>
           </div>
         )}
@@ -351,7 +346,7 @@ Try changing it from the default "center" value to "top" or "bottom".
         </InlineCode>
       </div>
       <AutoRotate style={{ transformOrigin: `${originY} center` }}>
-        <img width={475} height={321} src={pigletSrc} />
+        <img width={475}  src={catsSrc} />
       </AutoRotate>
     </div>
 )}
