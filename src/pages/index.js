@@ -103,9 +103,11 @@ const IndexPage = ({ data }) => {
               <Spacer size={20} />
 
               <Paragraph>
-                I'm having so much fun building dynamic, interactive tutorials
-                and deep-dives! I've only written the first post so far, but I
-                have a bunch of ideas for other stuff to cover.
+                I believe that the best way to learn something is through
+                experimentation. The posts on this blog aim to put control in
+                your hands, to play with sliders and tinker with editable code.
+                It's been a really fun journey, and I'm excited about being able
+                to create more posts!
               </Paragraph>
 
               <Paragraph>
