@@ -11,6 +11,7 @@ import { State } from 'react-powerplug';
 import styled, { keyframes } from 'styled-components';
 
 import cssEngineSrc from '@assets/videos/css-engine.mp4';
+import partTwoPreview from '@assets/videos/folding-pt2-pre.mp4';
 import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
 import foldDemoImageSmallSrc from '@assets/images/francois-hoang-china-small.jpg';
 import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
@@ -32,11 +33,12 @@ import LiveEditableCode from '@components/LiveEditableCode';
 import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 
 import mvpExampleCode from './code/mvp.example';
+import mvpWithBacksideExampleCode from './code/mvp-with-backside.example';
 import backfaceInitialCode from './code/backface-initial.example';
 import backfaceHiddenCode from './code/backface-hidden.example';
 import backfaceFixedCode from './code/backface-fixed.example';
 
-In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
+In my day-to-day life as a front-end developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
 And yet, for years now, browsers have bundled in a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
 
@@ -149,10 +151,9 @@ Each image is set to take up 50% of the real height, and then the bottom image h
   )}
 </Demo>
 
-Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single
-image.
+Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single image.
 
-To fold the bottom image up, we'll need to make use of a few CSS properties.
+To fold the bottom image up, we'll need to make use of a few CSS properties. This post will explain this technique in depth, but those who just want to see the code can find it on Github.
 
 ## Transform
 
@@ -416,10 +417,9 @@ In this case, we also need to add `transform-style: preserve-3d` to the parent e
 
 Eagle-eyed readers—or, those who can read Chinese—might've noticed that this effect is backwards. Right now, we _only_ see our white "back" when the card is facing forwards!
 
-We can fix this by being a little sneaky, and giving our backside element a 180-degree rotation. Think of it like stacking two playing cards, and then rotating the top one 180 degrees, so that the two cards are facing each other. Now, when you rotate the entire stack, you're always seeing the backside of _one_ of the elements.
+We can fix this by being a little sneaky, and giving our backside element a 180-degree rotation. Think of it like stacking two playing cards, and then flipping the top one over, so that the two cards are facing each other. Now, when you rotate the entire stack, you're always seeing the backside of _one_ of the elements.
 
-We can also apply a Z-translate, to push the element a bit closer to the viewer
-than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space.
+We can also apply a very slight Z-translate, to push the element a bit closer to the viewer than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space.
 
 <LiveEditableCode
   id="backface-fixed"
@@ -434,28 +434,16 @@ Spacial orientation is a hard thing to visualize (especially with nested rotatio
 
 ## Adding it into our original demo
 
-How do we fit this into our `<Foldable>` component? We have to do a tiny bit of restructuring. Here's what it looks like:
+How do we fit this into our `<Foldable>` component? We can just add this new backside element to our "bottom half" div, and make sure to use 3D positioning:
 
 <LiveEditableCode
-  id="backface-fixed"
+  id="mvp-with-backside"
   gistId="01114efda3cb02e4ffa3b49431c14982"
-  code={backfaceFixedCode}
+  code={mvpWithBacksideExampleCode}
   split={[70, 30]}
   maxHeight={585}
   scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
 />
-
-## Bug-fixing
-
-If you're a Chrome user, you may have noticed an unsightly gap happening in the crook of the fold:
-
-<Image src={foldIssueSrc} style={{ width: 420 }} />
-
-I have no idea what the deal is with this. At first I thought it was a pixel-rounding issue, but it seems to happen with even numbers, where there should be no rounding. It only happens in Chrome, sometimes. I think it might be that, when using 3D transforms, pixel-perfection isn't guaranteed.
-
-In true "every problem is a nail" fashion, we can use this trick again, adding a third copy of the image and putting it behind our two layers, to fill any gap that opens during the animation.
-
-You can view the solution in the full source code.
 
 ## Final Details
 
@@ -477,7 +465,7 @@ See this line in the source.
 
 As the card moves through the second half, there's the illusion of thickness, as if the card has an edge.
 
-This little trick is done by pushing down the backside by a couple pixels. I discovered this quite accidentally, but liked the way it looked!
+I discovered this one by accident, by playing with the amount of Z-axis translation when adding the backside. To get backface-visibility working, it technically only needs to be `0.01px`, but by setting it to `2px`, it gives this nice illusion of depth.
 
 See this line in the source.
 
@@ -485,8 +473,8 @@ See this line in the source.
 
 Effects like this can be quite a lot of trouble, but the beauty of React is that it encourages the creation of reusable effects. After following this tutorial, you'll wind up with a `<Foldable>` component you can easily drop into any future project!
 
-In this post, we looked exclusively at images, but you may wish to use this effect on other kinds of elements. For example, in a demo I created for a React Europe talk, I show how a form can be folded up like a letter:
+In this post, we looked exclusively at images, but you may wish to use this effect on other kinds of elements. For example, in a demo I created for a <TextLink href="https://github.com/joshwcomeau/react-europe-talk-2018">React Europe talk</TextLink>, I show how a form can be folded up like a letter:
 
-GIF
+<VideoGif src={partTwoPreview} caption={<>A sample of folding a modal up.</>} />
 
 Happily, we can apply many of the tricks we learned here to produce the same effect, but there a couple additional issues we'll have to contend with. I plan to write a second part addressing this concern in the coming weeks!

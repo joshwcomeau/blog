@@ -2,10 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FoldableImage = ({ width, height, percentage, src }) => {
-  const children = (
-    <img alt="image folding demo" src={src} style={{ width, height }} />
-  );
-
   const backgroundImage = `url(${src})`;
 
   return (
@@ -32,12 +28,22 @@ const FoldableImage = ({ width, height, percentage, src }) => {
         <Backside />
       </BottomHalf>
 
+      {/*
+        Because the entire card is translating down during the fold, I'm
+        seeing a flicker in the crook of the fold. Repeating our trick a third
+        time, I can apply the image to a 2px-tall element positioned in the
+        crook of the fold.
+
+        If you aren't translating the card during folding, you shouldn't need
+        this fix.
+      */}
       <FlickerFixer
         height={height}
-        style={{ opacity: percentage > 50 ? 0 : 1 }}
-      >
-        {children}
-      </FlickerFixer>
+        style={{
+          opacity: percentage > 50 ? 0 : 1,
+          backgroundImage,
+        }}
+      />
     </Wrapper>
   );
 };
@@ -99,14 +105,7 @@ const FlickerFixer = styled.div`
   left: 0;
   width: 100%;
   height: 2px;
-  overflow: hidden;
-
-  & > * {
-    position: absolute;
-    top: ${props => props.height * -0.5}px;
-    left: 0;
-    right: 0;
-  }
+  background-position: 0% 50%;
 `;
 
 export default FoldableImage;
