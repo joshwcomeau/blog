@@ -23,7 +23,7 @@ type PostData = {
   path: string,
   title: string,
   abstract: string,
-  published: boolean,
+  isPublished: boolean,
   publishedOn: string,
 };
 
@@ -146,7 +146,7 @@ const getPosts = (data: any): Array<PostData> =>
       }
 
       // Don't show unpublished posts!
-      if (!node.context.frontmatter.published) {
+      if (!node.context.frontmatter.isPublished) {
         return null;
       }
 
@@ -171,7 +171,7 @@ export const query = graphql`
           context {
             frontmatter {
               title
-              published
+              isPublished
               publishedOn
               abstract
             }

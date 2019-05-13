@@ -15,6 +15,7 @@ class BaseHero extends PureComponent {
   static propTypes = {
     // Post data
     title: PropTypes.string.isRequired,
+    isPublished: PropTypes.bool.isRequired,
     publishedOn: PropTypes.string.isRequired,
     // Hero styles
     gutter: PropTypes.number,
@@ -79,6 +80,7 @@ class BaseHero extends PureComponent {
   render() {
     const {
       title,
+      isPublished,
       publishedOn,
       background,
       titleGradientSteps,
@@ -108,11 +110,25 @@ class BaseHero extends PureComponent {
             </GradientTitle>
             <Byline>
               <Unemphasized>Written by</Unemphasized>{' '}
-              <AuthorName color={authorColor}>Josh Comeau</AuthorName>
-              <Unemphasized> on</Unemphasized>{' '}
-              <PublishedDate color={publishedOnColor}>
-                {humanizeDate(publishedOn)}
-              </PublishedDate>
+              <EmphasizedPrimary color={authorColor}>
+                Josh Comeau
+              </EmphasizedPrimary>
+              {isPublished ? (
+                <>
+                  {' '}
+                  <Unemphasized>on</Unemphasized>{' '}
+                  <EmphasizedSecondary color={publishedOnColor}>
+                    {humanizeDate(publishedOn)}
+                  </EmphasizedSecondary>
+                </>
+              ) : (
+                <>
+                  <Unemphasized>.</Unemphasized>{' '}
+                  <EmphasizedSecondary color={publishedOnColor}>
+                    (Draft)
+                  </EmphasizedSecondary>
+                </>
+              )}
             </Byline>
           </MaxWidthWrapper>
 
@@ -211,7 +227,7 @@ const Unemphasized = styled.span`
   }
 `;
 
-const AuthorName = styled.span`
+const EmphasizedPrimary = styled.span`
   font-weight: bold;
   color: ${props => props.color};
 
@@ -223,7 +239,7 @@ const AuthorName = styled.span`
   }
 `;
 
-const PublishedDate = styled.span`
+const EmphasizedSecondary = styled.span`
   font-weight: bold;
   color: ${props => props.color};
 

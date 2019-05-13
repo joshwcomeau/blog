@@ -8,12 +8,14 @@ import Mountains from '../Mountains';
 
 const WatermelonGradientHero = ({
   title,
+  isPublished,
   publishedOn,
   orientation,
   headerHeight,
 }) => (
   <BaseHero
     title={title}
+    isPublished={isPublished}
     publishedOn={publishedOn}
     orientation={orientation}
     headerHeight={headerHeight}

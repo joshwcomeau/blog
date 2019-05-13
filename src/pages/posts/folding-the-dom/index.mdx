@@ -1,8 +1,8 @@
 ---
 title: Folding the DOM
 slug: folding-the-dom
-published: false
-publishedOn: 2018-10-05
+isPublished: false
+publishedOn: 2019-05-13
 abstract: A deep dive into DOM folding techniques, to be used in animations and interactions.
 ---
 
@@ -153,7 +153,7 @@ Each image is set to take up 50% of the real height, and then the bottom image h
 
 Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single image.
 
-To fold the bottom image up, we'll need to make use of a few CSS properties. This post will explain this technique in depth, but those who just want to see the code can find it on Github.
+To fold the bottom image up, we'll need to make use of a few CSS properties. This post will explain this technique in depth, but those who just want to see the code can find it <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js">on Github</TextLink>.
 
 ## Transform
 
@@ -459,7 +459,7 @@ As the card moves through its first 90 degrees, the bottom half darkens, as if t
 
 For this effect, I added a new `<div>`, with a variable `opacity`. As the card rotation increases, I move closer to opaque.
 
-See this line in the source.
+See <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js#L23">this line</TextLink> in the source.
 
 ### Thickness
 
@@ -467,11 +467,13 @@ As the card moves through the second half, there's the illusion of thickness, as
 
 I discovered this one by accident, by playing with the amount of Z-axis translation when adding the backside. To get backface-visibility working, it technically only needs to be `0.01px`, but by setting it to `2px`, it gives this nice illusion of depth.
 
-See this line in the source.
+See <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js#L83">this line</TextLink> in the source.
 
 # Conclusion
 
 Effects like this can be quite a lot of trouble, but the beauty of React is that it encourages the creation of reusable effects. After following this tutorial, you'll wind up with a `<Foldable>` component you can easily drop into any future project!
+
+Because this effect is non-trivial, it's also quite rare. This means that it has more of a punch, because it's not something that users are accustomed to!
 
 In this post, we looked exclusively at images, but you may wish to use this effect on other kinds of elements. For example, in a demo I created for a <TextLink href="https://github.com/joshwcomeau/react-europe-talk-2018">React Europe talk</TextLink>, I show how a form can be folded up like a letter:
 

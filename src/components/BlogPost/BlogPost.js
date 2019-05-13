@@ -48,7 +48,12 @@ type Props = {
 const SubSubHeading = props => <Heading size={5} {...props} />;
 
 export default ({ children, pageContext }: Props) => {
-  const { title, publishedOn, heroStyle } = pageContext.frontmatter;
+  const {
+    title,
+    isPublished,
+    publishedOn,
+    heroStyle,
+  } = pageContext.frontmatter;
 
   const Hero = getHero(heroStyle);
   const deviceType = getDeviceType();
@@ -89,6 +94,7 @@ export default ({ children, pageContext }: Props) => {
                 <Hero
                   headerHeight={HEADER_HEIGHT}
                   title={title}
+                  isPublished={isPublished}
                   publishedOn={publishedOn}
                   orientation={orientation}
                 />

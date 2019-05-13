@@ -7,7 +7,7 @@ import { COLORS } from '@constants';
 
 const Link = ({ href, target, rel, ...delegated }) => {
   // Links are external if they start with `http` or `https`
-  const external = href.match(/^http/i);
+  const external = href.match(/(^http|^mailto)/i);
 
   // By default, external links should open in a new tab.
   // This is overrideable though.

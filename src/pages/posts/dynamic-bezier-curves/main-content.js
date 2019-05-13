@@ -47,7 +47,7 @@ import reactScrollFlattenerRefactoredCode from './code/react-scroll-flattener-re
 export const FRONT_MATTER = {
   title: 'Dynamic Bézier Curves',
   slug: 'dynamic-bezier-curves',
-  published: true,
+  isPublished: true,
   publishedOn: '2018-05-23',
   heroStyle: 'watermelon-gradient',
   heroImage: null,
