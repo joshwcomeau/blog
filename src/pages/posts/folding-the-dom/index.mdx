@@ -17,6 +17,7 @@ import pigletSrc from '@assets/images/annie-spratt-piglet.jpg';
 import foldIssueSrc from '@assets/images/fold-issue.gif';
 
 import Demo from '@components/Demo';
+import FoldingDemo from '@components/FoldingDemo';
 import MultipleChoiceControl, {
   Choice,
 } from '@components/MultipleChoiceControl';
@@ -27,7 +28,6 @@ import VideoGif from '@components/VideoGif';
 import InlineCode from '@components/InlineCode';
 import Image from '@components/Image';
 import AutoRotate from '@components/AutoRotate';
-import { SingleFoldByRatio } from '@components/FoldDemos';
 import LiveEditableCode from '@components/LiveEditableCode';
 import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 
@@ -56,26 +56,7 @@ Today I'd like to leverage that 3D engine to perform a neat trick: folding up an
 
 Here's what we'll be building. Drag the slider downwards to reveal a [beautiful neon photo](https://unsplash.com/photos/2x6VHSRVqSA) by Francois Hoang:
 
-<SingleAxisDemo showNote={true} defaultValue={100} id="fold-intro">
-  {percentage => (
-    <Spring
-      to={{ percentage }}
-      config={{
-        tension: 60,
-        friction: 13,
-      }}
-    >
-      {interpolated => (
-        <SingleFoldByRatio
-          height={500}
-          width={375}
-          percentage={interpolated.percentage}
-          src={foldDemoImageSrc}
-        />
-      )}
-    </Spring>
-  )}
-</SingleAxisDemo>
+<FoldingDemo id="fold-intro" />
 
 This effect could be useful in a number of scenarios:
 
@@ -135,7 +116,7 @@ Each image is set to take up 50% of the real height, and then the bottom image h
                 width: 333,
                 height: 250,
                 backgroundSize: '333px 500px',
-                backgroundImage: `url(${foldDemoImageSrc})`,
+                backgroundImage: `url(${foldDemoImageSmallSrc})`,
                 borderRadius: offset < 100 ? '0 0 0 0' : '10px 10px 0 0',
               }}
             />
@@ -144,7 +125,7 @@ Each image is set to take up 50% of the real height, and then the bottom image h
                 width: 333,
                 height: 250,
                 backgroundSize: '333px 500px',
-                backgroundImage: `url(${foldDemoImageSrc})`,
+                backgroundImage: `url(${foldDemoImageSmallSrc})`,
                 backgroundPosition: `0 ${interpolated.offset}%`,
                 borderRadius: offset < 100 ? '0 0 0 0' : '0 0 10px 10px',
                 transform: `translateY(${offset < 100 ? 5 : 0}px)`,
@@ -451,6 +432,19 @@ than the card. This addresses an issue where the elements can appear to flicker,
 
 Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works.
 
+## Adding it into our original demo
+
+How do we fit this into our `<Foldable>` component? We have to do a tiny bit of restructuring. Here's what it looks like:
+
+<LiveEditableCode
+  id="backface-fixed"
+  gistId="01114efda3cb02e4ffa3b49431c14982"
+  code={backfaceFixedCode}
+  split={[70, 30]}
+  maxHeight={585}
+  scope={{ src: foldDemoImageSmallSrc, styled, keyframes }}
+/>
+
 ## Bug-fixing
 
 If you're a Chrome user, you may have noticed an unsightly gap happening in the crook of the fold:
@@ -467,26 +461,7 @@ You can view the solution in the full source code.
 
 Here our original demo is again:
 
-<SingleAxisDemo showNote={true} defaultValue={100} id="fold-conclusion">
-  {percentage => (
-    <Spring
-      to={{ percentage }}
-      config={{
-        tension: 60,
-        friction: 13,
-      }}
-    >
-      {interpolated => (
-        <SingleFoldByRatio
-          height={500}
-          width={375}
-          percentage={interpolated.percentage}
-          src={foldDemoImageSrc}
-        />
-      )}
-    </Spring>
-  )}
-</SingleAxisDemo>
+<FoldingDemo id="fold-conclusion" />
 
 There are a couple other small details we haven't covered.
 

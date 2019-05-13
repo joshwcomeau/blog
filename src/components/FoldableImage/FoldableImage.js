@@ -1,32 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SingleFoldByRatio = ({ width, height, percentage, children }) => {
+const FoldableImage = ({ width, height, percentage, src }) => {
+  const children = (
+    <img alt="image folding demo" src={src} style={{ width, height }} />
+  );
+
+  const backgroundImage = `url(${src})`;
+
   return (
     <Wrapper
       style={{
         transform: `translateY(${percentage / 4}%)`,
       }}
     >
-      <TopHalf width={width} height={height}>
-        <HideOverflow side="top">{children}</HideOverflow>
-      </TopHalf>
+      <TopHalf width={width} height={height} style={{ backgroundImage }} />
       <BottomHalf
         width={width}
         height={height}
         style={{
+          backgroundImage,
+          backgroundPosition: '0 100%',
           transform: `rotateX(${convertPercentageToRotation(percentage)}deg)`,
         }}
       >
-        <HideOverflow side="bottom">
-          <Shadow
-            style={{
-              opacity: percentage * 0.015,
-            }}
-          />
-          <InverseShifter height={height}>{children}</InverseShifter>
-          <Backside />
-        </HideOverflow>
+        <Shadow
+          style={{
+            opacity: percentage * 0.015,
+          }}
+        />
+        <Backside />
       </BottomHalf>
 
       <FlickerFixer
@@ -39,18 +42,11 @@ const SingleFoldByRatio = ({ width, height, percentage, children }) => {
   );
 };
 
-const convertPercentageToRotation = percentage => 180 * percentage / 100;
+const convertPercentageToRotation = percentage => percentage * 1.8;
 
 const Wrapper = styled.div`
   display: inline-block;
   perspective: 1250px;
-`;
-
-const HideOverflow = styled.div`
-  height: 100%;
-  overflow: hidden;
-  border-radius: ${props =>
-    props.side === 'top' ? '10px 10px 0 0' : '0 0 10px 10px'};
 `;
 
 const Half = styled.div`
@@ -58,17 +54,17 @@ const Half = styled.div`
   z-index: 2;
   width: ${props => props.width}px;
   height: ${props => props.height / 2}px;
+  background-size: cover;
 `;
 
-const TopHalf = styled(Half)``;
+const TopHalf = styled(Half)`
+  border-radius: 10px 10px 0 0;
+`;
 
 const BottomHalf = styled(Half)`
   transform-origin: top center;
   transform-style: preserve-3d;
-`;
-
-const InverseShifter = styled.div`
-  transform: translateY(${props => props.height / 2 * -1}px);
+  border-radius: 0 0 10px 10px;
 `;
 
 const Backside = styled.div`
@@ -113,4 +109,4 @@ const FlickerFixer = styled.div`
   }
 `;
 
-export default SingleFoldByRatio;
+export default FoldableImage;
