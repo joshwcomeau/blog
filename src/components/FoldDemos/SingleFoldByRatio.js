@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SingleFoldByRatio = ({ width, height, percentage, src }) => {
-  const children = <img src={src} style={{ width, height }} />;
+  const children = (
+    <img alt="image folding demo" src={src} style={{ width, height }} />
+  );
 
   const backgroundImage = `url(${src})`;
 

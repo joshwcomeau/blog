@@ -1,0 +1,65 @@
+const Foldable = ({ width, height, src }) => {
+  const [
+    foldAngle,
+    setFoldAngle,
+  ] = React.useState(0);
+
+  // Both our top half and bottom half share
+  // a few common styles
+  const sharedStyles = {
+    width,
+    height: height / 2,
+    backgroundSize: `${width}px ${height}px`,
+    backgroundImage: `url(${src})`,
+  };
+
+  return (
+    <div style={{ perspective: 500 }}>
+      {/* Top half */}
+      <div style={sharedStyles}/>
+
+      {/* Bottom half */}
+      <div
+        style={{
+          ...sharedStyles,
+          // Shift our background up to
+          // make it contiguous with the
+          // top half:
+          backgroundPosition: `0px -100%`,
+
+          // Apply the folding rotation:
+          transform: `rotateX(${foldAngle}deg)`,
+          transformOrigin: 'center top',
+
+          // This optional prop can improve
+          // performance, by letting the
+          // browser optimize it:
+          willChange: 'transform',
+        }}
+      />
+
+      {/* Slider control */}
+      <br />
+      <label htmlFor="slider">Fold ratio:</label>
+      <input
+        id="slider"
+        type="range"
+        min={0}
+        max={180}
+        value={foldAngle}
+        onChange={ev =>
+          setFoldAngle(ev.target.value)
+        }
+        style={{ width }}
+      />
+    </div>
+  );
+};
+
+render(
+  <Foldable
+    width={200}
+    height={300}
+    src={src}
+  />
+);

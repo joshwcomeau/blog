@@ -105,17 +105,17 @@ const H2 = styled(Base)`
 `;
 
 const H3 = styled(Base)`
-  font-size: 36px;
+  font-size: 40px;
   padding-top: 65px;
 `;
 
 const H4 = styled(Base)`
-  font-size: 25px;
+  font-size: 32px;
   padding-top: 30px;
 `;
 
 const H5 = styled(Base)`
-  font-size: 22px;
+  font-size: 24px;
 `;
 
 const H6 = styled(Base)`

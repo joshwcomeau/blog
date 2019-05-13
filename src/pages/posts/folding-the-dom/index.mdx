@@ -29,6 +29,7 @@ import Image from '@components/Image';
 import AutoRotate from '@components/AutoRotate';
 import { SingleFoldByRatio } from '@components/FoldDemos';
 import LiveEditableCode from '@components/LiveEditableCode';
+import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 
 import mvpExampleCode from './code/mvp.example';
 import backfaceInitialCode from './code/backface-initial.example';
@@ -37,7 +38,7 @@ import backfaceFixedCode from './code/backface-fixed.example';
 
 In my day-to-day life as a web developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
-And yet, for _years_ now, browsers have bundled in a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
+And yet, for years now, browsers have bundled in a surprisingly capable 3D CSS engine! Someone even built an experimental first-person shooter prototype using it 😮
 
 <VideoGif
   src={cssEngineSrc}
@@ -86,7 +87,7 @@ This tutorial is React-specific, but the concepts can easily be ported to vanill
 
 **This is Part I of a two-part series.** In the next part, we'll look at how to generalize this effect to work on _any DOM node_, not just images.
 
-## The Trick
+# The Trick
 
 Unfortunately, the DOM has no primitive for this; you can't actually fold a DOM node in two.
 
@@ -269,58 +270,60 @@ By default, transforms still look very "2d". The rotations above don't look quit
 
 The solution to this is to apply a "perspective" property to the parent container. The value is given in px, and represents the distance that the viewer is from the item being transformed. The smaller the number, the more intense the transform effect.
 
-<Demo
-  id="perspective"
-  initialValues={{
-    perspective: 500,
-  }}
-  controls={(values, updateValue) => (
-    <>
-      <SliderControl
-        id="perspective"
-        label="Perspective"
-        min={50}
-        max={1250}
-        value={values.perspective}
-        updateValue={updateValue}
-      />
-    </>
-  )}
->
-  {({ perspective }) => (
-    <Spring
-      to={{ perspective }}
-      config={{
-        tension: 60,
-        friction: 13,
-      }}
-    >
-      {interpolated => (
-        <div style={{ perspective: interpolated.perspective + 'px' }}>
-          <div
-            style={{
-              paddingBottom: 30,
-            }}
-          >
-            <InlineCode
+<RenderWhenOnscreen height={536}>
+  <Demo
+    id="perspective"
+    initialValues={{
+      perspective: 500,
+    }}
+    controls={(values, updateValue) => (
+      <>
+        <SliderControl
+          id="perspective"
+          label="Perspective"
+          min={50}
+          max={1250}
+          value={values.perspective}
+          updateValue={updateValue}
+        />
+      </>
+    )}
+  >
+    {({ perspective }) => (
+      <Spring
+        to={{ perspective }}
+        config={{
+          tension: 60,
+          friction: 13,
+        }}
+      >
+        {interpolated => (
+          <div style={{ perspective: interpolated.perspective + 'px' }}>
+            <div
               style={{
-                position: 'relative',
-                zIndex: 2,
-                width: 400,
-                fontSize: 24,
+                paddingBottom: 30,
               }}
             >
-              perspective: {Math.round(interpolated.perspective)}px
-            </InlineCode>
+              <InlineCode
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  width: 400,
+                  fontSize: 24,
+                }}
+              >
+                perspective: {Math.round(interpolated.perspective)}px
+              </InlineCode>
+            </div>
+            <AutoRotate>
+              <img width={400} height={321} src={pigletSrc} />
+            </AutoRotate>
           </div>
-          <AutoRotate>
-            <img width={400} height={321} src={pigletSrc} />
-          </AutoRotate>
-        </div>
-      )}
-    </Spring>
-  )}
-</Demo>
+        )}
+      </Spring>
+    )}
+  </Demo>
+</RenderWhenOnscreen>
 
 ## Transform Origin
 
@@ -388,6 +391,8 @@ With all those pieces, we can achieve a "minimum viable product" for this effect
 
 With a little bit of CSS and a sprinkle of React state, we have the fundamental effect we're after!
 
+# Polishing
+
 You may have noticed, though, that it's missing some of the bells and whistles of the original demo. Let's flesh some of these out.
 
 ## Adding a backface
@@ -446,12 +451,6 @@ than the card. This addresses an issue where the elements can appear to flicker,
 
 Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works.
 
-### Transform Style
-
-We need to add a new rule to the parent node: <InlineCode>transform-style: preserve-3d</InlineCode>.
-
-This property allows elements to be positioned in 3D space. As we'll see, this is important because we'll have two DOM nodes occupying the same space: the front half of the card, and the back half. In a traditional web context, we'd use z-index to sort this out, but when working with transforms, we're delegating that to the 3D engine.
-
 ## Bug-fixing
 
 If you're a Chrome user, you may have noticed an unsightly gap happening in the crook of the fold:
@@ -462,34 +461,57 @@ I have no idea what the deal is with this. At first I thought it was a pixel-rou
 
 In true "every problem is a nail" fashion, we can use this trick again, adding a third copy of the image and putting it behind our two layers, to fill any gap that opens during the animation.
 
-You can view the solution in the full source code. TODO
+You can view the solution in the full source code.
 
-<Demo id="transform-origin">
-  {() => (
-    <div style={{ perspective: '1200px' }}>
-      <AutoRotate>
-        <div style={{ position: 'relative' }}>
-          <img width={475} height={321} src={pigletSrc} />
-        </div>
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(255, 255, 255, 0.8)',
-            transform: 'rotateX(180deg) translateZ(0.01px)',
-            backfaceVisibility: 'hidden',
-          }}
+## Final Details
+
+Here our original demo is again:
+
+<SingleAxisDemo showNote={true} defaultValue={100} id="fold-conclusion">
+  {percentage => (
+    <Spring
+      to={{ percentage }}
+      config={{
+        tension: 60,
+        friction: 13,
+      }}
+    >
+      {interpolated => (
+        <SingleFoldByRatio
+          height={500}
+          width={375}
+          percentage={interpolated.percentage}
+          src={foldDemoImageSrc}
         />
-      </AutoRotate>
-    </div>
+      )}
+    </Spring>
   )}
-</Demo>
+</SingleAxisDemo>
 
-# Putting it all together
+There are a couple other small details we haven't covered.
 
-We're getting pretty close to all the pieces we need!
+### Shading
 
-If we _split an image into two nodes_, we can _fold the bottom half_, and orient the fold along the _top edge of the bottom node_.
+As the card moves through its first 90 degrees, the bottom half darkens, as if there's a light source that can't light the surface as well as it angles up.
+
+For this effect, I added a new `<div>`, with a variable `opacity`. As the card rotation increases, I move closer to opaque.
+
+See this line in the source.
+
+### Thickness
+
+As the card moves through the second half, there's the illusion of thickness, as if the card has an edge.
+
+This little trick is done by pushing down the backside by a couple pixels. I discovered this quite accidentally, but liked the way it looked!
+
+See this line in the source.
+
+# Conclusion
+
+Effects like this can be quite a lot of trouble, but the beauty of React is that it encourages the creation of reusable effects. After following this tutorial, you'll wind up with a `<Foldable>` component you can easily drop into any future project!
+
+In this post, we looked exclusively at images, but you may wish to use this effect on other kinds of elements. For example, in a demo I created for a React Europe talk, I show how a form can be folded up like a letter:
+
+GIF
+
+Happily, we can apply many of the tricks we learned here to produce the same effect, but there a couple additional issues we'll have to contend with. I plan to write a second part addressing this concern in the coming weeks!
