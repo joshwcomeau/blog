@@ -381,7 +381,7 @@ Let's tackle this problem in isolation at first, and then we can add it in to ou
 
 First, we need a new `div`, with a nearly-opaque white background. We'll position this in the same place as our card:
 
-<RenderWhenOnscreen height={585}>
+<RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-initial"
     gistId="01114efda3cb02e4ffa3b49431c14982"
@@ -392,9 +392,7 @@ First, we need a new `div`, with a nearly-opaque white background. We'll positio
   />
 </RenderWhenOnscreen>
 
-Next, we need to make sure that this div is only shown when the card is facing the viewer.
-
-If you're like me, you're probably thinking of a JS solution, triggering `opacity` on a `setInterval` to show/hide it as the card rotates. Fortunately, though, CSS has an elegant solution for us, built right into the language.
+Next, we need to make sure that this div is only shown when the card is facing the viewer. Happily, CSS has an elegant way to handle this scenario, built right into the language!
 
 We need to learn about a couple more properties.
 
@@ -404,7 +402,7 @@ The `backface-visibility` property allows us to specify whether an item should b
 
 In this case, we also need to add `transform-style: preserve-3d` to the parent element (the one responsible for the animation). This property allows elements to be positioned in 3D space, and it allows `backface-visibility` to work correctly in this context.
 
-<RenderWhenOnscreen height={585}>
+<RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-hidden"
     gistId="01114efda3cb02e4ffa3b49431c14982"
@@ -417,11 +415,13 @@ In this case, we also need to add `transform-style: preserve-3d` to the parent e
 
 Eagle-eyed readers—or, those who can read Chinese—might've noticed that this effect is backwards. Right now, we _only_ see our white "back" when the card is facing forwards!
 
-We can fix this by being a little sneaky, and giving our backside element a 180-degree rotation. Think of it like stacking two playing cards, and then flipping the top one over, so that the two cards are facing each other. Now, when you rotate the entire stack, you're always seeing the backside of _one_ of the elements.
+It makes sense, because both the card and the backside are facing the same way. We're only hiding the backside when the whole thing is rotated around.
 
-We can also apply a very slight Z-translate, to push the element a bit closer to the viewer than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space.
+We can fix this by being a little sneaky, and giving our backside element a 180-degree Y-axis rotation. Think of it like stacking two playing cards, and then flipping the top one over, so that the two cards are facing each other. This way, you always see the front of one element, and the back of the other.
 
-<RenderWhenOnscreen height={585}>
+We can also apply a very slight Z-translate, to push the element a bit further from the viewer than the card. This addresses an issue where the elements can appear to flicker, because both the card and the backdrop are occupying the same point in 3D space. We push it away from the user so that the backside is actually behind the card itself (which means it'll be in front of the card when it's rotated).
+
+<RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-fixed"
     gistId="01114efda3cb02e4ffa3b49431c14982"
@@ -432,7 +432,7 @@ We can also apply a very slight Z-translate, to push the element a bit closer to
   />
 </RenderWhenOnscreen>
 
-Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works.
+Spacial orientation is a hard thing to visualize (especially with nested rotations!), so don't be discouraged if it's not immediately obvious why this trick works. Playing with the live-editable code should help!
 
 ## Adding it into our original demo
 
