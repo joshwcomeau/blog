@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { BREAKPOINTS } from '@constants';
+
 import RadioButton from '../RadioButton';
 import InvisibleButton from '../InvisibleButton';
 
@@ -18,11 +20,14 @@ const Choice = ({ id, parentId, isSelected, handleSelect, children }) => (
 );
 
 const Wrapper = styled(InvisibleButton)`
-  flex: 1;
   display: flex;
   align-items: center;
   text-align: left;
   outline: none;
+
+  @media ${BREAKPOINTS.mdMin} {
+    flex: 1;
+  }
 `;
 
 const Label = styled.div`

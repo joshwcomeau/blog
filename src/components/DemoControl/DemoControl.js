@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { BREAKPOINTS } from '@constants';
+
 const DemoControl = ({ label, children, ...delegated }) => (
   <Wrapper {...delegated}>
     <Label>{label}</Label>
@@ -23,7 +25,10 @@ const Label = styled.div`
 
 const ChildWrapper = styled.div`
   flex: 1;
-  display: flex;
+
+  @media ${BREAKPOINTS.mdMin} {
+    display: flex;
+  }
 `;
 
 export default DemoControl;

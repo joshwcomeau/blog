@@ -23,18 +23,25 @@ const ICONS_MAP = {
   },
 };
 
-const Info = ({ type, children }) => (
-  <Wrapper>
-    <Contents type={type}>
-      <IconWrapper>
-        <IconBase size={32} icon={ICONS_MAP[type].icon} />
-      </IconWrapper>
-      <span>{children}</span>
-    </Contents>
+const Info = ({ type, children, mobileOnly }) => {
+  console.log({ mobileOnly }, window.innerWidth);
+  if (mobileOnly && typeof window !== 'undefined' && window.innerWidth > 450) {
+    return null;
+  }
 
-    <Background type={type} />
-  </Wrapper>
-);
+  return (
+    <Wrapper>
+      <Contents type={type}>
+        <IconWrapper>
+          <IconBase size={32} icon={ICONS_MAP[type].icon} />
+        </IconWrapper>
+        <span>{children}</span>
+      </Contents>
+
+      <Background type={type} />
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   position: relative;

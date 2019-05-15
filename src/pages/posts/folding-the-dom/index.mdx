@@ -31,12 +31,15 @@ import Image from '@components/Image';
 import AutoRotate from '@components/AutoRotate';
 import LiveEditableCode from '@components/LiveEditableCode';
 import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
+import MobileWarning from '@components/MobileWarning';
 
 import mvpExampleCode from './code/mvp.example';
 import mvpWithBacksideExampleCode from './code/mvp-with-backside.example';
 import backfaceInitialCode from './code/backface-initial.example';
 import backfaceHiddenCode from './code/backface-hidden.example';
 import backfaceFixedCode from './code/backface-fixed.example';
+
+<MobileWarning />
 
 In my day-to-day life as a front-end developer, I generally treat CSS as a collection of 2D layers. Other than reordering them using z-index, I don't often _move_ things in 3D space.
 
@@ -96,59 +99,67 @@ Each image is set to take up 50% of the real height, and then the bottom image h
     </>
   )}
 >
-  {({ offset }) => (
-    <Spring
-      to={{ offset }}
-      config={{
-        tension: 60,
-        friction: 13,
-      }}
-    >
-      {interpolated => {
-        return (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
+  {({ offset }) => {
+    const windowWidth =
+      typeof window === 'undefined' ? 1024 : window.innerWidth;
+    //
+    const width = Math.min(333, windowWidth * 0.75);
+    const height = width * 1.5;
+    //
+    return (
+      <Spring
+        to={{ offset }}
+        config={{
+          tension: 60,
+          friction: 13,
+        }}
+      >
+        {interpolated => {
+          return (
             <div
               style={{
-                width: 333,
-                height: 250,
-                backgroundSize: '333px 500px',
-                backgroundImage: `url(${foldDemoImageSmallSrc})`,
-                borderRadius: offset < 100 ? '0 0 0 0' : '10px 10px 0 0',
-              }}
-            />
-            <div
-              style={{
-                width: 333,
-                height: 250,
-                backgroundSize: '333px 500px',
-                backgroundImage: `url(${foldDemoImageSmallSrc})`,
-                backgroundPosition: `0 ${interpolated.offset}%`,
-                borderRadius: offset < 100 ? '0 0 0 0' : '0 0 10px 10px',
-                transform: `translateY(${offset < 100 ? 5 : 0}px)`,
-                transition: 'transform 250ms',
-              }}
-            />
-            <InlineCode
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                fontSize: 24,
-                marginTop: 30,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
               }}
             >
-              background-position: '0 {Math.round(interpolated.offset)}%'
-            </InlineCode>
-          </div>
-        );
-      }}
-    </Spring>
-  )}
+              <div
+                style={{
+                  width,
+                  height: height / 2,
+                  backgroundSize: `${width}px ${height}px`,
+                  backgroundImage: `url(${foldDemoImageSmallSrc})`,
+                  borderRadius: offset < 100 ? '0 0 0 0' : '10px 10px 0 0',
+                }}
+              />
+              <div
+                style={{
+                  width,
+                  height: height / 2,
+                  backgroundSize: `${width}px ${height}px`,
+                  backgroundImage: `url(${foldDemoImageSmallSrc})`,
+                  backgroundPosition: `0 ${interpolated.offset}%`,
+                  borderRadius: offset < 100 ? '0 0 0 0' : '0 0 10px 10px',
+                  transform: `translateY(${offset < 100 ? 5 : 0}px)`,
+                  transition: 'transform 250ms',
+                }}
+              />
+              <InlineCode
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  fontSize: windowWidth > 450 ? 24 : 16,
+                  marginTop: 30,
+                }}
+              >
+                background-position: '0 {Math.round(interpolated.offset)}%'
+              </InlineCode>
+            </div>
+          );
+        }}
+      </Spring>
+    );
+  }}
 </Demo>
 
 Pretty convincing, right? By juxtaposing the same image twice, and tweaking the offset of the background image, we're able to give the impression of a single image.
@@ -360,7 +371,6 @@ With all those pieces, we can achieve a "minimum viable product" for this effect
 
 <LiveEditableCode
   id="mvp-example"
-  gistId="01114efda3cb02e4ffa3b49431c14982"
   code={mvpExampleCode}
   split={[70, 30]}
   maxHeight={585}
@@ -384,7 +394,6 @@ First, we need a new `div`, with a nearly-opaque white background. We'll positio
 <RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-initial"
-    gistId="01114efda3cb02e4ffa3b49431c14982"
     code={backfaceInitialCode}
     split={[70, 30]}
     maxHeight={585}
@@ -405,7 +414,6 @@ In this case, we also need to add `transform-style: preserve-3d` to the parent e
 <RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-hidden"
-    gistId="01114efda3cb02e4ffa3b49431c14982"
     code={backfaceHiddenCode}
     split={[70, 30]}
     maxHeight={585}
@@ -424,7 +432,6 @@ We can also apply a very slight Z-translate, to push the element a bit further f
 <RenderWhenOnscreen height={585 + 72}>
   <LiveEditableCode
     id="backface-fixed"
-    gistId="01114efda3cb02e4ffa3b49431c14982"
     code={backfaceFixedCode}
     split={[70, 30]}
     maxHeight={585}
@@ -440,7 +447,6 @@ How do we fit this into our `<Foldable>` component? We can just add this new bac
 
 <LiveEditableCode
   id="mvp-with-backside"
-  gistId="01114efda3cb02e4ffa3b49431c14982"
   code={mvpWithBacksideExampleCode}
   split={[70, 30]}
   maxHeight={585}
@@ -481,7 +487,7 @@ Full details available <TextLink href="https://github.com/joshwcomeau/blog/blob/
 
 ### Spring physics
 
-In the demo, I'm using React Spring to animate changes in value, when the slider is dragged. Spring physics produce much more organic, beautiful motion than using traditional easing. Its use is outside the scope of this article, but it has <TextLink href="react-spring.io/docs">excellent documentation</TextLink> you can consult!
+In the demo, I'm using React Spring to animate changes in value, when the slider is dragged. Spring physics produce much more organic, beautiful motion than using traditional easing. Its use is outside the scope of this article, but it has <TextLink href="https://react-spring.io/docs">excellent documentation</TextLink> you can consult!
 
 # Conclusion
 
