@@ -13,7 +13,7 @@ const FoldingDemo = ({ id }) => {
       {({ windowWidth }) => (
         <SingleAxisDemo showNote={true} defaultValue={100} id={id}>
           {percentage => {
-            const width = Math.min(375, windowWidth * 0.5);
+            const width = Math.min(375, windowWidth * 0.4);
             const height = width * (4 / 3);
 
             return (

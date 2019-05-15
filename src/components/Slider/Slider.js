@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import styled, { injectGlobal } from 'styled-components';
 import RcSlider, { createSliderWithTooltip } from 'rc-slider';
 
-import { COLORS, IS_MOBILE_USER_AGENT } from '@constants';
+import { COLORS } from '@constants';
 
 type Props = {
   label?: string,
@@ -19,7 +19,10 @@ type Props = {
 
 const RcSliderWithTooltip = createSliderWithTooltip(RcSlider);
 
-const SLIDER_WIDTH = IS_MOBILE_USER_AGENT ? 28 : 16;
+const IS_MOBILE =
+  typeof window === 'undefined' ? false : window.innerWidth < 450;
+
+const SLIDER_WIDTH = IS_MOBILE ? 28 : 16;
 const SLIDER_BAR_WIDTH = 2;
 
 const styles = {

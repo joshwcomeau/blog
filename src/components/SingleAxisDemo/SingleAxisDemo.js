@@ -84,7 +84,9 @@ class SingleAxisDemo extends PureComponent {
   }
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-bottom: 30px;
+`;
 
 const ChildWrapper = styled.div`
   flex: 1;
