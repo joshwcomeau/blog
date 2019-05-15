@@ -9,4 +9,5 @@ module.exports = {
   '@pages': path.resolve(__dirname, 'src/pages'),
   '@utils': path.resolve(__dirname, 'src/utils'),
   '@types': path.resolve(__dirname, 'src/types'),
+  '@vendor': path.resolve(__dirname, 'src/vendor'),
 };
