@@ -23,12 +23,7 @@ const ICONS_MAP = {
   },
 };
 
-const Info = ({ type, children, mobileOnly }) => {
-  console.log({ mobileOnly }, window.innerWidth);
-  if (mobileOnly && typeof window !== 'undefined' && window.innerWidth > 450) {
-    return null;
-  }
-
+const Info = ({ type, children }) => {
   return (
     <Wrapper>
       <Contents type={type}>

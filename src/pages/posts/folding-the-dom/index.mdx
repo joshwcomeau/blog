@@ -201,55 +201,64 @@ In our case, we want to use a rotation, along the X axis:
     </>
   )}
 >
-  {({ axis, degrees }) => (
-    <Spring
-      to={{ degrees }}
-      config={{
-        tension: 60,
-        friction: 13,
-      }}
-    >
-      {interpolated => {
-        const transform = `rotate${axis}(${interpolated.degrees}deg)`;
-        //
-        return (
-          <div>
-            <div
-              style={{
-                paddingBottom: 30,
-              }}
-            >
-              <InlineCode
+  {({ axis, degrees }) => {
+    return (
+      <Spring
+        to={{ degrees }}
+        config={{
+          tension: 60,
+          friction: 13,
+        }}
+      >
+        {interpolated => {
+          const windowWidth =
+            typeof window === 'undefined' ? 1024 : window.innerWidth;
+          //
+          const transform = `rotate${axis}(${interpolated.degrees}deg)`;
+          //
+          return (
+            <div>
+              <div
+                style={{
+                  paddingBottom: 30,
+                  textAlign: 'center',
+                }}
+              >
+                <InlineCode
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    fontSize: windowWidth > 450 ? 24 : 16,
+                  }}
+                >
+                  transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
+                </InlineCode>
+              </div>
+              <img
+                width="100%"
+                src={catsSrc}
+                style={{ transform, maxWidth: 400 }}
+              />
+              <div
                 style={{
                   position: 'relative',
                   zIndex: 2,
-                  width: 400,
-                  fontSize: 24,
+                  padding: 30,
+                  textAlign: 'center',
                 }}
               >
-                transform: rotate{axis}({Math.round(interpolated.degrees)}deg)
-              </InlineCode>
+                Photo by{' '}
+                <TextLink href="https://unsplash.com/photos/YCPkW_r_6uA">
+                  Jari Hytönen
+                </TextLink>
+                .
+              </div>
             </div>
-            <img width={400} src={catsSrc} style={{ transform }} />
-            <div
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                padding: 30,
-                textAlign: 'center',
-              }}
-            >
-              Photo by{' '}
-              <TextLink href="https://unsplash.com/photos/YCPkW_r_6uA">
-                Jari Hytönen
-              </TextLink>
-              .
-            </div>
-          </div>
-        );
-      }}
-    </Spring>
-  )}
+          );
+        }}
+      </Spring>
+    );
+  }}
 </Demo>
 
 ## Perspective
@@ -277,39 +286,44 @@ The solution to this is to apply a "perspective" property to the parent containe
       </>
     )}
   >
-    {({ perspective }) => (
-      <Spring
-        to={{ perspective }}
-        config={{
-          tension: 60,
-          friction: 13,
-        }}
-      >
-        {interpolated => (
-          <div style={{ perspective: interpolated.perspective + 'px' }}>
-            <div
-              style={{
-                paddingBottom: 30,
-              }}
-            >
-              <InlineCode
+    {({ perspective }) => {
+      const windowWidth =
+        typeof window === 'undefined' ? 1024 : window.innerWidth;
+      //
+      return (
+        <Spring
+          to={{ perspective }}
+          config={{
+            tension: 60,
+            friction: 13,
+          }}
+        >
+          {interpolated => (
+            <div style={{ perspective: interpolated.perspective + 'px' }}>
+              <div
                 style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  width: 400,
-                  fontSize: 24,
+                  paddingBottom: 30,
+                  textAlign: 'center',
                 }}
               >
-                perspective: {Math.round(interpolated.perspective)}px
-              </InlineCode>
+                <InlineCode
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    fontSize: windowWidth > 450 ? 24 : 16,
+                  }}
+                >
+                  perspective: {Math.round(interpolated.perspective)}px
+                </InlineCode>
+              </div>
+              <AutoRotate>
+                <img width="100%" src={catsSrc} style={{ maxWidth: 400 }} />
+              </AutoRotate>
             </div>
-            <AutoRotate>
-              <img width={400} src={catsSrc} />
-            </AutoRotate>
-          </div>
-        )}
-      </Spring>
-    )}
+          )}
+        </Spring>
+      );
+    }}
   </Demo>
 </RenderWhenOnscreen>
 
@@ -339,29 +353,33 @@ Try changing it from the default "center" value to "top" or "bottom".
       </MultipleChoiceControl>
     )}
   >
-    {({ originY }) => (
-      <div style={{ perspective: '1200px' }}>
-        <div
-          style={{
-            paddingBottom: 30,
-          }}
-        >
-          <InlineCode
+    {({ originY }) => {
+      const windowWidth =
+        typeof window === 'undefined' ? 1024 : window.innerWidth;
+      //
+      return (
+        <div style={{ perspective: '1200px' }}>
+          <div
             style={{
-              position: 'relative',
-              zIndex: 2,
-              width: 475,
-              fontSize: 24,
+              paddingBottom: 30,
             }}
           >
-            transform-origin: {originY} center;
-          </InlineCode>
+            <InlineCode
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                fontSize: windowWidth > 450 ? 24 : 16,
+              }}
+            >
+              transform-origin: {originY} center;
+            </InlineCode>
+          </div>
+          <AutoRotate style={{ transformOrigin: `${originY} center` }}>
+            <img width="100%" src={catsSrc} style={{ maxWidth: 400 }} />
+          </AutoRotate>
         </div>
-        <AutoRotate style={{ transformOrigin: `${originY} center` }}>
-          <img width={475} src={catsSrc} />
-        </AutoRotate>
-      </div>
-    )}
+      );
+    }}
   </Demo>
 </RenderWhenOnscreen>
 

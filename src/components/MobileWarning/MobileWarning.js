@@ -9,8 +9,9 @@ const MobileWarning = () => {
 
   return (
     <Info type="note">
-      This page hasn't really been optimized for mobile - it encourages
-      tinkering with code snippets which don't work well on smaller screens.
+      This blog post includes interactive code snippets, but I haven't yet found
+      a way to make them work well on mobile. As such, the mobile experience is
+      kinda crummy :(
       <br />
       <br />
       If you're able to, I'd highly recommend checking this out on a computer.
