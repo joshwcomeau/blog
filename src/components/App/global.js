@@ -21,24 +21,24 @@ const run = () => {
   })(document, 'script', 'twitter-wjs');
 
   // Facebook (used for "share" buttons)
-  (function(d, s, id) {
-    var js,
-      fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/all.js#xfbml=1';
-    fjs.parentNode.insertBefore(js, fjs);
-  })(document, 'script', 'facebook-jssdk');
+//   (function(d, s, id) {
+//     var js,
+//       fjs = d.getElementsByTagName(s)[0];
+//     if (d.getElementById(id)) return;
+//     js = d.createElement(s);
+//     js.id = id;
+//     js.src = 'https://connect.facebook.net/en_US/all.js#xfbml=1';
+//     fjs.parentNode.insertBefore(js, fjs);
+//   })(document, 'script', 'facebook-jssdk');
 
-  window.fbAsyncInit = function() {
-    window.FB.init({
-      appId: '401677530300534',
-      xfbml: true,
-      version: 'v2.9',
-    });
-  };
-};
+//   window.fbAsyncInit = function() {
+//     window.FB.init({
+//       appId: '401677530300534',
+//       xfbml: true,
+//       version: 'v2.9',
+//     });
+//   };
+// };
 
 if (typeof window !== 'undefined') {
   run();

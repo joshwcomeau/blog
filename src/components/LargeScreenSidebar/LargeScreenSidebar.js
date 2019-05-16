@@ -110,17 +110,6 @@ class LargeScreenSidebar extends Component {
           colorHover={COLORS.gray[700]}
         />
         <Spacer size={20} />
-        <ClickableIcon
-          size={WIDTH}
-          href={facebookUrl}
-          target="_blank"
-          icon={socialFacebookOutline}
-          iconHover={socialFacebook}
-          color={COLORS.gray[500]}
-          colorHover={COLORS.gray[700]}
-        />
-
-        <Spacer size={20} />
         <Divider />
         <Spacer size={20} />
 
