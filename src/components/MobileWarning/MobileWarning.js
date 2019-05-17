@@ -15,6 +15,8 @@ const MobileWarning = () => {
       <br />
       <br />
       If you're able to, I'd highly recommend checking this out on a computer.
+      <br />
+      Your window width is {typeof window !== 'undefined' && window.innerWidth}
     </Info>
   );
 };

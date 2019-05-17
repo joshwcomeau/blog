@@ -19,8 +19,9 @@ const run = () => {
 
     return t;
   })(document, 'script', 'twitter-wjs');
+};
 
-  // Facebook (used for "share" buttons)
+// Facebook (used for "share" buttons)
 //   (function(d, s, id) {
 //     var js,
 //       fjs = d.getElementsByTagName(s)[0];
