@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const FoldableImage = ({ width, height, percentage, src }) => {
+const FoldableImage = ({ width, height, alt, percentage, src }) => {
   const backgroundImage = `url(${src})`;
 
   return (
@@ -10,7 +10,16 @@ const FoldableImage = ({ width, height, percentage, src }) => {
         transform: `translateY(${percentage / 4}%)`,
       }}
     >
-      <TopHalf width={width} height={height} style={{ backgroundImage }} />
+      <TopHalf width={width} height={height}>
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width,
+            height,
+          }}
+        />
+      </TopHalf>
       <BottomHalf
         width={width}
         height={height}
@@ -65,6 +74,7 @@ const Half = styled.div`
 
 const TopHalf = styled(Half)`
   border-radius: 10px 10px 0 0;
+  overflow: hidden;
 `;
 
 const BottomHalf = styled(Half)`

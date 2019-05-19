@@ -25,12 +25,13 @@ const FoldingDemo = ({ id }) => {
           <Spring
             to={{ percentage }}
             config={{
-              tension: 60,
-              friction: 13,
+              tension: 120,
+              friction: 90,
             }}
           >
             {interpolated => (
               <FoldableImage
+                alt="A neon alley with a Chinese sign"
                 width={width}
                 height={height}
                 percentage={interpolated.percentage}

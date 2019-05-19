@@ -17,9 +17,11 @@ const Foldable = ({ width, height, src }) => {
       <div
         style={{
           ...sharedStyles,
+          // This property's new ⤸
           overflow: 'hidden',
         }}
       >
+        {/* This image is new ⤸ */}
         <img
           src={src}
           alt="a neon Chinese alley"
@@ -34,29 +36,26 @@ const Foldable = ({ width, height, src }) => {
       <div
         style={{
           ...sharedStyles,
+
+          // Only the bottom half gets a bg-image
           backgroundSize: `${width}px ${height}px`,
           backgroundImage: `url(${src})`,
+
+          // Shift our background up to
+          // make it contiguous with the
+          // top half:
           backgroundPosition: `0px -100%`,
+
+          // Apply the folding rotation:
           transform: `rotateX(${foldAngle}deg)`,
           transformOrigin: 'center top',
+
+          // This optional prop can improve
+          // performance, by letting the
+          // browser optimize it:
           willChange: 'transform',
-          // This property is new ⤸
-          transformStyle: 'preserve-3d',
         }}
-      >
-        {/* This child is new ⤸ */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0, left: 0, right: 0, bottom: 0,
-            background:
-              'hsla(0, 100%, 100%, 0.9)',
-            backfaceVisibility: 'hidden',
-            transform:
-              'rotateX(180deg) translateZ(.5px)',
-          }}
-        />
-      </div>
+      />
 
       {/* Slider control */}
       <br />

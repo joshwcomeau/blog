@@ -12,7 +12,6 @@ import styled, { keyframes } from 'styled-components';
 
 import cssEngineSrc from '@assets/videos/css-engine.mp4';
 import partTwoPreview from '@assets/videos/folding-pt2-pre.mp4';
-import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
 import foldDemoImageSmallSrc from '@assets/images/francois-hoang-china-small.jpg';
 import catsSrc from '@assets/images/cats.jpg';
 import foldIssueSrc from '@assets/images/fold-issue.gif';
@@ -34,6 +33,7 @@ import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 import MobileWarning from '@components/MobileWarning';
 
 import mvpExampleCode from './code/mvp.example';
+import mvpA11yExampleCode from './code/mvp-a11y.example';
 import mvpWithBacksideExampleCode from './code/mvp-with-backside.example';
 import backfaceInitialCode from './code/backface-initial.example';
 import backfaceHiddenCode from './code/backface-hidden.example';
@@ -237,6 +237,7 @@ In our case, we want to use a rotation, along the X axis:
               <img
                 width="100%"
                 src={catsSrc}
+                alt="cats in a basket"
                 style={{ transform, maxWidth: 400 }}
               />
               <div
@@ -317,7 +318,12 @@ The solution to this is to apply a "perspective" property to the parent containe
                 </InlineCode>
               </div>
               <AutoRotate>
-                <img width="100%" src={catsSrc} style={{ maxWidth: 400 }} />
+                <img
+                  width="100%"
+                  src={catsSrc}
+                  alt="cats in a basket"
+                  style={{ maxWidth: 400 }}
+                />
               </AutoRotate>
             </div>
           )}
@@ -375,7 +381,12 @@ Try changing it from the default "center" value to "top" or "bottom".
             </InlineCode>
           </div>
           <AutoRotate style={{ transformOrigin: `${originY} center` }}>
-            <img width="100%" src={catsSrc} style={{ maxWidth: 400 }} />
+            <img
+              width="100%"
+              src={catsSrc}
+              alt="cats in a basket"
+              style={{ maxWidth: 400 }}
+            />
           </AutoRotate>
         </div>
       );
@@ -396,6 +407,24 @@ With all those pieces, we can achieve a "minimum viable product" for this effect
 />
 
 With a little bit of CSS and a sprinkle of React state, we have the fundamental effect we're after!
+
+# Accessibility
+
+There's a subtle problem to this solution: images are meant to have `alt` tags, for users using screen readers. There is no way to specify an `alt` tag for a `<div>` with a background image. By using a `background-image`, we make this image invisible to assistive technologies.
+
+Happily, there's an easy solution. Let's use a real `<img>` tag for the _top half_ of our folding element. In order to prevent the whole image from showing, we'll put it in a half-height div with `overflow: hidden`.
+
+Here's what this looks like:
+
+<LiveEditableCode
+  id="mvp-a11y-example"
+  code={mvpA11yExampleCode}
+  split={[70, 30]}
+  maxHeight={585}
+  scope={{ src: foldDemoImageSmallSrc }}
+/>
+
+Adding whimsical details is great, but not when it comes at the expense of accessibility.
 
 # Polishing
 
@@ -495,11 +524,13 @@ I discovered this one by accident, by playing with the amount of Z-axis translat
 
 See <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js#L83">this line</TextLink> in the source.
 
-### Translation
+### Translation and Bug-fixing
 
 In this demo, I wanted the whole card to move up as it's unfolded, so that it always appeared centered in the parent container.
 
-This was accomplished with a `transform: translateY()` on the parent, using the percentage of opening as the value to tween based on. This did introduce a subtle flickering bug on Chrome, and the solution was to add a third copy of the image in the crook of the fold.
+This was accomplished with a `transform: translateY()` on the parent, using the percentage of opening as the value to tween based on.
+
+I've also noticed that sometimes there can be a subtle flickering bug, in the crook of the fold, in certain browsers. The solution was to add a third copy of the image to fill in that small problematic area.
 
 Full details available <TextLink href="https://github.com/joshwcomeau/blog/blob/master/src/components/FoldableImage/FoldableImage.js">in the source</TextLink>.
 
