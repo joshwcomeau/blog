@@ -11,6 +11,7 @@ const RotatingCard = ({
     >
       {/* Our image being rotated */}
       <img
+        alt="a neon chinese alley"
         src={src}
         style={{
           width,
