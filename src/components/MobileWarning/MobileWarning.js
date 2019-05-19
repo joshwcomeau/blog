@@ -9,14 +9,15 @@ const MobileWarning = () => {
 
   return (
     <Info type="note">
-      This blog post includes interactive code snippets, but I haven't yet found
-      a way to make them work well on mobile. As such, the mobile experience is
-      kinda crummy :(
+      Hi there! It seems like you're on a mobile device. Unfortunately, some of
+      the interactives on this page won't work so well with a touch screen.
       <br />
       <br />
-      If you're able to, I'd highly recommend checking this out on a computer.
-      <br />
-      Your window width is {typeof window !== 'undefined' && window.innerWidth}
+      I hope someday to improve this experience (and{' '}
+      <a target="_blank" href="https://github.com/joshwcomeau/blog">
+        PRs are welcome!
+      </a>), but for now, I highly recommend switching to a computer. You'll get
+      more out of the article!
     </Info>
   );
 };
