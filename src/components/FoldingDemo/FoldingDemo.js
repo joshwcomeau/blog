@@ -6,7 +6,6 @@ import foldMobileVideo from '@assets/videos/fold-mobile.mp4';
 
 import SingleAxisDemo from '@components/SingleAxisDemo';
 import FoldableImage from '@components/FoldableImage';
-import WindowDimensions from '@components/WindowDimensions';
 import VideoGif from '@components/VideoGif';
 
 const FoldingDemo = ({ id }) => {

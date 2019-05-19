@@ -7,7 +7,6 @@ import { MDXProvider } from '@mdx-js/react';
 import { siteMetadata } from '../../../gatsby-config';
 
 import { COLORS, Z_INDICES, BREAKPOINTS } from '@constants';
-import { getDeviceType } from '@helpers/responsive.helpers';
 
 import App from '@components/App';
 import FullWidth from '@components/FullWidth';
@@ -56,7 +55,6 @@ export default ({ children, pageContext }: Props) => {
   } = pageContext.frontmatter;
 
   const Hero = getHero(heroStyle);
-  const deviceType = getDeviceType();
 
   return (
     <MDXProvider

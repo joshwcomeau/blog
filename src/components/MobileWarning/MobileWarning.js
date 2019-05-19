@@ -16,7 +16,11 @@ const MobileWarning = () => {
       <br />
       <br />
       I hope someday to improve this experience (and{' '}
-      <a target="_blank" href="https://github.com/joshwcomeau/blog">
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/joshwcomeau/blog"
+      >
         PRs are welcome!
       </a>), but for now, I highly recommend switching to a computer. You'll get
       more out of the article!
