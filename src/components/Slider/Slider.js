@@ -1,7 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import styled, { injectGlobal } from 'styled-components';
-import RcSlider, { createSliderWithTooltip } from '@vendor/rc-slider';
+import RcSlider, { createSliderWithTooltip } from 'rc-slider';
 
 import { COLORS } from '@constants';
 

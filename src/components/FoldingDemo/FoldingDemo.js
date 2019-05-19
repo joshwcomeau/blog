@@ -2,42 +2,46 @@ import React from 'react';
 import { Spring } from 'react-spring';
 
 import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
+import foldMobileVideo from '@assets/videos/fold-mobile.mp4';
 
 import SingleAxisDemo from '@components/SingleAxisDemo';
 import FoldableImage from '@components/FoldableImage';
-import WindowDimensions from '../WindowDimensions/WindowDimensions';
+import WindowDimensions from '@components/WindowDimensions';
+import VideoGif from '@components/VideoGif';
 
 const FoldingDemo = ({ id }) => {
-  return (
-    <WindowDimensions>
-      {({ windowWidth }) => (
-        <SingleAxisDemo showNote={true} defaultValue={100} id={id}>
-          {percentage => {
-            const width = Math.min(375, windowWidth * 0.4);
-            const height = width * (4 / 3);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 450;
 
-            return (
-              <Spring
-                to={{ percentage }}
-                config={{
-                  tension: 60,
-                  friction: 13,
-                }}
-              >
-                {interpolated => (
-                  <FoldableImage
-                    width={width}
-                    height={height}
-                    percentage={interpolated.percentage}
-                    src={foldDemoImageSrc}
-                  />
-                )}
-              </Spring>
-            );
-          }}
-        </SingleAxisDemo>
-      )}
-    </WindowDimensions>
+  if (isMobile) {
+    return <VideoGif src={foldMobileVideo} />;
+  }
+
+  return (
+    <SingleAxisDemo showNote={true} defaultValue={100} id={id}>
+      {percentage => {
+        const width = 375;
+        const height = width * (4 / 3);
+
+        return (
+          <Spring
+            to={{ percentage }}
+            config={{
+              tension: 60,
+              friction: 13,
+            }}
+          >
+            {interpolated => (
+              <FoldableImage
+                width={width}
+                height={height}
+                percentage={interpolated.percentage}
+                src={foldDemoImageSrc}
+              />
+            )}
+          </Spring>
+        );
+      }}
+    </SingleAxisDemo>
   );
 };
 

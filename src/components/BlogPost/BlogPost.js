@@ -14,7 +14,6 @@ import FullWidth from '@components/FullWidth';
 import MaxWidthWrapper from '@components/MaxWidthWrapper';
 import Header from '@components/Header';
 import WindowDimensions from '@components/WindowDimensions';
-import LargeScreenSidebar from '@components/LargeScreenSidebar';
 import WatermelonGradientHero from '@components/WatermelonGradientHero';
 import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
@@ -104,10 +103,7 @@ export default ({ children, pageContext }: Props) => {
           </WindowDimensions>
 
           <MainContent>
-            <MaxWidthWrapper>
-              {deviceType === 'desktop' && <LargeScreenSidebar title={title} />}
-              {children}
-            </MaxWidthWrapper>
+            <MaxWidthWrapper>{children}</MaxWidthWrapper>
 
             <Spacer size={160} />
           </MainContent>

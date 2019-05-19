@@ -3,7 +3,9 @@ import React from 'react';
 import Info from '@components/Info';
 
 const MobileWarning = () => {
-  if (typeof window !== 'undefined' && window.innerWidth > 450) {
+  const isSSR = typeof window === 'undefined';
+
+  if (isSSR || window.innerWidth > 450) {
     return null;
   }
 
