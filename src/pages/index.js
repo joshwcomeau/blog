@@ -53,10 +53,12 @@ const IndexPage = ({ data }) => {
               Hi, I'm{' '}
               <TextLink href="https://www.twitter.com/joshwcomeau">
                 Josh Comeau
-              </TextLink>. I'm a front-end engineer / web developer at{' '}
-              <TextLink href="https://khanacademy.org" target="_blank">
-                Khan Academy
-              </TextLink>.
+              </TextLink>
+              . I'm a front-end engineer / web developer at{' '}
+              <TextLink href="https://www.gatsbyjs.com/" target="_blank">
+                Gatsby
+              </TextLink>
+              .
             </Paragraph>
 
             <Paragraph>
@@ -66,11 +68,12 @@ const IndexPage = ({ data }) => {
                 target="_blank"
               >
                 Waveforms
-              </TextLink>, an explorable explanation about the peculiar magic of
-              sound waves. I got a bunch of feedback aftwerwards from audio
-              folks who said that they <Em>finally understood</Em> how sound
-              works, that my interactive thingy helped them bridge the gap
-              between theoretical knowledge and intuitive understanding.
+              </TextLink>
+              , an explorable explanation about the peculiar magic of sound
+              waves. I got a bunch of feedback aftwerwards from audio folks who
+              said that they <Em>finally understood</Em> how sound works, that
+              my interactive thingy helped them bridge the gap between
+              theoretical knowledge and intuitive understanding.
             </Paragraph>
 
             <Paragraph>
