@@ -1,3 +1,5 @@
+// HACK: This component is really really bad, plz ignore
+
 import React from 'react';
 import styled from 'styled-components';
 import Spacer from '../Spacer';
@@ -30,7 +32,6 @@ const Image = styled.img`
 `;
 
 const PhotoSet = ({ srcs = [], meta = [] }) => {
-  console.log({ srcs });
   // HACK: Throwing this together REALLY quickly. Definitely better ways
   // to do this!
   // TODO: Validate that `srcs` is an array with 2 strings

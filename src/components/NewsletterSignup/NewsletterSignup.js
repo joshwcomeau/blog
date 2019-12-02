@@ -55,7 +55,7 @@ class NewsletterSignup extends Component<Props, State> {
         <Spacer size={20} />
 
         <Disclaimer>
-          Newsletters sent roughly once every 3 months, focusing on new content I publish.
+          ✨Roughly 4 issues a year, focusing on content I've published ✨
         </Disclaimer>
       </Wrapper>
     );

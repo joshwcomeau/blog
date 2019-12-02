@@ -46,7 +46,6 @@ type Props = {
 const SubSubHeading = props => <Heading size={5} {...props} />;
 
 export default ({ children, pageContext }: Props) => {
-  console.log(pageContext);
   const {
     title,
     isPublished,
