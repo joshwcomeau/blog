@@ -54,7 +54,7 @@ const IndexPage = ({ data }) => {
               <TextLink href="https://www.twitter.com/joshwcomeau">
                 Josh Comeau
               </TextLink>
-              . I'm a front-end engineer / web developer at{' '}
+              . I'm a front-end software developer at{' '}
               <TextLink href="https://www.gatsbyjs.com/" target="_blank">
                 Gatsby
               </TextLink>
@@ -62,25 +62,18 @@ const IndexPage = ({ data }) => {
             </Paragraph>
 
             <Paragraph>
-              Early in 2018 I released{' '}
-              <TextLink
-                href="https://pudding.cool/2018/02/waveforms/"
-                target="_blank"
-              >
-                Waveforms
+              This blog started as a place for interactive, explorable
+              tutorials. It's still kind of that, though the scope has grown a
+              bit. Now I view it as my super-powered Medium alternative. Some
+              posts will be{' '}
+              <TextLink href="/posts/folding-the-dom/">
+                full of rich, interactive widgets
               </TextLink>
-              , an explorable explanation about the peculiar magic of sound
-              waves. I got a bunch of feedback aftwerwards from audio folks who
-              said that they <Em>finally understood</Em> how sound works, that
-              my interactive thingy helped them bridge the gap between
-              theoretical knowledge and intuitive understanding.
-            </Paragraph>
-
-            <Paragraph>
-              This blog is a continuation of that experiment, but for front-end
-              programming things. I plan to use it as a way to share experiments
-              and ideas, hopefully in a way that makes them easy to learn,
-              digest, and use in your own projects!
+              , while others will be{' '}
+              <TextLink href="/posts/remote-work/">
+                traditional "blog" fare
+              </TextLink>
+              .
             </Paragraph>
 
             <Divider />
@@ -141,6 +134,7 @@ const getPosts = (data: any): Array<PostData> =>
   data.allSitePage.edges
     .map(edge => {
       const { node } = edge;
+      console.log(edge)
 
       // Not all site pages are posts.
       // We can identify posts because they have frontmatter.

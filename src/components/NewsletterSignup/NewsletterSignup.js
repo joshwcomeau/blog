@@ -55,8 +55,7 @@ class NewsletterSignup extends Component<Props, State> {
         <Spacer size={20} />
 
         <Disclaimer>
-          I promise it'll be worthwhile and not-too-often. Quality over
-          quantity!
+          ✨Roughly 4 issues a year, focusing on content I've published ✨
         </Disclaimer>
       </Wrapper>
     );
@@ -65,6 +64,7 @@ class NewsletterSignup extends Component<Props, State> {
 
 const Wrapper = styled.div`
   color: inherit;
+  margin-bottom: 4rem;
 `;
 
 const Disclaimer = styled.div`
