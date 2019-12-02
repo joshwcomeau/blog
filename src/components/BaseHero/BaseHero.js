@@ -122,13 +122,13 @@ class BaseHero extends PureComponent {
                   </EmphasizedSecondary>
                 </>
               ) : (
-                <>
-                  <Unemphasized>.</Unemphasized>{' '}
-                  <EmphasizedSecondary color={publishedOnColor}>
-                    (Draft)
+                  <>
+                    <Unemphasized>.</Unemphasized>{' '}
+                    <EmphasizedSecondary color={publishedOnColor}>
+                      (Draft)
                   </EmphasizedSecondary>
-                </>
-              )}
+                  </>
+                )}
             </Byline>
           </MaxWidthWrapper>
 
@@ -183,6 +183,8 @@ const GradientTitle = styled.h1`
   background: -webkit-linear-gradient(${props => props.gradient});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  overflow-wrap: break-word;
+  max-width: calc(100vw - 64px);
 
   &::selection {
     color: ${COLORS.white};
