@@ -1,22 +1,26 @@
 ---
-title: Getting hired as a remote worker
+title: Finding your first remote job
 slug: remote-work-2
 isPublished: false
 publishedOn: 2019-12-02T09:30:00-0400
 abstract: Part II in a series on remote work.
 ---
 
-import Sidenote from '../../../components/Sidenote';
+import Sidenote from '@components/Sidenote';
+import CenteredImage from '@components/CenteredImage';
+import DeEmphasizedTextLink from '@components/DeEmphasizedTextLink';
+import List from '@components/List';
+import ListItem from '@components/ListItem';
 
 For the past year or so, I've had the privilege of working with a local coding bootcamp. One of the things I do is career coaching: I help recent graduates find their first job.
 
 The most common obstacle they face is the chicken-and-egg problem: to get a job, you need experience. But to get experience, you need a job.
 
-import chickenEggSrc from '../../../assets/images/job-chicken-egg.jpg';
+import jobSpiralSrc from '../../../assets/images/remote-work/job-spiral.png';
 
-<img
-  src={chickenEggSrc}
-  style={{ width: '50%', maxWidth: 'calc(100vw - 64px)', marginBottom: '2rem' }}
+<CenteredImage
+  width="50%"
+  src={jobSpiralSrc}
   alt="Circular text: I can't get a job because I don't have experience because I can't get a job..."
 />
 
@@ -26,9 +30,12 @@ This is also a two-way street; in addition to the employer wondering if you'd ma
 
 This blog post shares everything I've learned so far about finding high-quality remote gigs, and getting an offer from them. It's the second post in a series, and they're meant to be read in order.
 
-- [Part 1: My experience](/posts/remote-work/)
-- **Part 2: Finding your first remote job**
-- Part 3: Twitter Mailbag (coming soon)
+<List>
+  <ListItem><DeEmphasizedTextLink href="/posts/remote-work/">
+  Part 1: My experience</DeEmphasizedTextLink></ListItem>
+  <ListItem><strong>Part 2: Finding your first remote job</strong></ListItem>
+  <ListItem>Part 3: Twitter Mailbag (coming soon)</ListItem>
+</List>
 
 # Finding remote options
 
@@ -87,7 +94,7 @@ If a company has a public handbook / onboarding doc, it's worth looking through.
 
 **Join the newsletter to make sure you don't miss it.** I expect it to be published in a week or two.
 
-import NewsletterSignup from '../../../components/NewsletterSignup';
+import NewsletterSignup from '@components/NewsletterSignup';
 
 <NewsletterSignup />
 

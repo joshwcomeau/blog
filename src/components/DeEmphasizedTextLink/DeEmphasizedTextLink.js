@@ -16,7 +16,8 @@ const Wrapper = styled(Link)`
   position: relative;
   display: inline-block;
   text-decoration: none;
-  font-weight: 600;
+  color: ${COLORS.gray[700]};
+  /* font-weight: 600; */
 
   &:after {
     content: '';
@@ -25,7 +26,7 @@ const Wrapper = styled(Link)`
     right: -2px;
     bottom: 0;
     height: 2px;
-    background-color: ${COLORS.pink[500]};
+    background-color: ${COLORS.gray[700]};
     border-radius: 2px;
     transition: transform 250ms 200ms, opacity 450ms 200ms;
   }
@@ -43,7 +44,7 @@ const MainText = styled.span`
   display: inline-block;
   position: relative;
   z-index: 1;
-  color: ${COLORS.black};
+  color: ${COLORS.gray[500]};
 `;
 
 const HoverText = styled.span`
