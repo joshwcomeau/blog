@@ -7,9 +7,9 @@ import { sample } from '../../utils';
 const rainbowColors = [
   COLORS.red[500],
   COLORS.orange[500],
-  COLORS.yellow[700],
   COLORS.green[500],
   COLORS.blue[500],
+  COLORS.indigo[500],
   COLORS.purple[500],
   COLORS.pink[500],
 ]
@@ -51,33 +51,52 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
       } else {
         throw new Error(err);
       }
-
-
-
     }
 
-    let timeoutIds = {};
+    let currentCycleIndex = 0;
+    let timeoutId;
 
-    const scheduleColorUpdate = (property) => {
-      if (!buttonRef.current || !buttonRef.current.style) {
-        return;
-      }
+    const updateColors = () => {
+      currentCycleIndex++;
 
-      const newColor = sample(rainbowColors);
-      buttonRef.current.style.setProperty(property, newColor)
+      const c1 = rainbowColors[currentCycleIndex % rainbowColors.length]
+      const c2 = rainbowColors[(currentCycleIndex + 1) % rainbowColors.length]
+      const c3 = rainbowColors[(currentCycleIndex + 2) % rainbowColors.length]
 
-      timeoutIds[property] = window.setTimeout(() => scheduleColorUpdate(property), Math.random() * 2000)
+      buttonRef.current.style.setProperty(firstColorId, c1)
+      buttonRef.current.style.setProperty(secondColorId, c2)
+      buttonRef.current.style.setProperty(thirdColorId, c3)
 
+      timeoutId = window.setTimeout(updateColors, 1000);
     }
 
-    timeoutIds[firstColorId] = window.setTimeout(() => scheduleColorUpdate(firstColorId), Math.random() * 2000)
-    timeoutIds[secondColorId] = window.setTimeout(() => scheduleColorUpdate(secondColorId), Math.random() * 2000)
-    timeoutIds[thirdColorId] = window.setTimeout(() => scheduleColorUpdate(thirdColorId), Math.random() * 2000)
+    updateColors();
+
+    // let timeoutId = window.setTimeout(updateColors, 1000)
+
+    // let timeoutIds = {};
+
+
+    // const scheduleColorUpdate = (property) => {
+    //   if (!buttonRef.current || !buttonRef.current.style) {
+    //     return;
+    //   }
+
+    //   const newColor = rainbowColors[currentCycleIndex];
+    //   buttonRef.current.style.setProperty(property, newColor)
+
+    //   timeoutIds[property] = window.setTimeout(() => scheduleColorUpdate(property), 1000)
+
+    //   currentCycleIndex = (currentCycleIndex + 1) % rainbowColors.length
+
+    // }
+
+    // timeoutIds[firstColorId] = window.setTimeout(() => scheduleColorUpdate(firstColorId), 333)
+    // timeoutIds[secondColorId] = window.setTimeout(() => scheduleColorUpdate(secondColorId), 666)
+    // timeoutIds[thirdColorId] = window.setTimeout(() => scheduleColorUpdate(thirdColorId), 1000)
 
     return () => {
-      window.clearTimeout(timeoutIds[firstColorId])
-      window.clearTimeout(timeoutIds[secondColorId])
-      window.clearTimeout(timeoutIds[thirdColorId])
+      window.clearTimeout(timeoutId)
     }
   }, []);
 
@@ -96,10 +115,9 @@ const ButtonElem = styled.button`
   border: none;
   color: white;
   transition:
-    ${getVarName(0)} 1500ms,
-    ${getVarName(1)} 1500ms,
-    ${getVarName(2)} 1500ms
-    ;
+    ${getVarName(0)} 3000ms,
+    ${getVarName(1)} 3000ms,
+    ${getVarName(2)} 3000ms;
   background: linear-gradient(
     -8deg,
     var(${getVarName(0)}),
