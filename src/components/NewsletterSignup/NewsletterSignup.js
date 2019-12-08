@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { BREAKPOINTS } from '@constants';
 import { signUpForNewsletter } from '@helpers/analytics.helpers';
 
-import MagicGradientButton from '../MagicGradientButton';
+import MagicRainbowButton from '../MagicRainbowButton';
 import Spacer from '../Spacer';
 
 class NewsletterSignup extends Component<Props, State> {
@@ -48,7 +48,7 @@ class NewsletterSignup extends Component<Props, State> {
             placeholder="name@domain.com"
           />
 
-          <SubmitButton>Subscribe</SubmitButton>
+          <SubmitButton id="newsletter-signup">Subscribe</SubmitButton>
           <input type="hidden" value="1" name="embed" />
         </Form>
 
@@ -99,7 +99,7 @@ const EmailInput = styled.input`
   }
 `;
 
-const SubmitButton = styled(MagicGradientButton)`
+const SubmitButton = styled(MagicRainbowButton)`
   width: 150px;
   height: 60px;
   font-size: 1.5rem;

@@ -16,9 +16,10 @@ class MagicGradientButton extends Component {
   }
 }
 
+
 const gradientGo = keyframes`
   from { transform: translateY(0px); }
-  to { transform: translateY(-940px); }
+  to { transform: translateY(calc(-100% + 60px)); }
 `;
 
 const ButtonElem = styled.button`
@@ -51,10 +52,9 @@ const Gradient = styled.span`
     ${COLORS.blue[500]},
     ${COLORS.purple[500]},
     ${COLORS.pink[500]},
-    ${COLORS.red[500]},
-    ${COLORS.orange[500]}
+    ${COLORS.red[500]}
   );
-  animation: ${gradientGo} 15s linear infinite;
+  animation: ${gradientGo} 5s linear infinite;
 `;
 
 export default MagicGradientButton;
