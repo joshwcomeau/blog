@@ -67,7 +67,7 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
       buttonRef.current.style.setProperty(secondColorId, c2)
       buttonRef.current.style.setProperty(thirdColorId, c3)
 
-      timeoutId = window.setTimeout(updateColors, 1000);
+      timeoutId = window.setTimeout(updateColors, 2000);
     }
 
     updateColors();
@@ -115,14 +115,13 @@ const ButtonElem = styled.button`
   border: none;
   color: white;
   transition:
-    ${getVarName(0)} 3000ms,
-    ${getVarName(1)} 3000ms,
-    ${getVarName(2)} 3000ms;
+    ${getVarName(0)} 2000ms linear,
+    ${getVarName(1)} 2000ms linear,
+    ${getVarName(2)} 2000ms linear;
   background: linear-gradient(
     -8deg,
     var(${getVarName(0)}),
-    var(${getVarName(1)}),
-    var(${getVarName(2)})
+    var(${getVarName(1)})
   );
 `;
 
