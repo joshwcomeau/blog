@@ -6,23 +6,36 @@ publishedOn: 2019-12-02T09:30:00-0400
 abstract: Part II in a series on remote work.
 ---
 
-import Sidenote from '@components/Sidenote';
-import CenteredImage from '@components/CenteredImage';
-import DeEmphasizedTextLink from '@components/DeEmphasizedTextLink';
-import List from '@components/List';
-import ListItem from '@components/ListItem';
+import TweetEmbed from 'react-tweet-embed';
 
-For the past year or so, I've had the privilege of working with a local coding bootcamp. One of the things I do is career coaching: I help recent graduates find their first job.
+import Sidenote from '../../../components/Sidenote';
+import CenteredImage from '../../../components/CenteredImage';
+import DeEmphasizedTextLink from '../../../components/DeEmphasizedTextLink';
+import List from '../../../components/List';
+import ListItem from '../../../components/ListItem';
+import SideBySide from '../../../components/SideBySide';
 
-The most common obstacle they face is the chicken-and-egg problem: to get a job, you need experience. But to get experience, you need a job.
+In the previous post in this series, I shared my experience as a remote worker. I've been pretty vocal about working remotely, and over the years I've gotten a lot of questions from folks. The most common questions focus on how to land their first remote job.
 
-import jobSpiralSrc from '../../../assets/images/remote-work/job-spiral-gradient.png';
+<SideBySide>
+  <div>
+    <TweetEmbed id="1199180153227808768" />
+    <TweetEmbed id="1199041193184772096" />
+  </div>
+  <div>
+    <TweetEmbed id="1199399740032634882" />
+    <TweetEmbed id="1199058136172236810" />
+  </div>
+</SideBySide>
 
-<CenteredImage
-  width="75%"
-  src={jobSpiralSrc}
-  alt="Circular text: I can't get a job because I don't have experience because I can't get a job..."
-/>
+There are multiple facets to this kind of question:
+
+- How do I find companies that hire remotely?
+- How do I figure out if they treat remote workers well?
+- How do I develop the skills needed to succeed as a remote worker?
+- How do I appeal to remote-friendly companies?
+
+Today we'll look at these questions in depth!
 
 Remote work presents a similar challenge. Even if you have some experience working in-office, remote-friendly jobs like to hire folks who have a proven track record of being able to work remotely.
 
@@ -151,9 +164,51 @@ Going the subsidiary route can be a pretty tall order for companies, especially 
 
 For a lot of people, the contractor route is a deal-breaker. Companies are rarely forthcoming with this information, so it's best to ask upfront. You don't want to get through a grueling gauntlet of interviews only to learn that it's a contract gig.
 
-# Nabbing a remote job
+# Appealing to remote-friendly companies
 
-If you've
+For the past year or so, I've had the privilege of working with a local coding bootcamp. One of the things I do is career coaching; I help recent graduates find their first job.
+
+The most common obstacle they face is the chicken-and-egg problem: to get a job, you need experience... But to get experience, you need a job.
+
+import jobSpiralSrc from '../../../assets/images/remote-work/job-spiral-gradient.png';
+
+<CenteredImage
+  width="75%"
+  src={jobSpiralSrc}
+  alt="Circular text: I can't get a job because I don't have experience because I can't get a job..."
+/>
+
+This catch-22 has a remote equivalent as well; remote-friendly companies want to hire employees that are skilled at working remotely, and prior experience is the best sign that one has that skillset.
+
+So how can you convince employers that you'll succeed as a remote worker?
+
+### Open source work
+
+When you think about it, working on an open-source project with other collaborators is quintessentially remote: everyone on the project tends to be distributed, and all communication happens remotely (and usually asynchronously!).
+
+In fact, this played a part in how I got my first remote job at Khan Academy! KA maintains a number of open-source projects, and I had been using [Aphrodite](https://github.com/Khan/aphrodite) in a side-project. I found [an open issue](https://github.com/Khan/aphrodite/issues/78#issuecomment-258410039), with a feature I needed, and collaborated with the team to come up with a suitable API. The [resulting PR](https://github.com/Khan/aphrodite/pull/167) got merged quickly, and the feature made it out in the next release!
+
+In my final interview with Khan Academy, this contribution was highlighted by my interviewer. I suspect I might not have made it that far in the interview process without it (I sorta bombed one of the technical interviews 😅).
+
+When people talk about the skills needed to be a successful remote worker, **communication skills** are usually at the top of the list. When working remotely, you might need to collaborate with someone on the other side of the planet, someone who works while you're sleeping. Being able to package your thoughts into clear, concise messages is absolutely critical.
+
+There are two aspects to this: one is developing the skills in the first place, and the other is demonstrating those skills to prospective employers. The good news is that open-source helps with both! By working in open-source, you can develop these skills, and when you start looking for a remote job, you'll be able to point to the instances where everything went well.
+
+In my case, I was able to contribute directly to an open-source project maintained by my prospective employer. Not all companies have open work that can be contributed to, but I think you still get a lot of benefit by being able to point to the work you've done. Open-source is done in the public, so you're left with a rich history that you can link to.
+
+If you're looking to get started in open-source, Kent C. Dodds has a [wonderful, free Egghead course](https://kentcdodds.com/blog/introducing-how-to-contribute-to-open-source) on the subject!
+
+> A note on privilege: TODO
+
+### Remote experience at your current employer
+
+If you currently work in-office, you might be able to negotiate the ability to work from home occasionally. Some people work from home one or two days a week, and commute to the office the rest of the time.
+
+The thing about these arrangements is that they tend to be at companies that aren't set up to be very remote-friendly. There generally isn't much of an effort to push communication to Slack, or to make sure that remote participants are included in meetings.
+
+In a way, though, this experience is _super_ valuable. When you interview with a remote-friendly company, you'll be able to share the struggles with your previous arrangement, and **how you overcame them**. If you can successfully figure out remote work in an environment not designed for it, imagine how successful you'll be when distributed work is the norm, and not an exception.
+
+I have personally never tried to negotiate a partially-remote arrangement, but [many](https://www.cnbc.com/2018/01/04/5-tips-for-negotiating-a-work-from-home-schedule-with-your-boss.html) [many](https://doist.com/blog/how-to-ask-to-work-from-home/) [many](https://www.forbes.com/sites/abdullahimuhammed/2018/07/28/3-strategies-for-negotiating-a-remote-work-arrangement/#12ddf2d45c71) articles have been written on the subject. I suspect it's more feasible than you might think, if you haven't tried it yet.
 
 ---
 
