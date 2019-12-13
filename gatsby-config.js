@@ -16,7 +16,7 @@ module.exports = {
     'gatsby-plugin-flow',
     'gatsby-plugin-styled-components',
     {
-      resolve: `gatsby-mdx`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
           posts: require.resolve('./src/components/BlogPost/BlogPost.js'),
