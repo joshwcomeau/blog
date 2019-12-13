@@ -30,11 +30,6 @@ const SimpleHero = ({ title, isPublished, publishedOn }) => {
             </>
           )}
         </Byline>
-        <DecorativeRule>
-          <Bit />
-          <Bit />
-          <Bit />
-        </DecorativeRule>
       </Wrapper>
     </MaxWidthWrapper>
   );
@@ -71,11 +66,6 @@ const EmphasizedPrimary = styled.span`
 const EmphasizedSecondary = styled.span`
   font-weight: bold;
   color: ${COLORS.violet[500]};
-`;
-
-const DecorativeRule = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 export default SimpleHero;
