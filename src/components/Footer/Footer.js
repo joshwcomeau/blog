@@ -60,7 +60,6 @@ const Wrapper = styled.footer`
 
 const Name = styled.span`
   font-weight: 600;
-  color: ${COLORS.pink[500]};
 `;
 
 const Copyright = styled.div`
