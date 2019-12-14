@@ -7,6 +7,7 @@ import { iosEmail } from 'react-icons-kit/ionicons/iosEmail';
 import { COLORS, BREAKPOINTS } from '@constants';
 
 import ClickableIcon from '../ClickableIcon';
+import TextLink from '../TextLink';
 
 const WIDTH = 32;
 
@@ -14,7 +15,7 @@ const Footer = () => (
   <Wrapper>
     <Copyright>
       All that stuff up there was written by me, <Name>Josh Comeau</Name>. All
-      rights reserved.
+      rights reserved. <TextLink href="/rss.xml">RSS feed</TextLink>.
     </Copyright>
     <Icons>
       <ClickableIcon

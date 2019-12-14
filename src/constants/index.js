@@ -92,7 +92,3 @@ export const Z_INDICES = {
   mainContent: 10,
   header: 100,
 };
-
-export const SIZES = {
-  homeIcon: 28,
-};

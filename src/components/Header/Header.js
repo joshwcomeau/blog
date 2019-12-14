@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { iosHome } from 'react-icons-kit/ionicons/iosHome';
-import { iosHomeOutline } from 'react-icons-kit/ionicons/iosHomeOutline';
+import { arrowLeft } from 'react-icons-kit/feather/arrowLeft';
+import { rss } from 'react-icons-kit/feather/rss';
 
-import { COLORS, BREAKPOINTS, Z_INDICES, SIZES } from '@constants';
+import { COLORS, BREAKPOINTS, Z_INDICES } from '@constants';
 import { humanizeDate } from '@helpers/date.helpers';
 
 import ClickableIcon from '../ClickableIcon';
 import InvisibleButton from '../InvisibleButton';
+
+const ICON_SIZE = 22;
 
 class Header extends PureComponent {
   static propTypes = {
@@ -61,12 +63,12 @@ class Header extends PureComponent {
     return (
       <Wrapper>
         <InnerWrapper height={height}>
-          <IconWrapper size={SIZES.homeIcon}>
+          <IconWrapper size={ICON_SIZE}>
             <ClickableIcon
               href="/"
-              icon={iosHomeOutline}
-              iconHover={iosHome}
-              size={SIZES.homeIcon}
+              icon={arrowLeft}
+              iconHover={arrowLeft}
+              size={ICON_SIZE}
               color={COLORS.gray[500]}
               colorHover={COLORS.gray[700]}
             />
@@ -76,8 +78,19 @@ class Header extends PureComponent {
             <Title color={color} onClick={this.scrollToTop}>
               {title}
             </Title>
-            <Date>{humanizeDate(publishedOn)}</Date>
           </TextWrapper>
+
+          <IconWrapper size={ICON_SIZE}>
+            <ClickableIcon
+              href="/rss.xml"
+              target="_blank"
+              icon={rss}
+              iconHover={rss}
+              size={ICON_SIZE}
+              color={COLORS.gray[500]}
+              colorHover={COLORS.gray[700]}
+            />
+          </IconWrapper>
         </InnerWrapper>
       </Wrapper>
     );
@@ -106,7 +119,7 @@ const InnerWrapper = styled.div`
   right: 10px;
   height: ${props => props.height}px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   color: ${COLORS.gray[500]};
   background: ${COLORS.white};
@@ -119,11 +132,11 @@ const InnerWrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
+  flex: 1;
   opacity: ${props => (props.isVisible ? 1 : 0)};
   pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
   transition: opacity 700ms;
+  text-align: center;
 `;
 
 const Title = styled(InvisibleButton)`
@@ -175,10 +188,10 @@ const Date = styled.span`
 `;
 
 const IconWrapper = styled.div`
-  position: absolute;
-  width: ${props => props.size}px;
+  position: relative;
   height: ${props => props.size}px;
-  left: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
   top: 0;
   bottom: 0;
   margin: auto;

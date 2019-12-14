@@ -32,30 +32,14 @@ module.exports = {
                 interactive,
               } = edge.node.frontmatter;
 
-              const postUrl = `${siteUrl}/${slug}`;
+              const postUrl = `${siteUrl}/posts/${slug}`;
 
               let html;
 
               if (interactive) {
-                html = `
-                  <div style="margin-top: 50px; font-style: italic;">
-                    This post features interactive elements, and cannot be
-                    displayed in an RSS reader.
-                    <strong>
-                      <a href="${postUrl}">View it on joshwcomeau.com</a>
-                    </strong>.
-                  </div>
-                `;
+                html = `<div style="margin-top: 50px; font-style: italic;">This post features interactive elements, and cannot be displayed in an RSS reader. <strong><a href="${postUrl}">View it on joshwcomeau.com</a></strong>.</div>`;
               } else {
-                const disclaimer = `
-                  <div style="margin-top: 50px; font-style: italic;">
-                    This article was posted on joshwcomeau.com. For the best experience,
-                    <strong>
-                      <a href="${postUrl}">view the original post</a>
-                    </strong>.
-                  </div>
-                  <br /><br />
-                `;
+                const disclaimer = `${abstract}<div style="margin-top: 50px; font-style: italic;"><strong><a href="${postUrl}">View the original post</a>.</strong></div><br /><br />`;
 
                 // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
                 html = edge.node.html
@@ -75,8 +59,6 @@ module.exports = {
                 custom_elements: [{ 'content:encoded': html }],
               });
             });
-
-          console.log(JSON.stringify(data, null, 2));
 
           return data;
         },
