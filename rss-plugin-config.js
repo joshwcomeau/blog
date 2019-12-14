@@ -17,32 +17,68 @@ module.exports = {
     feeds: [
       {
         serialize: ({ query: { site, allMdx } }) => {
-          return allMdx.edges.map(edge => {
-            const { siteUrl } = site.siteMetadata;
-            const { slug, abstract, publishedOn } = edge.node.frontmatter;
-            const postUrl = `${siteUrl}/${slug}`;
-            const postText = `
-                <div style="margin-top: 50px; font-style: italic;">(This is just a snippet of an article posted at joshwcomeau.com. <a href="${siteUrl +
-                  '/' +
-                  slug}">Read the full post instead</a>.)</div>
-              `;
+          const data = allMdx.edges
+            .filter(edge => {
+              const { isPublished } = edge.node.frontmatter;
 
-            let html = edge.node.html;
-            // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
-            html = html
-              .replace(/href="\//g, `href="${siteUrl}/`)
-              .replace(/src="\//g, `src="${siteUrl}/`)
-              .replace(/"\/static\//g, `"${siteUrl}/static/`)
-              .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
+              return isPublished;
+            })
+            .map(edge => {
+              const { siteUrl } = site.siteMetadata;
+              const {
+                slug,
+                abstract,
+                publishedOn,
+                interactive,
+              } = edge.node.frontmatter;
 
-            return Object.assign({}, edge.node.frontmatter, {
-              description: abstract,
-              date: publishedOn,
-              url: site.siteMetadata.siteUrl + slug,
-              guid: site.siteMetadata.siteUrl + slug,
-              custom_elements: [{ 'content:encoded': html + postText }],
+              const postUrl = `${siteUrl}/${slug}`;
+
+              let html;
+
+              if (interactive) {
+                html = `
+                  <div style="margin-top: 50px; font-style: italic;">
+                    This post features interactive elements, and cannot be
+                    displayed in an RSS reader.
+                    <strong>
+                      <a href="${postUrl}">View it on joshwcomeau.com</a>
+                    </strong>.
+                  </div>
+                `;
+              } else {
+                const disclaimer = `
+                  <div style="margin-top: 50px; font-style: italic;">
+                    This article was posted on joshwcomeau.com. For the best experience,
+                    <strong>
+                      <a href="${postUrl}">view the original post</a>
+                    </strong>.
+                  </div>
+                  <br /><br />
+                `;
+
+                // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
+                html = edge.node.html
+                  .replace(/href="\//g, `href="${siteUrl}/`)
+                  .replace(/src="\//g, `src="${siteUrl}/`)
+                  .replace(/"\/static\//g, `"${siteUrl}/static/`)
+                  .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
+
+                html = disclaimer + html;
+              }
+
+              return Object.assign({}, edge.node.frontmatter, {
+                description: abstract,
+                date: publishedOn,
+                url: postUrl,
+                guid: postUrl,
+                custom_elements: [{ 'content:encoded': html }],
+              });
             });
-          });
+
+          console.log(JSON.stringify(data, null, 2));
+
+          return data;
         },
         query: `
           {
@@ -60,6 +96,7 @@ module.exports = {
                     publishedOn
                     abstract
                     isPublished
+                    interactive
                   }
                 }
               }
