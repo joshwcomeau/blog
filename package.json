@@ -23,6 +23,7 @@
     "gatsby": "2.4.3",
     "gatsby-link": "2.1.1",
     "gatsby-plugin-alias-imports": "^1.0.5",
+    "gatsby-plugin-feed": "^2.3.25",
     "gatsby-plugin-google-analytics": "2.0.6",
     "gatsby-plugin-mdx": "^1.0.62",
     "gatsby-plugin-meta-redirect": "^1.1.0",
