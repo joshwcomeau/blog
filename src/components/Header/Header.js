@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { arrowLeft } from 'react-icons-kit/feather/arrowLeft';
 import { rss } from 'react-icons-kit/feather/rss';
+import { Icon } from 'react-icons-kit';
 
 import { COLORS, BREAKPOINTS, Z_INDICES } from '@constants';
 import { humanizeDate } from '@helpers/date.helpers';
@@ -75,21 +76,19 @@ class Header extends PureComponent {
           </IconWrapper>
 
           <TextWrapper isVisible={isTitleVisible}>
-            <Title color={color} onClick={this.scrollToTop}>
+            <Title
+              color={color}
+              onClick={this.scrollToTop}
+              tabIndex={isTitleVisible ? undefined : -1}
+            >
               {title}
             </Title>
           </TextWrapper>
 
           <IconWrapper size={ICON_SIZE}>
-            <ClickableIcon
-              href="/rss.xml"
-              target="_blank"
-              icon={rss}
-              iconHover={rss}
-              size={ICON_SIZE}
-              color={COLORS.gray[500]}
-              colorHover={COLORS.gray[700]}
-            />
+            <RssAnchor href="/rss.xml" target="_blank">
+              <Icon icon={rss} size={ICON_SIZE} />
+            </RssAnchor>
           </IconWrapper>
         </InnerWrapper>
       </Wrapper>
@@ -195,6 +194,20 @@ const IconWrapper = styled.div`
   top: 0;
   bottom: 0;
   margin: auto;
+`;
+
+const RssAnchor = styled.a`
+  display: block;
+  width: ${ICON_SIZE};
+  height: ${ICON_SIZE};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${COLORS.gray[500]};
+
+  &:hover {
+    color: ${COLORS.gray[700]};
+  }
 `;
 
 export default Header;
