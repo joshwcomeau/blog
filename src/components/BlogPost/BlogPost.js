@@ -45,7 +45,7 @@ type Props = {
 
 const SubSubHeading = props => <Heading size={5} {...props} />;
 
-export default ({ children, pageContext }: Props) => {
+export default ({ children, pageContext, location }: Props) => {
   const {
     title,
     isPublished,
@@ -54,6 +54,23 @@ export default ({ children, pageContext }: Props) => {
   } = pageContext.frontmatter;
 
   const Hero = getHero(heroStyle);
+
+  React.useEffect(() => {
+    // On mount, scroll the user to the correct anchor, if specified
+    const { hash } = location;
+    if (hash) {
+      window.requestAnimationFrame(() => {
+        const anchor = document.querySelector(hash);
+        const offset = anchor.getBoundingClientRect().top + window.scrollY;
+
+        window.scroll({
+          top: offset,
+          left: 0,
+          behavior: 'smooth',
+        });
+      });
+    }
+  }, []);
 
   return (
     <MDXProvider
@@ -70,11 +87,7 @@ export default ({ children, pageContext }: Props) => {
     >
       <App>
         <FullWidth>
-          <Helmet>
-            <title>
-              {title} - {siteMetadata.title}
-            </title>
-          </Helmet>
+          <Helmet title={`${title} - ${siteMetadata.title}`} />
 
           <Header
             height={HEADER_HEIGHT}

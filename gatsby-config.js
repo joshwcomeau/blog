@@ -34,6 +34,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-119170920-1',
+        cookieExpires: 63072000, // two years
       },
     },
   ],

@@ -33,19 +33,7 @@ const IndexPage = ({ data }) => {
   return (
     <App>
       <Wrapper>
-        <Helmet
-          title={siteMetadata.title}
-          meta={[
-            {
-              name: 'description',
-              content: 'Web development and front-end engineering blog.',
-            },
-            {
-              name: 'keywords',
-              content: 'reactjs, javascript, front-end, web development',
-            },
-          ]}
-        />
+        <Helmet title={siteMetadata.title} />
         <BorderWrapper>
           <InnerWrapper>
             <Title>Hey look, it's a blog!</Title>

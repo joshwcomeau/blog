@@ -28,7 +28,7 @@ injectGlobal`
 	-ms-hyphens: none;
   hyphens: none;
 
-  font-family: 'Fira Code', monospace !important;
+  font-family: 'Fira Mono', monospace !important;
   font-size: 16px;
   letter-spacing: -0.5px;
   outline: none;
