@@ -1,3 +1,5 @@
+const path = require('path');
+
 const alias = require('./webpack-alias');
 const rssConfig = require('./rss-plugin-config');
 
@@ -14,6 +16,7 @@ module.exports = {
   },
   plugins: [
     rssConfig,
+
     {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
@@ -37,6 +40,13 @@ module.exports = {
       options: {
         name: 'posts',
         path: `${__dirname}/src/pages/posts`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: path.join(__dirname, 'src', 'assets', 'images'),
       },
     },
     {

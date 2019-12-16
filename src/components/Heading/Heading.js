@@ -7,7 +7,7 @@ import { link as linkIcon } from 'react-icons-kit/ionicons/link';
 
 import { BREAKPOINTS } from '@constants';
 
-const slugify = str =>
+const slugify = (str = '') =>
   str
     .toLowerCase()
     .replace(/\s/g, '-')

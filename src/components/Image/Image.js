@@ -2,14 +2,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = ({ src, caption, ...delegated }) => (
-  <Wrapper>
-    <Img src={src} {...delegated} />
-    {caption && <Caption>{caption}</Caption>}
-  </Wrapper>
-);
+const Image = ({ src, alt = '', caption = '', ...delegated }) => {
+  let mutableAlt = alt || '';
+  let mutableCaption = caption;
+  const altMatch = mutableAlt.match(/caption=(.+)\|alt=(.+)/i);
+  if (!caption && altMatch) {
+    mutableCaption = altMatch[1];
+    mutableAlt = altMatch[2];
+  }
 
-const Wrapper = styled.div`
+  return (
+    <Wrapper>
+      <Img src={src} alt={mutableAlt} {...delegated} />
+      {mutableCaption && <Caption>{mutableCaption}</Caption>}
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.span`
+  display: block;
   margin: 40px auto 80px;
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -17,7 +28,8 @@ const Wrapper = styled.div`
   border-radius: 5px;
 `;
 
-const Caption = styled.div`
+const Caption = styled.span`
+  display: block;
   padding-top: 6px;
   font-size: 14px;
   text-align: center;

@@ -18,11 +18,14 @@ import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
 import List from '@components/List';
 import ListItem from '@components/ListItem';
+import Code from '@components/Code';
 import SectionHeading from '@components/SectionHeading';
 import SectionSubHeading from '@components/SectionSubHeading';
 import Quote from '@components/Quote';
 import TextLink from '@components/TextLink';
 import Heading from '@components/Heading';
+import Image from '@components/Image';
+import Em from '@components/Em';
 
 import type { Frontmatter } from '@types';
 
@@ -83,6 +86,9 @@ export default ({ children, pageContext, location }: Props) => {
         blockquote: Quote,
         ul: List,
         li: ListItem,
+        img: Image,
+        em: Em,
+        code: Code,
       }}
     >
       <App>
