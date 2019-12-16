@@ -35,9 +35,9 @@ class ArticleList extends Component {
 
 We have a parent `ArticleList` component which takes a list of articles as its props. It maps through them, in order, and renders them.
 
-If that list order changes (examples: the user toggles a setting that changes the sorting, an item gets upvoted and changes position, new data comes in from the server…), React reconciles the two states, and destroys / removes / appends / creates nodes as needed.
+If that list order changes (examples: the user toggles a setting that changes the sorting, an item gets upvoted and changes position, new data comes in from the server…), React reconciles the two states, and updates the DOM, creating new nodes, moving existing nodes, or destroying nodes.
 
-The DOM is dumb. If an item is removed from its original location and re-inserted at a new location 200px down, it has no _awareness_ about what that update means for the element’s on-screen position.
+If an item is removed from its original location and re-inserted at a new location 200px down, it has no _awareness_ about what that update means for the element’s on-screen position.
 
 **Because the element’s CSS properties haven’t changed, there is no way to use CSS transitions to animate this change.**
 
@@ -142,7 +142,7 @@ This is tricky business, so let’s do a high-level overview of what just happen
 
 Ok, so we’ve definitely accomplished _something_ here; we’ve made it so that DOM changes are completely invisible to the user. This might be a neat party trick, but it’s probably still not clear how this helps us.
 
-The thing is, we’ve made it so that we’re in a situation where _regular CSS transitions can work again_. To animate these elements to their new position, we can just add a transition and undo the artificial position changes.
+The thing is, we’ve made it so that we’re in a situation where _regular CSS transitions can work again_. To animate these elements to their new position, we can add a transition and undo the artificial position changes.
 
 Continuing with our example above: Our blue item is _actually_ the final item, but it appears to be the first one. Its CSS looks like this:
 
@@ -314,7 +314,7 @@ componentDidUpdate(previousProps) {
         // the 'invert' animation frame to finish, so that its inverted
         // position has propagated to the DOM.
         //
-        // Then, we just remove the transform, reverting it to its natural
+        // Then, we remove the transform, reverting it to its natural
         // state, and apply a transition so it does so smoothly.
         domNode.style.transform  = '';
         domNode.style.transition = 'transform 500ms';
@@ -339,3 +339,5 @@ Hah! We have done it; we have animated the unanimatable.
 - Ryan Florence created a wonderful module, [Magic Move](https://github.com/ryanflorence/react-magic-move), which solves the same problem, albeit in a totally different way.
 - Paul Lewis coined the term FLIP, and the ideas used here come from his fantastic blog post, [FLIP your Animations](https://aerotwist.com/blog/flip-your-animations/).
 - Sacha Greif and Tom Coleman’s book, [Discover Meteor](https://www.discovermeteor.com/), contains a chapter on animations, and they tackle this problem in a very similar way.
+
+> This article was originally posted [on Medium](https://medium.com/developers-writing/animating-the-unanimatable-1346a5aab3cd).
