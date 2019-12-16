@@ -114,7 +114,7 @@ const H4 = styled(Base)`
 `;
 
 const H5 = styled(Base)`
-  font-size: 24px;
+  font-size: 28px;
 `;
 
 const H6 = styled(Base)`
