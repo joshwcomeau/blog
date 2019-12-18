@@ -7,7 +7,7 @@ import { link as linkIcon } from 'react-icons-kit/ionicons/link';
 
 import { BREAKPOINTS } from '@constants';
 
-const slugify = str =>
+const slugify = (str = '') =>
   str
     .toLowerCase()
     .replace(/\s/g, '-')
@@ -48,8 +48,6 @@ class Heading extends Component<Props> {
   };
 
   handleAnchorClick = ev => {
-    ev.preventDefault();
-
     const offset = this.node.getBoundingClientRect().top + window.scrollY;
 
     window.scroll({
@@ -71,6 +69,7 @@ class Heading extends Component<Props> {
     return (
       <Element {...delegated} innerRef={node => (this.node = node)}>
         <Anchor
+          name={anchorId}
           id={anchorId}
           href={`#${anchorId}`}
           onClick={this.handleAnchorClick}
@@ -115,7 +114,7 @@ const H4 = styled(Base)`
 `;
 
 const H5 = styled(Base)`
-  font-size: 24px;
+  font-size: 28px;
 `;
 
 const H6 = styled(Base)`
@@ -123,15 +122,17 @@ const H6 = styled(Base)`
 `;
 
 const Anchor = styled.a`
-  display: block;
-  position: absolute;
-  left: 0;
-  transform: translate(-125%, 7%);
-  opacity: 0;
-  transition: opacity 250ms;
+  display: none;
 
   @media ${BREAKPOINTS.mdMin} {
-    ${Base}:hover & {
+    display: block;
+    position: absolute;
+    left: 0;
+    transform: translate(-125%, 7%);
+    transition: opacity 250ms;
+    opacity: 0;
+
+    ${Base}:hover &, &:focus {
       opacity: 0.75;
     }
   }

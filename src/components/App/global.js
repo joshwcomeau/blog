@@ -1,24 +1,28 @@
-/** Analytics and Social Media scripts dumping ground. */
+/**
+ * Analytics and Social Media scripts dumping ground.
+ *
+ * Currently this is all disabled, I was having some problem or
+ * other. I should bring them back at some point I suppose.
+ *
+ * */
 
 const run = () => {
   // Twitter (used for "share" buttons).
-  window.twttr = (function(d, s, id) {
-    var js,
-      fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = 'https://platform.twitter.com/widgets.js';
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  })(document, 'script', 'twitter-wjs');
+  // window.twttr = (function(d, s, id) {
+  //   var js,
+  //     fjs = d.getElementsByTagName(s)[0],
+  //     t = window.twttr || {};
+  //   if (d.getElementById(id)) return t;
+  //   js = d.createElement(s);
+  //   js.id = id;
+  //   js.src = 'https://platform.twitter.com/widgets.js';
+  //   fjs.parentNode.insertBefore(js, fjs);
+  //   t._e = [];
+  //   t.ready = function(f) {
+  //     t._e.push(f);
+  //   };
+  //   return t;
+  // })(document, 'script', 'twitter-wjs');
 };
 
 // Facebook (used for "share" buttons)
@@ -41,6 +45,4 @@ const run = () => {
 //   };
 // };
 
-if (typeof window !== 'undefined') {
-  run();
-}
+export default run;

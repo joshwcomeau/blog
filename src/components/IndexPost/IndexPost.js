@@ -46,7 +46,7 @@ const PostTitle = styled.h3`
 const Date = styled.h5`
   font-size: 21px;
   font-weight: 500;
-  color: ${COLORS.gray[500]};
+  color: ${COLORS.gray[700]};
   margin-bottom: 24px;
   margin-top: 12px;
 `;

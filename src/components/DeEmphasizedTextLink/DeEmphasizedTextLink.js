@@ -16,7 +16,6 @@ const Wrapper = styled(Link)`
   position: relative;
   display: inline-block;
   text-decoration: none;
-  color: ${COLORS.gray[700]};
   /* font-weight: 600; */
 
   &:after {
@@ -26,7 +25,7 @@ const Wrapper = styled(Link)`
     right: -2px;
     bottom: 0;
     height: 2px;
-    background-color: ${COLORS.gray[700]};
+    background-color: ${COLORS.pink[500]};
     border-radius: 2px;
     transition: transform 250ms 200ms, opacity 450ms 200ms;
   }
@@ -44,7 +43,7 @@ const MainText = styled.span`
   display: inline-block;
   position: relative;
   z-index: 1;
-  color: ${COLORS.gray[500]};
+  color: ${COLORS.gray[900]};
 `;
 
 const HoverText = styled.span`

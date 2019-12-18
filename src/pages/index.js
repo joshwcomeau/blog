@@ -33,19 +33,7 @@ const IndexPage = ({ data }) => {
   return (
     <App>
       <Wrapper>
-        <Helmet
-          title={siteMetadata.title}
-          meta={[
-            {
-              name: 'description',
-              content: 'Web development and front-end engineering blog.',
-            },
-            {
-              name: 'keywords',
-              content: 'reactjs, javascript, front-end, web development',
-            },
-          ]}
-        />
+        <Helmet title={siteMetadata.title} />
         <BorderWrapper>
           <InnerWrapper>
             <Title>Hey look, it's a blog!</Title>
@@ -99,25 +87,14 @@ const IndexPage = ({ data }) => {
               <Spacer size={20} />
 
               <Paragraph>
-                I believe that the best way to learn something is through
-                experimentation. The posts on this blog aim to put control in
-                your hands, to play with sliders and tinker with editable code.
-                It's been a really fun journey, and I'm excited about being able
-                to create more posts!
+                If you've enjoyed my posts and don't want to miss the next one,
+                you should sign up for the newsletter! It's my favourite way to
+                communicate with my readers, and I send it quite sparingly
+                (whenever I post something new, which appears to be about 4
+                times a year).
               </Paragraph>
 
-              <Paragraph>
-                If this stuff interests you as well, you can join the
-                newsletter. I'll let you know when new posts are up (in fact,
-                subscribers will get sneak peeks!).
-              </Paragraph>
-
-              <Paragraph>
-                It also sends a strong signal to me that this stuff is worth
-                building, and will likely motivate me to create more content!
-              </Paragraph>
-
-              <NewsletterSignup id="homepage" />
+              <NewsletterSignup id="homepage" hideDisclaimer={true} />
             </NewsletterWrapper>
           </InnerWrapper>
         </BorderWrapper>
@@ -134,7 +111,6 @@ const getPosts = (data: any): Array<PostData> =>
   data.allSitePage.edges
     .map(edge => {
       const { node } = edge;
-      console.log(edge)
 
       // Not all site pages are posts.
       // We can identify posts because they have frontmatter.

@@ -54,9 +54,11 @@ class NewsletterSignup extends Component<Props, State> {
 
         <Spacer size={20} />
 
-        <Disclaimer>
-          ✨Roughly 4 issues a year, focusing on content I've published ✨
-        </Disclaimer>
+        {!this.props.hideDisclaimer && (
+          <Disclaimer>
+            ✨Roughly 4 issues a year, focusing on content I've published ✨
+          </Disclaimer>
+        )}
       </Wrapper>
     );
   }

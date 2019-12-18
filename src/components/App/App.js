@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { injectGlobal } from 'styled-components';
-import Helmet from 'react-helmet';
 
 import { COLORS } from '@constants';
 
@@ -8,7 +7,7 @@ import Footer from '../Footer';
 
 import faviconSrc from '../../assets/favicon-swirl.png';
 
-import './global';
+import runGlobal from './global';
 import './prism-theme';
 import './reset.css';
 import './fonts.css';
@@ -37,14 +36,16 @@ injectGlobal`
   }
 `;
 
-export default ({ children }) => (
-  <Fragment>
-    <Helmet>
-      <link rel="icon" type="image/png" href={`${faviconSrc}?v=1`} />
-    </Helmet>
+export default ({ children }) => {
+  React.useEffect(() => {
+    runGlobal();
+  }, []);
 
-    {children}
+  return (
+    <Fragment>
+      {children}
 
-    <Footer />
-  </Fragment>
-);
+      <Footer />
+    </Fragment>
+  );
+};

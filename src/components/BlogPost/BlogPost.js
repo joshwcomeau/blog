@@ -18,11 +18,14 @@ import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
 import List from '@components/List';
 import ListItem from '@components/ListItem';
+import Code from '@components/Code';
 import SectionHeading from '@components/SectionHeading';
 import SectionSubHeading from '@components/SectionSubHeading';
 import Quote from '@components/Quote';
 import TextLink from '@components/TextLink';
 import Heading from '@components/Heading';
+import Image from '@components/Image';
+import Em from '@components/Em';
 
 import type { Frontmatter } from '@types';
 
@@ -45,7 +48,7 @@ type Props = {
 
 const SubSubHeading = props => <Heading size={5} {...props} />;
 
-export default ({ children, pageContext }: Props) => {
+export default ({ children, pageContext, location }: Props) => {
   const {
     title,
     isPublished,
@@ -54,6 +57,23 @@ export default ({ children, pageContext }: Props) => {
   } = pageContext.frontmatter;
 
   const Hero = getHero(heroStyle);
+
+  React.useEffect(() => {
+    // On mount, scroll the user to the correct anchor, if specified
+    const { hash } = location;
+    if (hash) {
+      window.requestAnimationFrame(() => {
+        const anchor = document.querySelector(hash);
+        const offset = anchor.getBoundingClientRect().top + window.scrollY;
+
+        window.scroll({
+          top: offset,
+          left: 0,
+          behavior: 'smooth',
+        });
+      });
+    }
+  }, []);
 
   return (
     <MDXProvider
@@ -66,15 +86,14 @@ export default ({ children, pageContext }: Props) => {
         blockquote: Quote,
         ul: List,
         li: ListItem,
+        img: Image,
+        em: Em,
+        code: Code,
       }}
     >
       <App>
         <FullWidth>
-          <Helmet>
-            <title>
-              {title} - {siteMetadata.title}
-            </title>
-          </Helmet>
+          <Helmet title={`${title} - ${siteMetadata.title}`} />
 
           <Header
             height={HEADER_HEIGHT}
