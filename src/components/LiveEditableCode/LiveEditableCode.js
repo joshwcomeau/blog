@@ -9,6 +9,8 @@ import { interactWithCodeSample } from '@helpers/analytics.helpers';
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import TextLink from '../TextLink';
+import DesktopOnly from '../DesktopOnly';
+import MobileOnly from '../MobileOnly';
 
 class LiveEditableCode extends PureComponent {
   static propTypes = {
@@ -105,18 +107,6 @@ const Wrapper = styled(MaxWidthWrapper)`
 
   @media ${BREAKPOINTS.md} {
     flex-direction: column;
-  }
-`;
-
-const DesktopOnly = styled.div`
-  @media ${BREAKPOINTS.md} {
-    display: none;
-  }
-`;
-
-const MobileOnly = styled.div`
-  @media ${BREAKPOINTS.mdMin} {
-    display: none;
   }
 `;
 
