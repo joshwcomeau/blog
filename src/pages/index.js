@@ -42,7 +42,7 @@ const IndexPage = ({ data }) => {
               <TextLink href="https://www.twitter.com/joshwcomeau">
                 Josh Comeau
               </TextLink>
-              . I'm a front-end software developer at{' '}
+              . I'm a staff software engineer at{' '}
               <TextLink href="https://www.gatsbyjs.com/" target="_blank">
                 Gatsby
               </TextLink>
@@ -188,7 +188,7 @@ const InnerWrapper = styled(MaxWidthWrapper)`
 
 const Title = styled.h1`
   margin-bottom: 48px;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 900;
   letter-spacing: -2.4px;
 
