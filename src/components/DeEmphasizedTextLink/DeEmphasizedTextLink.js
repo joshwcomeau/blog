@@ -16,7 +16,7 @@ const Wrapper = styled(Link)`
   position: relative;
   display: inline-block;
   text-decoration: none;
-  font-weight: 600;
+  /* font-weight: 600; */
 
   &:after {
     content: '';
@@ -43,7 +43,7 @@ const MainText = styled.span`
   display: inline-block;
   position: relative;
   z-index: 1;
-  color: ${COLORS.black};
+  color: ${COLORS.gray[900]};
 `;
 
 const HoverText = styled.span`

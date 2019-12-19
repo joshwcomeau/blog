@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { LiveProvider, LiveEditor } from 'react-live';
 import styled from 'styled-components';
 
-import { COLORS, BREAKPOINTS, EXTRA_WIDE_WIDTH } from '@constants';
-import { interactWithCodeSample } from '@helpers/analytics.helpers';
+import { BREAKPOINTS } from '@constants';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import TextLink from '../TextLink';
 
 class Code extends PureComponent {
   static propTypes = {
