@@ -7,19 +7,22 @@ import { sample } from '../../utils';
 const rainbowColors = [
   COLORS.red[500],
   COLORS.orange[500],
+  COLORS.yellow[700],
+  'hsl(66deg, 100%, 40%)', // lime
   COLORS.green[500],
+  'hsl(177deg, 100%, 40%)', // aqua
   COLORS.blue[500],
   COLORS.indigo[500],
   COLORS.purple[500],
   COLORS.pink[500],
-]
+];
 
-const getVarName = (index) => `--magic-rainbow-color-${index}`;
+const getVarName = index => `--magic-rainbow-color-${index}`;
 
 const MagicRainbowButton = ({ children, ...delegated }) => {
-  const firstColorId = getVarName(0)
-  const secondColorId = getVarName(1)
-  const thirdColorId = getVarName(2)
+  const firstColorId = getVarName(0);
+  const secondColorId = getVarName(1);
+  const thirdColorId = getVarName(2);
 
   const buttonRef = React.useRef(null);
 
@@ -30,22 +33,24 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
         syntax: '<color>',
         inherits: false,
         initialValue: COLORS.red[500],
-      })
+      });
       CSS.registerProperty({
         name: secondColorId,
         syntax: '<color>',
         inherits: false,
-        initialValue: COLORS.yellow[700]
-      })
+        initialValue: COLORS.yellow[700],
+      });
       CSS.registerProperty({
         name: thirdColorId,
         syntax: '<color>',
         inherits: false,
-        initialValue: COLORS.pink[500]
-      })
+        initialValue: COLORS.pink[500],
+      });
     } catch (err) {
-      console.log('caught', err)
-      if (err.toString().match('The name provided has already been registered.')) {
+      console.log('caught', err);
+      if (
+        err.toString().match('The name provided has already been registered.')
+      ) {
         // This is fine. Just means that there are multiple instances of
         // this component, and we don't need to re-register these properties.
       } else {
@@ -59,23 +64,22 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
     const updateColors = () => {
       currentCycleIndex++;
 
-      const c1 = rainbowColors[currentCycleIndex % rainbowColors.length]
-      const c2 = rainbowColors[(currentCycleIndex + 1) % rainbowColors.length]
-      const c3 = rainbowColors[(currentCycleIndex + 2) % rainbowColors.length]
+      const c1 = rainbowColors[currentCycleIndex % rainbowColors.length];
+      const c2 = rainbowColors[(currentCycleIndex + 1) % rainbowColors.length];
+      const c3 = rainbowColors[(currentCycleIndex + 2) % rainbowColors.length];
 
-      buttonRef.current.style.setProperty(firstColorId, c1)
-      buttonRef.current.style.setProperty(secondColorId, c2)
-      buttonRef.current.style.setProperty(thirdColorId, c3)
+      buttonRef.current.style.setProperty(firstColorId, c1);
+      buttonRef.current.style.setProperty(secondColorId, c2);
+      buttonRef.current.style.setProperty(thirdColorId, c3);
 
       timeoutId = window.setTimeout(updateColors, 2000);
-    }
+    };
 
     updateColors();
 
     // let timeoutId = window.setTimeout(updateColors, 1000)
 
     // let timeoutIds = {};
-
 
     // const scheduleColorUpdate = (property) => {
     //   if (!buttonRef.current || !buttonRef.current.style) {
@@ -96,34 +100,45 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
     // timeoutIds[thirdColorId] = window.setTimeout(() => scheduleColorUpdate(thirdColorId), 1000)
 
     return () => {
-      window.clearTimeout(timeoutId)
-    }
+      window.clearTimeout(timeoutId);
+    };
   }, []);
-
 
   return (
     <ButtonElem innerRef={buttonRef} {...delegated}>
       {children}
     </ButtonElem>
-
   );
 };
 
 const ButtonElem = styled.button`
-  ${getVarName(0)}: ${rainbowColors[0]};
   position: relative;
   border: none;
   color: white;
-  transition:
-    ${getVarName(0)} 2000ms linear,
-    ${getVarName(1)} 2000ms linear,
+  transition: ${getVarName(0)} 2000ms linear, ${getVarName(1)} 2000ms linear,
     ${getVarName(2)} 2000ms linear;
-  background: linear-gradient(
-    -8deg,
-    var(${getVarName(0)}),
-    var(${getVarName(1)})
+  background: radial-gradient(
+    circle at top left,
+    var(${getVarName(1)}),
+    var(${getVarName(0)})
   );
-`;
 
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 6px;
+    top: -6px;
+    transition: ${getVarName(0)} 2000ms linear, ${getVarName(1)} 2000ms linear,
+      ${getVarName(2)} 2000ms linear;
+    background: linear-gradient(
+      90deg,
+      var(${getVarName(1)}),
+      var(${getVarName(0)})
+    );
+  }
+`;
 
 export default MagicRainbowButton;
