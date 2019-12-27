@@ -17,42 +17,34 @@ const rainbowColors = [
   COLORS.pink[500],
 ];
 
-const getVarName = index => `--magic-rainbow-color-${index}`;
+const getColorPropName = index => `--magic-rainbow-color-${index}`;
 
 const MagicRainbowButton = ({ children, ...delegated }) => {
-  const firstColorId = getVarName(0);
-  const secondColorId = getVarName(1);
-  const thirdColorId = getVarName(2);
-
-  const buttonRef = React.useRef(null);
+  const [colors, setColors] = React.useState({
+    [getColorPropName(0)]: rainbowColors[0],
+    [getColorPropName(1)]: rainbowColors[1],
+    [getColorPropName(2)]: rainbowColors[2],
+  });
 
   React.useEffect(() => {
     try {
-      CSS.registerProperty({
-        name: firstColorId,
-        syntax: '<color>',
-        inherits: false,
-        initialValue: COLORS.red[500],
-      });
-      CSS.registerProperty({
-        name: secondColorId,
-        syntax: '<color>',
-        inherits: false,
-        initialValue: COLORS.yellow[700],
-      });
-      CSS.registerProperty({
-        name: thirdColorId,
-        syntax: '<color>',
-        inherits: false,
-        initialValue: COLORS.pink[500],
+      Object.entries(colors).forEach(([name, color], index) => {
+        CSS.registerProperty({
+          name: name,
+          syntax: '<color>',
+          inherits: false,
+          initialValue: color,
+        });
       });
     } catch (err) {
-      console.log('caught', err);
       if (
         err.toString().match('The name provided has already been registered.')
       ) {
         // This is fine. Just means that there are multiple instances of
         // this component, and we don't need to re-register these properties.
+      } else if (err.toString().match('is not a function')) {
+        // This is also fine! Means that this browser doesn't support
+        // the Houdini part of custom properties.
       } else {
         throw new Error(err);
       }
@@ -64,40 +56,20 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
     const updateColors = () => {
       currentCycleIndex++;
 
-      const c1 = rainbowColors[currentCycleIndex % rainbowColors.length];
-      const c2 = rainbowColors[(currentCycleIndex + 1) % rainbowColors.length];
-      const c3 = rainbowColors[(currentCycleIndex + 2) % rainbowColors.length];
+      const c0 = rainbowColors[currentCycleIndex % rainbowColors.length];
+      const c1 = rainbowColors[(currentCycleIndex + 1) % rainbowColors.length];
+      const c2 = rainbowColors[(currentCycleIndex + 2) % rainbowColors.length];
 
-      buttonRef.current.style.setProperty(firstColorId, c1);
-      buttonRef.current.style.setProperty(secondColorId, c2);
-      buttonRef.current.style.setProperty(thirdColorId, c3);
+      setColors({
+        [getColorPropName(0)]: c0,
+        [getColorPropName(1)]: c1,
+        [getColorPropName(2)]: c2,
+      });
 
       timeoutId = window.setTimeout(updateColors, 2000);
     };
 
     updateColors();
-
-    // let timeoutId = window.setTimeout(updateColors, 1000)
-
-    // let timeoutIds = {};
-
-    // const scheduleColorUpdate = (property) => {
-    //   if (!buttonRef.current || !buttonRef.current.style) {
-    //     return;
-    //   }
-
-    //   const newColor = rainbowColors[currentCycleIndex];
-    //   buttonRef.current.style.setProperty(property, newColor)
-
-    //   timeoutIds[property] = window.setTimeout(() => scheduleColorUpdate(property), 1000)
-
-    //   currentCycleIndex = (currentCycleIndex + 1) % rainbowColors.length
-
-    // }
-
-    // timeoutIds[firstColorId] = window.setTimeout(() => scheduleColorUpdate(firstColorId), 333)
-    // timeoutIds[secondColorId] = window.setTimeout(() => scheduleColorUpdate(secondColorId), 666)
-    // timeoutIds[thirdColorId] = window.setTimeout(() => scheduleColorUpdate(thirdColorId), 1000)
 
     return () => {
       window.clearTimeout(timeoutId);
@@ -105,7 +77,7 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
   }, []);
 
   return (
-    <ButtonElem innerRef={buttonRef} {...delegated}>
+    <ButtonElem {...delegated} style={colors}>
       {children}
     </ButtonElem>
   );
@@ -115,29 +87,25 @@ const ButtonElem = styled.button`
   position: relative;
   border: none;
   color: white;
-  transition: ${getVarName(0)} 2000ms linear, ${getVarName(1)} 2000ms linear,
-    ${getVarName(2)} 2000ms linear;
+  /* prettier-ignore */
+  transition:
+    ${getColorPropName(0)} 2250ms linear,
+    ${getColorPropName(1)} 2250ms linear,
+    ${getColorPropName(2)} 2250ms linear;
   background: radial-gradient(
     circle at top left,
-    var(${getVarName(1)}),
-    var(${getVarName(0)})
+    var(${getColorPropName(2)}),
+    var(${getColorPropName(1)}),
+    var(${getColorPropName(0)})
   );
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
 
-  &:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 6px;
-    top: -6px;
-    transition: ${getVarName(0)} 2000ms linear, ${getVarName(1)} 2000ms linear,
-      ${getVarName(2)} 2000ms linear;
-    background: linear-gradient(
-      90deg,
-      var(${getVarName(1)}),
-      var(${getVarName(0)})
-    );
+  &:hover {
+    transition:
+    ${getColorPropName(0)} 1000ms linear,
+    ${getColorPropName(1)} 1000ms linear,
+    ${getColorPropName(2)} 1000ms linear;
+
   }
 `;
 

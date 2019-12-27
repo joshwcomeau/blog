@@ -14,6 +14,7 @@ import MaxWidthWrapper from '@components/MaxWidthWrapper';
 import Header from '@components/Header';
 import WindowDimensions from '@components/WindowDimensions';
 import WatermelonGradientHero from '@components/WatermelonGradientHero';
+import SimpleHero from '@components/SimpleHero';
 import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
 import List from '@components/List';
@@ -33,6 +34,8 @@ const HEADER_HEIGHT = 50;
 
 const getHero = heroStyle => {
   switch (heroStyle) {
+    case 'simple':
+      return SimpleHero;
     case 'watermelon-gradient':
     default:
       return WatermelonGradientHero;

@@ -38,13 +38,21 @@ const SimpleHero = ({ title, isPublished, publishedOn }) => {
 const Wrapper = styled.div`
   padding-top: 180px;
   text-align: center;
+
+  @media screen and ${BREAKPOINTS.mdMin} {
+    text-align: left;
+  }
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 900;
   line-height: 4rem;
   letter-spacing: -1px;
+
+  @media screen and ${BREAKPOINTS.smMin} {
+    font-size: 3rem;
+  }
 `;
 
 const Byline = styled.h3`

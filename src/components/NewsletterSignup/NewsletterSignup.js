@@ -70,14 +70,9 @@ const Form = styled.form`
   max-width: 500px;
   margin: auto;
   display: flex;
-  transition: transform 400ms;
 
   @media ${BREAKPOINTS.sm} {
     flex-direction: column;
-  }
-
-  &:hover {
-    transform: rotateY(-10deg);
   }
 `;
 
