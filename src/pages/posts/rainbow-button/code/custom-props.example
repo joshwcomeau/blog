@@ -1,27 +1,21 @@
-render(
-  <div
-    style={{
-      // Properties are defined right alongside
-      // other styles:
-      '--color-1': 'deepskyblue',
-      '--color-2': 'navy',
+<div
+  style={{
+    '--color-1': 'deepskyblue',
+    '--color-2': 'navy',
+    background: `
+      linear-gradient(
+        170deg,
+        var(--color-1),
+        var(--color-2) 80%
+      )
+    `,
 
-      // Properties are then accessed with the
-      // var() helper method.
-      background: `
-        linear-gradient(
-          170deg,
-          var(--color-1),
-          var(--color-2) 80%
-        )
-      `,
-      // Unrelated styles:
-      color: 'white',
-      textAlign: 'center',
-      padding: 30,
-      borderRadius: 12,
-    }}
-  >
-    Hello World
-  </div>
-)
+    // Unrelated styles:
+    color: 'white',
+    textAlign: 'center',
+    padding: 30,
+    borderRadius: 12,
+  }}
+>
+  Hello World
+</div>

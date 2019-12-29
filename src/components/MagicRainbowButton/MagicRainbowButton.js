@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from '@constants';
-import { sample } from '@utils';
-
 import useRainbow from './useRainbow.hook';
 
 const MagicRainbowButton = ({ children, ...delegated }) => {

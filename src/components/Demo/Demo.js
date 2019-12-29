@@ -37,7 +37,7 @@ class Demo extends Component<Props, State> {
 
     return (
       <>
-        <Box style={{ width }}>
+        <Box style={{ maxWidth: width }}>
           <ChildWrapper style={style}>{children(this.state)}</ChildWrapper>
 
           {controls && (

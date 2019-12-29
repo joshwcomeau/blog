@@ -4,6 +4,7 @@ import { LiveProvider, LiveEditor } from 'react-live';
 import styled from 'styled-components';
 
 import { BREAKPOINTS } from '@constants';
+import { syntaxTheme } from '@helpers/syntax-highlighting.helpers';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -33,7 +34,12 @@ class Code extends PureComponent {
     }
 
     return (
-      <LiveProvider code={children} noInline={true} mountStylesheet={false}>
+      <LiveProvider
+        code={children}
+        noInline={true}
+        mountStylesheet={false}
+        theme={syntaxTheme}
+      >
         <FullWidth>
           <Wrapper>
             <EditorWrapper maxHeight={maxHeight}>
@@ -58,7 +64,7 @@ const Wrapper = styled(MaxWidthWrapper)`
 
 const EditorWrapper = styled.div`
   flex: 1;
-  padding: 32px;
+  padding: 16px;
   background: #f8f8f8;
   max-height: ${props =>
     props.maxHeight ? `${props.maxHeight}px` : undefined};

@@ -21,16 +21,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const Image = styled.img`
-  @media (min-width: 800px) {
-    height: 350px;
-  }
-  @media (max-width: 799px) {
-    width: calc(100vw - 32px);
-    margin: 0 16px;
-  }
-`;
-
 const SideBySide = ({ spacerSize = 10, children }) => {
   // HACK: Throwing this together REALLY quickly. Definitely better ways
   // to do this!
@@ -40,9 +30,7 @@ const SideBySide = ({ spacerSize = 10, children }) => {
       {React.Children.toArray(children).map((child, i) => (
         <React.Fragment key={i}>
           {child}
-          {i !== children.length - 1 && (
-            <Spacer size={spacerSize} />
-          )}
+          {i !== children.length - 1 && <Spacer size={spacerSize} />}
         </React.Fragment>
       ))}
     </Wrapper>

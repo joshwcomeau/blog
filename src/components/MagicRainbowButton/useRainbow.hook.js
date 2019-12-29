@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { COLORS } from '@constants';
 import { generateId } from '@utils';
 
 const rainbowColors = [
   'hsl(1deg, 96%, 55%)', // red
   'hsl(25deg, 100%, 50%)', // orange
   'hsl(40deg, 100%, 50%)', // yellow
+  'hsl(45deg, 100%, 50%)', // yellow
   'hsl(66deg, 100%, 45%)', // lime
   'hsl(130deg, 100%, 40%)', // green
   'hsl(177deg, 100%, 35%)', // aqua
@@ -16,7 +16,12 @@ const rainbowColors = [
   'hsl(325deg, 100%, 48%)', // pink
 ];
 
-const hasBrowserSupport = typeof CSS.registerProperty === 'function';
+// During compile-time build, we have to assume no browser support.
+// On mount, we'll check if `CSS.registerProperty` exists
+const hasBrowserSupport =
+  typeof window !== 'undefined'
+    ? typeof window.CSS.registerProperty === 'function'
+    : false;
 
 const useRainbow = ({ timeoutDelay }) => {
   if (!hasBrowserSupport) {

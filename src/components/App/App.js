@@ -5,8 +5,6 @@ import { COLORS } from '@constants';
 
 import Footer from '../Footer';
 
-import faviconSrc from '../../assets/favicon-swirl.png';
-
 import runGlobal from './global';
 import './prism-theme';
 import './reset.css';
@@ -29,6 +27,20 @@ injectGlobal`
 
   ::selection {
     background-color: ${COLORS.lime[500]};
+  }
+
+  /*
+    For unknown reasons, 'InlineCode' isn't being used with MDX.
+    Duplicating those styles here.
+  */
+  p code {
+    display: inline-block;
+    font-family: 'Fira Mono', monospace;
+    font-size: 0.9em;
+    letter-spacing: -0.5px;
+    padding: 2px 6px;
+    background: ${COLORS.gray[200]};
+    border-radius: 2px;
   }
 
   button:focus:not(:focus-visible) {

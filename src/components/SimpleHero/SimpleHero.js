@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS, Z_INDICES, BREAKPOINTS } from '@constants';
+import { COLORS, BREAKPOINTS } from '@constants';
 import { humanizeDate } from '@helpers/date.helpers';
 
 import MaxWidthWrapper from '../MaxWidthWrapper';
+import Divider from '../Divider';
 
 const SimpleHero = ({ title, isPublished, publishedOn }) => {
   return (
@@ -31,6 +32,7 @@ const SimpleHero = ({ title, isPublished, publishedOn }) => {
           )}
         </Byline>
       </Wrapper>
+      <Divider style={{ marginBottom: 0, marginTop: 100 }} />
     </MaxWidthWrapper>
   );
 };

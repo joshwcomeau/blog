@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
 
 import { BREAKPOINTS } from '@constants';
@@ -35,11 +34,10 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
           required
           type="email"
           name="email"
-          id="tlemail"
           placeholder="name@domain.com"
         />
 
-        <SubmitButton id="newsletter-signup">Subscribe</SubmitButton>
+        <SubmitButton id={`#newsletter-signup-${id}`}>Subscribe</SubmitButton>
         <input type="hidden" value="1" name="embed" />
       </Form>
 
@@ -47,7 +45,13 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
 
       {!hideDisclaimer && (
         <Disclaimer>
-          ✨Roughly 4 issues a year, focusing on content I've published ✨
+          <span role="img" aria-label="sparkles">
+            ✨
+          </span>{' '}
+          Roughly 4 issues a year, focusing on content I've published{' '}
+          <span role="img" aria-label="sparkles">
+            ✨
+          </span>
         </Disclaimer>
       )}
     </Wrapper>

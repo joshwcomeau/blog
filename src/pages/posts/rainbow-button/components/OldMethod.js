@@ -8,7 +8,6 @@ import Demo from '@components/Demo';
 import SliderControl from '@components/SliderControl';
 
 const OldMethod = () => {
-  const [mode, setMode] = React.useState('perspective');
   return (
     <Demo
       caption="This is an interactive demo! Try dragging the slider to reveal."
@@ -131,8 +130,8 @@ const Back = styled.div`
 `;
 
 const gradientGo = keyframes`
-  from { transform: translateY(23%); }
-  to { transform: translateY(-46%); }
+  from { transform: translateY(25%); }
+  to { transform: translateY(-45%); }
 `;
 
 const RainbowGradient = styled.div`

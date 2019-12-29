@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { COLORS, BREAKPOINTS, EXTRA_WIDE_WIDTH } from '@constants';
 import { interactWithCodeSample } from '@helpers/analytics.helpers';
+import { syntaxTheme } from '@helpers/syntax-highlighting.helpers';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -59,7 +60,7 @@ class LiveEditableCode extends PureComponent {
   };
 
   render() {
-    const { gistId, code, scope, size, split, maxHeight } = this.props;
+    const { gistId, inline, code, scope, size, split, maxHeight } = this.props;
     const [leftSplit, rightSplit] = split;
 
     const maxWidth =
@@ -73,15 +74,19 @@ class LiveEditableCode extends PureComponent {
 
     return (
       <LiveProvider
-        code={code}
+        code={code.trim()}
         scope={scope}
-        noInline={true}
-        mountStylesheet={false}
+        noInline={!inline}
+        theme={syntaxTheme}
       >
         <FullWidth>
           <Wrapper maxWidth={maxWidth}>
-            <EditorWrapper split={leftSplit} maxHeight={maxHeight}>
-              <LiveEditor onChange={this.trackChange} />
+            <EditorWrapper
+              split={leftSplit}
+              maxHeight={maxHeight}
+              onClick={this.trackChange}
+            >
+              <LiveEditor />
             </EditorWrapper>
 
             <PreviewWrapper split={rightSplit}>
@@ -111,7 +116,7 @@ const Wrapper = styled(MaxWidthWrapper)`
 `;
 
 const EditorWrapper = styled(DesktopOnly)`
-  padding: 32px;
+  padding: 16px;
   flex: ${props => props.split};
   background: #f8f8f8;
   max-height: ${props => props.maxHeight}px;
@@ -126,7 +131,7 @@ const NotAvailableWrapper = styled(MobileOnly)`
 `;
 
 const PreviewWrapper = styled.div`
-  padding: 32px;
+  padding: 16px;
   flex: ${props => props.split};
   background: #f8f8f8;
 
