@@ -35,6 +35,7 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
           type="email"
           name="email"
           placeholder="name@domain.com"
+          aria-label="Email address"
         />
 
         <SubmitButton id={`#newsletter-signup-${id}`}>Subscribe</SubmitButton>
@@ -86,7 +87,7 @@ const EmailInput = styled.input`
   padding: 0 20px;
   font-size: 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-right: none;
+  border-radius: 5px;
 
   @media ${BREAKPOINTS.sm} {
     display: block;
@@ -98,9 +99,12 @@ const SubmitButton = styled(MagicRainbowButton)`
   width: 150px;
   height: 60px;
   font-size: 21px;
+  border-radius: 5px;
+  margin-left: 16px;
 
   @media ${BREAKPOINTS.sm} {
     margin-top: 8px;
+    margin-left: 0;
     width: 100%;
   }
 `;

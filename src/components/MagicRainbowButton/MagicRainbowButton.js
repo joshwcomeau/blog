@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useRainbow from './useRainbow.hook';
+import useRainbow from './use-rainbow.hook';
 
 const MagicRainbowButton = ({ children, ...delegated }) => {
   const timeoutDelay = 2000;
@@ -24,9 +24,9 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
         background: `
           radial-gradient(
             circle at top left,
-            var(${colorKeys[0]}),
+            var(${colorKeys[2]}),
             var(${colorKeys[1]}),
-            var(${colorKeys[2]})
+            var(${colorKeys[0]})
           )
         `,
       }}

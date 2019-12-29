@@ -61,8 +61,8 @@ class Bezier extends PureComponent {
     const positionRelativeToSvg = [x - svgBB.left, y - svgBB.top];
 
     const positionWithinViewBox = [
-      positionRelativeToSvg[0] * viewBoxWidth / svgBB.width,
-      positionRelativeToSvg[1] * viewBoxHeight / svgBB.height,
+      (positionRelativeToSvg[0] * viewBoxWidth) / svgBB.width,
+      (positionRelativeToSvg[1] * viewBoxHeight) / svgBB.height,
     ];
 
     updatePoint(draggingPointId, positionWithinViewBox);
@@ -100,7 +100,7 @@ class Bezier extends PureComponent {
     return (
       <Svg
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-        innerRef={node => (this.node = node)}
+        ref={node => (this.node = node)}
         onMouseMove={this.handleDrag}
         onTouchMove={this.handleDrag}
         onMouseUp={this.handleRelease}

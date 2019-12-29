@@ -1,0 +1,47 @@
+import useRainbow from './useRainbow.hook';
+
+const MagicRainbowButton = ({ children, timeoutDelay = 1000 }) => {
+  // The hook should take 1 argument, `timeoutDelay`.
+  // it should return an object in this shape:
+  /*
+    {
+      '--magic-rainbow-color-0': hsl(...),
+      '--magic-rainbow-color-1': hsl(...),
+      '--magic-rainbow-color-2': hsl(...),
+    }
+  */
+  const colors = useRainbow({ timeoutDelay });
+
+  const colorKeys = Object.keys(colors);
+
+  return (
+    <ButtonElem
+      style={{
+        // Spread the colors to define them as custom properties
+        // on this element
+        ...colors,
+
+        // Use the keys to set the same transition on all props.
+        transition: `
+          ${colorKeys[0]} ${transitionDelay}ms linear,
+          ${colorKeys[1]} ${transitionDelay}ms linear,
+          ${colorKeys[2]} ${transitionDelay}ms linear
+        `,
+
+        // Use those property values in our gradient.
+        // Values go from 2 to 0 so that colors radiate
+        // outwards from the top-left circle, not inwards.
+        background: `
+          radial-gradient(
+            circle at top left,
+            var(${colorKeys[2]}),
+            var(${colorKeys[1]}),
+            var(${colorKeys[0]})
+          )
+        `,
+      }}
+    >
+      {children}
+    </ButtonElem>
+  );
+};

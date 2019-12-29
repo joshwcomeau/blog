@@ -20,7 +20,13 @@ const Link = ({ href, target, rel, ...delegated }) => {
   const safeRel = target === '_blank' ? 'noopener noreferrer' : rel;
 
   return (
-    <LinkComponent href={href} rel={safeRel} target={target} {...delegated} />
+    <LinkComponent
+      as={external ? 'a' : GatsbyLink}
+      href={href}
+      rel={safeRel}
+      target={target}
+      {...delegated}
+    />
   );
 };
 
@@ -29,7 +35,7 @@ const ExternalLink = styled(OutboundLink)`
     props.theme === 'light' ? COLORS.white : COLORS.pink[500]};
 `;
 
-const InternalLink = ExternalLink.withComponent(GatsbyLink).extend.attrs({
+const InternalLink = styled(ExternalLink).attrs({
   to: props => props.href,
 })``;
 

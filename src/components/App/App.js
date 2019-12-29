@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react';
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 import { COLORS } from '@constants';
 
 import Footer from '../Footer';
 
 import runGlobal from './global';
-import './prism-theme';
+import PrismStyles from './prism-theme';
 import './reset.css';
 import './fonts.css';
 
 import '../../polyfills/intersection-observer';
 
-injectGlobal`
+const GlobalStyles = createGlobalStyle`
   html {
     font-size: 16px;
   }
@@ -58,6 +58,8 @@ export default ({ children }) => {
       {children}
 
       <Footer />
+
+      <GlobalStyles />
     </Fragment>
   );
 };

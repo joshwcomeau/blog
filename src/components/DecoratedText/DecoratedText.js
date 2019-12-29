@@ -165,7 +165,7 @@ class Emphasis extends Component<Props, State> {
     const { decorations } = this.state;
 
     return (
-      <Wrapper innerRef={node => (this.node = node)}>
+      <Wrapper ref={node => (this.node = node)}>
         <Content color={color}>{children}</Content>
         <Decorations>{decorations}</Decorations>
       </Wrapper>

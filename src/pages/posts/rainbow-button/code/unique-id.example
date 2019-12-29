@@ -1,0 +1,12 @@
+const useRainbow = ({ windowSize = 3, intervalDelay = 2000 }) => {
+  // Generate a permanent unique ID for this component instance
+  const { current: uniqueId } = React.useRef(generateId());
+  
+  CSS.registerProperty({
+    // Use that ID in the custom property name, to avoid conflicts:
+    name: `--magic-rainbow-color-${uniqueId}-${index}`,
+    initialValue,
+    syntax: '<color>',
+    inherits: false,
+  });
+};

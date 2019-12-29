@@ -67,7 +67,11 @@ const EditorWrapper = styled.div`
   padding: 16px;
   background: #f8f8f8;
   max-height: ${props =>
-    props.maxHeight ? `${props.maxHeight}px` : undefined};
+    typeof props.maxHeight === 'undefined'
+      ? undefined
+      : typeof props.maxHeight === 'number'
+      ? `${props.maxHeight}px`
+      : props.maxHeight};
   overflow: auto;
 `;
 
