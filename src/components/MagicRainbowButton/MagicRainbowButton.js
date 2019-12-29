@@ -19,6 +19,8 @@ const rainbowColors = [
 
 const getColorPropName = index => `--magic-rainbow-color-${index}`;
 
+const useRainbowBackground = colors => {};
+
 const MagicRainbowButton = ({ children, ...delegated }) => {
   const [colors, setColors] = React.useState({
     [getColorPropName(0)]: rainbowColors[0],
@@ -40,6 +42,7 @@ const MagicRainbowButton = ({ children, ...delegated }) => {
       if (
         err.toString().match('The name provided has already been registered.')
       ) {
+        console.log('Already registered');
         // This is fine. Just means that there are multiple instances of
         // this component, and we don't need to re-register these properties.
       } else if (err.toString().match('is not a function')) {

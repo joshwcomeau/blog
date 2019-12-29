@@ -18,6 +18,7 @@ class SingleAxisDemo extends PureComponent {
     height: PropTypes.number,
     defaultValue: PropTypes.number,
     showNote: PropTypes.bool,
+    hideOverflow: PropTypes.bool,
     children: PropTypes.func.isRequired,
   };
 
@@ -48,11 +49,18 @@ class SingleAxisDemo extends PureComponent {
   handleMouseLeave = () => this.setState({ isHovering: false });
 
   render() {
-    const { id, height, showNote, children, ...delegated } = this.props;
+    const {
+      id,
+      height,
+      showNote,
+      children,
+      hideOverflow,
+      ...delegated
+    } = this.props;
     const { isHovering, axisValue } = this.state;
 
     return (
-      <Wrapper>
+      <Wrapper style={{ overflow: hideOverflow ? 'hidden' : 'visible' }}>
         <Box
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}

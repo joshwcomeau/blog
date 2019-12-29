@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Icon from 'react-icons-kit';
+import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 
 import { COLORS } from '@constants';
 
@@ -24,18 +26,28 @@ class Demo extends Component<Props, State> {
   };
 
   render() {
-    const { controls, children } = this.props;
+    const { controls, style, showNote, children } = this.props;
 
     return (
-      <Box>
-        <ChildWrapper>{children(this.state)}</ChildWrapper>
+      <>
+        <Box>
+          <ChildWrapper style={style}>{children(this.state)}</ChildWrapper>
 
-        {controls && (
-          <ControlsWrapper>
-            {controls(this.state, this.updateValue)}
-          </ControlsWrapper>
+          {controls && (
+            <ControlsWrapper>
+              {controls(this.state, this.updateValue)}
+            </ControlsWrapper>
+          )}
+        </Box>
+        {showNote && (
+          <InteractivityNotice>
+            <IconWrapper>
+              <Icon size={32} icon={iosFlask} />
+            </IconWrapper>
+            This is an interactive demo! Try dragging the slider on the right.
+          </InteractivityNotice>
         )}
-      </Box>
+      </>
     );
   }
 }
@@ -71,6 +83,18 @@ const ControlsWrapper = styled.div`
   ${Box}:hover & {
     background: rgba(215, 215, 215, 0.92);
   }
+`;
+
+const InteractivityNotice = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const IconWrapper = styled.div`
+  margin-right: 15px;
+  color: ${COLORS.pink[500]};
 `;
 
 export default Demo;

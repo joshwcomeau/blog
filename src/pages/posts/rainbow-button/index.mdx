@@ -14,8 +14,76 @@ import ListItem from '@components/ListItem';
 import VideoGif from '@components/VideoGif';
 import Image from '@components/Image';
 import NewsletterSignup from '@components/NewsletterSignup';
+import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
+import LiveEditableCode from '@components/LiveEditableCode';
+import Code from '@components/Code';
 
-Every now and then, as a web developer, I find something _really cool_ but don't
+import customPropsCode from './code/custom-props.example';
+import customPropsCssCode from './code/custom-props-css.example';
+
+import OldMethod from './components/OldMethod';
+
+When I launched this blog a couple years back, I wanted to add a bit of flair to the newsletter subscribe button. My idea: an animated rainbow gradient for the background.
+
+I love gradients. After so many years of solid colors and flat design, I'm glad to see them making a comeback!
+
+It turned out that animating CSS gradients was a lot more trouble than I expected, and the result was a little underwhelming. Here was my original approach:
+
+<RenderWhenOnscreen height={540}>
+  <OldMethod />
+</RenderWhenOnscreen>
+
+Essentially, I created a long gradient rectangle, nested within a button, sitting behind the button's text. A keyframe animation translated it from top to bottom, and my trusty friend `overflow: hidden` made sure that the excess wasn't visible to the user.
+
+This approach kinda works, but there are problems:
+
+- No matter how much I tinkered, there was always a glitchy moment when the loop reset; it didn't _quite_ work seamlessly.
+- It just doesn't look that great; I wanted something with an organic kind of flowing quality, and this just felt static and lifeless.
+
+Over the past couple years, I've given this button a lot of thought. It's been a long time coming, but after discovering a _wild_ new technique, I was finally able to come up with something I like.
+
+Without further ado, the new button:
+
+<NewsletterSignup id="first-demo" hideDisclaimer />
+
+This new model uses an actual CSS `radial-gradient`: color seeps out from the top-left corner, shifting slowly through the rainbow, cascading across the button's surface.
+
+This post dives deep into its implementation.
+
+## Custom properties (AKA CSS variables)
+
+For a while now, CSS has had variables. At first blush, they look a lot like the variables you'd see in SASS or LESS, but unlike preprocessors, variables are still in the code at runtime. This means you can set them dynamically, using Javascript.
+
+For example, here's how you can use CSS variables in a gradient:
+
+<Code lang="markup">{customPropsCssCode}</Code>
+
+Here's how this looks in a React context (using inline styles primarily so that stuff is live-editable)
+
+<LiveEditableCode
+  id="custom-css-props"
+  code={customPropsCode}
+  split={[70, 30]}
+  maxHeight={585}
+/>
+
+## CSS Houdini
+
+Neither linear-gradients nor radial-gradients can be animated in CSS. As luck would have it, though, I had recently seen a technique for doing exactly this. It's a wild new approach made possible by _CSS Houdini_. It's freaking cool.
+
+If you haven't already heard, CSS Houdini is a wide-ranging set of upcoming CSS features predicated on one idea: developers should be able to create their own CSS features.
+
+For example, CSS doesn't have any built-in way to do masonry layouts. Wouldn't it be cool if you could build it, and then access it with `display: masonry`?
+
+For another example: projects like Babel allow us to "polyfill" (most) missing features because we can rebuild those features using JS. But we can't polyfill (most) CSS advances. Houdini will allow us to polyfill (almost) anything.
+
+CSS Houdini is a huge project, already years into research and development, and I expect it'll shape the future of web development in exciting and unpredictable ways. For today, though, I'd like to focus on one relatively small but incredibly cool part of this: _animated custom properties_.
+
+## Enter: Animated custom properties
+
+I've been fascinated with CSS Houdini for a long time. For years, the promise has been that Houdini will expose the browser's inner wiring and allow us to create our own css mechanisms, for layout, paint, and more.
+
+While much of the Houdini enterprise is still in R&D phase, some stuff has started landing in browsers.
 
 # Join the Newsletter
 

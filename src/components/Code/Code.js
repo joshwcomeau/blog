@@ -28,23 +28,16 @@ class Code extends PureComponent {
   render() {
     const { children, maxHeight, lang } = this.props;
 
-    console.log({ lang });
-
     if (!this.state.hasBeenMounted) {
       return null;
     }
 
     return (
-      <LiveProvider
-        code={children}
-        language={lang}
-        noInline={true}
-        mountStylesheet={false}
-      >
+      <LiveProvider code={children} noInline={true} mountStylesheet={false}>
         <FullWidth>
           <Wrapper>
             <EditorWrapper maxHeight={maxHeight}>
-              <LiveEditor />
+              <LiveEditor language={lang} />
             </EditorWrapper>
           </Wrapper>
         </FullWidth>
