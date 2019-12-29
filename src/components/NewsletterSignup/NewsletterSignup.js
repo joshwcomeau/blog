@@ -93,7 +93,7 @@ const EmailInput = styled.input`
 const SubmitButton = styled(MagicRainbowButton)`
   width: 150px;
   height: 60px;
-  font-size: 1.5rem;
+  font-size: 21px;
 
   @media ${BREAKPOINTS.sm} {
     margin-top: 8px;

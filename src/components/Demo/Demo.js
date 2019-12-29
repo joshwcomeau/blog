@@ -26,25 +26,32 @@ class Demo extends Component<Props, State> {
   };
 
   render() {
-    const { controls, style, showNote, children } = this.props;
+    const {
+      controls,
+      style,
+      width,
+      caption,
+      opaqueControls,
+      children,
+    } = this.props;
 
     return (
       <>
-        <Box>
+        <Box style={{ width }}>
           <ChildWrapper style={style}>{children(this.state)}</ChildWrapper>
 
           {controls && (
-            <ControlsWrapper>
+            <ControlsWrapper opaque={opaqueControls}>
               {controls(this.state, this.updateValue)}
             </ControlsWrapper>
           )}
         </Box>
-        {showNote && (
+        {caption && (
           <InteractivityNotice>
             <IconWrapper>
               <Icon size={32} icon={iosFlask} />
             </IconWrapper>
-            This is an interactive demo! Try dragging the slider on the right.
+            {caption}
           </InteractivityNotice>
         )}
       </>
@@ -57,6 +64,7 @@ const Box = styled.div`
   flex-direction: column;
   border: 1px solid ${COLORS.gray[200]};
   border-radius: 5px;
+  margin: auto;
   margin-bottom: 40px;
   overflow: hidden;
 
@@ -77,11 +85,13 @@ const ControlsWrapper = styled.div`
   position: relative;
   z-index: 2;
   padding: 15px 30px;
-  background: rgba(215, 215, 215, 0.7);
+  background: ${props =>
+    props.opaque ? 'rgba(215, 215, 215, 1)' : 'rgba(215, 215, 215, 0.7)'};
   border-radius: 0 0 4px 4px;
 
   ${Box}:hover & {
-    background: rgba(215, 215, 215, 0.92);
+    background: ${props =>
+      props.opaque ? 'rgba(215, 215, 215, 1)' : 'rgba(215, 215, 215, 0.92)'};
   }
 `;
 

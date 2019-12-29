@@ -11,16 +11,19 @@ const OldMethod = () => {
   const [mode, setMode] = React.useState('perspective');
   return (
     <Demo
-      showNote
+      caption="This is an interactive demo! Try dragging the slider to reveal."
+      opaqueControls
       id="old-rainbow-method"
       initialValues={{ rotation: 0 }}
+      style={{ padding: 0 }}
+      width={400}
       controls={(values, updateValue) => {
         return (
           <SliderControl
             id="rotation"
             label="Reveal"
             min={0}
-            max={80}
+            max={70}
             value={values.rotation}
             updateValue={updateValue}
           />
@@ -107,7 +110,6 @@ const Button = styled.button`
   border: none;
   color: white;
   font-size: 21px;
-  font-weight: 500;
 `;
 
 const Front = styled.div`
