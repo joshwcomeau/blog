@@ -50,15 +50,20 @@ const IndexPage = ({ data }) => {
             </Paragraph>
 
             <Paragraph>
-              The coolest thing about my blog, IMO, is that it's set up to be{' '}
-              <Em>dynamic</Em> and <Em>interactive</Em>, which can make it way
-              easier to explain complex things. The biggest challenge when
-              learning something new is discovering the right mental model for
-              what's happening, and being able to poke and prod at a live demo
-              can be <Em>so</Em> much more effective than reading words.
+              When I'm learning something new, my first priority is to figure
+              out the right mental model. I want to develop an intuitive
+              understanding of how the different pieces tie together, and how
+              the system reacts when changes are made.
             </Paragraph>
 
-            <Paragraph></Paragraph>
+            <Paragraph>
+              This blog is my attempt to share the stuff I've learned, often
+              using <Em>dynamic</Em>, <Em>explorable</Em> widgets. The idea is
+              that things will be easier to understand if you can poke and prod
+              at it, change the inputs to see what happens on the output. They
+              don't make sense for every subject, but they can be <Em>super</Em>{' '}
+              helpful for others.
+            </Paragraph>
 
             <Divider />
 
