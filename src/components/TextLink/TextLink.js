@@ -14,23 +14,24 @@ export default ({ children, ...delegated }) => (
 
 const Wrapper = styled(Link)`
   position: relative;
-  display: inline-block;
-  text-decoration: none;
   font-weight: 600;
 
-  &:after {
-    content: '';
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    bottom: 0;
-    height: 2px;
-    background-color: ${COLORS.pink[500]};
-    border-radius: 2px;
-    transition: transform 250ms 200ms, opacity 450ms 200ms;
-  }
-
   @media ${BREAKPOINTS.smMin} {
+    text-decoration: none;
+    display: inline-block;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      bottom: 0;
+      height: 2px;
+      background-color: ${COLORS.pink[500]};
+      border-radius: 2px;
+      transition: transform 250ms 200ms, opacity 450ms 200ms;
+    }
+
     &:hover:after {
       transform: translateY(-0.25em);
       opacity: 0;
@@ -44,6 +45,12 @@ const MainText = styled.span`
   position: relative;
   z-index: 1;
   color: ${COLORS.black};
+
+  @media ${BREAKPOINTS.sm} {
+    display: inline;
+    text-decoration: underline;
+    color: ${COLORS.pink[500]};
+  }
 `;
 
 const HoverText = styled.span`

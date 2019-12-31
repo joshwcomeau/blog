@@ -53,7 +53,15 @@ export const range = function(start, end, step) {
 };
 /* eslint-enable */
 
-export const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+export const sample = (arr, len = 1) => {
+  let output = [];
+
+  for (let i = 0; i < len; i++) {
+    output.push(arr[Math.floor(Math.random() * arr.length)]);
+  }
+
+  return output;
+};
 
 export const random = (min, max) =>
   Math.floor(Math.random() * (max - min)) + min;
@@ -204,4 +212,26 @@ export const getTimeOfDay = () => {
   } else {
     return 'night';
   }
+};
+
+export const generateId = (len = 4) => {
+  // prettier-ignore
+  const characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+  return sample(characters, len).join('');
+};
+
+export const normalize = (
+  number,
+  currentScaleMin,
+  currentScaleMax,
+  newScaleMin = 0,
+  newScaleMax = 1
+) => {
+  // FIrst, normalize the value between 0 and 1.
+  const standardNormalization =
+    (number - currentScaleMin) / (currentScaleMax - currentScaleMin);
+
+  // Next, transpose that value to our desired scale.
+  return (newScaleMax - newScaleMin) * standardNormalization + newScaleMin;
 };

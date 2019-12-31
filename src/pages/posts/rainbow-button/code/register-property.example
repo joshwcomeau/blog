@@ -1,0 +1,13 @@
+CSS.registerProperty({
+  // The name of our property, should match what we use in our CSS:
+  name: '--color-1',
+
+  // How we want to interpolate that value, when it changes:
+  scale: '<color>',
+
+  // Whether it should inherit its value from the cascade 
+  // (like `font-size` does), or not (like `position` doesn't)
+  inherits: false,
+  
+  initialValue: 'hsl(0deg, 96%, 55%)',
+});

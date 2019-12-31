@@ -68,7 +68,7 @@ class BaseHero extends PureComponent {
   };
 
   handleScroll = ev => {
-    let percentScrolled = window.scrollY / this.height * 100;
+    let percentScrolled = (window.scrollY / this.height) * 100;
 
     percentScrolled = clamp(percentScrolled, 0, 100);
 
@@ -98,7 +98,7 @@ class BaseHero extends PureComponent {
     return (
       <Wrapper>
         <Hero
-          innerRef={node => (this.node = node)}
+          ref={node => (this.node = node)}
           height={height}
           gutter={orientation === 'landscape' ? gutter : 0}
           background={background}
@@ -122,13 +122,13 @@ class BaseHero extends PureComponent {
                   </EmphasizedSecondary>
                 </>
               ) : (
-                  <>
-                    <Unemphasized>.</Unemphasized>{' '}
-                    <EmphasizedSecondary color={publishedOnColor}>
-                      (Draft)
+                <>
+                  <Unemphasized>.</Unemphasized>{' '}
+                  <EmphasizedSecondary color={publishedOnColor}>
+                    (Draft)
                   </EmphasizedSecondary>
-                  </>
-                )}
+                </>
+              )}
             </Byline>
           </MaxWidthWrapper>
 

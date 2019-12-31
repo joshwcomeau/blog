@@ -201,21 +201,21 @@ class Bezier extends React.PureComponent {
         <ConnectingLine
           from={startPoint}
           to={controlPoint}
-          innerRef={node => this.line1Node = node}
+          ref={node => this.line1Node = node}
         />
         <ConnectingLine
           from={controlPoint}
           to={endPoint}
-          innerRef={node => this.line2Node = node}
+          ref={node => this.line2Node = node}
         />
 
         <Curve
-          innerRef={node => this.curveNode = node}
+          ref={node => this.curveNode = node}
           instructions={this.calculatePathInstructions()}
         />
 
         <LargeHandle
-          innerRef={node => this.startPointNode = node}
+          ref={node => this.startPointNode = node}
           coordinates={startPoint}
           onMouseDown={
             () => this.handleMouseDown('startPoint')
@@ -223,7 +223,7 @@ class Bezier extends React.PureComponent {
         />
 
         <LargeHandle
-          innerRef={node => this.endPointNode = node}
+          ref={node => this.endPointNode = node}
           coordinates={endPoint}
           onMouseDown={
             () => this.handleMouseDown('endPoint')
@@ -231,7 +231,7 @@ class Bezier extends React.PureComponent {
         />
 
         <SmallHandle
-          innerRef={node => this.controlPointNode = node}
+          ref={node => this.controlPointNode = node}
           coordinates={controlPoint}
           onMouseDown={
             () => this.handleMouseDown('controlPoint')
@@ -245,9 +245,9 @@ class Bezier extends React.PureComponent {
 // These helper stateless-functional-components allow us
 // to reuse styles, and give each shape a meaningful name.
 
-const ConnectingLine = ({ from, to, innerRef }) => (
+const ConnectingLine = ({ from, to, ref }) => (
   <line
-    ref={innerRef}
+    ref={ref}
     x1={from.x}
     y1={from.y}
     x2={to.x}
@@ -258,9 +258,9 @@ const ConnectingLine = ({ from, to, innerRef }) => (
   />
 );
 
-const Curve = ({ instructions, innerRef }) => (
+const Curve = ({ instructions, ref }) => (
   <path
-    ref={innerRef}
+    ref={ref}
     d={instructions}
     fill="none"
     stroke="rgb(213, 0, 249)"
@@ -268,9 +268,9 @@ const Curve = ({ instructions, innerRef }) => (
   />
 );
 
-const LargeHandle = ({ coordinates, onMouseDown, innerRef }) => (
+const LargeHandle = ({ coordinates, onMouseDown, ref }) => (
   <ellipse
-    ref={innerRef}
+    ref={ref}
     cx={coordinates.x}
     cy={coordinates.y}
     rx={15}
@@ -281,9 +281,9 @@ const LargeHandle = ({ coordinates, onMouseDown, innerRef }) => (
   />
 );
 
-const SmallHandle = ({ coordinates, onMouseDown, innerRef }) => (
+const SmallHandle = ({ coordinates, onMouseDown, ref }) => (
   <ellipse
-    ref={innerRef}
+    ref={ref}
     cx={coordinates.x}
     cy={coordinates.y}
     rx={8}

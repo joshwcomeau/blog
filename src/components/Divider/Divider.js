@@ -5,8 +5,8 @@ import { COLORS } from '@constants';
 
 import SquigglyLine from '../SquigglyLine';
 
-export default ({ width = 200, height = 50 }) => (
-  <Wrapper width={width}>
+export default ({ width = 100, height = 50, ...delegated }) => (
+  <Wrapper width={width} {...delegated}>
     <SquigglyLine
       width={width}
       height={height}

@@ -50,18 +50,19 @@ const IndexPage = ({ data }) => {
             </Paragraph>
 
             <Paragraph>
-              This blog started as a place for interactive, explorable
-              tutorials. It's still kind of that, though the scope has grown a
-              bit. Now I view it as my super-powered Medium alternative. Some
-              posts will be{' '}
-              <TextLink href="/posts/folding-the-dom/">
-                full of rich, interactive widgets
-              </TextLink>
-              , while others will be{' '}
-              <TextLink href="/posts/remote-work/">
-                traditional "blog" fare
-              </TextLink>
-              .
+              When I'm learning something new, my first priority is to figure
+              out the right mental model. I want to develop an intuitive
+              understanding of how the different pieces tie together, and how
+              the system reacts when changes are made.
+            </Paragraph>
+
+            <Paragraph>
+              This blog is my attempt to share the stuff I've learned, often
+              using <Em>dynamic</Em>, <Em>explorable</Em> widgets. The idea is
+              that things will be easier to understand if you can poke and prod
+              at it, change the inputs to see what happens on the output. They
+              don't make sense for every subject, but they can be <Em>super</Em>{' '}
+              helpful for others.
             </Paragraph>
 
             <Divider />

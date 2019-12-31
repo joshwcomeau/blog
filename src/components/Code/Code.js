@@ -4,6 +4,7 @@ import { LiveProvider, LiveEditor } from 'react-live';
 import styled from 'styled-components';
 
 import { BREAKPOINTS } from '@constants';
+import { syntaxTheme } from '@helpers/syntax-highlighting.helpers';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -28,8 +29,6 @@ class Code extends PureComponent {
   render() {
     const { children, maxHeight, lang } = this.props;
 
-    console.log({ lang });
-
     if (!this.state.hasBeenMounted) {
       return null;
     }
@@ -37,14 +36,14 @@ class Code extends PureComponent {
     return (
       <LiveProvider
         code={children}
-        language={lang}
         noInline={true}
         mountStylesheet={false}
+        theme={syntaxTheme}
       >
         <FullWidth>
           <Wrapper>
             <EditorWrapper maxHeight={maxHeight}>
-              <LiveEditor />
+              <LiveEditor language={lang} />
             </EditorWrapper>
           </Wrapper>
         </FullWidth>
@@ -55,20 +54,26 @@ class Code extends PureComponent {
 
 const Wrapper = styled(MaxWidthWrapper)`
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 72px;
+  margin-top: 32px;
+  margin-bottom: 48px;
 
   @media ${BREAKPOINTS.md} {
     flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
   }
 `;
 
 const EditorWrapper = styled.div`
   flex: 1;
-  padding: 32px;
+  padding: 16px;
   background: #f8f8f8;
   max-height: ${props =>
-    props.maxHeight ? `${props.maxHeight}px` : undefined};
+    typeof props.maxHeight === 'undefined'
+      ? undefined
+      : typeof props.maxHeight === 'number'
+      ? `${props.maxHeight}px`
+      : props.maxHeight};
   overflow: auto;
 `;
 

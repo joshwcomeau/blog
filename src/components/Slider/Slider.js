@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import RcSlider, { createSliderWithTooltip } from 'rc-slider';
 
 import { COLORS } from '@constants';
@@ -111,6 +111,8 @@ class Slider extends Component<Props> {
           {...delegatedProps}
           {...styles[orientation]}
         />
+
+        <SliderStyles />
       </Fragment>
     );
   }
@@ -121,7 +123,7 @@ class Slider extends Component<Props> {
 // TODO: Use the `xStyle` overrides so that we can support vertical and
 // horizontal
 
-injectGlobal`
+const SliderStyles = createGlobalStyle`
   .rc-slider {
   }
 

@@ -1,0 +1,21 @@
+<div
+  style={{
+    '--color-1': 'deepskyblue',
+    '--color-2': 'navy',
+    background: `
+      linear-gradient(
+        170deg,
+        var(--color-1),
+        var(--color-2) 80%
+      )
+    `,
+
+    // Unrelated styles:
+    color: 'white',
+    textAlign: 'center',
+    padding: 30,
+    borderRadius: 12,
+  }}
+>
+  Hello World
+</div>

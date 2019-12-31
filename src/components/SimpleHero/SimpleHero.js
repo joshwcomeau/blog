@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS, Z_INDICES, BREAKPOINTS } from '@constants';
+import { COLORS, BREAKPOINTS } from '@constants';
 import { humanizeDate } from '@helpers/date.helpers';
 
 import MaxWidthWrapper from '../MaxWidthWrapper';
+import Divider from '../Divider';
 
 const SimpleHero = ({ title, isPublished, publishedOn }) => {
   return (
@@ -31,20 +32,31 @@ const SimpleHero = ({ title, isPublished, publishedOn }) => {
           )}
         </Byline>
       </Wrapper>
+      <Divider style={{ marginBottom: 0, marginTop: 100 }} />
     </MaxWidthWrapper>
   );
 };
 
 const Wrapper = styled.div`
-  padding-top: 180px;
+  padding-top: 90px;
   text-align: center;
+
+  @media screen and ${BREAKPOINTS.mdMin} {
+    padding-top: 180px;
+    text-align: left;
+  }
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 900;
-  line-height: 4rem;
+  line-height: 1.4;
   letter-spacing: -1px;
+
+  @media screen and ${BREAKPOINTS.smMin} {
+    font-size: 3rem;
+    line-height: 4rem;
+  }
 `;
 
 const Byline = styled.h3`

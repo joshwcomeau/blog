@@ -1,0 +1,17 @@
+.gradient {
+  --magic-rainbow-color-1: hsl(0deg, 96%, 55%);
+  --magic-rainbow-color-2: hsl(25deg, 100%, 50%);
+  --magic-rainbow-color-1: hsl(40deg, 100%, 50%);
+
+  background: linear-gradient(
+    170deg,
+    var(--magic-rainbow-color-1),
+    var(--magic-rainbow-color-2)
+  );
+
+  /* 🤯 */
+  transition:
+    --magic-rainbow-color-1 1000ms linear,
+    --magic-rainbow-color-2 1000ms linear,
+    --magic-rainbow-color-3 1000ms linear,
+}

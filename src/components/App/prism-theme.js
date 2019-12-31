@@ -1,8 +1,8 @@
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 import { COLORS } from '../../constants';
 
-injectGlobal`
+const PrismStyles = createGlobalStyle`
 /**
  * Josh Blog theme for Javascript, CSS, and HTML.
  * Derived from the a11y-dark theme, by ericwbailey
@@ -176,3 +176,5 @@ injectGlobal`
 		font-weight: normal;
 	}
 }`;
+
+export default PrismStyles;

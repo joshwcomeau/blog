@@ -81,7 +81,7 @@ class SelfStraighteningCurves extends Component {
       <Svg
         width="100%"
         height={HEIGHT}
-        innerRef={node => (this.node = node)}
+        ref={node => (this.node = node)}
         viewBox="0 0 1000 120"
         preserveAspectRatio="none"
       >

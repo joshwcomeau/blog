@@ -14,11 +14,12 @@ import MaxWidthWrapper from '@components/MaxWidthWrapper';
 import Header from '@components/Header';
 import WindowDimensions from '@components/WindowDimensions';
 import WatermelonGradientHero from '@components/WatermelonGradientHero';
+import SimpleHero from '@components/SimpleHero';
 import Spacer from '@components/Spacer';
 import Paragraph from '@components/Paragraph';
 import List from '@components/List';
 import ListItem from '@components/ListItem';
-import Code from '@components/Code';
+import InlineCode from '@components/InlineCode';
 import SectionHeading from '@components/SectionHeading';
 import SectionSubHeading from '@components/SectionSubHeading';
 import Quote from '@components/Quote';
@@ -33,6 +34,8 @@ const HEADER_HEIGHT = 50;
 
 const getHero = heroStyle => {
   switch (heroStyle) {
+    case 'simple':
+      return SimpleHero;
     case 'watermelon-gradient':
     default:
       return WatermelonGradientHero;
@@ -88,7 +91,7 @@ export default ({ children, pageContext, location }: Props) => {
         li: ListItem,
         img: Image,
         em: Em,
-        code: Code,
+        code: InlineCode,
       }}
     >
       <App>
@@ -133,7 +136,7 @@ const MainContent = styled.div`
   position: relative;
   background: ${COLORS.white};
   z-index: ${Z_INDICES.mainContent};
-  padding-top: 150px;
+  padding-top: 100px;
 
   @media ${BREAKPOINTS.sm} {
     padding-top: 75px;

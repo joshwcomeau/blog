@@ -67,7 +67,7 @@ class Heading extends Component<Props> {
     const anchorId = this.getDerivedAnchorId();
 
     return (
-      <Element {...delegated} innerRef={node => (this.node = node)}>
+      <Element {...delegated} ref={node => (this.node = node)}>
         <Anchor
           name={anchorId}
           id={anchorId}

@@ -1,0 +1,262 @@
+---
+title: Magical Rainbow Gradients with CSS Houdini
+slug: rainbow-button
+isPublished: false
+publishedOn: 2020-01-06T15:00:00-0400
+abstract: Using CSS custom properties and Houdini for rich, flexible animations
+interactive: true
+heroStyle: simple
+---
+
+import TextLink from '@components/TextLink';
+import List from '@components/List';
+import ListItem from '@components/ListItem';
+import VideoGif from '@components/VideoGif';
+import Image from '@components/Image';
+import NewsletterSignup from '@components/NewsletterSignup';
+import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
+import LiveEditableCode from '@components/LiveEditableCode';
+import Code from '@components/Code';
+import registerPropertySrc from '@assets/images/rainbow-button/register-property-compatibility.png';
+import profilingSrc from '@assets/images/rainbow-button/profiling.png';
+
+import customPropsCode from './code/custom-props.example';
+import customPropsCssCode from './code/custom-props-css.example';
+import customPropsTransitionCode from './code/custom-props-transition.example';
+import fakeNewsGradientCode from './code/fake-news-gradient.example';
+import registerPropertyCode from './code/register-property.example';
+import vanillaDemoCode from './code/vanilla-demo.example';
+import hookConsumerCode from './code/hook-consumer.example';
+import initialUseRainbowCode from './code/initial-use-rainbow.example';
+import uniqueIdCode from './code/unique-id.example';
+import prmCode from './code/prm.example';
+
+import OldMethod from './components/OldMethod';
+import GradientIdeaImage from './components/GradientIdeaImage';
+import CasinoLights from './components/CasinoLights';
+
+When I launched this blog a couple years back, I wanted to add a bit of flair to the newsletter subscribe button. My idea: an animated rainbow gradient for the background.
+
+I love gradients. After so many years of solid colors and flat design, I'm glad to see them making a comeback!
+
+It turned out that animating CSS gradients was a lot more trouble than I expected, and the result was a little underwhelming:
+
+<RenderWhenOnscreen height={540}>
+  <OldMethod />
+</RenderWhenOnscreen>
+
+Rather than animating the gradient directly, I created a very tall gradient, and translated it up within the button, resetting it once it neared the bottom. My trusty friend `overflow: hidden` made sure that the excess wasn't visible to the user.
+
+This approach kinda works, but there are problems:
+
+- The looping isn't entirely seamless. Subtle differences in performance across devices means that it can be noticeable when the position resets.
+- It just doesn't look that great; I wanted something with an organic kind of flowing quality, and this just felt static and lifeless.
+
+Over the past couple years, I've given this button a lot of thought. It's been a long time coming, but after discovering a _wild_ new technique, I was finally able to come up with something I like.
+
+Without further ado, the new button:
+
+<NewsletterSignup id="first-demo" hideDisclaimer />
+
+## Radial gradients to the rescue!
+
+This new model uses a `radial-gradient`: color seeps out from the top-left corner, shifting slowly through the rainbow, cascading across the button's surface.
+
+More precisely, there's a 3-color radial gradient anchored in the top-left corner. The colors would all be adjacent in the rainbow, and each "tick" of the animation would shift the colors down:
+
+<GradientIdeaImage />
+
+The critical point here is that _nothing is actually moving_. There's no translate happening on a 2D plane anymore. Instead, I'm sampling 3 colors from a 10-color rainbow palette, and each point in the gradient is slowly shifting to inherit the color in the previous point. For example, the `C3` point is always 1 color behind in the palette from the `C2` point.
+
+This creates the _illusion_ of motion, similar to those casino or venue lights:
+
+<CasinoLights />
+
+> This is also similar to how sound waves move through the air! I created an explorable explanation that [demonstrates this concept](https://pudding.cool/2018/02/waveforms/), if you're curious!
+
+## Animating gradients
+
+So the game plan was coming together:
+
+- I'd create a palette of 10 rainbow colors.
+- I'd set a gradient to hold a moving window of 3 colors.
+- I'd run an interval that would update the gradient every second, shifting each color by 1 spot.
+- I'd tween between the colors in each spot. On every frame, the colors should inch towards their next value.
+
+That last step was the trickiest. Unfortunately, you can't use `transition` to interpolate between background gradients. The following snippet _does not work_:
+
+<Code lang="css">{fakeNewsGradientCode}</Code>
+
+I _could_ do this all in JS. I could set up a `requestAnimationFrame` loop that splits each color transition into ~60 incremental steps. I did not like this idea; it felt hacky. Also, because it would be running on the main thread, the animation could become choppy during periods of stress.
+
+I wanted to do the interpolating in CSS. And happily, I found a way.
+
+## Custom properties (AKA CSS variables)
+
+For a while now, CSS has had variables. At first blush, they look a lot like the variables you'd see in SASS or LESS, but unlike preprocessors, variables are still in the code at runtime. This makes them much more powerful, as we'll soon see!
+
+Here's how you can use CSS custom properties in a gradient:
+
+<Code lang="css">{customPropsCssCode}</Code>
+
+We can use inline styles to set this on React elements, like so:
+
+<LiveEditableCode
+  inline
+  id="custom-css-props"
+  code={customPropsCode}
+  split={[70, 30]}
+/>
+
+On their own, this doesn't actually help us. We still can't apply `transition` on `background`, it doesn't do anything. But it gets us one step closer.
+
+## CSS Houdini
+
+If you haven't already heard, CSS Houdini is a wide-ranging set of upcoming CSS enhancements predicated on one idea: developers should be able to create their own CSS features.
+
+For example, CSS doesn't have any built-in way to do masonry layouts. Wouldn't it be cool if you could build it, and then access it with `display: masonry`?
+
+For another example: projects like Babel allow us to "polyfill" (most) missing features in JS, because we can mimic those new features using an earlier version of the language. But we can't polyfill (most) CSS features. Houdini will allow us to polyfill in missing CSS, by giving us access to the internal wiring of the CSS engine.
+
+CSS Houdini is a huge project, already years into research and development, and I expect it'll shape the future of web development in exciting and unpredictable ways. For today, though, I'd like to focus on one relatively small but incredibly cool part of this: _animated custom properties_.
+
+## Animated custom properties
+
+CSS has properties, like `display` and `transform` and `color`. It always struck me as curious that the W3C chose to name CSS _variables_ as _custom properties_. Aren't they a totally different concept?
+
+Actually, they're more similar than I realized. It's better to think of CSS variables as your own properties, like `display` and `transform`, which can be accessed by other properties, using the `var()` keyword.
+
+Here's the wild, mind-blowing part: you can _transition custom properties_:
+
+<Code lang="css">{customPropsTransitionCode}</Code>
+
+We're not telling the browser to animate the _background property_, we're telling the browser to animate our _custom property_. And then we're using that custom property in our background gradient. Amazingly, the `var()` keyword is reactive, causing the background to re-paint whenever the value changes, even when that value is being tweened by `transition`.
+
+My mind is still buzzing with the possibilities. CSS custom properties are so much cooler than I realized, and Houdini gives us downright magical powers.
+
+### One more piece: registering the property
+
+There's one more thing we need to do before this will actually work. We need to tell the browser what the _type_ of our custom property is.
+
+Should the browser treat it as a color? A length? An angle? We need to be explicit about it, so that the browser knows how to interpolate changes.
+
+We do this in JS with the following method:
+
+<Code lang="js">{registerPropertyCode}</Code>
+
+## A vanilla JS demo
+
+In a bit, we'll see how React hooks let us package this up rather nicely. First, though, I wanted to share the raw JS code, for folks using a different framework, or no framework at all:
+
+<Code lang="js" maxHeight="60vh">
+  {vanillaDemoCode}
+</Code>
+
+## Implementing with a custom hook
+
+One of the things I really like about hooks is that they let us come up with our own abstractions, grouped by category, rather than by lifecycle. It gives us the control to package updates however we want, behind a single hook. We can choose whether to optimize for clarity or reusability, decide exactly where we want the boundaries to be.
+
+In this case, I want to focus on keeping things as simple and lightweight as possible. I don't care too much about reusability, and I don't need a bunch of configuration options.
+
+### State and API
+
+Initially, I was thinking I would hold the current colors in state, but it occurred to me that the colors are derived data; the _real_ bit of state is the current interval count.
+
+If I'm on the 5th cycle, for example, I know that my colors will be the 5th, 6th, and 7th colors in my 10-color palette. Because the palette is static, I can just track that number, and use it to derive the colors.
+
+The next thing I wanted to figure out was the API. I started by writing the component that will consume this hook. I like just making up whatever API seems ideal for the component that uses it. I'll worry about making it later.
+
+<Code lang="js" maxHeight="60vh">
+  {hookConsumerCode}
+</Code>
+
+Finally, here's my initial version of this hook:
+
+<Code lang="js" maxHeight="60vh">
+  {initialUseRainbowCode}
+</Code>
+
+> \* `useIncrementingNumber` is a custom hook that spits out a new, ever-increasing number, based on a provided interval delay. It's based off of Dan Abramov's [setInterval hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/). You can view its source [here](https://github.com/joshwcomeau/blog/blob/master/src/hooks/use-incrementing-number.hook.js)
+
+I like this approach, because there's a clear separation of duties:
+
+- `useRainbow` is in charge of generating and managing the colors, but has no say in what they're used for.
+- The component, `MagicRainbowButton`, doesn't know anything about where these colors came from, but decides what to do with them.
+
+> There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. Ultimately, this is an implementation detail without realized consequences in my case, but your mileage may vary.
+
+## Making this production-ready
+
+Before you start shipping rainbows, there are a couple things we need to think about / fix.
+
+### Global properties and duplicate components
+
+The biggest problem with our current implementation is that it violates a core React principle: every instance of a component should be independent. We should be able to render as many copies of it as we want, with no "cross-talk".
+
+If we try to render two copies of our `MagicRainbowButton` on the same page, we get this error:
+
+> InvalidModificationError: Failed to execute 'registerProperty' on 'CSS': The name provided has already been registered.
+
+This is because the CSS custom properties registry is a global object; all of our component instances are sharing the same global namespace! And right now, they're both trying to register the same names.
+
+I got around this by creating a unique ID for each React component, and storing it with a `useRef` hook:
+
+<Code lang="js">{uniqueIdCode}</Code>
+
+This also makes me feel better about the "secret side-effects in hooks" thing. A bit of randomness rules out the risk of name collisions, and makes that side-effect invisible in all the ways that matter.
+
+### Browser support
+
+Houdini is super bleeding-edge, and this is reflected in its browser support: At the time of writing, `CSS.registerProperty` is only supported by Chrome 78+, and Opera 65+.
+
+<img
+  alt="Table showing the lack of browser support, aside from Chrome and Opera"
+  src={registerPropertySrc}
+  style={{ width: '100%', maxWidth: '80vw' }}
+/>
+
+My solution? Bail out of the hook early, if `window.CSS` or `CSS.registerProperty` aren't found, and return the first 3 colors. Other browsers won't get the animation, but they'll still get a nice gradient! And our React component doesn't have to change at all 💯
+
+> Note: IE11 doesn't support custom properties at all, so if you need to support it, you'll need to set a fallback background gradient, using hardcoded color values instead of custom properties
+
+### Performance
+
+Last year, I [gave a talk](https://www.youtube.com/watch?v=DNGGzwmfouU) about animation/interaction performance. In that talk, I mention that there are two "gold standard" properties: _opacity_ and _transform_. Those two properties perform way better than other properties, because they don't have to paint on every frame, they can be manipulated directly by the graphics card and composited around on the screen.
+
+In that talk, I _also_ advocated for breaking this rule from time to time, as long as you're measuring. With a _6x throttle_ on my CPU, I fired up the profiler:
+
+<img
+  alt="A very empty profile, with it easily hitting 60fps"
+  src={profilingSrc}
+  style={{ width: '100%', maxWidth: '80vw' }}
+/>
+
+It is true that this technique involves a repaint on every frame, and that repaints can be slow... but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
+
+Animating properties like `height` is often very slow, because it involves both a _layout_ and _paint_ step, and because the number of pixels involved can be very large. In this case, there's no layout step, and the paint step is quick and targeted.
+
+### Accessibility
+
+Whimsical touches are great, but not when they come at the expense of usability.
+
+The first thing I wanted to make sure of was that I was disabling this animation when the user has the ["preferred reduced motion"](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) setting ticked. We can check this setting in JS with the following line:
+
+<Code lang="js">{prmCode}</Code>
+
+> The reason that "prefers reduced motion" is a thing is because people with vestibular disorders experience negative side-effects when shown animations. It can trigger vertigo, or nausea, or headaches. In extreme cases, careless motion can leave someone bedridden for days.
+>
+> Color-shifting isn't _quite_ the same thing as "motion", but with side-effects like those, I'd rather play it safe.
+
+In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum. Truthfully, it may still be too low-contrast for certain periods in the animation, but I'm confident it's legible most of the time, and the animation shifts quickly.
+
+# One more subscribe button
+
+It's a brand new year, and my goal for 2020 is to produce many high-quality interactive blog posts like this one. My newsletter is the best way to find out when something new is posted.
+
+I know I've thrown a lot of "subscribe" buttons at you this post, but this last one is for real. Won't you join my newsletter?
+
+<NewsletterSignup id="end-of-rainbow-page" hideDisclaimer />
+
+If you're keen to build your own rainbow button, the source code for this one might come in handy. This blog is open-source, so you can find it [on Github](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/).
+
+If you do wind up using this effect somewhere, I'd _love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!

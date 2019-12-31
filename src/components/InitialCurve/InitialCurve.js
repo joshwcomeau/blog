@@ -46,7 +46,7 @@ class InitialCurve extends Component {
       <Svg
         width="100%"
         height={height}
-        innerRef={node => (this.node = node)}
+        ref={node => (this.node = node)}
         viewBox="0 0 720 200"
       >
         <path
