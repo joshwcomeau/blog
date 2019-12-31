@@ -30,9 +30,10 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
   const getColorPropName = index =>
     `--magic-rainbow-color-${uniqueId}-${index}`;
 
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  );
+  const prefersReducedMotion =
+    typeof window === 'undefined'
+      ? true
+      : window.matchMedia('(prefers-reduced-motion: reduce)');
 
   if (!hasBrowserSupport || prefersReducedMotion.matches) {
     return range(0, WINDOW_SIZE).reduce((acc, index) => {
