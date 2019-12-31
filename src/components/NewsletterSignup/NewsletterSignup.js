@@ -103,7 +103,7 @@ const SubmitButton = styled(MagicRainbowButton)`
   margin-left: 16px;
 
   @media ${BREAKPOINTS.sm} {
-    margin-top: 8px;
+    margin-top: 16px;
     margin-left: 0;
     width: 100%;
   }

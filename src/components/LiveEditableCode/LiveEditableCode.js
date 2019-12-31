@@ -93,11 +93,6 @@ class LiveEditableCode extends PureComponent {
               <LiveError />
               <LivePreview />
             </PreviewWrapper>
-
-            <NotAvailableWrapper>
-              Live-editable code not available on smaller screens.{' '}
-              {gistId && <TextLink href={gistUrl}>View the gist</TextLink>}
-            </NotAvailableWrapper>
           </Wrapper>
         </FullWidth>
       </LiveProvider>
@@ -113,21 +108,29 @@ const Wrapper = styled(MaxWidthWrapper)`
   @media ${BREAKPOINTS.md} {
     flex-direction: column;
   }
+  @media ${BREAKPOINTS.sm} {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
-const EditorWrapper = styled(DesktopOnly)`
+const EditorWrapper = styled.div`
   padding: 16px;
   flex: ${props => props.split};
   background: #f8f8f8;
   max-height: ${props => props.maxHeight}px;
   overflow: auto;
-`;
 
-const NotAvailableWrapper = styled(MobileOnly)`
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: ${COLORS.gray[50]};
-  padding: 25px;
-  text-align: center;
+  /*
+    The code should not be editable on smaller screens.
+    It's too janky of an experience.
+    Show the code, but ignore taps.
+  */
+  @media ${BREAKPOINTS.sm} {
+    textarea {
+      pointer-events: none;
+    }
+  }
 `;
 
 const PreviewWrapper = styled.div`

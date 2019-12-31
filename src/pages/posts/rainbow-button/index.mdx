@@ -154,11 +154,9 @@ In a bit, we'll see how React hooks let us package this up rather nicely. First,
 
 ## Implementing with a custom hook
 
-Maybe the thing I like most about React hooks is that they give us a new way to think about updates. Rather than thinking in terms of lifecycles, we can condition changes based on dependencies. When Y changes, do X. This is a nicer mental model, in my opinion.
+One of the things I really like about hooks is that they let us come up with our own abstractions, grouped by category, rather than by lifecycle. It gives us the control to package updates however we want, behind a single hook. We can choose whether to optimize for clarity or reusability, decide exactly where we want the boundaries to be.
 
-Another benefit of hooks is that we can use our mental model to determine the API for our custom hooks. We can decide exactly what is done where. We can optimize for clarity, or reusability, or anything else we care about.
-
-In my case, I want to optimize for clarity; I don't expect to need a highly-flexible rainbow-anything hook. I want a button that cycles through the rainbow, and that's it.
+In this case, I want to focus on keeping things as simple and lightweight as possible. I don't care too much about reusability, and I don't need a bunch of configuration options.
 
 ### State and API
 
@@ -185,11 +183,11 @@ I like this approach, because there's a clear separation of duties:
 - `useRainbow` is in charge of generating and managing the colors, but has no say in what they're used for.
 - The component, `MagicRainbowButton`, doesn't know anything about where these colors came from, but decides what to do with them.
 
-> The only thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers CSS custom properties. It might be good to split them into two separate hooks... but it's very much a tradeoff, and I'm not actually sure what the right answer is.
+> There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. Ultimately, this is an implementation detail without realized consequences in my case, but your mileage may vary.
 
-## Odds and ends
+## Making this production-ready
 
-There are a few things that we haven't yet dealt with yet.
+Before you start shipping rainbows, there are a couple things we need to think about / fix.
 
 ### Global properties and duplicate components
 
@@ -205,9 +203,11 @@ I got around this by creating a unique ID for each React component, and storing 
 
 <Code lang="js">{uniqueIdCode}</Code>
 
+This also makes me feel better about the "secret side-effects in hooks" thing. A bit of randomness rules out the risk of name collisions, and makes that side-effect invisible in all the ways that matter.
+
 ### Browser support
 
-Houdini is super bleeding-edge, and this is made obvious in its browser support: At the time of writing, `CSS.registerProperty` is only supported by Chrome 78+, and Opera 65+.
+Houdini is super bleeding-edge, and this is reflected in its browser support: At the time of writing, `CSS.registerProperty` is only supported by Chrome 78+, and Opera 65+.
 
 <img
   alt="Table showing the lack of browser support, aside from Chrome and Opera"
@@ -217,13 +217,13 @@ Houdini is super bleeding-edge, and this is made obvious in its browser support:
 
 My solution? Bail out of the hook early, if `window.CSS` or `CSS.registerProperty` aren't found, and return the first 3 colors. Other browsers won't get the animation, but they'll still get a nice gradient! And our React component doesn't have to change at all 💯
 
-(Note: IE11 doesn't support custom properties at all, so if this browser is important to you, you'll need to do some more work to ensure your gradient shows up for them)
+> Note: IE11 doesn't support custom properties at all, so if you need to support it, you'll need to set a fallback background gradient, using hardcoded color values instead of custom properties
 
 ### Performance
 
-Last year, I [gave a talk](https://www.youtube.com/watch?v=DNGGzwmfouU) all about animation/interaction performance. In that talk, I mention that there are two "gold standard" properties: _opacity_ and _transform_. Those two properties perform way better than other properties, because they don't have to paint on every frame, they can be manipulated directly by the graphics card and composited around on the screen.
+Last year, I [gave a talk](https://www.youtube.com/watch?v=DNGGzwmfouU) about animation/interaction performance. In that talk, I mention that there are two "gold standard" properties: _opacity_ and _transform_. Those two properties perform way better than other properties, because they don't have to paint on every frame, they can be manipulated directly by the graphics card and composited around on the screen.
 
-In that talk, I _also_ warned not to follow this rule too closely, and to always measure things. With a _6x throttle_ on my CPU, I fired up the profiler:
+In that talk, I _also_ advocated for breaking this rule from time to time, as long as you're measuring. With a _6x throttle_ on my CPU, I fired up the profiler:
 
 <img
   alt="A very empty profile, with it easily hitting 60fps"
@@ -231,9 +231,9 @@ In that talk, I _also_ warned not to follow this rule too closely, and to always
   style={{ width: '100%', maxWidth: '80vw' }}
 />
 
-It is true that this technique involves a repaint on every frame, and that repaints can be slow... but the amount of repainting is tiny in this case. On average, that repaint takes about _0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
+It is true that this technique involves a repaint on every frame, and that repaints can be slow... but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
 
-Animating properties like `height` is often very slow, because it involves both a _layout_ and _paint_ step, and because the number of pixels involved is very large. In this case, there's no layout step, and the paint step is quick.
+Animating properties like `height` is often very slow, because it involves both a _layout_ and _paint_ step, and because the number of pixels involved can be very large. In this case, there's no layout step, and the paint step is quick and targeted.
 
 ### Accessibility
 
@@ -243,20 +243,20 @@ The first thing I wanted to make sure of was that I was disabling this animation
 
 <Code lang="js">{prmCode}</Code>
 
-> The reason that "prefers reduced motion" is a thing is because certain people experience negative effects when shown animations. It can trigger vertigo, or headaches. In extreme cases, careless motion can leave someone bedridden for days.
+> The reason that "prefers reduced motion" is a thing is because people with vestibular disorders experience negative side-effects when shown animations. It can trigger vertigo, or nausea, or headaches. In extreme cases, careless motion can leave someone bedridden for days.
 >
-> I'm honestly not sure if color-shifting qualifies as "motion", but I'd rather not take the chance.
+> Color-shifting isn't _quite_ the same thing as "motion", but with side-effects like those, I'd rather play it safe.
 
-In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum.
+In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum. Truthfully, it may still be too low-contrast for certain periods in the animation, but I'm confident it's legible most of the time, and the animation shifts quickly.
 
-## Final result
-
-The finished button has a few more small tweaks that didn't fit into this post. Happily, my blog is open-source, so you can see the actual live-running code for yourself! Check out the [MagicRainbowButton component](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/MagicRainbowButton.js) and its sibling [useRainbow hook](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/use-rainbow.js)
-
-# Join the Newsletter
+# One more subscribe button
 
 It's a brand new year, and my goal for 2020 is to produce many high-quality interactive blog posts like this one. My newsletter is the best way to find out when something new is posted.
 
-You've seen how much work went into this subscribe button. Hopefully that work hasn't all been in vain!
+I know I've thrown a lot of "subscribe" buttons at you this post, but this last one is for real. Won't you join my newsletter?
 
 <NewsletterSignup id="end-of-rainbow-page" hideDisclaimer />
+
+If you're keen to build your own rainbow button, the source code for this one might come in handy. This blog is open-source, so you can find it [on Github](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/).
+
+If you do wind up using this effect somewhere, I'd _love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!

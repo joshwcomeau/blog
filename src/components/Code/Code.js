@@ -54,11 +54,13 @@ class Code extends PureComponent {
 
 const Wrapper = styled(MaxWidthWrapper)`
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 72px;
+  margin-top: 32px;
+  margin-bottom: 48px;
 
   @media ${BREAKPOINTS.md} {
     flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
   }
 `;
 
