@@ -8,42 +8,126 @@ heroStyle: 'simple'
 interactive: false
 ---
 
-As developers, we're constantly looking for ways to increase our effectiveness. Naturally, we often reach for engineering solutions - frameworks, tooling, stuff-as-a-service. Typescript helps us catch bugs at compiletime so we don't have to spend time hunting for bugs at runtime. React hooks let me organize my business logic in a way that can be more intuitive, so my code stays simpler and I can get stuff done more quickly.
+import Asterisk from '@components/Asterisk';
 
-> Maybe mention Auth0, Stripe?
+import geicoSrc from '@assets/images/designer-collaboration/geico-logo.png';
 
-As a community, we've invested a lot in these engineering solutions. And they're great! I work at Gatsby, and our whole thing is to make it dramatically easier to develop rich, static-in-name-only web apps.
+<p>
+  So here's a fun exercise. If you had 15 minutes of a front-end developer's
+  attention, and your goal was to teach them something that would drastically
+  improve their work performance, what would you share?
+  <Asterisk imageSrc={geicoSrc}>
+    Framed another way: how would you fulfill the Geico promise, "15 minutes
+    could save you 15% or more on development efforts"?
+  </Asterisk>
+</p>
 
-But we've picked a lot of the low-hanging fruit in this space. We've been mining this asteroid for a while now. It's worth seeing how else we might streamline and optimize our development processes.
+This blog post is my answer to that question. It's roughly a 15 minute read, and I believe that if you take that time, it could potentially save you hundreds of hours of development effort throughout your career. I believe it's the highest-ROI tip I have.
 
-When thinking about what I wanted to write for Javascript January, my goal was to produce something with a very high ROI.
+It's not actually about Javascript, though. As a community, we've done an incredible job optimizing along the engineering axis; we have brilliant frameworks, tools, and services. I work for Gatsby, and our whole thing is to make it dramatically faster to develop rich, static-in-name-only web apps.
 
-Something interesting to think about: if you had 15 minutes with another developer, and your goal was to teach them something
+But engineering solutions will only take you so far, and you can't solve a process problem with tooling. As our tools continue to get more and more optimized, I feel like we're missing a lot of low-hanging fruit in other areas.
 
-This blog post should take you ~15 minutes to read, and my goal is to
+Most front-end developers' work is intertwined with design. Unless your role is purely architectural, it's likely that you spend a good chunk of your time implementing designs created by other people. How you manage those relationships has a _huge_ impact on your output as a developer.
 
-And there's a lot of low-hanging fruit on other axes!
-
-For example, communication with product and design.
-
-> I'm particularly good at this, and I've often thought: If I had 15 minutes of someone's time, what is the highest ROI thing I could teach them, something that would save them hundreds or thousands of hours in their career?
+> Something about why I'm qualified to talk about this.
 
 # It starts with empathy
 
 So here's a fun exercise. Imagine you're at a party, and someone asks what you do. You mention that you're a developer for Company X. The person pulls out their phone and navigates to Company X's homepage, which is a page you built.
 
-For many devs, there's a certain amount of pride with this kind of thing. The code that we wrote is running on this person's phone! Even though undoubtedly many other people worked very hard on it, we were the ones who converted those efforts into a live, working page.
+For many devs, there's a certain amount of pride with this kind of thing. The code that we wrote is running on this person's phone! Even though undoubtedly many other people worked very hard on it, we were the ones who translated those efforts into a live, working page. It's your work.
 
-Now imagine that you're in the same situation, except you're the UI/UX designer who worked on Company X's homepage. The mockup you designed a few months ago is noticeably different from what you're seeing on this person's phone. The fonts are all wrong, the spacing is off, there's a weird glitch on scroll. This is your work, but there are caveats and asterisks.
+Now imagine that you're in the same situation, except you're the UI/UX designer who worked on Company X's homepage. The mockup you designed a few months ago is noticeably different from what you're seeing on this person's phone. The fonts are all wrong, the spacing is off, there's a weird glitch on scroll. It's not really your work. Not without a lot of asterisks and caveats, at least.
 
-Designers work hard to create a design that looks good and works well for the user. But then their work is filtered through the implementation process, which inevitably leaves some sort of mark. The end result will never exactly match their design. And yet, their professional reputation is all about which real-world products they've worked on, not how many beautiful, functional mockups they've designed.
+Designers work hard to create a design that looks good and works well for the end user. But their work is funneled through an implementation process, one which inevitably leaves some kind of mark. The end result will never exactly match their design. And yet, their professional reputation is all about which real-world products they've worked on, not how many beautiful, functional mockups they've designed.
 
 This is a situation that can very easily lead to resentment and conflict. I've worked on teams where there was icy tension between designers and developers. And, frankly, I think developers are to blame most of the time. It's usually our fault.
 
-There's another part to this as well.
+The first step in improving our own output is to recognize that we haven't always been perfect teammates.
 
-# It starts with empathy
+# "Nits"
 
-I think the first
+How do developers typically react when designers submit feedback like this:
 
----
+- Change avatar border radius from 6px to 8px
+- Add 6px spacing below avatar
+- Keep content center-aligned between `md` and `lg` breakpoints
+- Title should be `gray-900`, not `gray-700`
+- Text should show an ellipsis (...) if it's too long to fit on 3 lines.
+
+We tend to describe these as "nitpicks", which isn't a very kind way to describe the concerns of our teammates. Generally what happens in these situations is that the developer tells the designer to create a ticket for these nits, where it'll likely be assigned a P4 and prompt forgotten about, amongst a sea of other low-priority tickets.
+
+Now, I'm a realist. I know that often we're working under tight deadlines, and there are a ton of nice things that we simply don't have time to get to, because we're rushing to fix the critical, experience-breaking bugs, or wrap up the crucial feature expected to help meet the organization's financial goals.
+
+Let's see how we can work this out.
+
+### In most circumstances: fix it!
+
+Let's be real—these types of concerns aren't usually huge timesinks. In my sample list above, the first 4 items can probably be tackled in a few minutes. Maybe 30 minutes including code review and updating snapshot tests and whatever else. You can probably spare 30 minutes.
+
+That last item is tricky, though:
+
+- Text should show an ellipsis (...) if it's too long to fit on 3 lines.
+
+If you've ever tried to deal with multi-line ellipsis, you know that it's a dastardly problem with no simple CSS solution. You could spend an afternoon trying to get it sorted.
+
+Here's what I would say to the designer, in this situation:
+
+> Hi [designer friend],
+>
+> Thanks for the feedback for [project name], sorry I missed some of those details!
+>
+> Most of the issues are quick fixes and they should be pushed to staging in [reasonable timeframe], but one issue is surprisingly tricky: browsers don't provide a good built-in way to handle showing an ellipsis for multi-line text. There are third-party solutions, but they tend to be finicky and unreliable.
+>
+> I had a couple ideas for potential alternatives:
+>
+> - Maybe we could limit it by # of characters instead? Say, cap it to 100 characters, with an ellipsis if it's longer?
+> - I can do a single-line ellipsis, maybe we can show only the first line?
+> - Maybe we can clamp the height of the container, and make the container scrollable? So we still show all the text, but ensure it doesn't take up too much space on-screen.
+>
+> Let me know what you think!
+
+There's a few important things I'd like to point out here:
+
+1. I'm taking their concerns seriously, and showing that it's important to me that the end result is as close to their intended design as possible, under the circumstances.
+2. I'm confirming that I can fix most of their issues, and giving them an estimate for how long it'll be until they can see those fixes.
+3. I'm explaining why their seemingly-simple request isn't so easily achieved.
+4. I'm coming up with some low-lift alternatives.
+
+Literally every designer I've worked with is very willing to compromise and find workable solutions. If you get in the habit of communicating like this (and actually following through / doing the work), you'll find that every aspect of interacting with designers gets easier and better.
+
+### In crunch: honest communication
+
+Let's say you genuinely can't spare that 30 minutes to act on the UI feedback. The team is in crunch mode, and the whole dev team is putting in long nights and rushing to get everything shipped by a deadline.
+
+Here's how I would handle this situation, when it comes to designer collaboration:
+
+> Hi [designer friend],
+>
+> Thanks for the feedback for [project name]. Unfortunately, I don't think I'll be able to get it done before launch :/ I'm currently working really hard to make sure that [critical bug] gets fixed before [looming deadline].
+>
+> I've made a Jira ticket, and copied your feedback. I've assigned myself to it, so that I won't lose track of it. Hopefully I'll be able to get to it by [date].
+
+Here's what I see as the critical bits:
+
+1. Again, taking their concerns seriously. I'm reaching out directly, and explaining why I won't be able to fix the issues.
+2. I'm making the jira ticket myself, if one doesn't already exist. I'm not expecting them to shoulder the process burden exclusively.
+3. I'm committing to doing the work _at some point_. Even if it can't be done by launch, I'm making sure it won't get lost in the void.
+
+Also, this is unrelated, but worth saying: if you work at a place that expects >40 hours a week on a semi-regular basis, you should try and find a new job. I know that's easier said than done, especially for underrepresented minorities, but it's crucial for your long-term health and career prospects. Constant crunch burns out employees. If at all possible, try not to stay in environments like this.
+
+### Not getting in this situation in the first place
+
+- take the time upfront to do it right the first time
+- Ask questions early. Mention how some developers spend 2 days on something not important
+
+# Develop a design intuition
+
+# Trust
+
+# Deeper collaboration
+
+# Conclusion
+
+- Cover some practical examples of how this actually saves real time.
