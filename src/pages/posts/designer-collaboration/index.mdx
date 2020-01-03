@@ -13,72 +13,70 @@ import Asterisk from '@components/Asterisk';
 import geicoSrc from '@assets/images/designer-collaboration/geico-logo.png';
 
 <p>
-  So here's a fun exercise. If you had 15 minutes of a front-end developer's
-  attention, and your goal was to teach them something that would drastically
-  improve their work performance, what would you share?
+  If you had 15 minutes of a front-end developer's attention, and your goal was
+  to teach them something that would drastically improve their work performance,
+  what would you share?
   <Asterisk imageSrc={geicoSrc}>
-    Framed another way: how would you fulfill the Geico promise, "15 minutes
+    Framed another way, how would you fulfill the Geico promise: "15 minutes
     could save you 15% or more on development efforts"?
   </Asterisk>
 </p>
 
-This blog post is my answer to that question. It's roughly a 15 minute read, and I believe that if you take that time, it could potentially save you hundreds of hours of development effort throughout your career. I believe it's the highest-ROI tip I have.
+This blog post is my answer to that question. It's roughly a 15 minute read, and I believe that if you take that time, it could potentially save you hundreds of hours of development effort throughout your career. I believe it's the highest-ROI tip I have, and I'm excited to talk about it :D
 
-It's not actually about Javascript, though. As a community, we've done an incredible job optimizing along the engineering axis; we have brilliant frameworks, tools, and services. I work for Gatsby, and our whole thing is to make it dramatically faster to develop rich, static-in-name-only web apps.
+It's not about Javascript, though. As a community, we've done an incredible job optimizing along the engineering axis; we have brilliant frameworks, tools, and services. I work for Gatsby, and our whole thing is to make it dramatically faster to develop rich, performant, accessible, static-in-name-only web apps.
 
 But engineering solutions will only take you so far, and you can't solve a process problem with tooling. As our tools continue to get more and more optimized, I feel like we're missing a lot of low-hanging fruit in other areas.
 
-Most front-end developers' work is intertwined with design. Unless your role is purely architectural, it's likely that you spend a good chunk of your time implementing designs created by other people. How you manage those relationships has a _huge_ impact on your output as a developer.
-
-> Something about why I'm qualified to talk about this.
+Most of the work we do on the front-end is intertwined with product and design. It's likely that you spend a good chunk of your time working on implementing the ideas that these team members deliver. Communication and trust play a huge role in how effectively we work together, and it can make an enormous difference in our velocity.
 
 # It starts with empathy
 
 So here's a fun exercise. Imagine you're at a party, and someone asks what you do. You mention that you're a developer for Company X. The person pulls out their phone and navigates to Company X's homepage, which is a page you built.
 
-For many devs, there's a certain amount of pride with this kind of thing. The code that we wrote is running on this person's phone! Even though undoubtedly many other people worked very hard on it, we were the ones who translated those efforts into a live, working page. It's your work.
+For many devs, there's a certain amount of pride with this kind of thing. The code that you wrote is running on this person's phone! Even though many other people worked very hard on it, you were the one who translated those efforts into a live, working page. It's your work.
 
 Now imagine that you're in the same situation, except you're the UI/UX designer who worked on Company X's homepage. The mockup you designed a few months ago is noticeably different from what you're seeing on this person's phone. The fonts are all wrong, the spacing is off, there's a weird glitch on scroll. It's not really your work. Not without a lot of asterisks and caveats, at least.
 
-Designers work hard to create a design that looks good and works well for the end user. But their work is funneled through an implementation process, one which inevitably leaves some kind of mark. The end result will never exactly match their design. And yet, their professional reputation is all about which real-world products they've worked on, not how many beautiful, functional mockups they've designed.
+Designers work hard to create a design that looks good and works well for the end user, but their work is funneled through an implementation process, one which inevitably leaves some kind of mark. The end result will never exactly match their design. Sometimes, it's worlds apart. And yet, their professional reputation is often all about which real-world products they've delivered, not how many beautiful mockups they've designed.
 
-This is a situation that can very easily lead to resentment and conflict. I've worked on teams where there was icy tension between designers and developers. And, frankly, I think developers are to blame most of the time. It's usually our fault.
+This is a situation that can very easily lead to resentment and conflict. I've worked on teams where there was a pervasive icy tension between designers and developers. And, frankly, I think developers are to blame most of the time. It's usually our fault.
 
-The first step in improving our own output is to recognize that we haven't always been perfect teammates.
+It's worth recognizing that we haven't always been perfect teammates.
 
 # "Nits"
 
 How do developers typically react when designers submit feedback like this:
 
-- Change avatar border radius from 6px to 8px
+- Change avatar border radius from 4px to 8px
 - Add 6px spacing below avatar
 - Keep content center-aligned between `md` and `lg` breakpoints
 - Title should be `gray-900`, not `gray-700`
 - Text should show an ellipsis (...) if it's too long to fit on 3 lines.
 
-We tend to describe these as "nitpicks", which isn't a very kind way to describe the concerns of our teammates. Generally what happens in these situations is that the developer tells the designer to create a ticket for these nits, where it'll likely be assigned a P4 and prompt forgotten about, amongst a sea of other low-priority tickets.
+We tend to describe these as "nitpicks" (which, incidentally, isn't a very kind way to describe our teammates' concerns). Generally what happens in these situations is that the developer tells the designer to create a ticket for these nits, where it'll likely be assigned a P4 and promptly forgotten about, amongst a sea of other low-priority tickets.
 
 Now, I'm a realist. I know that often we're working under tight deadlines, and there are a ton of nice things that we simply don't have time to get to, because we're rushing to fix the critical, experience-breaking bugs, or wrap up the crucial feature expected to help meet the organization's financial goals.
 
 Let's see how we can work this out.
 
-### In most circumstances: fix it!
+### If possible: fix it!
 
-Let's be real—these types of concerns aren't usually huge timesinks. In my sample list above, the first 4 items can probably be tackled in a few minutes. Maybe 30 minutes including code review and updating snapshot tests and whatever else. You can probably spare 30 minutes.
+In my sample list above, the first 4 items can probably be tackled in a few minutes. They aren't exactly timesinks. Maybe 30 minutes including code review and updating snapshot tests and whatever else. You can probably spare 30 minutes.
 
 That last item is tricky, though:
 
 - Text should show an ellipsis (...) if it's too long to fit on 3 lines.
 
-If you've ever tried to deal with multi-line ellipsis, you know that it's a dastardly problem with no simple CSS solution. You could spend an afternoon trying to get it sorted.
+If you've ever tried to deal with multi-line ellipsis, you know that it's a dastardly problem with no simple CSS solution. You could easily spend an afternoon trying to get it sorted.
 
 Here's what I would say to the designer, in this situation:
 
 > Hi [designer friend],
 >
-> Thanks for the feedback for [project name], sorry I missed some of those details!
+> Thanks for the feedback for [project name]!
 >
-> Most of the issues are quick fixes and they should be pushed to staging in [reasonable timeframe], but one issue is surprisingly tricky: browsers don't provide a good built-in way to handle showing an ellipsis for multi-line text. There are third-party solutions, but they tend to be finicky and unreliable.
+> I've tackled most of the issues you spotted, and they should be pushed to staging in [reasonable timeframe], but one issue is surprisingly tricky: browsers don't provide a good built-in way to handle showing an ellipsis for multi-line text. There are third-party solutions, but they tend to be finicky and unreliable.
 >
 > I had a couple ideas for potential alternatives:
 >
@@ -90,14 +88,13 @@ Here's what I would say to the designer, in this situation:
 
 There's a few important things I'd like to point out here:
 
-1. I'm taking their concerns seriously, and showing that it's important to me that the end result is as close to their intended design as possible, under the circumstances.
-2. I'm confirming that I can fix most of their issues, and giving them an estimate for how long it'll be until they can see those fixes.
-3. I'm explaining why their seemingly-simple request isn't so easily achieved.
-4. I'm coming up with some low-lift alternatives.
+1. I'm taking their concerns seriously, and showing that it's important to me that the end result is as close to their intended design as possible, within reasonable time constraints.
+2. I'm confirming that I've fixed most of their issues, and giving them an estimate for how long it'll be until they can see those fixes.
+3. For the surprisingly-complicated request, I'm explaining why it's not easily achievable, and providing alternative suggestions.
 
-Literally every designer I've worked with is very willing to compromise and find workable solutions. If you get in the habit of communicating like this (and actually following through / doing the work), you'll find that every aspect of interacting with designers gets easier and better.
+Literally every designer I've worked with is very willing to compromise and find workable solutions in these situations. If you get in the habit of communicating like this (and actually following through / doing the work), you'll find that every aspect of interacting with designers gets easier and better.
 
-### In crunch: honest communication
+### If not possible: honest communication
 
 Let's say you genuinely can't spare that 30 minutes to act on the UI feedback. The team is in crunch mode, and the whole dev team is putting in long nights and rushing to get everything shipped by a deadline.
 
@@ -109,15 +106,45 @@ Here's how I would handle this situation, when it comes to designer collaboratio
 >
 > I've made a Jira ticket, and copied your feedback. I've assigned myself to it, so that I won't lose track of it. Hopefully I'll be able to get to it by [date].
 
-Here's what I see as the critical bits:
+Here's what I see as the crucial bits:
 
 1. Again, taking their concerns seriously. I'm reaching out directly, and explaining why I won't be able to fix the issues.
-2. I'm making the jira ticket myself, if one doesn't already exist. I'm not expecting them to shoulder the process burden exclusively.
+2. I'm making the jira ticket myself, if one doesn't already exist. I'm not expecting them to shoulder the "process burden" exclusively.
 3. I'm committing to doing the work _at some point_. Even if it can't be done by launch, I'm making sure it won't get lost in the void.
 
-Also, this is unrelated, but worth saying: if you work at a place that expects >40 hours a week on a semi-regular basis, you should try and find a new job. I know that's easier said than done, especially for underrepresented minorities, but it's crucial for your long-term health and career prospects. Constant crunch burns out employees. If at all possible, try not to stay in environments like this.
+(Also, this is unrelated, but worth saying: if you work at a place that expects >40 hours a week on a semi-regular basis, you should try and find a new job. I know that it's easier said than done, especially for underrepresented minorities, but it's so important for your long-term health and career prospects. Constant crunch burns out employees. If at all possible, try not to stay in environments like this.)
 
-### Not getting in this situation in the first place
+# Deeper collaboration during development
+
+The conventional way to build software was a multi-step process: first, design did all the user research and sketching and prototyping and creating high fidelity mockups. Once they were confident their work was finished, they'd toss it over the wall to the development team, and wouldn't hear anything about it until it was just about ready to go live.
+
+As I'm sure many people have experienced, this is not an ideal way to work. As developers, we bring really critical insights. We know what data is and isn't available in our database. We know which ideas will be easy to implement, and which will be next-to-impossible.
+
+Happily, the industry is moving to a more agile model, where developers are involved earlier. There's no more rude awakenings when a design that has spent months being polished is immediately tossed back over the wall, because it's not possible to implement.
+
+But this is only half of the story. It's also critically important that design remains actively involved throughout implementation.
+
+Sometimes, a design seems non-trivial on first blush, but actually turns into a bit of a rabbit hole. What do you do when a single story point blossoms into 2 or 3 days' worth of work?
+
+One option is to reach out to the product manager, or the team lead, or your engineering manager. Delegate this decision to them. The problem with this approach is that they probably don't have enough context around what the alternative solutions are; they'll need to confer with design, and it could be a lot of back-and-forth.
+
+Another option is to put your head down and power through it. Implement the design as-specified, no matter how deep the rabbit hole goes, how many terrible hacks are required to make it work, how many days are sunk into the effort.
+
+In my
+
+<!--
+
+The industry is moving from a waterfall model of throwing a design over the wall to an agile one, where teams are interdisciplinary, and developers are involved from the beginning.
+
+It's super worthwhile, because developers often have valid insight that can save designers a bunch of time. It used to be somewhat common for designers to spend weeks polishing a design, only to later learn that isn't feasible to build. Maybe the design relies heavily on gestures that aren't easy to implement on the mobile web. Or maybe they're based on data that isn't in our database, and can't be collected. Having a developer in the room early can streamline the design process.
+
+Similarly, the opposi
+
+ Often it's because it relies on data we don't have, and can't easily collect. Or maybe it violates the rules of our component library in a way that isn't easy to address. Having a developer in the room early can save a _ton_ of time.
+
+The same thing is true in the other direction; I've seen developers spend days implementing
+
+If you've ever been handed a mockup based on an impossible premise—say, one that relies on data we don't have— -->
 
 - take the time upfront to do it right the first time
 - Ask questions early. Mention how some developers spend 2 days on something not important
@@ -126,7 +153,9 @@ Also, this is unrelated, but worth saying: if you work at a place that expects >
 
 # Trust
 
-# Deeper collaboration
+# Optimized flow
+
+- Share stories from the classroom team with Elizabeth
 
 # Conclusion
 

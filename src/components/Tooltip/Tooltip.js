@@ -1,6 +1,7 @@
 import React from 'react';
 import Tippy from '@tippy.js/react';
 import styled, { keyframes } from 'styled-components';
+import { followCursor } from 'tippy.js';
 
 import 'tippy.js/dist/tippy.css';
 // import 'tippy.js/themes/material.css';
@@ -8,7 +9,12 @@ import 'tippy.js/dist/tippy.css';
 
 const Tooltip = ({ content, children, ...delegated }) => {
   return (
-    <StyledTippy content={content} {...delegated}>
+    <StyledTippy
+      followCursor={true}
+      content={content}
+      {...delegated}
+      plugins={[followCursor]}
+    >
       {children}
     </StyledTippy>
   );
@@ -16,15 +22,15 @@ const Tooltip = ({ content, children, ...delegated }) => {
 
 const enterKeyframes = keyframes`
   from {
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
   to {
-    transform: translateY(0px);
+    transform: translateY(20px);
   }
 `;
 
 const StyledTippy = styled(Tippy)`
-  animation: ${enterKeyframes} 400ms;
+  animation: ${enterKeyframes} 400ms both;
   padding: 8px 8px 12px 8px;
   font-size: 18px !important;
   text-align: center;
