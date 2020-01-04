@@ -3,23 +3,17 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import styled from 'styled-components';
 
-import { COLORS, BREAKPOINTS, EXTRA_WIDE_WIDTH } from '@constants';
+import { BREAKPOINTS, EXTRA_WIDE_WIDTH } from '@constants';
 import { interactWithCodeSample } from '@helpers/analytics.helpers';
 import { syntaxTheme } from '@helpers/syntax-highlighting.helpers';
 
 import FullWidth from '../FullWidth';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import TextLink from '../TextLink';
-import DesktopOnly from '../DesktopOnly';
-import MobileOnly from '../MobileOnly';
 
 class LiveEditableCode extends PureComponent {
   static propTypes = {
     // `id` needed for analytics
     id: PropTypes.string.isRequired,
-    // `gistId` needed for mobile, since we don't embed code on mobile.
-    // (I haven't figured out how to make it a good experience :/)
-    gistId: PropTypes.string,
 
     code: PropTypes.string.isRequired,
     scope: PropTypes.object,
@@ -60,13 +54,11 @@ class LiveEditableCode extends PureComponent {
   };
 
   render() {
-    const { gistId, inline, code, scope, size, split, maxHeight } = this.props;
+    const { inline, code, scope, size, split, maxHeight } = this.props;
     const [leftSplit, rightSplit] = split;
 
     const maxWidth =
       size === 'extra-wide' ? `${EXTRA_WIDE_WIDTH}px` : undefined;
-
-    const gistUrl = `https://gist.github.com/joshwcomeau/${gistId}`;
 
     if (!this.state.hasBeenMounted) {
       return null;

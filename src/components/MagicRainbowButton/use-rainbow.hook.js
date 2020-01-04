@@ -51,7 +51,7 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
 
   // Register all custom properties
   React.useEffect(() => {
-    range(0, WINDOW_SIZE).map(index => {
+    range(0, WINDOW_SIZE).forEach(index => {
       const name = getColorPropName(index);
       const initialValue = rainbowColors[index];
 

@@ -6,7 +6,6 @@ import { rss } from 'react-icons-kit/feather/rss';
 import { Icon } from 'react-icons-kit';
 
 import { COLORS, BREAKPOINTS, Z_INDICES } from '@constants';
-import { humanizeDate } from '@helpers/date.helpers';
 
 import ClickableIcon from '../ClickableIcon';
 import InvisibleButton from '../InvisibleButton';
@@ -17,7 +16,6 @@ class Header extends PureComponent {
   static propTypes = {
     height: PropTypes.number.isRequired,
     title: PropTypes.string,
-    publishedOn: PropTypes.string,
   };
 
   state = {
@@ -54,7 +52,7 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { height, title, publishedOn } = this.props;
+    const { height, title } = this.props;
     const { isTitleVisible } = this.state;
 
     // TODO: color should depend on heroStyle.
@@ -157,25 +155,6 @@ const Title = styled(InvisibleButton)`
     /* Subtract roughly the amount of space needed for the home icon on the
     left, and duplicate it for the right side to preserve balance */
     max-width: 600px;
-  }
-
-  &::selection {
-    color: ${COLORS.white};
-    background-color: ${COLORS.gray[900]};
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
-  }
-`;
-
-const Date = styled.span`
-  display: inline-block;
-  padding-left: 25px;
-  font-size: 1rem;
-  /* HACK: Get the date and title to all line up along a baseline */
-  transform: translateY(-2px);
-
-  @media ${BREAKPOINTS.md} {
-    display: none;
   }
 
   &::selection {

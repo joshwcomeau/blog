@@ -6,7 +6,6 @@ import { COLORS } from '@constants';
 import Footer from '../Footer';
 
 import runGlobal from './global';
-import PrismStyles from './prism-theme';
 import './reset.css';
 import './fonts.css';
 

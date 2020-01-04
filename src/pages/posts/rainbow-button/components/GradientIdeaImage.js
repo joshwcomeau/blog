@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BREAKPOINTS } from '@constants';
 import DesktopOnly from '@components/DesktopOnly';
 import MobileOnly from '@components/MobileOnly';
 
@@ -13,12 +12,17 @@ const GradientIdeaImage = () => {
     <Wrapper>
       <DesktopOnly>
         <img
+          alt="Diagram showing how there are 3 color 'positions', from top-left to bottom-right. On each tick, colors move 1 spot to the right. So the top-left color shifts to the middle, which then shifts to the right."
           src={gradientIdeaHorizontalSrc}
           style={{ display: 'block', width: '100%' }}
         />
       </DesktopOnly>
       <MobileOnly>
-        <img src={gradientIdeaVerticalSrc} style={{ maxHeight: '75vh' }} />
+        <img
+          alt=""
+          src={gradientIdeaVerticalSrc}
+          style={{ maxHeight: '75vh' }}
+        />
       </MobileOnly>
     </Wrapper>
   );

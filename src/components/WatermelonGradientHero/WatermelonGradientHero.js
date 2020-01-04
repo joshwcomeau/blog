@@ -15,7 +15,7 @@ const WatermelonGradientHero = ({
   orientation,
   headerHeight,
 }) => {
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const { height: windowHeight } = useWindowDimensions();
 
   // Two special cases:
   // - In portrait orientation

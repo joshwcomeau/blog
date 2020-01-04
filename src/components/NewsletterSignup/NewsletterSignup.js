@@ -8,16 +8,12 @@ import MagicRainbowButton from '../MagicRainbowButton';
 import Spacer from '../Spacer';
 
 const NewsletterSignup = ({ id, hideDisclaimer }) => {
-  const [submitted, setSubmitted] = React.useState(false);
-
   const handleSubmit = () => {
     window.open(
       'https://tinyletter.com/joshwcomeau',
       'popupwindow',
       'scrollbars=yes,width=800,height=600'
     );
-
-    setSubmitted(true);
 
     signUpForNewsletter({ id });
   };
