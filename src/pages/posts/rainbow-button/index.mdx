@@ -17,6 +17,7 @@ import NewsletterSignup from '@components/NewsletterSignup';
 import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 import LiveEditableCode from '@components/LiveEditableCode';
 import Code from '@components/Code';
+import MagicRainbowButton from '@components/MagicRainbowButton';
 import registerPropertySrc from '@assets/images/rainbow-button/register-property-compatibility.png';
 import profilingSrc from '@assets/images/rainbow-button/profiling.png';
 
@@ -56,7 +57,7 @@ Over the past couple years, I've given this button a lot of thought. It's been a
 
 Without further ado, the new button:
 
-<NewsletterSignup id="first-demo" hideDisclaimer />
+<MagicRainbowButton>Subscribe</MagicRainbowButton>
 
 ## Radial gradients to the rescue!
 
@@ -72,7 +73,7 @@ This creates the _illusion_ of motion, similar to those casino or venue lights:
 
 <CasinoLights />
 
-> This is also similar to how sound waves move through the air! I created an explorable explanation that [demonstrates this concept](https://pudding.cool/2018/02/waveforms/), if you're curious!
+> This is also similar to how sound waves move through the air! I created an explorable explanation that [demonstrates this concept](https://pudding.cool/2018/02/waveforms/), if you're curious.
 
 ## Animating gradients
 
@@ -187,7 +188,7 @@ I like this approach, because there's a clear separation of duties:
 
 ## Making this production-ready
 
-Before you start shipping rainbows, there are a couple things we need to think about / fix.
+Before you start shipping rainbows, there are a couple things we need to think about.
 
 ### Global properties and duplicate components
 
@@ -245,7 +246,7 @@ The first thing I wanted to make sure of was that I was disabling this animation
 
 > The reason that "prefers reduced motion" is a thing is because people with vestibular disorders experience negative side-effects when shown animations. It can trigger vertigo, or nausea, or headaches. In extreme cases, careless motion can leave someone bedridden for days.
 >
-> Color-shifting isn't _quite_ the same thing as "motion", but with side-effects like those, I'd rather play it safe.
+> [Learn more](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) about this media query, and its reasons for existing.
 
 In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum. Truthfully, it may still be too low-contrast for certain periods in the animation, but I'm confident it's legible most of the time, and the animation shifts quickly.
 

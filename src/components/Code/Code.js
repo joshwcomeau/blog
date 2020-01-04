@@ -35,7 +35,7 @@ class Code extends PureComponent {
 
     return (
       <LiveProvider
-        code={children}
+        code={children.trim()}
         noInline={true}
         mountStylesheet={false}
         theme={syntaxTheme}

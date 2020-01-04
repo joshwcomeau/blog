@@ -26,33 +26,26 @@ const hasBrowserSupport =
     ? typeof window.CSS.registerProperty === 'function'
     : false;
 
-const useRainbow = ({ intervalDelay = 2000 }) => {
-  const getColorPropName = index =>
-    `--magic-rainbow-color-${uniqueId}-${index}`;
+const getColorPropName = (id, index) => `--magic-rainbow-color-${id}-${index}`;
 
+const useRainbow = ({ intervalDelay = 2000 }) => {
   const prefersReducedMotion =
     typeof window === 'undefined'
       ? true
       : window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  if (!hasBrowserSupport || prefersReducedMotion.matches) {
-    return range(0, WINDOW_SIZE).reduce((acc, index) => {
-      const name = getColorPropName(index);
-      const value = rainbowColors[index % paletteSize];
-
-      return {
-        ...acc,
-        [name]: value,
-      };
-    }, {});
-  }
+  const isEnabled = hasBrowserSupport && !prefersReducedMotion.matches;
 
   const { current: uniqueId } = React.useRef(generateId());
 
   // Register all custom properties
   React.useEffect(() => {
-    range(0, WINDOW_SIZE).forEach(index => {
-      const name = getColorPropName(index);
+    if (!isEnabled) {
+      return null;
+    }
+
+    range(0, WINDOW_SIZE).map(index => {
+      const name = getColorPropName(uniqueId, index);
       const initialValue = rainbowColors[index];
 
       CSS.registerProperty({
@@ -62,13 +55,15 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
         inherits: false,
       });
     });
-  }, [WINDOW_SIZE]);
+  }, [WINDOW_SIZE, isEnabled]);
 
   const intervalCount = useIncrementingNumber(intervalDelay);
 
   return range(0, WINDOW_SIZE).reduce((acc, index) => {
-    const name = getColorPropName(index);
-    const value = rainbowColors[(intervalCount + index) % paletteSize];
+    const effectiveIntervalCount = isEnabled ? intervalCount : 0;
+
+    const name = getColorPropName(uniqueId, index);
+    const value = rainbowColors[(effectiveIntervalCount + index) % paletteSize];
 
     return {
       ...acc,
