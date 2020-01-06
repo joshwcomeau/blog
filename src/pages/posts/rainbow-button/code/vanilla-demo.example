@@ -39,14 +39,10 @@ window.setInterval(() => {
   // that values "wrap around"; if we've exceeded
   // the number of items in the array, it loops
   // back to 0.
-  //
-  // We subtract instead of add so that the gradient
-  // flows from the top-left outwards, rather than
-  // inwards.
   const nextColors = [
-    rainbowColors[(cycleIndex - 1) % paletteSize],
-    rainbowColors[(cycleIndex - 2) % paletteSize],
-    rainbowColors[(cycleIndex - 3) % paletteSize],
+    rainbowColors[(cycleIndex + 1) % paletteSize],
+    rainbowColors[(cycleIndex + 2) % paletteSize],
+    rainbowColors[(cycleIndex + 3) % paletteSize],
   ];
 
   // Apply these new colors, update the DOM.

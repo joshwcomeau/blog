@@ -1,0 +1,8 @@
+.gradient {
+  /* Create a new custom property, and give it a value: */
+  --color: navy;
+
+  /* Access that value using the `var` function: */
+  background-color: var(--color);
+  border: 2px dashed var(--color);
+}

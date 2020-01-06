@@ -3,11 +3,14 @@ import styled from 'styled-components';
 
 import useRainbow from './use-rainbow.hook';
 
-const MagicRainbowButton = ({ children, ...delegated }) => {
-  const timeoutDelay = 2000;
-  const transitionDelay = timeoutDelay * 1.25;
+const MagicRainbowButton = ({
+  children,
+  intervalDelay = 1600,
+  ...delegated
+}) => {
+  const transitionDelay = intervalDelay * 1.25;
 
-  const colors = useRainbow({ timeoutDelay });
+  const colors = useRainbow({ intervalDelay });
 
   const colorKeys = Object.keys(colors);
 

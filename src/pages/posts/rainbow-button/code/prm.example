@@ -1,6 +1,6 @@
 const prefersReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
+  '(prefers-reduced-motion: no-preference)'
 );
 
-// `true` if we should disable motion:
+// `true` if we should enable animations:
 console.log(prefersReducedMotion.matches);

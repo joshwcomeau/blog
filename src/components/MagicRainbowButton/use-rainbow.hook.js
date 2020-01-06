@@ -32,16 +32,16 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
   const prefersReducedMotion =
     typeof window === 'undefined'
       ? true
-      : window.matchMedia('(prefers-reduced-motion: reduce)');
+      : window.matchMedia('(prefers-reduced-motion: no-preference)');
 
-  const isEnabled = hasBrowserSupport && !prefersReducedMotion.matches;
+  const isEnabled = false && hasBrowserSupport && prefersReducedMotion.matches;
 
   const { current: uniqueId } = React.useRef(generateId());
 
   // Register all custom properties
   React.useEffect(() => {
     if (!isEnabled) {
-      return null;
+      return;
     }
 
     range(0, WINDOW_SIZE).map(index => {

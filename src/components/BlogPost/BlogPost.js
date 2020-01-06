@@ -72,7 +72,6 @@ export default ({ children, pageContext, location }: Props) => {
         window.scroll({
           top: offset,
           left: 0,
-          behavior: 'smooth',
         });
       });
     }

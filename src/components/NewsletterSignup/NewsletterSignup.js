@@ -5,6 +5,7 @@ import { BREAKPOINTS } from '@constants';
 import { signUpForNewsletter } from '@helpers/analytics.helpers';
 
 import MagicRainbowButton from '../MagicRainbowButton';
+import RenderWhenOnscreen from '../RenderWhenOnscreen';
 import Spacer from '../Spacer';
 
 const NewsletterSignup = ({ id, hideDisclaimer }) => {
@@ -19,39 +20,41 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
   };
 
   return (
-    <Wrapper>
-      <Form
-        action="https://tinyletter.com/joshwcomeau"
-        method="post"
-        target="popupwindow"
-        onSubmit={handleSubmit}
-      >
-        <EmailInput
-          required
-          type="email"
-          name="email"
-          placeholder="name@domain.com"
-          aria-label="Email address"
-        />
+    <RenderWhenOnscreen height={hideDisclaimer ? 128 : 150}>
+      <Wrapper>
+        <Form
+          action="https://tinyletter.com/joshwcomeau"
+          method="post"
+          target="popupwindow"
+          onSubmit={handleSubmit}
+        >
+          <EmailInput
+            required
+            type="email"
+            name="email"
+            placeholder="name@domain.com"
+            aria-label="Email address"
+          />
 
-        <SubmitButton id={`#newsletter-signup-${id}`}>Subscribe</SubmitButton>
-        <input type="hidden" value="1" name="embed" />
-      </Form>
+          <SubmitButton id={`#newsletter-signup-${id}`}>Subscribe</SubmitButton>
+          <input type="hidden" value="1" name="embed" />
+        </Form>
 
-      <Spacer size={20} />
+        <Spacer size={20} />
 
-      {!hideDisclaimer && (
-        <Disclaimer>
-          <span role="img" aria-label="sparkles">
-            ✨
-          </span>{' '}
-          Roughly 4 issues a year, focusing on content I've published{' '}
-          <span role="img" aria-label="sparkles">
-            ✨
-          </span>
-        </Disclaimer>
-      )}
-    </Wrapper>
+        {!hideDisclaimer && (
+          <Disclaimer>
+            <span role="img" aria-label="sparkles">
+              ✨
+            </span>{' '}
+            Roughly 4 issues a year, focusing on content I've published{' '}
+            <span role="img" aria-label="sparkles">
+              ✨
+            </span>
+          </Disclaimer>
+        )}
+      </Wrapper>
+    </RenderWhenOnscreen>
   );
 };
 
@@ -91,7 +94,7 @@ const EmailInput = styled.input`
   }
 `;
 
-const SubmitButton = styled(MagicRainbowButton)`
+export const SubmitButton = styled(MagicRainbowButton)`
   width: 150px;
   height: 60px;
   font-size: 21px;

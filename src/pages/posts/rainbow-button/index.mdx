@@ -14,15 +14,18 @@ import ListItem from '@components/ListItem';
 import VideoGif from '@components/VideoGif';
 import Image from '@components/Image';
 import NewsletterSignup from '@components/NewsletterSignup';
+import Center from '@components/Center';
 import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
 import LiveEditableCode from '@components/LiveEditableCode';
 import Code from '@components/Code';
 import MagicRainbowButton from '@components/MagicRainbowButton';
+import Asterisk from '@components/Asterisk';
 import registerPropertySrc from '@assets/images/rainbow-button/register-property-compatibility.png';
 import profilingSrc from '@assets/images/rainbow-button/profiling.png';
 
 import customPropsCode from './code/custom-props.example';
 import customPropsCssCode from './code/custom-props-css.example';
+import cssVarsConceptCode from './code/css-vars-concept.example';
 import customPropsTransitionCode from './code/custom-props-transition.example';
 import fakeNewsGradientCode from './code/fake-news-gradient.example';
 import registerPropertyCode from './code/register-property.example';
@@ -35,6 +38,7 @@ import prmCode from './code/prm.example';
 import OldMethod from './components/OldMethod';
 import GradientIdeaImage from './components/GradientIdeaImage';
 import CasinoLights from './components/CasinoLights';
+import DemoButton from './components/DemoButton';
 
 When I launched this blog a couple years back, I wanted to add a bit of flair to the newsletter subscribe button. My idea: an animated rainbow gradient for the background.
 
@@ -57,7 +61,7 @@ Over the past couple years, I've given this button a lot of thought. It's been a
 
 Without further ado, the new button:
 
-<MagicRainbowButton>Subscribe</MagicRainbowButton>
+<DemoButton />
 
 ## Radial gradients to the rescue!
 
@@ -67,7 +71,7 @@ More precisely, there's a 3-color radial gradient anchored in the top-left corne
 
 <GradientIdeaImage />
 
-The critical point here is that _nothing is actually moving_. There's no translate happening on a 2D plane anymore. Instead, I'm sampling 3 colors from a 10-color rainbow palette, and each point in the gradient is slowly shifting to inherit the color in the previous point. For example, the `C3` point is always 1 color behind in the palette from the `C2` point.
+The big difference here is that _nothing is actually moving_. There's no translate happening on a 2D plane anymore. Instead, I'm sampling 3 colors from a 10-color rainbow palette, and each point in the gradient is slowly shifting to inherit the color in the previous point. The `C3` point is always 1 color behind in the palette from the `C2` point.
 
 This creates the _illusion_ of motion, similar to those casino or venue lights:
 
@@ -84,13 +88,13 @@ So the game plan was coming together:
 - I'd run an interval that would update the gradient every second, shifting each color by 1 spot.
 - I'd tween between the colors in each spot. On every frame, the colors should inch towards their next value.
 
-That last step was the trickiest. Unfortunately, you can't use `transition` to interpolate between background gradients. The following snippet _does not work_:
+That last step was the trickiest. Unfortunately, you can't use `transition` to interpolate between background gradients. The following snippet doesn't work:
 
 <Code lang="css">{fakeNewsGradientCode}</Code>
 
-I _could_ do this all in JS. I could set up a `requestAnimationFrame` loop that splits each color transition into ~60 incremental steps. I did not like this idea; it felt hacky. Also, because it would be running on the main thread, the animation could become choppy during periods of stress.
+I _could_ do it all in JS. I could set up a `requestAnimationFrame` loop that splits each color transition into ~60 incremental steps. I didn't like this idea, it felt overengineered. Plus, because it would all be happening on the main thread in Javascript, the animation could become choppy during busy periods.
 
-I wanted to do the interpolating in CSS. And happily, I found a way.
+I wanted to do the interpolating in CSS. And happily, I found a way 😊
 
 ## Custom properties (AKA CSS variables)
 
@@ -109,13 +113,13 @@ We can use inline styles to set this on React elements, like so:
   split={[70, 30]}
 />
 
-On their own, this doesn't actually help us. We still can't apply `transition` on `background`, it doesn't do anything. But it gets us one step closer.
+On their own, this doesn't actually help us. We still can't apply `transition` directly on `background`. But it gets us one step closer 🕵🏻‍♂️
 
-## CSS Houdini
+## 🎩 CSS Houdini
 
 If you haven't already heard, CSS Houdini is a wide-ranging set of upcoming CSS enhancements predicated on one idea: developers should be able to create their own CSS features.
 
-For example, CSS doesn't have any built-in way to do masonry layouts. Wouldn't it be cool if you could build it, and then access it with `display: masonry`?
+For example, CSS doesn't have any built-in way to do masonry layouts. Wouldn't it be cool if you could build it, plugging in directly to CSS mechanisms, and then access it with `display: masonry`?
 
 For another example: projects like Babel allow us to "polyfill" (most) missing features in JS, because we can mimic those new features using an earlier version of the language. But we can't polyfill (most) CSS features. Houdini will allow us to polyfill in missing CSS, by giving us access to the internal wiring of the CSS engine.
 
@@ -123,9 +127,11 @@ CSS Houdini is a huge project, already years into research and development, and 
 
 ## Animated custom properties
 
-CSS has properties, like `display` and `transform` and `color`. It always struck me as curious that the W3C chose to name CSS _variables_ as _custom properties_. Aren't they a totally different concept?
+In CSS, a "property" is something you can assign a value. `display` and `transform` and `color` are all examples of properties. Why, then, are _variables_ in CSS called _custom properties_? Aren't they a totally different concept?
 
-Actually, they're more similar than I realized. It's better to think of CSS variables as your own properties, like `display` and `transform`, which can be accessed by other properties, using the `var()` keyword.
+Actually, they're more similar than I realized. It's better to think of CSS variables as your own properties, like display and transform.
+
+<Code lang="css">{cssVarsConceptCode}</Code>
 
 Here's the wild, mind-blowing part: you can _transition custom properties_:
 
@@ -153,11 +159,11 @@ In a bit, we'll see how React hooks let us package this up rather nicely. First,
   {vanillaDemoCode}
 </Code>
 
-## Implementing with a custom hook
+## ⚛️ Hook it up
 
-One of the things I really like about hooks is that they let us come up with our own abstractions, grouped by category, rather than by lifecycle. It gives us the control to package updates however we want, behind a single hook. We can choose whether to optimize for clarity or reusability, decide exactly where we want the boundaries to be.
+One of the things I really like about hooks is that they let us come up with our own abstractions, grouped by category rather than by lifecycle. I'm a fan of the school of thought that code should be designed for humans to read, not computers. And hooks let us design our code for humans,
 
-In this case, I want to focus on keeping things as simple and lightweight as possible. I don't care too much about reusability, and I don't need a bunch of configuration options.
+In this case, I want to focus on keeping things as straightforward and lightweight as possible. I don't care too much about reusability, and I don't need a bunch of configuration options.
 
 ### State and API
 
@@ -165,7 +171,7 @@ Initially, I was thinking I would hold the current colors in state, but it occur
 
 If I'm on the 5th cycle, for example, I know that my colors will be the 5th, 6th, and 7th colors in my 10-color palette. Because the palette is static, I can just track that number, and use it to derive the colors.
 
-The next thing I wanted to figure out was the API. I started by writing the component that will consume this hook. I like just making up whatever API seems ideal for the component that uses it. I'll worry about making it later.
+The next thing I wanted to figure out was the hook's interface. I started by writing the component that will consume this hook. I like just making up whatever API seems ideal for the component that uses it. I'll worry about making it later.
 
 <Code lang="js" maxHeight="60vh">
   {hookConsumerCode}
@@ -177,18 +183,18 @@ Finally, here's my initial version of this hook:
   {initialUseRainbowCode}
 </Code>
 
-> \* `useIncrementingNumber` is a custom hook that spits out a new, ever-increasing number, based on a provided interval delay. It's based off of Dan Abramov's [setInterval hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/). You can view its source [here](https://github.com/joshwcomeau/blog/blob/master/src/hooks/use-incrementing-number.hook.js)
+> \* `useIncrementingNumber` is a custom hook that spits out a new, ever-increasing number, based on a provided interval delay. It's based off of Dan Abramov's [setInterval hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/). You can view its source [here](https://github.com/joshwcomeau/blog/blob/master/src/hooks/use-incrementing-number.hook.js).
 
 I like this approach, because there's a clear separation of duties:
 
-- `useRainbow` is in charge of generating and managing the colors, but has no say in what they're used for.
+- `useRainbow` is in charge of generating and managing the colors, but has no vote in what they're used for.
 - The component, `MagicRainbowButton`, doesn't know anything about where these colors came from, but decides what to do with them.
 
-> There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. Ultimately, this is an implementation detail without realized consequences in my case, but your mileage may vary.
+There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. In fact, registering a global value from within an instanced component is going to be problematic. Let's see what we can do about that.
 
 ## Making this production-ready
 
-Before you start shipping rainbows, there are a couple things we need to think about.
+Before you start shipping rainbow buttons, there are a couple things we need to think about.
 
 ### Global properties and duplicate components
 
@@ -232,21 +238,23 @@ In that talk, I _also_ advocated for breaking this rule from time to time, as lo
   style={{ width: '100%', maxWidth: '80vw' }}
 />
 
-It is true that this technique involves a repaint on every frame, and that repaints can be slow... but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
+It is true that this technique involves a repaint on every frame, and that repaints can be slow… but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
 
-Animating properties like `height` is often very slow, because it involves both a _layout_ and _paint_ step, and because the number of pixels involved can be very large. In this case, there's no layout step, and the paint step is quick and targeted.
+Animating properties like `height` is often very slow, because it involves both a _layout_ and _paint_ step, and because the number of pixels involved can be very large. In this case, there's no layout step, and the paint step is quick and targeted 💫
 
 ### Accessibility
 
 Whimsical touches are great, but not when they come at the expense of usability.
 
-The first thing I wanted to make sure of was that I was disabling this animation when the user has the ["preferred reduced motion"](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) setting ticked. We can check this setting in JS with the following line:
+Certain types of animations can be problematic for folks with vestibular disorders - they can trigger vertigo, nausea, headaches, and other nasty symptoms.
+
+Browsers have been hard at work implementing support for a ["prefers-reduced-motion"](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) media query. This query relies on a Windows/MacOS setting, and lets users express that they would like to disable animations.
+
+The browser support for this media query has gotted dramatically better, and now supports all major browsers except IE. We'll set it up so that we're only enabling animations for folks who have selected "no preference" on motion, the default value:
 
 <Code lang="js">{prmCode}</Code>
 
-> The reason that "prefers reduced motion" is a thing is because people with vestibular disorders experience negative side-effects when shown animations. It can trigger vertigo, or nausea, or headaches. In extreme cases, careless motion can leave someone bedridden for days.
->
-> [Learn more](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) about this media query, and its reasons for existing.
+For folks using older browsers like Internet Explorer, the media query won't exist, which means `prefersReducedMotion.matches` will always return `false`. That's OK: we can assume that folks using legacy browsers would prefer not to receive the animations.
 
 In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum. Truthfully, it may still be too low-contrast for certain periods in the animation, but I'm confident it's legible most of the time, and the animation shifts quickly.
 
@@ -254,8 +262,13 @@ In addition to motion, we also need to think about color contrast. Will folks wi
 
 It's a brand new year, and my goal for 2020 is to produce many high-quality interactive blog posts like this one. My newsletter is the best way to find out when something new is posted.
 
-I know I've thrown a lot of "subscribe" buttons at you this post, but this last one is for real. Won't you join my newsletter?
-
+<p>
+  I know I've thrown a lot of "subscribe" buttons at you this post
+  <Asterisk>
+    A blog post all about newsletter subscriptions, what a genius marketing
+    idea!
+  </Asterisk>, but this last one is for real. Won't you join my newsletter?
+</p>
 <NewsletterSignup id="end-of-rainbow-page" hideDisclaimer />
 
 If you're keen to build your own rainbow button, the source code for this one might come in handy. This blog is open-source, so you can find it [on Github](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/).

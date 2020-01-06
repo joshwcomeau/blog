@@ -47,16 +47,6 @@ class Heading extends Component<Props> {
     return this.props.anchorId || slugify(this.props.children);
   };
 
-  handleAnchorClick = ev => {
-    const offset = this.node.getBoundingClientRect().top + window.scrollY;
-
-    window.scroll({
-      top: offset,
-      left: 0,
-      behavior: 'smooth',
-    });
-  };
-
   render() {
     const { size, children, ...delegated } = this.props;
 
@@ -68,12 +58,7 @@ class Heading extends Component<Props> {
 
     return (
       <Element {...delegated} ref={node => (this.node = node)}>
-        <Anchor
-          name={anchorId}
-          id={anchorId}
-          href={`#${anchorId}`}
-          onClick={this.handleAnchorClick}
-        >
+        <Anchor name={anchorId} id={anchorId} href={`#${anchorId}`}>
           <IconBase size="0.75em" icon={linkIcon} />
         </Anchor>
 
@@ -128,11 +113,14 @@ const Anchor = styled.a`
     display: block;
     position: absolute;
     left: 0;
-    transform: translate(-125%, 7%);
+    transform: translateX(-125%);
     transition: opacity 250ms;
     opacity: 0;
+    margin-top: -80px;
+    padding-top: 80px;
 
-    ${Base}:hover &, &:focus {
+    ${Base}:hover &,
+    &:focus {
       opacity: 0.75;
     }
   }

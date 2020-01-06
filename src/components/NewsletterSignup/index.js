@@ -1,1 +1,1 @@
-export { default } from "./NewsletterSignup";
+export { default, SubmitButton } from './NewsletterSignup';

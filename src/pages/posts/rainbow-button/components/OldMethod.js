@@ -39,6 +39,7 @@ const OldMethod = () => {
               }}
             >
               <Front
+                includeBoxShadow={rotation > 0}
                 style={{
                   transform: `translateZ(${rotation * 0.2}px)`,
                 }}
@@ -117,9 +118,11 @@ const Front = styled.div`
   width: 100%;
   height: 100%;
   transform-origin: center center;
-  box-shadow: 0 0.9px 1.2px rgba(0, 0, 0, 0.05),
+  box-shadow: ${p =>
+    p.includeBoxShadow &&
+    `0 0.9px 1.2px rgba(0, 0, 0, 0.05),
     0 3.5px 3.4px rgba(0, 0, 0, 0.027), 0 10.8px 8.1px rgba(0, 0, 0, 0.02),
-    0 46px 27px rgba(0, 0, 0, 0.014);
+    0 46px 27px rgba(0, 0, 0, 0.014)`};
 `;
 const Back = styled.div`
   position: absolute;

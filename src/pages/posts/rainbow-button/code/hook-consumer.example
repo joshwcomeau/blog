@@ -1,7 +1,7 @@
 import useRainbow from './useRainbow.hook';
 
-const MagicRainbowButton = ({ children, timeoutDelay = 1000 }) => {
-  // The hook should take 1 argument, `timeoutDelay`.
+const MagicRainbowButton = ({ children, intervalDelay = 1000 }) => {
+  // The hook should take 1 argument, `intervalDelay`.
   // it should return an object in this shape:
   /*
     {
@@ -10,7 +10,7 @@ const MagicRainbowButton = ({ children, timeoutDelay = 1000 }) => {
       '--magic-rainbow-color-2': hsl(...),
     }
   */
-  const colors = useRainbow({ timeoutDelay });
+  const colors = useRainbow({ intervalDelay });
 
   const colorKeys = Object.keys(colors);
 
