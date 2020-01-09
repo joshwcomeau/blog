@@ -27,7 +27,7 @@ const Asterisk = ({ children }: Props) => {
   );
 };
 
-const Wrapper = styled.span`
+export const Wrapper = styled.span`
   display: inline-block;
   width: 15px;
   height: 1em;

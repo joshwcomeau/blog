@@ -2,14 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BREAKPOINTS } from '@constants';
-import { normalize } from '@utils';
 
-import NewsletterSignup from '@components/NewsletterSignup';
 import MagicRainbowButton from '@components/MagicRainbowButton';
 import Center from '@components/Center';
-
-const MIN = 0;
-const MAX = 10;
 
 const DemoButton = () => {
   return (

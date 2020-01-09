@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { COLORS, BREAKPOINTS } from '@constants';
 
 import Link from '../Link';
+import { Wrapper as AsteriskWrapper } from '../Asterisk';
 
 export default ({ children, ...delegated }) => (
   <Wrapper {...delegated}>
@@ -50,6 +51,10 @@ const MainText = styled.span`
     display: inline;
     text-decoration: underline;
     color: ${COLORS.pink[500]};
+  }
+
+  ${AsteriskWrapper} & {
+    color: ${COLORS.white};
   }
 `;
 

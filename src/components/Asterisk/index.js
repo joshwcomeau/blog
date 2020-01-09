@@ -1,1 +1,1 @@
-export { default } from './Asterisk';
+export { default, Wrapper } from './Asterisk';
