@@ -1,0 +1,50 @@
+---
+title: The WibblyWobblyCircle Component
+slug: wibbly-wobbly-circle
+isPublished: false
+publishedOn: 2020-01-01T15:00:00-0400
+abstract: The Gatsbyjs.com careers page features a subtle bit of whimsy—a gelatinous bubble floating gently on the wind. This post looks at how it's made, with React, bezier curves, and trigonometry ✨
+interactive: true
+---
+
+import Demo from '@components/Demo';
+import SliderControl from '@components/SliderControl';
+import WibblyWobblyCircle from '@components/WibblyWobblyCircle';
+
+I recently worked on a refresh of the [Gatsby careers page](https://www.gatsbyjs.com/careers/). The design called for large bits of geometry sprinkled throughout the page, and I had an idea: what if the circles were more like bubbles, subtly undulating and wobbling?
+
+<Demo
+  id="wibbly-wobbly-circle-intro"
+  initialValues={{
+    intensity: 33,
+  }}
+  controls={(values, updateValue) => (
+    <><SliderControl
+      id="intensity"
+      label="Intensity"
+      min={0}
+      max={100}
+      value={values.intensity}
+      updateValue={updateValue}
+    />
+        <SliderControl
+      id="intensity"
+      label="Intensity"
+      min={0}
+      max={100}
+      value={values.intensity}
+      updateValue={updateValue}
+    /></>
+  )}
+>
+  {({ intensity }) => {
+    return (
+      <WibblyWobblyCircle size={250} intensity={intensity * 0.0333} />
+    )
+  }}
+</Demo>
+
+I worked on a component like this years ago, which made a brief cameo in [a talk I gave about whimsy](https://www.youtube.com/watch?v=Z2d9rw9RwyE).
+
+
+TODO: Playground at the end with "ludicrous mode"

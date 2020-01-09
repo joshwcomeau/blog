@@ -235,3 +235,13 @@ export const normalize = (
   // Next, transpose that value to our desired scale.
   return (newScaleMax - newScaleMin) * standardNormalization + newScaleMin;
 };
+
+export const getShouldReduceMotion = () => {
+  if (typeof window === 'undefined') {
+    return true;
+  }
+
+  const query = window.matchMedia('(prefers-reduced-motion: no-preference)');
+
+  return !query.matches;
+};
