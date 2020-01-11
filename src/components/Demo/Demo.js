@@ -5,6 +5,7 @@ import Icon from 'react-icons-kit';
 import { iosFlask } from 'react-icons-kit/ionicons/iosFlask';
 
 import { COLORS } from '@constants';
+import { deepEqual } from '@utils';
 
 type Updater = (key: string, value: string | number) => void;
 
@@ -12,6 +13,7 @@ type Props = {
   id: string,
   controls?: (updateValue: Updater) => React$Node,
   children: (values: any) => React$Node,
+  includeResetButton: boolean,
 };
 
 type State = {
@@ -33,12 +35,32 @@ class Demo extends Component<Props, State> {
       caption,
       opaqueControls,
       children,
+      includeResetButton,
+      noPadding,
     } = this.props;
+
+    const shouldShowReset =
+      includeResetButton && !deepEqual(this.state, this.props.initialValues);
 
     return (
       <>
         <Box style={{ maxWidth: width }}>
-          <ChildWrapper style={style}>{children(this.state)}</ChildWrapper>
+          <ResetButton
+            style={{
+              opacity: shouldShowReset ? 1 : 0,
+              pointerEvents: shouldShowReset ? 'auto' : 'none',
+            }}
+            onClick={() => {
+              console.log('click');
+              this.setState(this.props.initialValues);
+            }}
+          >
+            Reset
+          </ResetButton>
+
+          <ChildWrapper noPadding={noPadding} style={style}>
+            {children(this.state)}
+          </ChildWrapper>
 
           {controls && (
             <ControlsWrapper opaque={opaqueControls}>
@@ -60,6 +82,7 @@ class Demo extends Component<Props, State> {
 }
 
 const Box = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid ${COLORS.gray[200]};
@@ -78,7 +101,7 @@ const ChildWrapper = styled.div`
   z-index: 1;
   display: flex;
   justify-content: center;
-  padding: 30px;
+  padding: ${p => (p.noPadding ? 0 : '30px')};
 `;
 
 const ControlsWrapper = styled.div`
@@ -105,6 +128,26 @@ const InteractivityNotice = styled.div`
 const IconWrapper = styled.div`
   margin-right: 15px;
   color: ${COLORS.pink[500]};
+`;
+
+const ResetButton = styled.button`
+  position: absolute;
+  z-index: 3;
+  top: 20px;
+  right: 20px;
+  padding: 5px 20px;
+  border: none;
+  background: transparent;
+  color: #555;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: opacity 250ms;
+  cursor: pointer;
+
+  &:hover {
+    background: #eee;
+    color: #222;
+  }
 `;
 
 export default Demo;

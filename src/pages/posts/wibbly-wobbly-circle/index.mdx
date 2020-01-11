@@ -11,35 +11,86 @@ import Demo from '@components/Demo';
 import SliderControl from '@components/SliderControl';
 import WibblyWobblyCircle from '@components/WibblyWobblyCircle';
 
-I recently worked on a refresh of the [Gatsby careers page](https://www.gatsbyjs.com/careers/). The design called for large bits of geometry sprinkled throughout the page, and I had an idea: what if the circles were more like bubbles, subtly undulating and wobbling?
+import ConfettiGeyserDemo from './ConfettiGeyserDemo'
+
+In 2014, Google unveiled Material Design. It featured all of the typical things you'd expect to find in a design system—UI widgets and color palettes and all that—but it brought one more thing that was totally new to me: a description of the physics used in the Material Design universe.
+
+The core of Material Design is “material”, a 3-dimensional surface with rather unique properties. Designer Matías Duarte explained that “unlike real paper, our digital material can expand and reform intelligently. Material has physical surfaces and edges. Seams and shadows provide meaning about what you can touch.”
+
+Essentially they took paper and ink—staples of our physical world—and reimagined them in a digital context. They provided a strict set of constraints for how “material” behaves, including some rather fun examples of what _not_ to do:
+
+Regardless of how you feel about Material Design, there's a really cool idea here: our websites and apps can be thought of as a _universe_, and we get to decide how elements in that universe behave.
+
+This idea was on my mind last year when I built a confett-rendering engine that gets blown around by the cursor:
 
 <Demo
-  id="wibbly-wobbly-circle-intro"
+  id="confetti-geyser"
+  noPadding
   initialValues={{
-    intensity: 33,
+    concentration: 10,
   }}
   controls={(values, updateValue) => (
-    <><SliderControl
-      id="intensity"
-      label="Intensity"
-      min={0}
-      max={100}
-      value={values.intensity}
-      updateValue={updateValue}
-    />
-        <SliderControl
-      id="intensity"
-      label="Intensity"
-      min={0}
-      max={100}
-      value={values.intensity}
-      updateValue={updateValue}
-    /></>
+    <>
+      <SliderControl id="concentration" label="Volume" min={1} max={40} value={values.concentration} updateValue={updateValue} />
+    </>
   )}
 >
-  {({ intensity }) => {
+  {props => {
     return (
-      <WibblyWobblyCircle size={250} intensity={intensity * 0.0333} />
+      <ConfettiGeyserDemo {...props} />
+    )
+  }}
+</Demo>
+
+
+
+I recently worked on a refresh of the [Gatsby careers page](https://www.gatsbyjs.com/careers/) (we're hiring!). The design called for large bits of geometry sprinkled throughout the page, and I had an idea: what if the circles were soft, and gently wobbling as if floating in space?
+
+
+
+<Demo
+  includeResetButton
+  id="wibbly-wobbly-circle-intro"
+  initialValues={{
+    intensity: 1,
+    tension: 7,
+    friction: 2,
+  }}
+  controls={(values, updateValue) => (
+    <>
+      <SliderControl
+        id="intensity"
+        label="Intensity"
+        min={0}
+        max={3.5}
+        step={0.01}
+        value={values.intensity}
+        updateValue={updateValue}
+      />
+      <SliderControl
+        id="tension"
+        label="Tension"
+        min={1}
+        max={300}
+        step={1}
+        value={values.tension}
+        updateValue={updateValue}
+      />
+      <SliderControl
+        id="friction"
+        label="Friction"
+        min={0.1}
+        max={20}
+        step={0.1}
+        value={values.friction}
+        updateValue={updateValue}
+      />
+    </>
+  )}
+>
+  {(props) => {
+    return (
+      <WibblyWobblyCircle size={250} {...props} />
     )
   }}
 </Demo>

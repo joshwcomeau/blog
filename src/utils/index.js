@@ -221,6 +221,14 @@ export const generateId = (len = 4) => {
   return sample(characters, len).join('');
 };
 
+/**
+ * NOTE: this implementation of deepEqual fails for functions, and will crash
+ * when called on recursive objects. Only use for nested primitive values.
+ */
+export const deepEqual = (o1, o2) => {
+  return JSON.stringify(o1) === JSON.stringify(o2);
+};
+
 export const normalize = (
   number,
   currentScaleMin,

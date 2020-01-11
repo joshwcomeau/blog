@@ -25,6 +25,8 @@ const WibblyWobblyCircle = ({
   size = 400,
   color = COLORS.blue[500],
   intensity = 1,
+  tension = 7,
+  friction = 2,
   ...delegated
 }) => {
   const shouldEnableAnimations = !getShouldReduceMotion();
@@ -61,7 +63,6 @@ const WibblyWobblyCircle = ({
   const [points, setPoints] = React.useState(initialPoints);
 
   React.useEffect(() => {
-    console.log('pop');
     let animateTimeoutId = null;
 
     if (!shouldEnableAnimations) {
@@ -116,7 +117,7 @@ const WibblyWobblyCircle = ({
 
   const sp = useSpring({
     pointsArray,
-    config: { tension: 7, friction: 2 },
+    config: { tension, friction },
   });
 
   return (

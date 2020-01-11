@@ -33,6 +33,7 @@
     "gatsby-plugin-styled-components": "3.0.0",
     "gatsby-source-filesystem": "^2.0.1",
     "katex": "^0.9.0",
+    "matter-js": "0.14.2",
     "pretty-bytes": "^5.1.0",
     "rc-slider": "^8.6.11",
     "react": "16.12.0",
