@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import { COLORS } from '@constants';
 
-import { Wrapper as AsteriskWrapper } from '../Asterisk';
-
 export default styled.em`
   font-family: 'Sriracha';
   font-size: 0.9em;

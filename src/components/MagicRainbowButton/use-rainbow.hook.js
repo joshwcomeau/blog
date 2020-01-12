@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 
 import { range, generateId } from '@utils';
@@ -34,9 +35,11 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
       ? true
       : window.matchMedia('(prefers-reduced-motion: no-preference)');
 
-  const isEnabled = false && hasBrowserSupport && prefersReducedMotion.matches;
+  const isEnabled = hasBrowserSupport && prefersReducedMotion.matches;
 
   const { current: uniqueId } = React.useRef(generateId());
+
+  console.log({ isEnabled });
 
   // Register all custom properties
   React.useEffect(() => {

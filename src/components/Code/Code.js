@@ -12,7 +12,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 class Code extends PureComponent {
   static propTypes = {
     code: PropTypes.string,
-    maxHeight: PropTypes.number,
+    maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   state = {

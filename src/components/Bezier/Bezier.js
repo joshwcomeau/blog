@@ -203,26 +203,26 @@ const Point = styled.ellipse`
   }
 `;
 
-const EndPoint = styled(Point).attrs({
-  rx: props => (props.isMobile ? 40 : 15),
-  ry: props => (props.isMobile ? 40 : 15),
-})`
+const EndPoint = styled(Point).attrs(props => ({
+  rx: props.isMobile ? 40 : 15,
+  ry: props.isMobile ? 40 : 15,
+}))`
   fill: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
 `;
 
-const VisibleControlPoint = styled(Point).attrs({
-  rx: props => (props.isMobile ? 20 : 8),
-  ry: props => (props.isMobile ? 20 : 8),
-})`
+const VisibleControlPoint = styled(Point).attrs(props => ({
+  rx: props.isMobile ? 20 : 8,
+  ry: props.isMobile ? 20 : 8,
+}))`
   fill: white;
   stroke: ${props => (props.grabbable ? COLORS.pink[500] : COLORS.violet[500])};
   stroke-width: 3;
 `;
 
-const InvisibleHandle = styled(Point).attrs({
-  rx: props => (props.isMobile ? 40 : 25),
-  ry: props => (props.isMobile ? 40 : 25),
-})`
+const InvisibleHandle = styled(Point).attrs(props => ({
+  rx: props.isMobile ? 40 : 25,
+  ry: props.isMobile ? 40 : 25,
+}))`
   fill: transparent;
   stroke: transparent;
 `;
