@@ -28,6 +28,23 @@ class Bezier extends PureComponent {
   };
 
   handleSelectPoint = pointId => () => {
+    if (pointId === 'p1' && this.props.selectP1) {
+      this.props.selectP1();
+      return;
+    }
+    if (pointId === 'p2' && this.props.selectP2) {
+      this.props.selectP2();
+      return;
+    }
+    if (pointId === 'p3' && this.props.selectP3) {
+      this.props.selectP3();
+      return;
+    }
+    if (pointId === 'p4' && this.props.selectP4) {
+      this.props.selectP4();
+      return;
+    }
+
     if (this.props.grabbable) {
       // TODO: Get distance from point center, so that clicking and dragging a
       // new point doesn't center it on the cursor.
@@ -97,15 +114,8 @@ class Bezier extends PureComponent {
 
     const isMobile = getDeviceType() === 'mobile';
 
-    return (
-      <Svg
-        viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-        ref={node => (this.node = node)}
-        onMouseMove={this.handleDrag}
-        onTouchMove={this.handleDrag}
-        onMouseUp={this.handleRelease}
-        onTouchEnd={this.handleRelease}
-      >
+    const data = (
+      <>
         <ControlLine x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} />
         {curveType === 'quadratic' && (
           <ControlLine x1={p2[0]} y1={p2[1]} x2={p3[0]} y2={p3[1]} />
@@ -158,6 +168,21 @@ class Bezier extends PureComponent {
           grabbable={grabbable}
           isMobile={isMobile}
         />
+      </>
+    );
+
+    return this.props.embeddedInParentSvg ? (
+      data
+    ) : (
+      <Svg
+        viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        ref={node => (this.node = node)}
+        onMouseMove={this.handleDrag}
+        onTouchMove={this.handleDrag}
+        onMouseUp={this.handleRelease}
+        onTouchEnd={this.handleRelease}
+      >
+        {data}
       </Svg>
     );
   }

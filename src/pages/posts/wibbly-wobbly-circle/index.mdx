@@ -10,43 +10,38 @@ interactive: true
 import Demo from '@components/Demo';
 import SliderControl from '@components/SliderControl';
 import WibblyWobblyCircle from '@components/WibblyWobblyCircle';
+import RenderWhenOnscreen from '@components/RenderWhenOnscreen';
+import Asterisk from '@components/Asterisk';
+import Em from '@components/Em';
 
+import MaterialVideos from './MaterialVideos';
 import ConfettiGeyserDemo from './ConfettiGeyserDemo'
+import CircleBezier from './CircleBezier'
 
 In 2014, Google unveiled Material Design. It featured all of the typical things you'd expect to find in a design system—UI widgets and color palettes and all that—but it brought one more thing that was totally new to me: a description of the physics used in the Material Design universe.
 
 The core of Material Design is “material”, a 3-dimensional surface with rather unique properties. Designer Matías Duarte explained that “unlike real paper, our digital material can expand and reform intelligently. Material has physical surfaces and edges. Seams and shadows provide meaning about what you can touch.”
 
-Essentially they took paper and ink—staples of our physical world—and reimagined them in a digital context. They provided a strict set of constraints for how “material” behaves, including some rather fun examples of what _not_ to do:
+Essentially they took paper and ink—staples of our physical world—and reimagined them in a digital context. They provided a strict set of constraints for how “material” behaves, including some [rather fun examples](https://material.io/design/environment/surfaces.html#properties) of what _not_ to do:
+
+
+<MaterialVideos />
 
 Regardless of how you feel about Material Design, there's a really cool idea here: our websites and apps can be thought of as a _universe_, and we get to decide how elements in that universe behave.
 
-This idea was on my mind last year when I built a confett-rendering engine that gets blown around by the cursor:
+<p>
+  Unfortunately, the DOM does not make it easy. There is no <code>{"<smoke />"}</code> HTML tag, nor a <code>gooey="true"</code> attribute. And yet, <Em>because</Em> it's not easy, it becomes a fantastic way to help a product stand out. If it was easy, the effect would get played out.<Asterisk>There was a time when the <code>{"<marquee>"}</code> tag was a staple of most websites!</Asterisk>
+</p>
 
-<Demo
-  id="confetti-geyser"
-  noPadding
-  initialValues={{
-    concentration: 10,
-  }}
-  controls={(values, updateValue) => (
-    <>
-      <SliderControl id="concentration" label="Volume" min={1} max={40} value={values.concentration} updateValue={updateValue} />
-    </>
-  )}
->
-  {props => {
-    return (
-      <ConfettiGeyserDemo {...props} />
-    )
-  }}
-</Demo>
+Today, I'd like to look at one such surprisingly-tricky effect we can use to liven up the stuff we build. I used it recently when working on a refresh of the [Gatsby careers page](https://www.gatsbyjs.com/careers/) (we're hiring!).
 
+The design called for big chunks of colourful geometry sprinkled around the page—a square here, a circle there. These are nice touches, since they help liven up an information-dense page. But they also felt a little static and lifeless to me.
 
+Tools like Figma and Sketch produce flat, motionless mockups. When we implement them, it's so easy for the _universes_ we create to inherit those properties; it's as if someone laminated all the items on the page, every item stuck down. Often this is fine, since most websites exist to convey information, not to dazzle its visitors with unnecessary motion. But subtle touches can go a long way towards making pages feel organic.
 
-I recently worked on a refresh of the [Gatsby careers page](https://www.gatsbyjs.com/careers/) (we're hiring!). The design called for large bits of geometry sprinkled throughout the page, and I had an idea: what if the circles were soft, and gently wobbling as if floating in space?
-
-
+<p>
+  My solution was to add some wobble to the circles. Without further ado, I present: The <code>WibblyWobblyCircle</code> component:<Asterisk>When you build something, you can name it whatever ridiculous thing you want. I don't make the rules.</Asterisk>
+</p>
 
 <Demo
   includeResetButton
@@ -95,7 +90,18 @@ I recently worked on a refresh of the [Gatsby careers page](https://www.gatsbyjs
   }}
 </Demo>
 
-I worked on a component like this years ago, which made a brief cameo in [a talk I gave about whimsy](https://www.youtube.com/watch?v=Z2d9rw9RwyE).
+The trick behind this effect is bézier curves. If you haven't already read it, my [previous post on bézier curves](/posts/dynamic-bezier-curves/) should be a great primer!
+
+While the shape shown _looks_ like a circle, it's actually a shape made up of 4 quadratic bézier curves. This is mathematically not a circle, but it's _so close_ that it works for our purposes:
+
+<CircleBezier />
+
+Try dragging one of the control points, the smaller outlined circles. And try dragging one of the larger solid ones. Two things should be noticeable
+
+- We could create a pretty neat wobbly effect by dynamically moving these points!
+- It's very easy to get accidental 'cricks' in the circle, sharp corners and weird deformations.
+
+The real challenge now will be to accomplish that first bullet point without getting caught with any cricks, creases, cracks, or crannies.
 
 
 TODO: Playground at the end with "ludicrous mode"

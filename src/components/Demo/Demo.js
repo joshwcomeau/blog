@@ -50,8 +50,8 @@ class Demo extends Component<Props, State> {
               opacity: shouldShowReset ? 1 : 0,
               pointerEvents: shouldShowReset ? 'auto' : 'none',
             }}
+            disabled={!shouldShowReset}
             onClick={() => {
-              console.log('click');
               this.setState(this.props.initialValues);
             }}
           >
