@@ -27,7 +27,7 @@ Essentially they took paper and ink—staples of our physical world—and reimag
 
 <MaterialVideos />
 
-Regardless of how you feel about Material Design, there's a really cool idea here: our websites and apps can be thought of as a _universe_, and we get to decide how elements in that universe behave.
+Regardless of how you feel about Material Design, there's a really cool idea here: our websites and apps can be thought of as a _universe_, with its own set of physics, and we get to decide how elements in that universe behave.
 
 <p>
   Unfortunately, the DOM does not make it easy. There is no <code>{"<smoke />"}</code> HTML tag, nor a <code>gooey="true"</code> attribute. And yet, <Em>because</Em> it's not easy, it becomes a fantastic way to help a product stand out. If it was easy, the effect would get played out.<Asterisk>There was a time when the <code>{"<marquee>"}</code> tag was a staple of most websites!</Asterisk>
@@ -96,12 +96,20 @@ While the shape shown _looks_ like a circle, it's actually a shape made up of 4 
 
 <CircleBezier />
 
-Try dragging one of the control points, the smaller outlined circles. And try dragging one of the larger solid ones. Two things should be noticeable
+Try dragging one of the control points, the smaller outlined circles. And try dragging one of the larger solid ones. Two things should become apparent:
 
-- We could create a pretty neat wobbly effect by dynamically moving these points!
-- It's very easy to get accidental 'cricks' in the circle, sharp corners and weird deformations.
+- With the right manipulation, we could achieve something pretty gelatinous!
+- It's very easy to get accidental 'cricks' in the circle, sharp corners and weird deformations, like this:
 
-The real challenge now will be to accomplish that first bullet point without getting caught with any cricks, creases, cracks, or crannies.
+import notAllowedSrc from './not-allowed.png';
+
+<img src={notAllowedSrc} hideBorder alt="The handles are manipulated so that it forms a sort of infinity-loop, an '8'. This is not how a gelatinous ball should behave!" style={{ maxWidth: 400, margin: 'auto' }}  />
+
+I wanted our gelatinous balls to behave correctly: no cricks, creases, cracks, crannies, or crevices. Thankfully, trigonometry is our friend here!
+
+### Cousin points
+
+Let's say I 
 
 
 TODO: Playground at the end with "ludicrous mode"

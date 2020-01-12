@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = ({ src, alt = '', caption = '', ...delegated }) => {
+const Image = ({ src, alt = '', caption = '', hideBorder, ...delegated }) => {
   let mutableAlt = alt || '';
   let mutableCaption = caption;
   const altMatch = mutableAlt.match(/caption=(.+)\|alt=(.+)/i);
@@ -12,7 +12,7 @@ const Image = ({ src, alt = '', caption = '', ...delegated }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper style={{ border: hideBorder && 'none' }}>
       <Img src={src} alt={mutableAlt} {...delegated} />
       {mutableCaption && <Caption>{mutableCaption}</Caption>}
     </Wrapper>
