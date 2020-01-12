@@ -218,7 +218,7 @@ Houdini is super bleeding-edge, and this is reflected in its browser support: At
 <img
   alt="Table showing the lack of browser support, aside from Chrome and Opera"
   src={registerPropertySrc}
-  style={{ width: '100%', maxWidth: '80vw' }}
+  style={{ width: '100%' }}
 />
 
 My solution? Bail out of the hook early, if `window.CSS` or `CSS.registerProperty` aren't found, and return the first 3 colors. Other browsers won't get the animation, but they'll still get a nice gradient! And our React component doesn't have to change at all 💯
@@ -234,7 +234,7 @@ In that talk, I _also_ advocated for breaking this rule, as long as you're measu
 <img
   alt="A very empty profile, with it easily hitting 60fps"
   src={profilingSrc}
-  style={{ width: '100%', maxWidth: '80vw' }}
+  style={{ width: '100%' }}
 />
 
 It is true that this technique involves a repaint on every frame, and that repaints can be slow… but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
@@ -272,4 +272,4 @@ It's a brand new year, and one of my goals for 2020 is to produce many high-qual
 
 If you're keen to build your own rainbow button, the source code for this one might come in handy. This blog is open-source, so you can find it [on Github](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/).
 
-If you do wind up using this effect somewhere, I'd _love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!
+If you do wind up using this effect somewhere, _I'd love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!

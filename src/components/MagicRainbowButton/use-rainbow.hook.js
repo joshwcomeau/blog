@@ -39,8 +39,6 @@ const useRainbow = ({ intervalDelay = 2000 }) => {
 
   const { current: uniqueId } = React.useRef(generateId());
 
-  console.log({ isEnabled });
-
   // Register all custom properties
   React.useEffect(() => {
     if (!isEnabled) {
