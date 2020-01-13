@@ -15,7 +15,7 @@ const Image = ({ src, alt = '', caption = '', ...delegated }) => {
 
   return (
     <Wrapper>
-      <Img src={src} alt={mutableAlt} {...delegated} />
+      <Img src={src} alt={mutableAlt} title={mutableAlt} {...delegated} />
       {mutableCaption && <Caption>{mutableCaption}</Caption>}
     </Wrapper>
   );
