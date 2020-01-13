@@ -35,8 +35,8 @@ const ExternalLink = styled(OutboundLink)`
     props.theme === 'light' ? COLORS.white : COLORS.pink[500]};
 `;
 
-const InternalLink = styled(ExternalLink).attrs({
-  to: props => props.href,
-})``;
+const InternalLink = styled(ExternalLink).attrs(props => ({
+  to: props.href,
+}))``;
 
 export default Link;

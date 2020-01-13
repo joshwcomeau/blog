@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { BREAKPOINTS } from '@constants';
+
 const Image = ({ src, alt = '', caption = '', ...delegated }) => {
   let mutableAlt = alt || '';
   let mutableCaption = caption;
@@ -26,6 +28,11 @@ const Wrapper = styled.span`
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-sizing: content-box;
   border-radius: 5px;
+
+  @media ${BREAKPOINTS.sm} {
+    padding: 0;
+    border: none;
+  }
 `;
 
 const Caption = styled.span`

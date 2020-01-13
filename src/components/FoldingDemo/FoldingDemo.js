@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spring } from 'react-spring';
+import { Spring } from 'react-spring/renderprops';
 
 import foldDemoImageSrc from '@assets/images/francois-hoang-china.jpg';
 import foldMobileVideo from '@assets/videos/fold-mobile.mp4';

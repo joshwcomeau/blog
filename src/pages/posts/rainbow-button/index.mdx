@@ -1,8 +1,8 @@
 ---
-title: Magical Rainbow Gradients with CSS Houdini
+title: Magical Rainbow Gradients with CSS Houdini and React Hooks
 slug: rainbow-button
-isPublished: false
-publishedOn: 2020-01-06T15:00:00-0400
+isPublished: true
+publishedOn: 2020-01-13T09:00:00-0400
 abstract: Using CSS custom properties and Houdini for rich, flexible animations
 interactive: true
 heroStyle: simple
@@ -76,7 +76,7 @@ This creates the _illusion_ of motion, similar to those casino or venue lights:
 
 <CasinoLights />
 
-> This is also similar to how sound waves move through the air! I created an explorable explanation that [demonstrates this concept](https://pudding.cool/2018/02/waveforms/), if you're curious.
+> This is also similar to how sound waves move through the air! I created an explorable explanation that [demonstrates this concept](https://pudding.cool/2018/02/waveforms/).
 
 ## Animating gradients
 
@@ -138,7 +138,7 @@ Here's the wild, mind-blowing part: you can _transition custom properties_:
 
 We're not telling the browser to animate the _background property_, we're telling the browser to animate our _custom property_. And then we're using that custom property in our background gradient. Amazingly, the `var()` keyword is reactive, causing the background to re-paint whenever the value changes, even when that value is being tweened by `transition`.
 
-My mind is still buzzing with the possibilities. CSS custom properties are so much cooler than I realized, and Houdini gives us downright magical powers.
+My mind is still buzzing with the possibilities. CSS custom properties are so much cooler than I realized, and Houdini gives us downright magical powers ✨🧙✨
 
 ### One more piece: registering the property
 
@@ -158,11 +158,11 @@ In a bit, we'll see how React hooks let us package this up rather nicely. First,
   {vanillaDemoCode}
 </Code>
 
-## ⚛️ Hook it up
+## Hook it up ⚛️
 
-One of the things I really like about hooks is that they let us come up with our own abstractions, grouped by category rather than by lifecycle. I'm a fan of the school of thought that code should be designed for humans to read, not computers. And hooks let us design our code for humans,
+One of the neat things about React hooks is that they give the developer more control around how different ideas are expressed. Custom hooks let us shove a bunch of stuff in a box, and it's up to us to draw the boxes. We can choose whether we want to optimize for reusability, or clarity, or anything else.
 
-In this case, I want to focus on keeping things as straightforward and lightweight as possible. I don't care too much about reusability, and I don't need a bunch of configuration options.
+In this case, I'd like to keep things friendly. I'm OK sacrificing a bit of power or flexibility in exchange for a no-fuss no-frills `useRainbow` hook.
 
 ### State and API
 
@@ -170,13 +170,13 @@ Initially, I was thinking I would hold the current colors in state, but it occur
 
 If I'm on the 5th cycle, for example, I know that my colors will be the 5th, 6th, and 7th colors in my 10-color palette. Because the palette is static, I can just track that number, and use it to derive the colors.
 
-The next thing I wanted to figure out was the hook's interface. I started by writing the component that will consume this hook. I like just making up whatever API seems ideal for the component that uses it. I'll worry about making it later.
+The next thing I wanted to figure out was the hook's interface. I started by writing the component that will consume this hook. I like just making up whatever API seems ideal for the component that uses it. Consumer-driven development.
 
 <Code lang="js" maxHeight="60vh">
   {hookConsumerCode}
 </Code>
 
-Finally, here's my initial version of this hook:
+With that in mind, here's the initial version of this hook:
 
 <Code lang="js" maxHeight="60vh">
   {initialUseRainbowCode}
@@ -187,17 +187,17 @@ Finally, here's my initial version of this hook:
 I like this approach, because there's a clear separation of duties:
 
 - `useRainbow` is in charge of generating and managing the colors, but has no vote in what they're used for.
-- The component, `MagicRainbowButton`, doesn't know anything about where these colors came from, but decides what to do with them.
+- The component, `MagicRainbowButton`, doesn't know anything about where these colors came from or when they update, but decides what to do with them.
 
-There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. In fact, registering a global value from within an instanced component is going to be problematic. Let's see what we can do about that.
+There's one thing that makes my spidey-sense tingle a bit; it's pretty surprising that `useRainbow` secretly registers global CSS custom properties. In fact, registering a global value from within an instanced component is going to be problematic! We'll tackle this, and some other lingering issues, in the next section.
 
 ## Making this production-ready
 
-Before you start shipping rainbow buttons, there are a couple things we need to think about.
+Before you start shipping rainbow buttons all over your law firm's website or your accounting software, there are a couple things we need to think about.
 
 ### Global properties and duplicate components
 
-The biggest problem with our current implementation is that it violates a core React principle: every instance of a component should be independent. We should be able to render as many copies of it as we want, with no "cross-talk".
+The biggest problem with our current implementation is that it violates a core React principle: every instance of a component should be independent. We should be able to render as many copies of it as we want, without them interfering with each other.
 
 If we try to render two copies of our `MagicRainbowButton` on the same page, we get this error:
 
@@ -209,7 +209,7 @@ I got around this by creating a unique ID for each React component, and storing 
 
 <Code lang="js">{uniqueIdCode}</Code>
 
-This also makes me feel better about the "secret side-effects in hooks" thing. A bit of randomness rules out the risk of name collisions, and makes that side-effect invisible in all the ways that matter.
+This also makes me feel better about the "secret side-effects in hooks" thing. A bit of randomness rules out the risk of name collisions, letting us pretend that it isn't actually global.
 
 ### Browser support
 
@@ -218,7 +218,7 @@ Houdini is super bleeding-edge, and this is reflected in its browser support: At
 <img
   alt="Table showing the lack of browser support, aside from Chrome and Opera"
   src={registerPropertySrc}
-  style={{ width: '100%', maxWidth: '80vw' }}
+  style={{ width: '100%' }}
 />
 
 My solution? Bail out of the hook early, if `window.CSS` or `CSS.registerProperty` aren't found, and return the first 3 colors. Other browsers won't get the animation, but they'll still get a nice gradient! And our React component doesn't have to change at all 💯
@@ -227,14 +227,14 @@ My solution? Bail out of the hook early, if `window.CSS` or `CSS.registerPropert
 
 ### Performance
 
-Last year, I [gave a talk](https://www.youtube.com/watch?v=DNGGzwmfouU) about animation/interaction performance. In that talk, I mention that there are two "gold standard" properties: _opacity_ and _transform_. Those two properties perform way better than other properties, because they don't have to paint on every frame, they can be manipulated directly by the graphics card and composited around on the screen.
+Last year, I [gave a talk](https://www.youtube.com/watch?v=DNGGzwmfouU) about animation/interaction performance. In that talk, I mention that there are two "gold standard" properties: _opacity_ and _transform_. Those two properties perform way better than other properties, because they don't have to paint on every frame, they can be manipulated directly by the graphics card as a texture, shimmying around without the CPU doing any work.
 
-In that talk, I _also_ advocated for breaking this rule from time to time, as long as you're measuring. With a _6x throttle_ on my CPU, I fired up the profiler:
+In that talk, I _also_ advocated for breaking this rule, as long as you're measuring. With a _6x throttle_ on my CPU, I fired up the profiler:
 
 <img
   alt="A very empty profile, with it easily hitting 60fps"
   src={profilingSrc}
-  style={{ width: '100%', maxWidth: '80vw' }}
+  style={{ width: '100%' }}
 />
 
 It is true that this technique involves a repaint on every frame, and that repaints can be slow… but in this case, the amount of repainting is tiny. The repaint takes _~0.3 milliseconds_, which is about 2% of our budget if we want to hit 60fps.
@@ -245,21 +245,21 @@ Animating properties like `height` is often very slow, because it involves both 
 
 Whimsical touches are great, but not when they come at the expense of usability.
 
-Certain types of animations can be problematic for folks with vestibular disorders - they can trigger vertigo, nausea, headaches, and other nasty symptoms.
+Certain types of animations can be problematic for folks with vestibular disorders—they can trigger vertigo, nausea, headaches, and other nasty symptoms.
 
 Browsers have been hard at work implementing support for a ["prefers-reduced-motion"](https://developers.google.com/web/updates/2019/03/prefers-reduced-motion) media query. This query relies on a Windows/MacOS setting, and lets users express that they would like to disable animations.
 
-The browser support for this media query has gotted dramatically better, and now supports all major browsers except IE. We'll set it up so that we're only enabling animations for folks who have selected "no preference" on motion, the default value:
+The browser support for this media query has gotten dramatically better, and supports Chrome, Firefox, Safari, and (soon) Edge. We'll set it up so that we're only enabling animations for folks who have selected "no preference" on motion, the default value:
 
 <Code lang="js">{prmCode}</Code>
 
-For folks using older browsers like Internet Explorer, the media query won't exist, which means `prefersReducedMotion.matches` will always return `false`. That's OK: we can assume that folks using legacy browsers would prefer not to receive the animations.
+This method might be a little counter-intuitive—wouldn't we want to _disable_ the animation for folks who express a preference?—but it works out to be the same thing in most cases. The exception is for folks using older browsers like Internet Explorer; in their case, the media query doesn't exist. Doing it this way means that people in those browsers _won't_ see the animation. Better to take the safer assumption.
 
 In addition to motion, we also need to think about color contrast. Will folks with vision impairments be able to read the text in the button? I added a bit of text shadow, and darkened the warm end of the spectrum. Truthfully, it may still be too low-contrast for certain periods in the animation, but I'm confident it's legible most of the time, and the animation shifts quickly.
 
 # One more subscribe button
 
-It's a brand new year, and my goal for 2020 is to produce many high-quality interactive blog posts like this one. My newsletter is the best way to find out when something new is posted.
+It's a brand new year, and one of my goals for 2020 is to produce many high-quality interactive blog posts like this one. My newsletter is the best way to find out when something new is posted.
 
 <p>
   I know I've thrown a lot of "subscribe" buttons at you this post
@@ -272,4 +272,4 @@ It's a brand new year, and my goal for 2020 is to produce many high-quality inte
 
 If you're keen to build your own rainbow button, the source code for this one might come in handy. This blog is open-source, so you can find it [on Github](https://github.com/joshwcomeau/blog/blob/master/src/components/MagicRainbowButton/).
 
-If you do wind up using this effect somewhere, I'd _love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!
+If you do wind up using this effect somewhere, _I'd love to see it_! Hit me up [on Twitter](https://twitter.com/JoshWComeau) or [by email](mailto:joshwcomeau@gmail.com) and let me know!

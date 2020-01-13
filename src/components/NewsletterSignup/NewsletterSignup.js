@@ -20,8 +20,8 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
   };
 
   return (
-    <RenderWhenOnscreen height={hideDisclaimer ? 128 : 150}>
-      <Wrapper>
+    <Wrapper>
+      <RenderWhenOnscreen height={hideDisclaimer ? 128 : 150}>
         <Form
           action="https://tinyletter.com/joshwcomeau"
           method="post"
@@ -53,8 +53,8 @@ const NewsletterSignup = ({ id, hideDisclaimer }) => {
             </span>
           </Disclaimer>
         )}
-      </Wrapper>
-    </RenderWhenOnscreen>
+      </RenderWhenOnscreen>
+    </Wrapper>
   );
 };
 
