@@ -31,7 +31,7 @@ const PostLink = styled(Link)`
 `;
 
 const PostTitle = styled.h3`
-  font-size: 48px;
+  font-size: 36px;
   line-height: 50px;
   font-weight: 600;
   letter-spacing: -1px;
