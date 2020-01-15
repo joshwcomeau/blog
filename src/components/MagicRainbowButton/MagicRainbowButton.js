@@ -5,7 +5,7 @@ import useRainbow from './use-rainbow.hook';
 
 const MagicRainbowButton = ({
   children,
-  intervalDelay = 1600,
+  intervalDelay = 1300,
   ...delegated
 }) => {
   const transitionDelay = intervalDelay * 1.25;

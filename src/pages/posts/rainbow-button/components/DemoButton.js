@@ -9,7 +9,7 @@ import Center from '@components/Center';
 const DemoButton = () => {
   return (
     <Wrapper>
-      <WrappedButton>Subscribe</WrappedButton>
+      <WrappedButton>Magic Rainbow Button</WrappedButton>
     </Wrapper>
   );
 };
@@ -20,7 +20,7 @@ const Wrapper = styled(Center)`
 `;
 
 const WrappedButton = styled(MagicRainbowButton)`
-  width: 150px;
+  width: 300px;
   height: 60px;
   font-size: 21px;
   border-radius: 5px;
