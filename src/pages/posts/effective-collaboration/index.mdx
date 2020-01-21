@@ -1,8 +1,8 @@
 ---
 title: Effective Collaboration with Product and Design
 slug: effective-collaboration
-isPublished: false
-publishedOn: 2020-01-18
+isPublished: true
+publishedOn: 2020-01-21
 abstract: How we work with design can have a tremendous impact on our overall productivity, and yet we don't always treat it as very important. A look at how collaborating with design can supercharge our own productivity.
 heroStyle: 'simple'
 interactive: false
@@ -12,9 +12,9 @@ import Asterisk from '@components/Asterisk';
 import Tweet from '@components/Tweet';
 
 <p>
-  If you had 15 minutes of a developer's time, and your goal was to boost their
-  productivity, to help them become more effective at their job, what would you
-  share with them?
+  If you had 15 minutes of a developer's time, and your goal was to help them
+  become more effective/productive at their job by teaching them something
+  you've learned, what would you pick?
   <Asterisk>
     Framed another way, how would you fulfill the Geico promise: “15 minutes
     could save you 15% or more on development efforts”?
@@ -25,27 +25,27 @@ This blog post is my answer to that question. It's roughly a 15 minute read, and
 
 It's not about Javascript, though, or even about programming more broadly. As a community, we've done an incredible job optimizing along the engineering axis; we have brilliant frameworks, tools, and services. I work for [Gatsby](https://www.gatsbyjs.com/), and our primary focus is on making it dramatically faster to develop rich, performant, accessible web applications.
 
-In other words, the problem space we typically focus on has been well-harvested, and there's not as much low-hanging fruit left. But there are many other areas we can improve our skills in!
+The problem-space we typically focus on has been well-harvested, and there's not as much low-hanging fruit left. But there are many other areas we can improve our skills in!
 
-Most of the work we do, especially on the front-end, is intertwined with product and design. It's likely that you spend a good chunk of your time working on implementing the vision that these team members deliver. Communication and trust play a huge role in how effectively we work together, and it can make an _enormous difference_ in our velocity.
+Most of the work we do, especially on the front-end, is intertwined with product and design. It's likely that you spend a good chunk of your time working on implementing a vision that other team members provide. Communication and trust play a huge role in how effectively we work together, and it can make an _enormous difference_ in our velocity.
 
 # Rainbow Road
 
-I used to work for [Khan Academy](https://khanacademy.org), a non-profit organization on a mission to provide a free, world-class education to anyone, anywhere.
+I used to work for [Khan Academy](https://khanacademy.org), a non-profit organization on a mission to provide a free, world-class education to anyone, anywhere. I worked on the classroom team, building tools to be used by teachers and their students.
 
-I worked on the classroom team, building tools to be used by teachers and their students. We discovered pretty quickly that teachers really dislike having product updates shipped mid-semester; it disrupts their workflow, and eats up extremely limited time.
+We discovered pretty quickly that teachers really dislike having product updates shipped mid-semester; it disrupts their workflow, and eats up extremely limited time. A teacher might only have 5 minutes before a class starts to check in on how their students are doing. Product releases disrupt that.
 
-<p>
-  For this and many other reasons, Khan Academy structured most of their
-  releases around the “back-to-school” calendar: we aimed to have new stuff
-  launched by July/August, in time for the new school year (in the northern
-  hemisphere). Especially on the classroom team, we couldn't ship new features
-  after school started, so we had very firm deadlines.
-</p>
+For this and many other reasons, Khan Academy structured most of their
+releases around the “back-to-school” calendar: we aimed to have new stuff
+launched by July/August, in time for the new school year (in the northern
+hemisphere). Especially on the classroom team, we couldn't ship new features
+after school started, so we had very firm deadlines.
 
-In 2018, our squad worked on a project code-named _rainbow road_, centered around revamping the tools teachers use outside of class to understand what their students' needs are. Our plan was super aggressive: we were revamping 5 key product areas, and launching a bunch of new functionality. For a while, it was very unclear whether we would actually finish in time!
+In 2018, our squad worked on a project code-named _rainbow road_, centered around revamping the tools teachers use outside of class to understand what their students' needs are. Our plan was super aggressive: we were revamping 5 key product areas, and launching a bunch of new functionality. For a while, it was very uncertain whether we would actually finish in time!
 
-In the end, we met all of our core commitments, though we had to do some creative scope-cutting, figuring out what was truly essential and focusing on that.
+In the end, we met all of our core commitments! Like in many real-world projects, there was a bit of creative scope-cutting needed, but we delivered a working product in time for back-to-school, and teachers (and their students!) really benefitted from the work we did.
+
+I believe a huge part of how we were able to pull it off was the _tight collaboration_ we had between product/design and engineering.
 
 # Three levers
 
@@ -55,9 +55,9 @@ A product manager once told me that he had _three levers_ he could pull on, in o
 - **Time.** If the work is behind schedule, we can push the deadline back!
 - **Scope.** If we can trim out some of the nice-to-haves, we can reduce the amount of work that needs to be done, while still delivering the critical experience, and solving for the original objective.
 
-The first option, adding people, feels precarious to me. It can backfire; adding people doesn't always mean the work will get done faster. New developers need to gather a bunch of context, and sometimes that context exists only within the current developers' heads. Instead of speeding things up, it can slow everyone down.
+The first option, adding people, feels precarious to me. It can backfire; adding people doesn't always mean the work will get done faster. New developers need to gather a bunch of context, and sometimes that context exists only within the current developers' heads. Instead of speeding things up, it can slow things down.
 
-The second option, time, might not be an option at all, especially if there are external, immovable deadlines. Some companies are reluctant to ever push deadlines back.
+The second option, time, might not be an option at all, especially if there are external, immovable deadlines. IMO this is an _underutilized lever_ in our industry, but yeah sometimes you really can't push back a deadline.
 
 That leaves the third option, scope.
 
@@ -71,11 +71,11 @@ This workflow only works if all parties trust each other, though.
 
 So here's a fun exercise. Imagine you're at a party, and someone asks what you do. You mention that you're a developer for Company X. The person pulls out their phone and navigates to Company X's homepage, which is a page you built.
 
-For many devs, there's a certain amount of pride with this kind of thing. The code that you wrote is running on this person's phone! Even though many other people worked very hard on it, you were the one who translated those efforts into a live, working page. You were the final step in the process, and your work is on full display.
+For many devs, there's a certain amount of pride with this kind of thing. The code that you wrote is running on this person's phone! Even though many other people worked very hard on it, you were the one who translated those efforts into a tangible, interactive thing. You were the final step in the process, and your work is on full display.
 
 Now imagine that you're in the same situation, except you're the UI/UX designer who worked on Company X's homepage. The mockup you designed a few months ago is noticeably different from what you're seeing on this person's phone. The fonts are all wrong, the spacing is off, there's a weird glitch on scroll. It's not really your work. Not without a lot of asterisks and caveats, at least.
 
-Designers work hard to create a design that looks good and works well for the end user, but their work is funneled through an implementation process, one which inevitably leaves some kind of mark. The end result will never exactly match their design. Sometimes, it's worlds apart. And yet, their professional reputation is often all about which real-world products they've delivered, not how many beautiful mockups they've designed.
+Designers work hard to create a design that looks good and works well for the end user, but their work is funneled through an implementation process, one which invariably leaves a mark. The end result will never exactly match their design. Sometimes, it's worlds apart. And yet, their professional reputation is often all about which real-world products they've delivered, not how many beautiful mockups they've designed.
 
 This is a situation that can very easily lead to resentment and conflict. I've worked on teams where there was a pervasive icy tension between designers and developers. And, frankly, I think developers are to blame most of the time. It's usually our fault.
 
@@ -88,25 +88,32 @@ Let's say we're chugging along on a non-urgent feature. We push a version of the
 - Change avatar border radius from 4px to 8px
 - Add 8px spacing below avatar
 - Keep content center-aligned between `md` and `lg` breakpoints
-- Title should be `gray-900`, not `gray-700`
+- Title should be `gray-900` color, not `gray-700`
 - Text should show an ellipsis (…) if it's too long to fit on 3 lines.
 
-We tend to describe these as “nitpicks” (which, incidentally, isn't a very kind way to describe this kind of feedback!). Generally what happens in these situations is that the developer tells the designer to create a ticket for these nits, where it'll likely be assigned a P4 and promptly forgotten about, amongst a sea of other low-priority tickets.
+We tend to describe these as “nitpicks” (which, incidentally, isn't a very kind way to describe this kind of feedback!). Generally what happens in these situations is that the developer tells the designer to create a ticket for these nits, where it'll likely be assigned a P4 and lost in a sea of other low-priority tickets.
 
-In rare cases—say, if we're a week from a looming deadline and crunching to fix critical launch-blocking bugs—we might not be able to give this feedback much attention at that moment. In general, though, how should we handle this situation?
+How _should_ we react to this kind of feedback?
 
 ### Collaborative implementation
 
 First, we should figure out how much time we think it would take to fix these issues. Here's that list again:
 
 - Change avatar border radius from 4px to 8px
-- Add 6px spacing below avatar
+- Add 8px spacing below avatar
 - Keep content center-aligned between `md` and `lg` breakpoints
-- Title should be `gray-900`, not `gray-700`
+- Title should be `gray-900` color, not `gray-700`
 - Text should show an ellipsis (…) if it's too long to fit on 3 lines.
 
-The first 4 tweaks sound relatively trivial to me (presuming that these changes are permitted within the constraints of the component library). I think it would take me about 5 minutes to fix them, maybe 30 minutes total when factoring in updating snapshot tests and going through code review.
-
+<p>
+  The first 4 tweaks sound relatively trivial to me
+  <Asterisk>
+    Presuming that these changes are permitted within the constraints of the
+    design system + component library
+  </Asterisk>. I think it would take me about 5 minutes to fix them, maybe 30 minutes
+  total when factoring in all the process stuff (updating snapshot tests, code review,
+  etc).
+</p>
 <p>
   The fifth one is tricky, though. If you've ever tried to deal with multi-line
   ellipsis on the web, you know that it's a dastardly problem with no simple CSS
@@ -150,7 +157,7 @@ Another thing: designers usually aren't familiar enough with the web platform to
 
 Imagine if I had said something like this:
 
-> Hi - I can't do the multiline ellipsis, it's too hard. Sorry.
+> Hi - some of your requested changes are non-trivial, so I won't be able to get to it. Sorry.
 
 The designer might wonder, “is this actually a hard thing, or are they making excuses because they don't want to deal with it?”. They might think we're just giving them a canned line, so that we can get back to other work that interests us more.
 
@@ -168,15 +175,15 @@ You shouldn't let that stop you from starting a conversation. I would say someth
 
 > Hi there - I saw that the design features [seemingly-simple thing]. Unfortunately, because of [technical constraint], implementing this would probably take 3-4 days of development time. I wanted to check and see how critical this element is before I invest that kind of time, and see if maybe you had alternative ideas we could try.
 
-The person who designed the mockup has spent a lot of time thinking about that screen, and they likely already have multiple alternative ideas.
+The person who designed the mockup has spent a lot of time thinking about that screen, and they likely already have multiple alternative ideas. They might not even think the element in question is that important, and maybe you can omit it altogether.
 
-What you _don't_ want to do is assume that everything on the design is written in stone. You might spend a week implementing a multi-line ellipsis only to learn that Product and Design are happy to omit that chunk of text altogether!
+What you _don't_ want to do is assume that everything on the design is written in stone. You might spend a week implementing a multi-line ellipsis only to learn that the work was totally unnecessary!
 
 # Covert operations
 
-In the above example, I took the liberty of taking half an hour to implement the easier parts of the designer's feedback. You'll notice that I didn't check with my manager, or the team lead, I just went for it.
+In the above hypothetical scenario, I took the liberty of taking half an hour to implement the easier parts of the designer's feedback. I didn't check with my manager, or the team lead, I just did it.
 
-Depending on where you work, you may or may not have this kind of autonomy. At some organizations, it may be considered unusual for developers to take on work taht wasn't explicitly assigned by a PM.
+Depending on where you work, you may or may not have this kind of autonomy. At some organizations, it may be considered unusual for developers to take on work that wasn't explicitly assigned by a PM.
 
 If you work in an environment like this, designers probably don't have any expectation that you'll address these concerns anyway, so it's a bit of a different situation. Good communication is the most important part; you can still have that discussion around workarounds and optimal solutions, even if you're not authorized to implement the fixes yet.
 
@@ -186,21 +193,29 @@ Often, folks in these roles will have a couple of tickets that are very importan
 
 > OMG YES I've been trying to get this ticket solved for 3 months, it's affecting a lot of users and I don't understand why it isn't being taken more seriously. Thank you thank you thank you.
 
-In these cases, I like to pretend that I'm on an undercover mission - I'll do things "off the record" when it comes to Jira tickets, and I won't broadcast that I'm working on it (though of course I'll still be honest if anyone asks, and I'll probably bring it up in the next standup, once it's done).
+In these cases, I like to pretend that I'm on an undercover mission - I'll do things "off the record" when it comes to Jira tickets, and I won't broadcast that I'm working on it (though of course I'll still be honest if anyone asks, and I'll probably bring it up in the next standup, after the fact).
 
 It's worth pointing out that as a cis white guy, I am privileged enough that I can get away with stuff like this without worrying about any repercussions. Unfortunately, your experience might vary, especially if you're an underrepresented minority in tech. A safer bet might be to reach out to your PM and ask for permission first, instead of forgiveness later.
 
 # “Should designers code?”
 
-Every few months, this question is asked on Design Twitter, and everyone jumps in with hot takes. I am not a designer, and am woefully out of my depth when it comes to answering this question, but I do have one strong opinion: if designers _want_ to code, we should bend over backwards to enable it.
+Every few months, this question is asked on Design Twitter, and everyone jumps in with hot takes. I am not a designer, and am woefully out of my depth when it comes to answering this question, but I do have one strong opinion: if designers _want_ to code, we should do whatever we can to enable them.
 
-I've worked on teams where designers knew CSS, and wanted to be able to make small tweaks, stuff like adjusting font sizes and positions. Sometimes, developers are hesitant—there's a concern that it will eat up a bunch of their time. Especially if the codebase is complex and has a lot of quirks (which is very nearly every codebase?), the concern sounds like this: “It would take me longer to teach you how to fix it than it would for me to just fix it myself”. The problem is that we often say this _while ignoring_ a pile of tickets that designers have opened.
+I've worked on teams where designers knew CSS, and wanted to be able to make small tweaks, stuff like adjusting font sizes and positions. Sometimes, developers are hesitant—there's a concern that it will eat up a bunch of their time. Especially if the codebase is complex and has a lot of quirks (which is very nearly every codebase?), the concern goes like this: “It would take me longer to teach you how to fix it than it would for me to just fix it myself”.
 
-We can't have it both ways; either we agree to promptly address any design feedback we receive, _or_ we find a way to empower designers to make those changes themselves (if they want to). While it might take a bit more developer time upfront, it's an investment in the future ("teach a man to fish", and all that).
+The problem is that we often say this _while ignoring_ a pile of tickets that designers have opened. We can't have it both ways; either we agree to promptly address any design feedback we receive, _or_ we find a way to empower designers to make those changes themselves (if they want to). While it might take a bit more developer time upfront, it's an investment in the future.
 
 It's a bit of a sad statement that designers are sometimes willing to learn an _entirely different trade_ because they see it as the easiest way to make sure that their designs are correctly implemented 😬
 
-Also, we shouldn't underestimate designers' ability to make sense of our code. Yes, coding is hard, but it's not as mystical as we like to believe.
+<p>
+  Also, we shouldn't underestimate designers' ability to make sense of our code.
+  Yes, coding is hard, but it's not as mystical as we like to believe.
+  <Asterisk>
+    On a flight, I once sat next to someone who figured that software developers
+    were "like in The Matrix", working with 0s and 1s. She was very underwhelmed
+    when I showed her what our job <em>actually</em> looked like.
+  </Asterisk>
+</p>
 
 # Deeper collaboration during development
 
@@ -284,14 +299,23 @@ That last one is interesting, and worth digging into a little bit.
 
 Whether you realize it or not, you're constantly making design decisions and relying on your intuition. Mockups never specify what should happen in 100% of cases, and in the process of implementing them, we'll find dozens or hundreds of little things not explicitly specified in the mockup.
 
-I've been honing my design intuition for years, and I believe I have a pretty good instinct for most things now. It's been a fantastic investment. I can use my judgment for most things that come along. I still reach out with questions, but my questions tend to be higher-level now, more around structure and flow rather than pixel positions.
+<p>
+  I've been honing my design intuition for years, and I believe I have a pretty
+  good instinct for most things now. It's been a fantastic investment. I can use
+  my judgment for most things that come along. I still reach out with questions,
+  but my questions tend to be higher-level now, more around structure and flow
+  rather than pixel positions.
+  <Asterisk>
+    Although let's be real—I still get this stuff wrong sometimes too
+  </Asterisk>
+</p>
 
 In order to start developing your design instinct, I have a couple tips:
 
 - If your organization has a design system, spend some time learning _why_ things are the way they are. For example, you might have a `<Button>` component with different types: `primary`, `secondary`, `tertiary`. Design systems will often be very explicit about which type should be used when.
-- Speak with your designers! Try and learn more about why they structured things the way they did. Instead of simply absorbing what they've specified, try and understand why they've specified it.
+- Speak with your designers! Try and learn more about why they structured things the way they did. Instead of simply absorbing what they've specified, try and understand why they've specified it. You work with talented experts who are usually happy to teach interested developers!
 
-Integrating these habits into your existing workflow should offer pretty noticeable benefits without a ton of extra investment, but if you're really into this idea, here are some resources that could prove helpful:
+Integrating these habits into your existing workflow should offer pretty noticeable benefits without a ton of extra investment, but if you're really into this idea, here are some additional resources that could prove helpful:
 
 - [Refactoring UI](https://refactoringui.com/book/), a book written by a designer specifically for developers.
 - [Don't Make Me Think, by Steve Krug](https://www.amazon.ca/Dont-Make-Think-Revisited-Usability/dp/0321965515/ref=pd_sbs_14_t_0/142-9119805-5166140?_encoding=UTF8&pd_rd_i=0321965515&pd_rd_r=24a545f2-e73d-40b5-a144-1bce4b469385&pd_rd_w=6yGuB&pd_rd_wg=881L7&pf_rd_p=9926bb69-42b9-46e4-b788-f665992e326d&pf_rd_r=28D4D66KJ5RYBFSYA754&psc=1&refRID=28D4D66KJ5RYBFSYA754) - long considered an essential read for learning about UX (User Experience) design.
@@ -308,11 +332,13 @@ Pretty much every time I've been promoted in my career, my ability to collaborat
 
 Let's review: here are the concrete ways in which I think we can increase the value we provide by working more effectively with product/design:
 
-- When we're under a looming deadline, good communication is key in finding the right compromises, to help us work around hairy technical problems while still delivering a good user experience.
+- When we're under a looming deadline, good communication is key in finding the right compromises, to help us work around hairy technical problems while still delivering a good user experience. This requires that we've put in the effort to develop trust first.
 - By making sure to keep design in the loop while we develop, we can course-correct early if our implementation starts to driff off the road.
 - By developing a design intuition, we get better at both of these tasks, and so many others. We gain the ability to _know_ the answers to questions that might have blocked us previously. We can contribute more to the process, and feel a greater sense of ownership over the finished product.
 
-Also, I have a confession to make. The premise of this blog post is that a 15-minute read could save you a ton of development effort in the future—and I hope I've accomplished that goal!—but this post has a sneaky ulterior motive. I want us to start pulling our weight when it comes to design-developer collaboration. You may feel like “pixel pushing” is a tedious drag, that you wish you could spend all your time on business logic and code architecture and performance optimizations… But that's no excuse to half-ass it. Our design team deserves partners who take implementation as seriously as they do.
+The premise of this blog post is that a 15-minute read could save you a ton of development effort in the future—and I hope I've accomplished that goal!—but this post has a sneaky ulterior motive. I want us to start pulling our weight when it comes to design-developer collaboration. You may feel like “pixel pushing” is a tedious drag, that you wish you could spend all your time on business logic and code architecture and performance optimizations… But that's no excuse to half-ass it. Our design team deserves partners who take implementation as seriously as they do.
+
+Special thanks to Dustin, Shannon, and Flo for reading and editing!
 
 # Additional reading
 
