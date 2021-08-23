@@ -1,7 +1,7 @@
-# Josh Comeau's fun interactive blog thing
+# Personal Blog — v1
 
-I started a blog! [Go look at it](https://www.joshwcomeau.com).
+In April 2018, I built a personal development blog focused on interactive widgets, adopting an "explorable explanation" style for blog posts.
 
-The code for this blog is kind of messy and problematic right now. My focus has been on getting it shipped. The biggest issue is that the homepage requires the entirety of every blog post; this will likely be fixed once I migrate to something like MDX.
+I rebuilt the blog in early 2020 to attempt a more traditional blog format. Unfortunately, the new version is not yet open-source. It's tricky since I like the idea of the code being available, but I want to keep a lid on upcoming posts. There's also some backend code that I'd rather not release, since I'm not 100% confident it's secure 😅. Finally, the codebase needs work, and I wouldn't want folks drawing inspiration from it, in its current state.
 
-So yeah, please don't use this codebase for inspiration! The code snippets used in the blog posts are a much more trustworthy source.
+The good news is that in terms of its Gatsby architecture, it reuses a lot of stuff from this blog, so you can peruse the code here to get a pretty good idea of how it's built!
